@@ -6,7 +6,8 @@
 | **SOW version** | Draft v1.1, 08 Sep 2026, prepared by Nasim Redoy for the Product Design Team |
 | **Project key** | `textile_hrm` |
 | **Work scope** | Requirements → R&D → PRD → HTML prototypes (`/fullstack-pm` P1–P3). **No build.** |
-| **Status** | Learned, not yet run through the pipeline. Open questions below are unanswered. |
+| **Status** | Both sources learned. PRD v1 generated: `.claude-project/docs/PRD.md`, which is now the consolidated reference with 49 open questions in its §9. |
+| **Second source** | `textile_ministry_prototype_requirements.md` (UI/UX Prototype Requirements & Research Brief). Supplementary: where it differs from the SOW, the SOW wins. See §11. |
 
 This file is a structured digest of the SOW for the PM pipeline. Anything marked **[SOW]** is stated in the document. Anything marked **[Inferred]** or **[Review]** is my reading of it and must be confirmed with the client.
 
@@ -226,3 +227,32 @@ P3-design writes HTML into one folder per role: `.claude-project/design/html/<ro
 | `verifier` | Third-party organization: membership, payment, license search |
 
 Phase 1 and Phase 2 can be prototyped together or Phase 1 first. That is a scope decision for the client and PM.
+
+## 11. Second source: Prototype Requirements & Research Brief
+
+`textile_ministry_prototype_requirements.md` is the UI/UX brief for the Ministry prototype. **The SOW stays the primary source of truth**, and the brief says so itself in its §2.
+
+### What the brief adds
+- **A public website**, not mentioned in the SOW. It has a landing page with 12 sections, an institution directory and network map, a public dashboard (aggregates only), admissions, notices, services, resources, help, and verification entry.
+- **Ministry demo story** (9 steps): Landing → Public Dashboard → Ministry login → drill-down → Institution 360° → alert → certificate workflow → reports → license verification.
+- **Prototype priorities**: P0 (15 screens), P1 (11), P2 (high level only).
+- **Ministry dashboard design**: 10 KPI cards, a hierarchy/map view, institution health, and an action/alert center. The guiding question is "Where does the Ministry need to pay attention today?"
+- **Institution 360°** with 14 tabs; Single Source of Truth UX rules (one master record, activity log, no deletion).
+- **Status models** for student, application, asset and license lifecycles.
+- **97 numbered edge cases** (§38).
+- **19 UX acceptance criteria** (§46) and a 28-item component inventory (§47).
+- **Research references**: IPEMIS, BIDA OSS, EMIS, BTEB eSheba, MoTJ/DOT. Use them for ideas only; do not copy them visually.
+- **23 open questions** (§44), merged with the SOW's into PRD §9.
+
+### What it settles from §7 and §9 of this file
+| Item | Resolution |
+|---|---|
+| §9 Country inference | **Confirmed:** Ministry of Textiles and Jute, Bangladesh. The Department of Textiles already runs TERP, so do not present the platform as "first-ever". |
+| OQ-09 Divisions and districts | **Design decision:** configurable master data, not hard-coded. Seeding from official regions is still to confirm (PRD Q-20). |
+| OQ-20 Language and platforms | **Bangla + English from the start.** Responsive web: desktop for admin, tablet for institutions, mobile for students, teachers and the public. |
+| OQ-17 Permission model | Framed as User + Role + Module Permission + Data Scope = Effective Access. Ownership is still open (PRD Q-25). |
+| Multi-role users | Workspace selector or default role with a switcher, to be validated (PRD Q-17). |
+| Prototype figures | Must be labelled "Demo / Illustrative Data" until verified. |
+
+### Where it differs from the SOW (the SOW is followed)
+- **Verification:** the brief lists certificate/license verification as a public service, but SOW 4.4 requires third-party organizations to pay before any check. The PRD keeps verification behind membership and payment. A free public lookup is PRD Q-16.
