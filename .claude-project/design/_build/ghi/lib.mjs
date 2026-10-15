@@ -53,7 +53,7 @@ export function icon(name, cls = 'ico') {
     const svg = fs.readFileSync(file, 'utf8')
       .replace(/<!--[\s\S]*?-->/g, '')
       .replace(/<svg[^>]*>/, (tag) => tag.replace(/\s(width|height|class)="[^"]*"/g, ''))
-      .replace(/\n\s*/g, '')
+      .replace(/\r?\n\s*/g, '')
       .trim();
     iconCache.set(name, svg);
   }
