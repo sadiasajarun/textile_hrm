@@ -76,12 +76,31 @@ await doSet('ministry-budget.html', 'bud=allocated'); await doSet('inst-finance.
 // F
 await doSet('ministry-assets.html', 'asset=received'); await doSet('inst-assets.html', 'asset=assigned'); await doSet(null, 'asset=transferred');
 // G
-await doSet('inst-procurement.html', 'proc=submitted'); await doSet('ministry-approvals.html', 'proc=approved');
+await doSet('inst-procurement.html', 'proc=submitted'); await doSet('district-approvals.html', 'proc=dforward');
+await doSet('division-approvals.html', 'proc=drec'); await doSet('ministry-approvals.html', 'proc=approved');
 await doSet('inst-procurement.html', 'proc=po'); await doSet(null, 'proc=lc'); await doSet(null, 'proc=received'); await doSet(null, 'proc=gatepass');
 // H
 await doSet('teacher-leave.html', 'leave=pending'); await doSet('inst-leave.html', 'leave=approved'); await go('teacher-leave.html'); ok(true, 'H: opened teacher-leave.html');
 // I
 await doSet('student-certificate.html', 'cert=applied'); await doSet('inst-certificates.html', 'cert=issued'); await doSet(null, 'cert=alumni'); await go('alumni.html'); ok(true, 'I: opened alumni.html');
+
+// Login page: Student and Teacher tabs, Government Portals, header button
+await go('index.html'); ok((await page.locator('.f-login-btn').innerText()).trim().startsWith('Login') && (await page.locator('.f-login-btn').getAttribute('href')) === 'login.html', 'header button reads "Login" and opens login.html');
+await go('login.html'); await page.locator('#pan-student form [type=submit]').click(); await page.waitForURL('**/student.html'); ok(true, 'Login → Student signs in to student.html');
+await go('login.html#teacher'); await page.waitForTimeout(150); ok(await page.locator('#tab-teacher[aria-selected="true"]').count() === 1, 'login.html#teacher opens the Teacher tab');
+await page.fill('#pan-teacher input[name=p]', 'wrong'); await page.locator('#pan-teacher form [type=submit]').click(); await page.waitForTimeout(150);
+ok(await page.locator('#pan-teacher [data-login-error]').isVisible(), 'Teacher login: wrong password shows the error');
+await page.fill('#pan-teacher input[name=p]', 'demo-pass'); await page.locator('#pan-teacher form [type=submit]').click(); await page.waitForURL('**/teacher.html'); ok(true, 'Login → Teacher signs in to teacher.html');
+await go('login.html'); ok(await page.locator('#portals .f-gp').count() === 4, 'login page lists the 4 Government Portals');
+// Division / District: own pages in their own portal shell
+for (const lvl of ['division', 'district']) {
+  for (const f of ['admissions', 'resources', 'approvals', 'reports']) {
+    await go(`${lvl}-${f}.html`);
+    ok((await page.locator('.h-side-brand small').innerText()).includes(lvl === 'division' ? 'Division Portal' : 'District Portal'), `${lvl}-${f}.html opens in the ${lvl} portal`);
+  }
+  await go(`${lvl}.html`); ok((await page.locator(`.h-side a[href="${lvl}-reports.html"]`).count()) === 1, `${lvl} menu "Reports" opens ${lvl}-reports.html`);
+}
+await doSet('district-reports.html', 'rrep=ready'); await visibleText(null, 'Attendance summary — Chattogram District');
 
 // J — happy path
 await doSet('license-apply.html', 'lic=submitted');
@@ -144,13 +163,13 @@ ok(overflow.length === 0, `no horizontal page overflow at 1440/390 (${overflow.l
 await page.evaluate(() => { window.timsState.reset(); window.timsState.set('lic=issued;org=registered;orgpaid=yes'); });
 for (const w of [1440, 390]) {
   await page.setViewportSize({ width: w, height: 900 });
-  for (const f of ['license', 'license-apply', 'license-track', 'ministry-licenses', 'verifier-register', 'verifier', 'prototype-index', 'index', 'student-services', 'teacher-results']) {
+  for (const f of ['login', 'license', 'license-apply', 'license-track', 'ministry-licenses', 'verifier-register', 'verifier', 'prototype-index', 'index', 'division-approvals', 'district-resources', 'division-admissions']) {
     await page.goto(BASE + f + '.html'); await page.waitForTimeout(120);
     await page.screenshot({ path: `${OUT}/${f}-${w}.png`, fullPage: w === 390 ? false : true });
   }
 }
 await page.setViewportSize({ width: 1440, height: 900 });
-for (const f of ['index', 'license', 'ministry-licenses', 'verifier', 'student', 'principal']) {
+for (const f of ['index', 'login', 'license', 'ministry-licenses', 'verifier', 'student', 'principal', 'division-approvals', 'district-reports']) {
   await page.goto(BASE + f + '.html?lang=bn'); await page.waitForTimeout(150);
   const leak = await page.evaluate(() => [...document.querySelectorAll('.l-en')].filter((e) => e.offsetParent !== null && e.textContent.trim()).length);
   ok(leak === 0, `bn ${f}: no visible English spans (${leak})`);

@@ -84,7 +84,7 @@ function candidateLogin() {
       <button type="button" class="link" ${act({ set: '_=1', toast: ['Your application ID is resent by SMS in production.', 'প্রোডাকশনে এসএমএসে আবেদন আইডি পুনরায় পাঠানো হবে।'] })}>${t('Forgot application ID?', 'আবেদন আইডি ভুলে গেছেন?')}</button></form>
     <p class="proto-note">${t('Prototype: an ID in a different format shows the validation error.', 'প্রোটোটাইপ: ভিন্ন ফরম্যাটের আইডি দিলে ত্রুটি দেখাবে।')}</p></section>
   <aside class="f-login-side"><section class="h-aside-card">${icon('clipboard-list', 'ico ico-lg')}<h2 class="h-h4">${t('Not applied yet?', 'এখনও আবেদন করেননি?')}</h2><p>${t('Diploma 2026–27 applications close on 20 October 2026.', 'ডিপ্লোমা ২০২৬–২৭-এর আবেদন ২০ অক্টোবর ২০২৬ শেষ হবে।')}</p>${a('apply.html', t('Apply online', 'অনলাইনে আবেদন'), 'btn btn-teal btn-sm')}</section>
-    <section class="h-aside-card">${icon('graduation-cap', 'ico ico-lg')}<h2 class="h-h4">${t('Already admitted?', 'ইতিমধ্যে ভর্তি হয়েছেন?')}</h2><p>${t('Use Student Login with your student ID.', 'শিক্ষার্থী আইডি দিয়ে শিক্ষার্থী লগইন ব্যবহার করুন।')}</p>${a('student-login.html', t('Student Login', 'শিক্ষার্থী লগইন'), 'btn btn-outline btn-sm')}</section></aside>
+    <section class="h-aside-card">${icon('graduation-cap', 'ico ico-lg')}<h2 class="h-h4">${t('Already admitted?', 'ইতিমধ্যে ভর্তি হয়েছেন?')}</h2><p>${t('Use Login → Student with your student ID.', 'শিক্ষার্থী আইডি দিয়ে লগইন → শিক্ষার্থী ব্যবহার করুন।')}</p>${a('login.html', t('Login', 'লগইন'), 'btn btn-outline btn-sm')}</section></aside>
 </div>`;
   return page({ file: 'candidate-login', title: ['Candidate login', 'প্রার্থী লগইন'], active: 'admissions', body });
 }
@@ -138,7 +138,7 @@ function candidate() {
   ${when('cand=admitted', `${prog('admitted')}<section class="f-transition">${icon('id-card', 'ico ico-xl')}<div>
     <p class="h-eyebrow">${t('Candidate → Student', 'প্রার্থী → শিক্ষার্থী')}</p><h2 class="h-h2">${t('Your admission is complete', 'আপনার ভর্তি সম্পন্ন হয়েছে')}</h2>
     <dl class="f-dl f-dl-4"><div><dt>${t('Former application ID', 'পূর্বের আবেদন আইডি')}</dt><dd class="mono"><s>TX-26-0048213</s></dd></div><div><dt>${t('Student ID', 'শিক্ষার্থী আইডি')}</dt><dd class="mono"><b>KTI-2026-0153</b></dd></div><div><dt>${t('Institution', 'প্রতিষ্ঠান')}</dt><dd>${t('Karnaphuli Textile Institute', 'কর্ণফুলী টেক্সটাইল ইনস্টিটিউট')}</dd></div><div><dt>${t('Classes begin', 'ক্লাস শুরু')}</dt><dd>${d('05 Jan 2027')}</dd></div></dl>
-    <p>${t('Your candidate account has been converted to a student account. From now on, sign in with Student Login.', 'আপনার প্রার্থী অ্যাকাউন্ট শিক্ষার্থী অ্যাকাউন্টে রূপান্তরিত হয়েছে। এখন থেকে শিক্ষার্থী লগইন ব্যবহার করুন।')}</p>
+    <p>${t('Your candidate account has been converted to a student account. From now on, sign in with Login → Student.', 'আপনার প্রার্থী অ্যাকাউন্ট শিক্ষার্থী অ্যাকাউন্টে রূপান্তরিত হয়েছে। এখন থেকে লগইন → শিক্ষার্থী ব্যবহার করুন।')}</p>
     ${a('student.html?new=1', t('Go to the student portal', 'স্টুডেন্ট পোর্টালে যান'), 'btn btn-white btn-lg', 'arrow-right')}</div></section>`)}
 
   ${card(t('Admission notices', 'ভর্তি নোটিশ'), `<ul class="h-nlist">${each(NOTICES.filter((x) => x.cat === 'admission'), (x) => `<li><a href="notice-detail.html"><time>${d(x.date.slice(0, 6))}</time><span>${tt(x.t)}</span></a></li>`)}</ul>`)}

@@ -1,4 +1,4 @@
-// Student portal (public Student Login) and alumni portal.
+// Student portal (public Login → Student) and alumni portal.
 import { t, tt, n, d, ta, icon, each, page, demo, tbd, st, a, act, dl, field, alert, empty, table, tabs, card, kpis, pageHead, when, timeline, hbars, chartMeta } from '../core.mjs';
 import { STU, NOTICES, BOOKS, TODAY } from '../data.mjs';
 import { flowBanner, noticeMini } from './ministry.mjs';

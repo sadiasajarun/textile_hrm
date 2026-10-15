@@ -9,7 +9,7 @@
   var KEY = 'tims-proto-v1';
   var DEFAULTS = {
     cand: 'none', att: 'due', res: 'entry', req: 'none', bud: 'none', exp: 'none', asset: 'none', proc: 'none', rep: 'none',
-    leave: 'none', cert: 'none', lic: 'none', org: 'none', orgpaid: 'no', lib: 'issued', mig: 'pending', pay: 'due', eval: 'open'
+    leave: 'none', cert: 'none', lic: 'none', org: 'none', orgpaid: 'no', lib: 'issued', mig: 'pending', pay: 'due', eval: 'open', rrep: 'none'
   };
   var mem = {};
   function load() { try { return Object.assign({}, DEFAULTS, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) { return Object.assign({}, DEFAULTS, mem); } }

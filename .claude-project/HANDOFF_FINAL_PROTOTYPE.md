@@ -1,6 +1,6 @@
 # HANDOFF — Final prototype build (Variation H), continue on another device
 
-**Last updated:** 15 Oct 2026 · **Branch:** `main` · **Status:** complete. All **71 pages** build with full English/বাংলা coverage. The §4 work is done: Phase 2 licence pages (`pages/license.mjs`), missing CSS, light QA (`_build/final/qa/qa-final.mjs`, see `design/FINAL_QA_REPORT.md`) and the FINAL_* documents. §2–§4 below are kept as the build reference.
+**Last updated:** 15 Oct 2026 · **Branch:** `main` · **Status:** complete. All **78 pages** build with full English/বাংলা coverage. The §4 work is done: Phase 2 licence pages (`pages/license.mjs`), missing CSS, light QA (`_build/final/qa/qa-final.mjs`, see `design/FINAL_QA_REPORT.md`) and the FINAL_* documents. §2–§4 below are kept as the build reference.
 
 ## 1. Read these first (all are in the repo)
 
@@ -21,10 +21,11 @@ Decisions already made. Don't change them.
   - Admissions stays separate from Academic.
   - Public Dashboard is not in the nav.
 - Top utility bar (NU information architecture): Results/Verification · Downloads · Contact · **Government Portals** · Search · বাংলা|English.
-- **Student Login** is a prominent header button.
+- **Login** is a prominent header button (stakeholder review, 15 Oct 2026). `login.html` has Student / Teacher tabs and the Government Portals panel (`login.html#portals`); `student-login.html` and `portals.html` were retired.
   - Candidates sign in from Admissions.
-  - Teachers sign in through the Institution Portal.
-- Government Portals are shown in three places: the utility link, a homepage section plus footer strip, and `portals.html`.
+  - Teachers sign in on the Login page (Teacher tab); the Institution Portal is for the Principal, institution admin and office staff.
+- Government Portals are shown in three places: the utility link, a homepage section plus footer strip, and the Login page panel.
+- Division and District portals have scoped Admissions, Budget & assets, Approvals and Reports. Procurement escalates Institution → District → Division → Ministry (final); the chain is labelled TBD.
   - Each portal (Ministry, Division, District, Institution) has its own sign-in page with a proposed address `*.tims.gov.bd`, labelled "prototype only".
 - Officials are only those published on motj.gov.bd and dot.gov.bd: Minister, State Minister, Secretary, and the DG of the Department of Textiles.
   - Division and district officials are shown as TBD cards (role only, no names).
@@ -41,11 +42,11 @@ Decisions already made. Don't change them.
                        kpis(), card(), charts (lineChart, groupedBars, donut, hbars), act() for flow buttons
   data.mjs             demo data (+ re-exports from ../ghi/data.mjs)
   pages/public.mjs     index, about, officials, academic, institutions, institution-profile, notices, notice-detail,
-                       gallery, help, verify, public-dashboard, portals
-  pages/access.mjs     student-login, portal-ministry/division/district/institution, access-denied, prototype-index
+                       gallery, help, verify, public-dashboard
+  pages/access.mjs     login, portal-ministry/division/district/institution, access-denied, prototype-index
   pages/admission.mjs  admissions, apply (stepper), candidate-login, candidate (Flow A), admission-result
   pages/ministry.mjs   ministry, ministry-institutions/-admissions/-attendance/-budget/-assets/-approvals/-reports/-users/-integrations
-  pages/regional.mjs   division, district
+  pages/regional.mjs   division, district, division-/district-admissions, -resources, -approvals, -reports
   pages/institution.mjs principal, inst-students/-teachers/-classes/-attendance/-results/-requests/-leave/-certificates/
                        -finance/-assets/-procurement/-library/-access
   pages/teacher.mjs    teacher, teacher-attendance, teacher-results, teacher-classes, teacher-leave
@@ -82,7 +83,7 @@ Requirements: Node 18 or later. No npm install is needed unless you add new icon
 ```bash
 cd .claude-project/design/_build/final && node build.mjs && cd ../../../.. && git status --porcelain
 ```
-This must print `Built 71 pages, 70 icons.` followed by **no changed files** (65 pages before the Phase 2 licence pages were added). That proves your device reproduces the committed prototype exactly. Verified on a fresh clone on 15 Oct 2026. If files show as changed, check that `.gitattributes` (LF line endings) was respected; don't start editing until it is clean.
+This must print `Built 78 pages, 70 icons.` followed by **no changed files**. That proves your device reproduces the committed prototype exactly. Verified on a fresh clone on 15 Oct 2026. If files show as changed, check that `.gitattributes` (LF line endings) was respected; don't start editing until it is clean.
 
 To keep the new pages consistent with the existing ones:
 - Build them only with the helpers in `core.mjs` and the patterns in `ministry.mjs` / `admission.mjs`.

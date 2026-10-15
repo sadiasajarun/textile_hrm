@@ -1,8 +1,8 @@
 # FINAL_ROUTE_MAP — Textile Institution Management System (Variation H)
 
-**Date:** 15 Oct 2026 · **Routes:** 71 HTML files (`ministry-licenses.html` is listed in §4 and §9) in `design/prototype/` · **Review entry:** `prototype/prototype-index.html`
+**Date:** 15 Oct 2026 · **Routes:** 78 HTML files (`ministry-licenses.html` is listed in §4 and §9) in `design/prototype/` · **Review entry:** `prototype/prototype-index.html`
 
-Every route is a static file. `page.html#id` opens a tab or section on that page. `?lang=bn` opens the page in Bangla. Workspace sign-ins accept any listed demo account with the password `demo-pass`.
+Every route is a static file. `page.html#id` opens a tab or section on that page. `?lang=bn` opens the page in Bangla. Every sign-in (Login page and portals) accepts the listed demo account with the password `demo-pass`.
 
 Shells: **Public** = public website header and footer · **Workspace** = portal sidebar and top bar for the named role · **Bare** = no navigation.
 
@@ -22,7 +22,6 @@ Shells: **Public** = public website header and footer · **Workspace** = portal 
 | `gallery.html` | Photo gallery | Public | Captioned photographs from official institution sites, lightbox | Homepage, footer |
 | `help.html` | Help | Public | FAQ, user guides, videos, forms and downloads, help desk form | Main nav, utility bar |
 | `verify.html` | Results / Verification | Public | Certificate verification by number; links to admission result and licence verification | Utility bar |
-| `portals.html` | Government Portals | Public | Ministry, Division, District and Institution portal cards with proposed addresses | Utility bar, portals band, footer |
 
 ## 2. Admissions and candidate (Flow A)
 
@@ -38,12 +37,8 @@ Shells: **Public** = public website header and footer · **Workspace** = portal 
 
 | Route | Screen | Shell | Purpose | Reached from |
 |---|---|---|---|---|
-| `student-login.html` | Student Login | Public | Student sign-in (prominent header button) | Header "Student Login" |
-| `portal-ministry.html` | Ministry Portal sign-in | Bare | Ministry officials | `portals.html` |
-| `portal-division.html` | Division Portal sign-in | Bare | Division administrators | `portals.html` |
-| `portal-district.html` | District Portal sign-in | Bare | District administrators | `portals.html` |
-| `portal-institution.html` | Institution Portal sign-in | Bare | Principal, institution admin, teachers (role resolved by account) | `portals.html` |
-| `access-denied.html` | Access states | Bare | `?reason=permission` · `session` · `locked` · `noassign` | Portal sign-ins, Users & roles |
+| `login.html` | Login | Public | Student / Teacher tabs (`#teacher` opens the Teacher tab), Government Portals panel (`#portals`), "Which login should I use?" guide | Header "Login" button, utility "Government Portals", footer |
+| `portal-ministry.html` | Ministry Portal sign-in | Bare | Ministry officials | `portal-division.html` | Division Portal sign-in | Bare | Division administrators | `portal-district.html` | District Portal sign-in | Bare | District administrators | `portal-institution.html` | Institution Portal sign-in | Bare | Principal, institution admin and office staff (teachers use Login → Teacher) | `login.html#portals` |
 
 ## 4. Ministry Portal (Head Office)
 
@@ -55,7 +50,7 @@ Shells: **Public** = public website header and footer · **Workspace** = portal 
 | `ministry-attendance.html` | Live attendance | National attendance by division, district and institution |
 | `ministry-budget.html` | Budget | Allocation per institution; utilisation (`#utilisation`) |
 | `ministry-assets.html` | Assets | Asset allocation per institution; damaged and lost summary |
-| `ministry-approvals.html` | Approvals | Escalations: procurement, migration, revisions; SLA |
+| `ministry-approvals.html` | Approvals | Final approval of escalations (procurement after District and Division, migration, revisions); SLA |
 | `ministry-licenses.html` | Licences (Phase 2) | Licence review queue, issued register, verifier organisations, rules and fees (TBD) — see §9 |
 | `ministry-reports.html` | Reports | Build, preview and download reports; no-data state |
 | `ministry-users.html` | Users and roles | Users, role permission matrix, multi-role assignment |
@@ -63,10 +58,20 @@ Shells: **Public** = public website header and footer · **Workspace** = portal 
 
 ## 5. Division and District Portals
 
+Access cascades down the hierarchy: each level sees only its own jurisdiction. Setup and final approval stay with the Ministry.
+
 | Route | Screen | Purpose |
 |---|---|---|
 | `division.html` | Division dashboard | Districts and institutions (`#districts`), attendance and reporting (`#attendance`), follow-up actions (`#actions`) |
-| `district.html` | District dashboard | Institutions (`#institutions`), actions (`#actions`) |
+| `division-admissions.html` | Admissions (division) | Applications and seats by district; admission cycle (read only); recommend migration requests |
+| `division-resources.html` | Budget and assets (division) | Allocation, spending and damaged/lost assets by district; request a budget revision from the Ministry |
+| `division-approvals.html` | Approvals — recommend | Escalation chain; recommend district-forwarded requests (Flow G step 3) to the Ministry |
+| `division-reports.html` | Reports (division) | Report builder limited to the division and its districts; scheduled reports |
+| `district.html` | District dashboard | Institutions and attendance (`#institutions`), actions (`#actions`) |
+| `district-admissions.html` | Admissions (district) | Applications and seats by institution; admission cycle (read only); forward migration requests |
+| `district-resources.html` | Budget and assets (district) | Allocation, spending and damaged/lost assets by institution; ask an institution to explain spending |
+| `district-approvals.html` | Approvals — review and forward | Escalation chain; review institution requests and forward them (Flow G step 2) to the Division |
+| `district-reports.html` | Reports (district) | Report builder limited to the district and its institutions; scheduled reports |
 
 ## 6. Institution Portal — Principal / institution admin
 
@@ -87,11 +92,11 @@ Shells: **Public** = public website header and footer · **Workspace** = portal 
 | `inst-library.html` | Library | Catalogue, issue/return, overdue, fines, lost |
 | `inst-access.html` | Menu access | Role-based menu access within the institution |
 
-## 7. Institution Portal — Teacher
+## 7. Teacher workspace (Login → Teacher)
 
 | Route | Screen | Purpose |
 |---|---|---|
-| `teacher.html` | Dashboard | Next class, today's schedule, tasks (attendance, marks), notices, leave balance |
+| `teacher.html` | Dashboard (after Login → Teacher) | Next class, today's schedule, tasks (attendance, marks), notices, leave balance |
 | `teacher-classes.html` | My classes and materials | Class list, upload materials |
 | `teacher-attendance.html` | Take attendance | Register, submit, correction request |
 | `teacher-results.html` | Result entry | Enter marks, validation, submit to Principal |
@@ -126,4 +131,4 @@ Shells: **Public** = public website header and footer · **Workspace** = portal 
 
 | Route | Purpose |
 |---|---|
-| `prototype-index.html` | Review entry: flows A–J, all screens by area, documentation list, language switch, Reset demo data |
+| `prototype-index.html` | Review entry: flows A–J, role walkthroughs (Teacher, Student, Principal, District, Division, Ministry), all screens by area, documentation list, language switch, Reset demo data |

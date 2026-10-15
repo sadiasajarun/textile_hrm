@@ -60,7 +60,7 @@ Base size 16 px (16.5 px in Bangla mode), line height 1.55. Figures switch to Ba
 
 | Shell | `kind` | Used by | Parts |
 |---|---|---|---|
-| Public website | `public` | Home, About, Academic, Admissions, Notice, Help, Verification, licence pages, organisation workspace | Utility bar (Results/Verification · Downloads · Contact · Government Portals · Search · বাংলা/English), header with MoTJ logo and 6-item nav + **Student Login**, Government Portals band, structured footer |
+| Public website | `public` | Home, About, Academic, Admissions, Notice, Help, Verification, licence pages, organisation workspace | Utility bar (Results/Verification · Downloads · Contact · Government Portals · Search · বাংলা/English), header with MoTJ logo and 6-item nav + **Login** (Student / Teacher), Government Portals band, structured footer |
 | Workspace | `ministry`, `division`, `district`, `principal`, `teacher`, `student`, `alumni` | All signed-in screens | Left navigation grouped by task, scope box, sign out; top bar with breadcrumb, proposed portal address (`*.tims.gov.bd`, "prototype only"), language toggle, notifications, user and role |
 | Bare | `bare` | Portal sign-in pages, access states, review index | No navigation chrome |
 
@@ -88,6 +88,11 @@ All pages also carry the prototype bar (Review index · Public site · Portals �
 | Charts | `lineChart`, `groupedBars`, `donut`, `hbars`, `chartMeta` | Unit, period and data source under every chart |
 | Confirm dialog | `act({ confirm, ctext, reason })` | Optional reason field for return/reject |
 | Toast | `act({ toast })`, `dl()` | Result message; downloads say "Prototype only" |
+| Statistic illustration | `illus(name)` in `illus.mjs` → `.f-ill` | Two-tone line art in a white circle (college, institute, vocational, divisions, districts) |
+| Service card | `.f-svc` in `.f-svc-grid` | One light tint per service (`--svc-bg` / `--svc-ink`), white icon tile, arrow button in flow |
+| Role switch | `tabs()` inside `.f-role-tabs` | Segmented Student / Teacher control on the Login page; `#teacher` opens the Teacher tab |
+| Portal list | `.f-gp-panel`, `.f-gp` | Government Portals panel on the Login page |
+| Escalation chain | `.f-chain` | Institution → District → Division → Ministry, current level highlighted |
 | Payment simulator | `.f-proto-ctl` | Success / pending / failed gateway responses; gateway is TBD |
 | Lookup | `form[data-lookup]` | Search by number with mapped results and a "locked" state |
 

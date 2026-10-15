@@ -1,6 +1,6 @@
 # FINAL_SCOPE_COVERAGE — Textile Institution Management System (final prototype, Variation H)
 
-**Date:** 15 Oct 2026 · **Status:** final prototype complete (71 routes, flows A–J), light QA passed · **Baseline:** Variation H (approved) · **Prototype root:** `.claude-project/design/prototype/` · **Review entry:** `prototype/prototype-index.html`
+**Date:** 15 Oct 2026 · **Status:** final prototype complete (78 routes, flows A–J), light QA passed; stakeholder review round 1 applied · **Baseline:** Variation H (approved) · **Prototype root:** `.claude-project/design/prototype/` · **Review entry:** `prototype/prototype-index.html`
 
 **Sources, in priority order:**
 1. `Core_Features_Textile_Institution_Management_System.docx` (CF)
@@ -24,10 +24,10 @@ All routes are files in `prototype/`. A route written `x.html#tab` is a tab on t
 | Official MoTJ logo, ownership | Public | All public headers (`assets/brand/motj-logo.png`) | — | — | Built |
 | Main nav: Home, About Us, Academic, Admissions, Notice, Help | Public | `index.html` header | — | Long Bangla labels | Built |
 | Top utility: Results/Verification, Downloads, Contact, Government Portals, Search, বাংলা/English | Public | Header utility bar | Search dialog | No search results | Built |
-| Student Login (prominent) | Student | Header button → `student-login.html` | Sign in → `student.html` | Invalid credentials, account locked (state) | Built |
+| Login (prominent header button) with Student / Teacher tabs | Student, Teacher | Header button → `login.html` | Student → `student.html`; Teacher → `teacher.html` | Invalid credentials, account locked (state) | Built |
 | Candidate login only from Admissions | Candidate | `admissions.html` → `candidate-login.html` | Sign in → `candidate.html` | Invalid ID/DOB | Built |
-| Teacher signs in through the Institution Portal | Teacher | `portals.html` → `portal-institution.html` | Role resolved by account → `teacher.html` | Wrong portal, no assignment | Built |
-| Government Portals: utility link, homepage/footer block, `/portals` page | Officials | `portals.html`, homepage §13, footer | Card → portal sign-in page → workspace | "Proposed secure address — prototype only" label | Built |
+| Teacher signs in on the public Login page (Teacher tab) | Teacher | `login.html#teacher` → `teacher.html` | Classes, attendance, results, leave | Wrong password | Built |
+| Government Portals: utility link, homepage/footer block, panel on the Login page | Officials | `login.html#portals`, homepage §13, footer | Card → portal sign-in page → workspace | "Proposed secure address — prototype only" label | Built |
 | Homepage sequence (14 sections) | Public | `index.html` | — | Demo data labels | Built |
 | Large IPEMIS-style statistics | Public | `index.html` hero panels and band | — | Demo / Illustrative label | Built |
 | Public Dashboard (not in nav) | Public | `index.html#insights` CTA → `public-dashboard.html` | Filter by division/year | No data for a filter | Built |
@@ -52,15 +52,16 @@ All routes are files in `prototype/`. A route written `x.html#tab` is a tab on t
 | Division/District linkage | Ministry | `ministry-institutions.html#geo` | — | District with no institution | Built |
 | Users, roles, granular permissions, multi-role | Ministry | `ministry-users.html` (Users / Roles & permissions / Assignments) | Add user, assign roles | Role conflict warning, unassigned user | Built |
 | Configurable dashboard (widgets) | Ministry | `ministry.html` Customise dialog | Toggle widgets | — | Built |
-| Reports: view, filter, download | Ministry / Division / District / Principal | `ministry-reports.html` | Filter → preview → download | No data for filter | Built |
+| Reports: view, filter, download | Ministry / Division / District / Principal | `ministry-reports.html`, `division-reports.html`, `district-reports.html` (scope-limited) | Filter → preview → download | No data for filter | Built |
 | Admission setup (cycle, eligibility, quota/seats, documents) | Ministry | `ministry-admissions.html#setup` | Edit cycle | Cycle closed | Built |
 | Application oversight, result publication, allocation | Ministry | `ministry-admissions.html#oversight` | Publish result → allocation | — | Built |
 | Student migration | Ministry / Principal | `ministry-admissions.html#migration`, `ministry-approvals.html` | Request → approve | Seat unavailable | Built |
 | Budget allocation per institution | Ministry | `ministry-budget.html` | Allocate → institution receives | Insufficient head balance, revision | Built (Flow E) |
 | Asset allocation per institution | Ministry | `ministry-assets.html` | Allocate batch → institution | — | Built (Flow F) |
 | Consolidated institution-wise reports | Ministry | `ministry-reports.html` | — | — | Built |
+| Division and District scoped modules (admissions, budget & assets, approvals, reports) — access cascades down the hierarchy | Division / District | `division-admissions/-resources/-approvals/-reports.html`, `district-…` (same set) | Monitor; District reviews and forwards, Division recommends, Ministry approves | Other jurisdictions not listed; chain TBD | Built / TBD |
 | Live attendance on Head Office dashboard | Ministry / Division / District | `ministry-attendance.html`, `division.html`, `district.html` | Teacher submit → aggregate update | Missing, late | Built (Flow B) |
-| Approvals / escalations queue | Ministry | `ministry-approvals.html` | Approve / return / reject | Overdue SLA | Built |
+| Approvals / escalations queue | Ministry (final), Division (recommend), District (forward) | `ministry-approvals.html`, `division-approvals.html`, `district-approvals.html` | Forward → recommend → approve / return | Overdue SLA | Built |
 
 ## C. Phase 1 — Institution level (SOW §3.3, CF §2.5–2.11)
 
@@ -78,7 +79,7 @@ All routes are files in `prototype/`. A route written `x.html#tab` is a tab on t
 | Online payment (fees) | Student / Candidate | `student-payment.html`, `candidate.html` | Pay → success/failed | Payment failed/pending | Built |
 | Finance: expenses, utilisation vs allocation | Principal | `inst-finance.html` | Record expense → utilisation | Duplicate expense, over budget | Built (Flow E) |
 | Assets: allocation, assign to person, holder, availability, damaged/lost + reason, history | Principal | `inst-assets.html` | Assign → transfer/return → damaged/lost → recovered | Already assigned | Built (Flow F) |
-| Procurement, PO, LC upload, Gate Pass | Principal / Ministry | `inst-procurement.html`, `ministry-approvals.html` | Request → approval → PO → LC → receive → inventory → gate pass | Approval chain TBD | Built / TBD |
+| Procurement, PO, LC upload, Gate Pass | Principal / District / Division / Ministry | `inst-procurement.html`, `district-approvals.html`, `division-approvals.html`, `ministry-approvals.html` | Request → approval → PO → LC → receive → inventory → gate pass | Approval chain TBD | Built / TBD |
 | Library: catalogue, copies, members, issue/return, due, fine, search | Principal (librarian) / Student | `inst-library.html`, `student-academics.html#library` | Issue → return → fine | Unavailable, overdue, lost | Built |
 | Leave: CL/SL/EL + configurable; apply, approve/reject, balance | Teacher / Principal | `teacher-leave.html`, `inst-leave.html` | Apply → review → balance | Insufficient, overlap, withdrawn | Built (Flow H) |
 | Broader staff HRM (service history, promotion) | — | Not built | — | — | TBD (SOW §6, out of confirmed scope) |
@@ -114,7 +115,7 @@ All routes are files in `prototype/`. A route written `x.html#tab` is a tab on t
 | **D** Service request | `student-services` → `inst-requests` → `student-request` → completed |
 | **E** Budget | `ministry-budget` → `inst-finance` → `ministry-budget#utilisation` |
 | **F** Assets | `ministry-assets` → `inst-assets` (assign → transfer/return → damaged/lost → history) |
-| **G** Procurement | `inst-procurement` → `ministry-approvals` → `inst-procurement` (PO → LC → receive → gate pass) |
+| **G** Procurement | `inst-procurement` → `district-approvals` → `division-approvals` → `ministry-approvals` → `inst-procurement` (PO → LC → receive → gate pass) |
 | **H** Leave | `teacher-leave` → `inst-leave` → `teacher-leave` (balance) |
 | **I** Certificate → Alumni | `student-certificate` → `inst-certificates` → `alumni` |
 | **J** License | `license-apply` → `ministry-licenses` → `verifier-register` → `verifier` |

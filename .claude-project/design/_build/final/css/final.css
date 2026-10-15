@@ -7,6 +7,7 @@ html:not(.ts-ready) [data-when]{visibility:hidden}
 .f-hide-sm{display:inline}
 .mono{font-family:ui-monospace,Consolas,monospace;font-size:.875em}
 .f-mt{margin-top:40px}
+.f-mb{margin-bottom:14px}
 .f-sec{padding-top:48px;padding-bottom:56px}
 .f-sec-sm{margin-top:36px}
 .f-narrow{max-width:960px}
@@ -546,4 +547,78 @@ html[data-lang="bn"] .f-side-h{text-transform:none;letter-spacing:0;font-size:.8
   .f-alert,.f-flow-banner{flex-wrap:wrap}
   .f-alert > div,.f-flow-banner > span{flex:1 1 calc(100% - 40px)}
   .f-alert > .btn,.f-flow-banner > .btn{margin-left:36px}
+}
+
+/* ---------- home: illustrated statistics band ---------- */
+.f-band-in > div{align-items:center;justify-content:flex-start;text-align:center;padding:28px 16px}
+.f-ill{margin-bottom:10px;display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:#fff;color:var(--teal-800);box-shadow:0 2px 8px rgba(21,46,58,.08)}
+.f-ill svg{width:44px;height:44px}
+.f-ill .il-a{fill:#D3EAE7}
+.f-ill .il-b{fill:#9FC9D3}
+.f-ill .il-w{fill:#fff}
+
+/* ---------- home: About statement on a light shape ---------- */
+.f-intro-card{position:relative;isolation:isolate;overflow:hidden;max-width:1000px;margin:0 auto 64px;padding:56px 64px;text-align:center;background:linear-gradient(135deg,#E9F4F7 0%,#E5F2EF 100%);border-radius:40px 140px 40px 140px}
+.f-intro-card::before,.f-intro-card::after{content:"";position:absolute;z-index:-1;border-radius:50%}
+.f-intro-card::before{width:240px;height:240px;top:-110px;left:-80px;background:rgba(141,188,199,.28)}
+.f-intro-card::after{width:300px;height:300px;bottom:-170px;right:-70px;background:rgba(58,129,126,.12)}
+.f-statement{margin:8px auto 16px;font-size:clamp(1.7rem,3vw,2.5rem);max-width:760px}
+.f-intro-lead{max-width:720px;margin:0 auto;font-size:1.15rem;line-height:1.6;color:var(--text)}
+
+/* ---------- home: online service cards, one light tint each ---------- */
+.f-svc-grid li:nth-child(1){--svc-bg:#E6F0F5;--svc-ink:#264F62}
+.f-svc-grid li:nth-child(2){--svc-bg:#E3F1EF;--svc-ink:#245855}
+.f-svc-grid li:nth-child(3){--svc-bg:#FFF1DC;--svc-ink:#7A4E00}
+.f-svc-grid li:nth-child(4){--svc-bg:#ECEEFA;--svc-ink:#3B4A8C}
+.f-svc-grid li:nth-child(5){--svc-bg:#E7F3E8;--svc-ink:#256B42}
+.f-svc-grid li:nth-child(6){--svc-bg:#FCEBE7;--svc-ink:#9A3B26}
+.f-svc-grid li:nth-child(7){--svc-bg:#F1ECF8;--svc-ink:#5E3C86}
+.f-svc-grid li:nth-child(8){--svc-bg:#F4F0E4;--svc-ink:#5F5121}
+.f-svc-grid .f-svc{background:var(--svc-bg);box-shadow:inset 0 0 0 1px rgba(21,46,58,.05);gap:10px;transition:box-shadow .2s,background-color .2s}
+.f-svc-grid .f-svc:hover,.f-svc-grid .f-svc:focus-visible{box-shadow:inset 0 0 0 2px var(--svc-ink),var(--shadow)}
+.f-svc-ico{display:grid;place-items:center;width:56px;height:56px;border-radius:16px;background:#fff;color:var(--svc-ink);margin-bottom:6px;box-shadow:0 2px 6px rgba(21,46,58,.06)}
+.f-svc-grid .f-svc p{color:#3A4F56}
+.f-svc-grid .f-svc .h-svc-go{position:static;margin-top:auto;align-self:flex-end;background:#fff;color:var(--svc-ink)}
+.f-svc-grid .f-svc:hover .h-svc-go{background:var(--svc-ink);color:#fff}
+@media (max-width:720px){
+  .f-band-in > div{padding:20px 12px}
+  .f-ill{width:52px;height:52px}
+  .f-ill svg{width:34px;height:34px}
+  .f-intro-card{padding:36px 22px;border-radius:28px 72px 28px 72px;margin-bottom:40px}
+}
+
+/* ---------- login: Student / Teacher role switch + Government Portals panel ---------- */
+.f-role-tabs .f-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border:0;border-radius:10px;background:var(--mist-50);box-shadow:inset 0 0 0 1px var(--border);margin:4px 0 16px}
+.f-role-tabs .f-tabs button{justify-content:center;border:0;border-radius:8px;margin:0;color:var(--muted)}
+.f-role-tabs .f-tabs button[aria-selected="true"]{background:#fff;color:var(--teal-800);box-shadow:var(--shadow-sm)}
+.f-gp-panel{background:linear-gradient(150deg,var(--ink),var(--ocean-800));color:#DCE9EC;border-radius:8px;padding:30px 28px;display:flex;flex-direction:column;gap:12px}
+.f-gp-panel .h-h3{color:#fff}
+.f-gp-list{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.f-gp{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 16px;border-radius:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;text-decoration:none;transition:background-color .15s,border-color .15s}
+.f-gp:hover,.f-gp:focus-visible{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4)}
+.f-gp-ico{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:rgba(169,211,208,.18);color:#A9D3D0}
+.f-gp-txt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.f-gp-txt b{font-size:1.05rem}
+.f-gp-txt small{color:#C4D8DD;font-size:.875rem;line-height:1.4}
+.f-gp-txt code{display:inline-flex;align-items:center;gap:6px;font-size:.8125rem;color:#A9D3D0;overflow-wrap:anywhere}
+.f-gp-note{display:flex;align-items:center;gap:6px;font-size:.8125rem;color:#C4D8DD}
+.f-login-who{max-width:900px}
+@media (max-width:720px){
+  .f-gp-panel{padding:22px 16px}
+  .f-gp{grid-template-columns:40px minmax(0,1fr) auto;gap:10px;padding:12px}
+}
+
+/* ---------- escalation chain (Division / District approvals) ---------- */
+.f-chain{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:0 0 16px;counter-reset:c}
+.f-chain li{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:16px 18px 16px 22px;background:#fff;border:1px solid var(--border);margin-left:-1px}
+.f-chain li:first-child{border-radius:8px 0 0 8px;margin-left:0}
+.f-chain li:last-child{border-radius:0 8px 8px 0}
+.f-chain li .ico{color:var(--teal-700)}
+.f-chain li small{color:var(--muted)}
+.f-chain li.is-me{background:var(--teal-50);border-color:var(--teal);z-index:1}
+.f-chain li.is-me b{color:var(--teal-800)}
+.f-chain em{font-style:normal;font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--teal);border-radius:999px;padding:2px 8px}
+@media (max-width:720px){
+  .f-chain{grid-template-columns:1fr 1fr}
+  .f-chain li{margin:-1px 0 0 -1px;border-radius:0 !important}
 }

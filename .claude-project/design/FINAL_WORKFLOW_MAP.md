@@ -20,7 +20,7 @@
 | `bud` | `none` | allocated | `ministry-budget` |
 | `exp` | `none` | recorded | `inst-finance` |
 | `asset` | `none` | received → assigned → transferred → returned → damaged → recovered | `ministry-assets`, `inst-assets` |
-| `proc` | `none` | submitted → approved → po → lc → received → gatepass | `inst-procurement`, `ministry-approvals` |
+| `proc` | `none` | submitted → dforward (District) → drec (Division) → approved (Ministry) → po → lc → received → gatepass | `inst-procurement`, `district-approvals`, `division-approvals`, `ministry-approvals` |
 | `leave` | `none` | pending → approved (or rejected, withdrawn) | `teacher-leave`, `inst-leave` |
 | `cert` | `none` | applied → issued → alumni | `student-certificate`, `inst-certificates` |
 | `lic` | `none` | submitted → returned → submitted → issued (or rejected) | `license-apply`, `ministry-licenses`, `license-track` |
@@ -32,6 +32,7 @@
 | `mig` | `pending` | approved | `ministry-admissions` |
 | `eval` | `open` | done | `student-academics` |
 | `rep` | `none` | ready or empty | `ministry-reports` |
+| `rrep` | `none` | ready or empty | `division-reports`, `district-reports` |
 
 ---
 
@@ -95,11 +96,13 @@
 
 | # | Actor | Page | Action | State | Result shown |
 |---|---|---|---|---|---|
-| 1 | Principal | `inst-procurement.html` | "Submit request" | `proc=submitted` | PR-2026-071, forwarded by District |
-| 2 | Ministry | `ministry-approvals.html` | "Approve" | `proc=approved` | Flow banner back to the institution |
-| 3 | Principal | `inst-procurement.html` | "Generate PO" → "Upload LC" → "Record receipt (6 of 6)" → "Issue gate pass" | `po` → `lc` → `received` → `gatepass` | Timeline complete; items added to inventory |
+| 1 | Principal | `inst-procurement.html` | "Submit request" | `proc=submitted` | PR-2026-071 waiting for District review |
+| 2 | District Admin | `district-approvals.html` | "Forward to Division" (or return to institution) | `proc=dforward` | Forwarded; flow banner to the Division |
+| 3 | Division Admin | `division-approvals.html` | "Recommend to Ministry" (or return to district) | `proc=drec` | Recommended; flow banner to the Ministry |
+| 4 | Ministry | `ministry-approvals.html` | "Approve" (final) | `proc=approved` | Flow banner back to the institution |
+| 5 | Principal | `inst-procurement.html` | "Generate PO" → "Upload LC" → "Record receipt (6 of 6)" → "Issue gate pass" | `po` → `lc` → `received` → `gatepass` | Timeline complete; items added to inventory |
 
-The approval chain and thresholds are **TBD — Requires Client Confirmation** and are labelled on the page.
+The escalation chain (District reviews and forwards, Division recommends, Ministry gives final approval) follows the hierarchy in Core Features §2.2. The exact chain, thresholds and time limits are **TBD — Requires Client Confirmation** and are labelled on every page involved.
 
 ## H. Teacher leave
 
@@ -157,5 +160,5 @@ Pricing model (per check or subscription), amount, payment gateway, invoicing an
 | `admission-result.html` | TX-26-0048213 / TX-26-0051177 / TX-26-0049002 / other | Selected / waiting list / not selected / no result |
 | `verify.html` | CERT-2025-00481 / CERT-2024-00113 / other | Valid / revoked / no record |
 | `license-track.html` | LIC-APP-2026-00071 / other | Status (or "not submitted yet") / not found |
-| Portal and student sign-ins | Listed account + `demo-pass` | Workspace; wrong password shows the error and lock-out rule |
+| `login.html` (Student / Teacher tabs) and portal sign-ins | Listed account + `demo-pass` | Student → `student.html`, Teacher → `teacher.html`, portals → their workspace; wrong password shows the error and lock-out rule |
 | `access-denied.html?reason=` | `permission`, `session`, `locked`, `noassign` | Matching access message |

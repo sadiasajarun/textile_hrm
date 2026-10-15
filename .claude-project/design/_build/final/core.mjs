@@ -142,7 +142,7 @@ function publicHeader(active) {
     <a href="verify.html">${icon('badge-check', 'ico ico-sm')}${t('Results / Verification', 'ফলাফল / যাচাই')}</a>
     <a href="help.html#downloads">${icon('download', 'ico ico-sm')}${t('Downloads', 'ডাউনলোড')}</a>
     <a href="help.html#contact">${icon('phone', 'ico ico-sm')}${t('Contact', 'যোগাযোগ')}</a>
-    <a href="portals.html" class="f-util-portals">${icon('landmark', 'ico ico-sm')}${t('Government Portals', 'সরকারি পোর্টাল')}</a>
+    <a href="login.html#portals" class="f-util-portals">${icon('landmark', 'ico ico-sm')}${t('Government Portals', 'সরকারি পোর্টাল')}</a>
     <button type="button" data-open="dlg-search" ${ta('aria-label', 'Search', 'অনুসন্ধান')}>${icon('search', 'ico ico-sm')}<span class="f-hide-sm">${t('Search', 'অনুসন্ধান')}</span></button>
     <span class="lang f-lang" role="group" aria-label="Language / ভাষা"><button type="button" data-set-lang="bn" lang="bn">বাংলা</button><button type="button" data-set-lang="en" lang="en">English</button></span>
   </nav>
@@ -150,7 +150,7 @@ function publicHeader(active) {
 <header class="f-head"><div class="container f-head-in">
   <a class="f-brand" href="index.html">${logo()}<span><small>${tt(ORG.ministry)} · ${tt(ORG.dept)}</small><b>${tt(ORG.product)}</b></span></a>
   <nav class="f-nav" id="f-nav" ${ta('aria-label', 'Main', 'প্রধান মেনু')}><ul>${each(PUB_NAV, ([k, l, h]) => `<li><a href="${h}" ${k === active ? 'aria-current="page"' : ''}>${tt(l)}</a></li>`)}</ul></nav>
-  <a class="btn btn-teal f-login-btn" href="student-login.html">${icon('log-in', 'ico ico-sm')}${t('Student Login', 'শিক্ষার্থী লগইন')}</a>
+  <a class="btn btn-teal f-login-btn" href="login.html" ${active === 'login' ? 'aria-current="page"' : ''}>${icon('log-in', 'ico ico-sm')}${t('Login', 'লগইন')}</a>
   <button type="button" class="f-menu-btn" data-menu="f-nav" aria-expanded="false" ${ta('aria-label', 'Menu', 'মেনু')}>${icon('menu')}</button>
 </div></header>
 <dialog id="dlg-search" class="dlg dlg-wide" aria-labelledby="dlg-search-t">
@@ -166,7 +166,7 @@ function publicFooter() {
 <section class="f-portal-strip" aria-labelledby="fps-t"><div class="container f-portal-strip-in">
   <div><h2 id="fps-t">${icon('landmark', 'ico')}${t('Institutional and Government Portals', 'প্রাতিষ্ঠানিক ও সরকারি পোর্টাল')}</h2><p>${t('Separate secure access for authorised government and institution users.', 'অনুমোদিত সরকারি ও প্রতিষ্ঠানের ব্যবহারকারীদের জন্য পৃথক নিরাপদ প্রবেশ।')}</p></div>
   <ul>${each(PORTALS, (p) => `<li><a href="${p.href}">${icon(p.icon, 'ico ico-sm')}${tt(p.l)}</a></li>`)}</ul>
-  <a class="btn btn-white" href="portals.html">${t('All portals', 'সব পোর্টাল')}${icon('arrow-right', 'ico ico-sm')}</a>
+  <a class="btn btn-white" href="login.html#portals">${t('All portals', 'সব পোর্টাল')}${icon('arrow-right', 'ico ico-sm')}</a>
 </div></section>
 <footer class="f-foot">
   <div class="container f-foot-own">${logo('f-logo f-logo-inv')}<div><b>${tt(ORG.product)}</b><p>${t('Owned and operated by the Department of Textiles, Ministry of Textiles and Jute, Government of the People’s Republic of Bangladesh.', 'মালিকানা ও পরিচালনা: বস্ত্র অধিদপ্তর, বস্ত্র ও পাট মন্ত্রণালয়, গণপ্রজাতন্ত্রী বাংলাদেশ সরকার।')}</p></div></div>
@@ -189,28 +189,36 @@ export const PORTALS = [
   { k: 'ministry', icon: 'landmark', l: ['Ministry Portal', 'মন্ত্রণালয় পোর্টাল'], dom: 'ministry.tims.gov.bd', href: 'portal-ministry.html', who: ['Ministry of Textiles and Jute and Department of Textiles officials: national monitoring, approvals, budget, reports, licences.', 'বস্ত্র ও পাট মন্ত্রণালয় ও বস্ত্র অধিদপ্তরের কর্মকর্তা: জাতীয় পর্যবেক্ষণ, অনুমোদন, বাজেট, প্রতিবেদন, লাইসেন্স।'] },
   { k: 'division', icon: 'map', l: ['Division Portal', 'বিভাগীয় পোর্টাল'], dom: 'division.tims.gov.bd', href: 'portal-division.html', who: ['Division administrators: districts and institutions within the assigned division.', 'বিভাগীয় প্রশাসক: নির্ধারিত বিভাগের জেলা ও প্রতিষ্ঠান।'] },
   { k: 'district', icon: 'map-pin', l: ['District Portal', 'জেলা পোর্টাল'], dom: 'district.tims.gov.bd', href: 'portal-district.html', who: ['District administrators: institutions within the assigned district.', 'জেলা প্রশাসক: নির্ধারিত জেলার প্রতিষ্ঠান।'] },
-  { k: 'institution', icon: 'building-2', l: ['Institution Portal', 'প্রতিষ্ঠান পোর্টাল'], dom: 'institution.tims.gov.bd', href: 'portal-institution.html', who: ['Principal / Institution Admin, teachers and authorised staff of one institution.', 'একটি প্রতিষ্ঠানের অধ্যক্ষ / প্রতিষ্ঠান অ্যাডমিন, শিক্ষক ও অনুমোদিত কর্মচারী।'] },
+  { k: 'institution', icon: 'building-2', l: ['Institution Portal', 'প্রতিষ্ঠান পোর্টাল'], dom: 'institution.tims.gov.bd', href: 'portal-institution.html', who: ['Principal / Institution Admin and authorised office staff of one institution. Teachers use Login → Teacher.', 'একটি প্রতিষ্ঠানের অধ্যক্ষ / প্রতিষ্ঠান অ্যাডমিন ও অনুমোদিত অফিস কর্মচারী। শিক্ষকরা লগইন → শিক্ষক ব্যবহার করেন।'] },
 ];
 
 // ---------- internal workspace chrome ----------
 export const NAV = {
-  ministry: { portal: PORTALS[0], user: ['Farhana Ahmed', ['System Administrator, Ministry', 'সিস্টেম অ্যাডমিনিস্ট্রেটর, মন্ত্রণালয়'], 'FA'], scope: ['All Bangladesh', 'সমগ্র বাংলাদেশ'], out: 'portals.html',
+  ministry: { portal: PORTALS[0], user: ['Farhana Ahmed', ['System Administrator, Ministry', 'সিস্টেম অ্যাডমিনিস্ট্রেটর, মন্ত্রণালয়'], 'FA'], scope: ['All Bangladesh', 'সমগ্র বাংলাদেশ'], out: 'login.html#portals',
     groups: [[null, [['ministry', 'layout-dashboard', ['Overview', 'সারসংক্ষেপ']]]],
       [['Institutions & academics', 'প্রতিষ্ঠান ও একাডেমিক'], [['ministry-institutions', 'building-2', ['Institutions', 'প্রতিষ্ঠান']], ['ministry-admissions', 'clipboard-list', ['Admissions', 'ভর্তি']], ['ministry-attendance', 'user-check', ['Live attendance', 'লাইভ হাজিরা']]]],
       [['Resources', 'সম্পদ'], [['ministry-budget', 'wallet', ['Budget', 'বাজেট']], ['ministry-assets', 'package', ['Assets', 'সম্পদ']]]],
       [['Decisions', 'সিদ্ধান্ত'], [['ministry-approvals', 'inbox', ['Approvals', 'অনুমোদন'], 12], ['ministry-licenses', 'badge-check', ['Licences (Phase 2)', 'লাইসেন্স (২য় পর্যায়)']]]],
       [['Administration', 'প্রশাসন'], [['ministry-reports', 'chart-column', ['Reports', 'প্রতিবেদন']], ['ministry-users', 'user-round-cog', ['Users & roles', 'ব্যবহারকারী ও ভূমিকা']], ['ministry-integrations', 'plug', ['Integrations', 'ইন্টিগ্রেশন']]]]] },
-  division: { portal: PORTALS[1], user: ['Sharmin Akter', ['Division Administrator', 'বিভাগীয় প্রশাসক'], 'SA'], scope: ['Chattogram Division', 'চট্টগ্রাম বিভাগ'], out: 'portals.html',
-    groups: [[null, [['division', 'layout-dashboard', ['Overview', 'সারসংক্ষেপ']], ['division#districts', 'map', ['Districts & institutions', 'জেলা ও প্রতিষ্ঠান']], ['division#attendance', 'user-check', ['Attendance & reporting', 'হাজিরা ও রিপোর্টিং']], ['division#actions', 'inbox', ['Follow-up actions', 'অনুসরণীয় কাজ']], ['ministry-reports', 'chart-column', ['Reports', 'প্রতিবেদন']]]]] },
-  district: { portal: PORTALS[2], user: ['Mahmudul Hasan', ['District Administrator', 'জেলা প্রশাসক'], 'MH'], scope: ['Chattogram District', 'চট্টগ্রাম জেলা'], out: 'portals.html',
-    groups: [[null, [['district', 'layout-dashboard', ['Overview', 'সারসংক্ষেপ']], ['district#institutions', 'building-2', ['Institutions', 'প্রতিষ্ঠান']], ['district#actions', 'inbox', ['Actions', 'করণীয়']], ['ministry-reports', 'chart-column', ['Reports', 'প্রতিবেদন']]]]] },
-  principal: { portal: PORTALS[3], user: ['Md. Saiful Islam', ['Principal', 'অধ্যক্ষ'], 'SI'], scope: ['Karnaphuli Textile Institute', 'কর্ণফুলী টেক্সটাইল ইনস্টিটিউট'], out: 'portals.html',
+  division: { portal: PORTALS[1], user: ['Sharmin Akter', ['Division Administrator', 'বিভাগীয় প্রশাসক'], 'SA'], scope: ['Chattogram Division', 'চট্টগ্রাম বিভাগ'], out: 'login.html#portals',
+    groups: [[null, [['division', 'layout-dashboard', ['Overview', 'সারসংক্ষেপ']]]],
+      [['Institutions & academics', 'প্রতিষ্ঠান ও একাডেমিক'], [['division#districts', 'map', ['Districts & institutions', 'জেলা ও প্রতিষ্ঠান']], ['division-admissions', 'clipboard-list', ['Admissions', 'ভর্তি']], ['division#attendance', 'user-check', ['Live attendance', 'লাইভ হাজিরা']]]],
+      [['Resources', 'সম্পদ'], [['division-resources', 'wallet', ['Budget & assets', 'বাজেট ও সম্পদ']]]],
+      [['Decisions', 'সিদ্ধান্ত'], [['division-approvals', 'inbox', ['Approvals', 'অনুমোদন'], 3], ['division#actions', 'list-checks', ['Follow-up actions', 'অনুসরণীয় কাজ']]]],
+      [['Reports', 'প্রতিবেদন'], [['division-reports', 'chart-column', ['Reports', 'প্রতিবেদন']]]]] },
+  district: { portal: PORTALS[2], user: ['Mahmudul Hasan', ['District Administrator', 'জেলা প্রশাসক'], 'MH'], scope: ['Chattogram District', 'চট্টগ্রাম জেলা'], out: 'login.html#portals',
+    groups: [[null, [['district', 'layout-dashboard', ['Overview', 'সারসংক্ষেপ']]]],
+      [['Institutions & academics', 'প্রতিষ্ঠান ও একাডেমিক'], [['district#institutions', 'building-2', ['Institutions & attendance', 'প্রতিষ্ঠান ও হাজিরা']], ['district-admissions', 'clipboard-list', ['Admissions', 'ভর্তি']]]],
+      [['Resources', 'সম্পদ'], [['district-resources', 'wallet', ['Budget & assets', 'বাজেট ও সম্পদ']]]],
+      [['Decisions', 'সিদ্ধান্ত'], [['district-approvals', 'inbox', ['Approvals', 'অনুমোদন'], 3], ['district#actions', 'list-checks', ['Follow-up actions', 'অনুসরণীয় কাজ']]]],
+      [['Reports', 'প্রতিবেদন'], [['district-reports', 'chart-column', ['Reports', 'প্রতিবেদন']]]]] },
+  principal: { portal: PORTALS[3], user: ['Md. Saiful Islam', ['Principal', 'অধ্যক্ষ'], 'SI'], scope: ['Karnaphuli Textile Institute', 'কর্ণফুলী টেক্সটাইল ইনস্টিটিউট'], out: 'login.html#portals',
     groups: [[null, [['principal', 'layout-dashboard', ['Overview', 'সারসংক্ষেপ']]]],
       [['Academics', 'একাডেমিক'], [['inst-students', 'graduation-cap', ['Students', 'শিক্ষার্থী']], ['inst-teachers', 'users', ['Teachers', 'শিক্ষক']], ['inst-classes', 'layers', ['Classes', 'ক্লাস']], ['inst-attendance', 'user-check', ['Attendance', 'হাজিরা']], ['inst-results', 'clipboard-check', ['Results', 'ফলাফল']]]],
       [['Services & approvals', 'সেবা ও অনুমোদন'], [['inst-requests', 'inbox', ['Student requests', 'শিক্ষার্থী আবেদন'], 4], ['inst-leave', 'calendar-days', ['Leave', 'ছুটি']], ['inst-certificates', 'award', ['Certificates & alumni', 'সনদ ও প্রাক্তন শিক্ষার্থী']]]],
       [['Resources', 'সম্পদ'], [['inst-finance', 'wallet', ['Finance', 'অর্থ']], ['inst-assets', 'package', ['Assets', 'সম্পদ']], ['inst-procurement', 'truck', ['Procurement', 'ক্রয়']], ['inst-library', 'library', ['Library', 'লাইব্রেরি']]]],
       [['Administration', 'প্রশাসন'], [['inst-access', 'shield-check', ['Menu access', 'মেনু অ্যাক্সেস']]]]] },
-  teacher: { portal: PORTALS[3], user: ['Arif Hossain', ['Instructor (Weaving)', 'ইন্সট্রাক্টর (উইভিং)'], 'AH'], scope: ['Karnaphuli Textile Institute', 'কর্ণফুলী টেক্সটাইল ইনস্টিটিউট'], out: 'portals.html',
+  teacher: { portal: null, user: ['Arif Hossain', ['Instructor (Weaving)', 'ইন্সট্রাক্টর (উইভিং)'], 'AH'], scope: ['Karnaphuli Textile Institute', 'কর্ণফুলী টেক্সটাইল ইনস্টিটিউট'], out: 'login.html#teacher',
     groups: [[null, [['teacher', 'house', ['Home', 'হোম']], ['teacher-classes', 'layers', ['My classes & materials', 'আমার ক্লাস ও উপকরণ']], ['teacher-attendance', 'user-check', ['Attendance', 'হাজিরা']], ['teacher-results', 'clipboard-check', ['Results', 'ফলাফল']], ['teacher-leave', 'calendar-days', ['Leave', 'ছুটি']]]]] },
   student: { portal: null, user: ['Mim Akter', ['Student', 'শিক্ষার্থী'], 'MA'], scope: ['Karnaphuli Textile Institute', 'কর্ণফুলী টেক্সটাইল ইনস্টিটিউট'], out: 'index.html',
     groups: [[null, [['student', 'house', ['Home', 'হোম']], ['student-academics', 'book-open', ['Academics', 'একাডেমিক']], ['student-results', 'chart-column', ['Results & attendance', 'ফলাফল ও উপস্থিতি']], ['student-services', 'file-text', ['Online services', 'অনলাইন সেবা']], ['student-payment', 'wallet', ['Payments & ledger', 'পরিশোধ ও লেজার']], ['student-certificate', 'award', ['Certificate', 'সনদ']], ['student-profile', 'user', ['Profile', 'প্রোফাইল']]]]] },
@@ -227,7 +235,7 @@ function appShell(role, active, crumbs, content) {
   return `
 <div class="h-app">
   <aside class="h-side f-side" id="h-side" ${ta('aria-label', 'Workspace navigation', 'ওয়ার্কস্পেস মেনু')}>
-    <a class="h-side-brand" href="${R.groups[0][1][0][0]}.html">${logo('f-logo f-logo-sm')}<span><b>${tt(ORG.short)}</b><small>${R.portal ? tt(R.portal.l) : role === 'alumni' ? t('Alumni portal', 'প্রাক্তন শিক্ষার্থী পোর্টাল') : t('Student portal', 'স্টুডেন্ট পোর্টাল')}</small></span></a>
+    <a class="h-side-brand" href="${R.groups[0][1][0][0]}.html">${logo('f-logo f-logo-sm')}<span><b>${tt(ORG.short)}</b><small>${R.portal ? tt(R.portal.l) : role === 'alumni' ? t('Alumni portal', 'প্রাক্তন শিক্ষার্থী পোর্টাল') : role === 'teacher' ? t('Teacher workspace', 'শিক্ষক ওয়ার্কস্পেস') : t('Student portal', 'স্টুডেন্ট পোর্টাল')}</small></span></a>
     <nav>${nav}</nav>
     <div class="h-side-scope"><small>${t('Your scope', 'আপনার পরিধি')}</small><b>${tt(R.scope)}</b></div>
     <a class="h-side-out" href="${R.out}">${icon('log-out', 'ico ico-sm')}${t('Sign out', 'লগআউট')}</a>
@@ -261,7 +269,7 @@ function dialogs() {
 function protoBar(file) {
   return `<nav class="var-nav-bar f-proto" aria-label="Prototype navigation" data-vnb>
   <button type="button" class="vnb-toggle" aria-expanded="true" data-vnb-toggle><span class="vnb-badge vnb-h">H</span><span class="vnb-hide-sm">Final prototype</span></button>
-  <div class="vnb-body"><a href="prototype-index.html" ${file === 'prototype-index' ? 'aria-current="page"' : ''}>Review index</a><a href="index.html">Public site</a><a href="portals.html">Portals</a>
+  <div class="vnb-body"><a href="prototype-index.html" ${file === 'prototype-index' ? 'aria-current="page"' : ''}>Review index</a><a href="index.html">Public site</a><a href="login.html">Login &amp; portals</a>
   <button type="button" data-reset-state>Reset demo data</button></div></nav>`;
 }
 

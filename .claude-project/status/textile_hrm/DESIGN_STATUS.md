@@ -9,11 +9,11 @@ approved_at: 2026-10-15      # client confirmation recorded with the final-proto
 variations_generated: 9      # round 1: A/B/C · round 2: D/E/F · round 3: G/H/I
 archetypes: [civic-clarity, heritage-weave, command-center, national-service-portal, connected-institution-network, action-service-hub]
 html_files: 39               # A/B/C 9 + D/E/F 30 (variation screens; final prototype counted below)
-final_prototype: .claude-project/design/prototype/   # 71 routes, flows A–J
+final_prototype: .claude-project/design/prototype/   # 78 routes, flows A–J
 final_entry: .claude-project/design/prototype/prototype-index.html
 final_build: .claude-project/design/_build/final/   # node build.mjs
 final_docs: [FINAL_SCOPE_COVERAGE.md, FINAL_ROUTE_MAP.md, FINAL_WORKFLOW_MAP.md, FINAL_EDGE_CASE_MATRIX.md, FINAL_DESIGN_SYSTEM.md, FINAL_QA_REPORT.md]
-final_qa: light — 74/74 flow checks, 0 dead links, 0 page errors, 0 overflow at 1440/390, Bangla spot-check pass
+final_qa: light — 97/97 checks, 0 dead links, 0 page errors, 0 overflow at 1440/390, Bangla spot-check pass
 showcase: .claude-project/design/variations/showcase-GHI.html   # earlier: showcase-ALL.html, showcase-DEF.html
 prd_version_used: v1
 ```
@@ -75,10 +75,14 @@ QA (partial, stopped at the client's request): 40/40 interaction flows pass in a
 
 The client approved Variation H. The final end-to-end prototype covers Phase 1 and Phase 2. No new variations were created. Variation files A–I were not modified.
 
-- **Routes:** 71 in `design/prototype/` (public website, admissions, portal sign-ins, Ministry, Division, District, Principal, Teacher, Student, Alumni, Phase 2 licence and verification). See `design/FINAL_ROUTE_MAP.md`.
+- **Routes:** 78 in `design/prototype/` (public website, admissions, portal sign-ins, Ministry, Division, District, Principal, Teacher, Student, Alumni, Phase 2 licence and verification). See `design/FINAL_ROUTE_MAP.md`.
 - **Flows:** A–J, with shared demo state across portals. See `design/FINAL_WORKFLOW_MAP.md`.
 - **Edge cases:** 42 from the specification plus extras. See `design/FINAL_EDGE_CASE_MATRIX.md`.
 - **Coverage:** every Core Features / SOW item is Built, Built (state) or labelled TBD. See `design/FINAL_SCOPE_COVERAGE.md`.
 - **Design system:** `design/FINAL_DESIGN_SYSTEM.md`.
 - **QA (light):** `design/FINAL_QA_REPORT.md`. Fixed in this round: the Flow G procurement card and asset history never appearing (malformed state conditions; the build now guards against them), 390 px overflow on 5 pages, and the missing CSS from the hand-off.
 - **Sources:** images in `design/assets/images/IMAGE_SOURCES.md` (official institution and DoT sites, no factory or worker photos); officials in `design/assets/data/OFFICIALS_SOURCES.md` (4 published MoTJ/DoT officials only).
+
+### Stakeholder review round 1 (15 Oct 2026) — applied
+
+1. Homepage counts carry line-art illustrations. 2. "About the system" rewritten in plain language on a light shape. 3. Online services use one light tint per card. 4. Header button reads **Login**. 5. `login.html` has Student / Teacher tabs. 6. Government Portals moved into the Login page (`student-login.html` and `portals.html` retired). 7. Teacher journey reachable from Login → Teacher and listed under "Role walkthroughs" in the review index. 8. Division and District Reports open in their own portal. 9. Division and District have scoped Admissions, Budget & assets, Approvals and Reports; procurement escalates District → Division → Ministry (final), labelled TBD.

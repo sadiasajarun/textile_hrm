@@ -6,7 +6,7 @@ Edge cases use shared patterns: an **inline field error**, an **alert** (info / 
 
 | # | Edge case (spec §22) | Route | Pattern | How to see it | Status |
 |---|---|---|---|---|---|
-| 1 | Invalid login | `portal-*.html`, `student-login.html` | Inline error + lock-out rule | Sign in with any password other than `demo-pass` | Built |
+| 1 | Invalid login | `login.html` (Student and Teacher tabs), `portal-*.html` | Inline error + lock-out rule | Sign in with any password other than `demo-pass` | Built |
 | 2 | Session expired | `access-denied.html?reason=session` | Access state page | Open the URL | Built |
 | 3 | Permission denied | `access-denied.html?reason=permission` | Access state page | Open the URL | Built |
 | 4 | Account locked | `access-denied.html?reason=locked` | Access state page | Open the URL | Built |

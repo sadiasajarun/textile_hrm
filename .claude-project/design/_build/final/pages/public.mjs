@@ -3,6 +3,7 @@ import {
   t, tt, n, d, ta, icon, each, esc, opt, page, photo, demo, tbd, st, a, btn, act, dl, field, alert, empty, table, tabs, card,
   secHead, pageHero, lineChart, groupedBars, donut, hbars, chartMeta, PORTALS, ORG, bnDigits,
 } from '../core.mjs';
+import { illus } from '../illus.mjs';
 import { STATS, ADMISSION, NOTICES, NOTICE_CATS, catLabel, AUTH, OFFICIALS, GALLERY, PROGRAMMES, INSTITUTIONS, TYPES, SERVICES, DIVISIONS, FAQ, CATEGORIES } from '../data.mjs';
 
 const catTag = (k) => `<span class="h-cat">${tt(catLabel(k))}</span>`;
@@ -47,13 +48,16 @@ function home() {
 
 <section class="f-band" aria-labelledby="band-t"><div class="container f-band-in">
   <h2 id="band-t" class="sr-only">${t('Institutions by type', 'ধরন অনুযায়ী প্রতিষ্ঠান')}</h2>
-  ${each(CATEGORIES, (c) => `<div><b>${n(c.v)}</b><span>${tt(c.l)}</span></div>`)}
-  <div><b>${n(8)}</b><span>${t('Divisions covered', 'আওতাভুক্ত বিভাগ')}</span></div><div><b>${n(47)}</b><span>${t('Districts covered', 'আওতাভুক্ত জেলা')}</span></div>
+  ${each(CATEGORIES, (c, i) => `<div>${illus(['college', 'institute', 'vocational'][i])}<b>${n(c.v)}</b><span>${tt(c.l)}</span></div>`)}
+  <div>${illus('divisions')}<b>${n(8)}</b><span>${t('Divisions covered', 'আওতাভুক্ত বিভাগ')}</span></div><div>${illus('districts')}<b>${n(47)}</b><span>${t('Districts covered', 'আওতাভুক্ত জেলা')}</span></div>
 </div></section>
 
 <section class="container h-intro" aria-labelledby="why-t">
-  <p class="h-eyebrow">${t('About the system', 'সিস্টেম সম্পর্কে')}</p>
-  <h2 id="why-t" class="h-statement">${t('A single, official record for every government textile institution — connecting institutions with the Department of Textiles and the Ministry, and serving students and citizens online.', 'প্রতিটি সরকারি টেক্সটাইল প্রতিষ্ঠানের একক অফিসিয়াল রেকর্ড — প্রতিষ্ঠানসমূহকে বস্ত্র অধিদপ্তর ও মন্ত্রণালয়ের সাথে যুক্ত করে এবং শিক্ষার্থী ও নাগরিকদের অনলাইনে সেবা দেয়।')}</h2>
+  <div class="f-intro-card">
+    <p class="h-eyebrow">${t('About the system', 'সিস্টেম সম্পর্কে')}</p>
+    <h2 id="why-t" class="h-statement f-statement">${t('One online home for every government textile institution.', 'সব সরকারি টেক্সটাইল প্রতিষ্ঠানের জন্য একটি অনলাইন ঠিকানা।')}</h2>
+    <p class="f-intro-lead">${t('Students apply and follow their studies, teachers run their classes, and the Department of Textiles and the Ministry can see how every institution is doing — with less paperwork and fewer office visits.', 'শিক্ষার্থীরা আবেদন করে ও পড়াশোনার খোঁজ রাখে, শিক্ষকরা ক্লাস পরিচালনা করেন, আর বস্ত্র অধিদপ্তর ও মন্ত্রণালয় প্রতিটি প্রতিষ্ঠানের অবস্থা দেখতে পায় — কম কাগজপত্রে, কম অফিস-যাতায়াতে।')}</p>
+  </div>
   <ol class="h-pillars">
     <li><span class="h-num">${n('01')}</span>${icon('globe', 'ico ico-lg')}<h3>${t('Public information and services', 'পাবলিক তথ্য ও সেবা')}</h3><p>${t('Admission, notices, results and certificate verification for citizens.', 'নাগরিকদের জন্য ভর্তি, নোটিশ, ফলাফল ও সনদ যাচাই।')}</p></li>
     <li><span class="h-num">${n('02')}</span>${icon('school', 'ico ico-lg')}<h3>${t('Institutional administration', 'প্রাতিষ্ঠানিক প্রশাসন')}</h3><p>${t('Classes, attendance, results, finance, assets, library and student services within each institution.', 'প্রতিটি প্রতিষ্ঠানের ক্লাস, হাজিরা, ফলাফল, অর্থ, সম্পদ, লাইব্রেরি ও শিক্ষার্থী সেবা।')}</p></li>
@@ -64,7 +68,7 @@ function home() {
 
 <section class="h-services" id="services" aria-labelledby="svc-t"><div class="container">
   ${secHead(['Public services', 'পাবলিক সেবা'], t('Online services', 'অনলাইন সেবাসমূহ'), `<p class="muted">${t('Apply, track and verify online without visiting an office.', 'অফিসে না গিয়ে অনলাইনে আবেদন, ট্র্যাক ও যাচাই করুন।')}</p>`, 'svc-t')}
-  <ul class="h-svc-grid f-svc-grid">${each(SERVICES, (s) => `<li><a class="h-svc" href="${s.href}">${icon(s.icon, 'ico ico-xl')}<h3>${tt(s.l)}</h3><p>${tt(s.s)}</p><span class="h-svc-go">${icon('arrow-up-right', 'ico')}</span></a></li>`)}</ul>
+  <ul class="h-svc-grid f-svc-grid">${each(SERVICES, (s) => `<li><a class="h-svc f-svc" href="${s.href}"><span class="f-svc-ico">${icon(s.icon, 'ico ico-lg')}</span><h3>${tt(s.l)}</h3><p>${tt(s.s)}</p><span class="h-svc-go">${icon('arrow-up-right', 'ico')}</span></a></li>`)}</ul>
 </div></section>
 
 <section class="h-about f-eco" aria-labelledby="eco-t">
@@ -300,7 +304,7 @@ function help() {
   const body = `${pageHero('lab-dti-computer.jpg', ['Computer laboratory, Dinajpur Textile Institute', 'কম্পিউটার ল্যাবরেটরি, দিনাজপুর টেক্সটাইল ইনস্টিটিউট'], [[['Help', 'সহায়তা']]], t('Help desk', 'হেল্প ডেস্ক'), t('Guides, tutorials, forms and contact for all users of the system.', 'সিস্টেমের সকল ব্যবহারকারীর জন্য নির্দেশিকা, টিউটোরিয়াল, ফরম ও যোগাযোগ।'))}
 <div class="container f-sec">${helpTiles()}
   <section id="faq" class="f-sec"><h2 class="h-h3">${t('Frequently asked questions', 'সাধারণ জিজ্ঞাসা')}</h2><div class="h-faq f-faq">${each(FAQ, (f) => `<details><summary>${tt(f.q)}<span class="h-plus" aria-hidden="true"></span></summary><p>${tt(f.a)}</p></details>`)}
-    <details><summary>${t('Where do teachers sign in?', 'শিক্ষকরা কোথায় লগইন করবেন?')}<span class="h-plus" aria-hidden="true"></span></summary><p>${t('Teachers sign in through the Institution Portal. The public website login is for students; candidates sign in from Admissions.', 'শিক্ষকরা প্রতিষ্ঠান পোর্টাল থেকে লগইন করেন। পাবলিক ওয়েবসাইটের লগইন শিক্ষার্থীদের জন্য; প্রার্থীরা ভর্তি অংশ থেকে লগইন করেন।')}</p></details></div></section>
+    <details><summary>${t('Where do teachers sign in?', 'শিক্ষকরা কোথায় লগইন করবেন?')}<span class="h-plus" aria-hidden="true"></span></summary><p>${t('On this website: Login → Teacher. Students use Login → Student, candidates sign in from Admissions, and officials use their Government Portal.', 'এই ওয়েবসাইটে: লগইন → শিক্ষক। শিক্ষার্থীরা লগইন → শিক্ষার্থী ব্যবহার করে, প্রার্থীরা ভর্তি অংশ থেকে লগইন করে, আর কর্মকর্তারা নিজ সরকারি পোর্টাল ব্যবহার করেন।')}</p></details></div></section>
   <section id="guides" class="f-sec"><h2 class="h-h3">${t('User guides', 'ব্যবহার নির্দেশিকা')}</h2><ul class="f-docs">${each([['Candidate', 'প্রার্থী'], ['Student', 'শিক্ষার্থী'], ['Teacher', 'শিক্ষক'], ['Principal / Institution Admin', 'অধ্যক্ষ / প্রতিষ্ঠান অ্যাডমিন'], ['Division / District / Ministry officials', 'বিভাগ / জেলা / মন্ত্রণালয় কর্মকর্তা']], (r) => `<li>${icon('book-open', 'ico')}<span><b>${t(`User guide — ${r[0]}`, `ব্যবহার নির্দেশিকা — ${r[1]}`)}</b><small>PDF · ${n('1.6 MB')}</small></span><button type="button" class="btn btn-outline btn-sm" ${dl()}>${icon('download', 'ico ico-sm')}${t('Download', 'ডাউনলোড')}</button></li>`)}</ul></section>
   <section id="videos" class="f-sec"><h2 class="h-h3">${t('Video tutorials (Bangla)', 'ভিডিও টিউটোরিয়াল (বাংলা)')}</h2><ul class="f-videos">${each([[['How to apply for admission online', 'কীভাবে অনলাইনে ভর্তির আবেদন করবেন'], '4:20'], [['How to pay fees online', 'কীভাবে অনলাইনে ফি পরিশোধ করবেন'], '3:05'], [['Taking attendance (teachers)', 'হাজিরা নেওয়া (শিক্ষক)'], '2:40'], [['Submitting a service request (students)', 'সেবার আবেদন জমা (শিক্ষার্থী)'], '3:30']], ([l, m]) => `<li><button type="button" ${act({ set: '_=1', toast: ['Videos play from the official channel in production.', 'প্রোডাকশনে অফিসিয়াল চ্যানেল থেকে ভিডিও চলবে।'] })}><span class="f-vid">${icon('circle-play', 'ico ico-xl')}</span><b>${tt(l)}</b><small>${n(m)}</small></button></li>`)}</ul></section>
   <section id="downloads" class="f-sec"><h2 class="h-h3">${t('Forms and downloads', 'ফরম ও ডাউনলোড')}</h2><ul class="f-docs">${each(docs, ([l, s]) => `<li>${icon('file-down', 'ico')}<span><b>${tt(l)}</b><small>PDF · ${n(s)}</small></span><button type="button" class="btn btn-outline btn-sm" ${dl()}>${icon('download', 'ico ico-sm')}${t('Download', 'ডাউনলোড')}</button></li>`)}</ul></section>
@@ -327,7 +331,7 @@ function verify() {
     <div data-lookup-res="none" hidden>${alert('warn', t('No record found', 'কোনো রেকর্ড পাওয়া যায়নি'), t('Check the number and try again. Certificates issued before the system was introduced may not be listed.', 'নম্বরটি যাচাই করে আবার চেষ্টা করুন। সিস্টেম চালুর আগে ইস্যুকৃত সনদ তালিকায় না-ও থাকতে পারে।'))}</div>
     <p class="f-note">${icon('info', 'ico ico-sm')}${t('Employers and organisations can register for licence and certificate verification.', 'নিয়োগকর্তা ও প্রতিষ্ঠান লাইসেন্স ও সনদ যাচাইয়ের জন্য নিবন্ধন করতে পারে।')} <a class="link" href="verifier.html">${t('Organisation verification', 'প্রতিষ্ঠানের যাচাই')}</a></p></section>
   <section class="h-card"><h2 class="h-h3">${t('Admission result', 'ভর্তির ফলাফল')}</h2><p class="muted">${t('Diploma 2026–27 results will be published on 25 November 2026.', 'ডিপ্লোমা ২০২৬–২৭-এর ফলাফল ২৫ নভেম্বর ২০২৬ তারিখে প্রকাশিত হবে।')}</p>${a('admission-result.html', t('Check admission result', 'ভর্তির ফলাফল দেখুন'), 'btn btn-outline')}
-    <h2 class="h-h3 f-mt">${t('Semester results', 'সেমিস্টার ফলাফল')}</h2><p class="muted">${t('Students view semester results in the student portal.', 'শিক্ষার্থীরা স্টুডেন্ট পোর্টালে সেমিস্টার ফলাফল দেখে।')}</p>${a('student-login.html', t('Student Login', 'শিক্ষার্থী লগইন'), 'btn btn-teal')}
+    <h2 class="h-h3 f-mt">${t('Semester results', 'সেমিস্টার ফলাফল')}</h2><p class="muted">${t('Students view semester results in the student portal.', 'শিক্ষার্থীরা স্টুডেন্ট পোর্টালে সেমিস্টার ফলাফল দেখে।')}</p>${a('login.html', t('Login', 'লগইন'), 'btn btn-teal')}
     <h2 class="h-h3 f-mt">${t('Professional licence', 'পেশাগত লাইসেন্স')}</h2><p class="muted">${t('Licence verification is available to registered organisations (Phase 2).', 'নিবন্ধিত প্রতিষ্ঠানের জন্য লাইসেন্স যাচাই (২য় পর্যায়)।')}</p>${a('license.html', t('Professional licence', 'পেশাগত লাইসেন্স'), 'btn btn-outline')}</section>
 </div>`;
   return page({ file: 'verify', title: ['Results / Verification', 'ফলাফল / যাচাই'], body });
@@ -356,21 +360,4 @@ function publicDashboard() {
   return page({ file: 'public-dashboard', title: ['Public dashboard', 'পাবলিক ড্যাশবোর্ড'], body });
 }
 
-// ================= PORTALS =================
-function portals() {
-  const body = `<section class="f-portals-sec f-portals-page"><div class="container">
-  <nav class="h-crumb"><a href="index.html">${t('Home', 'হোম')}</a><span>/</span><span aria-current="page">${t('Government Portals', 'সরকারি পোর্টাল')}</span></nav>
-  <div class="f-portals-head"><h1 class="h-display h-display-sm">${t('Institutional and Government Portals', 'প্রাতিষ্ঠানিক ও সরকারি পোর্টাল')}</h1>
-    <p>${t('Separate secure access for authorised government and institution users. Each portal has its own address and sign-in. Accounts are created by the Ministry or the institution; there is no public registration.', 'অনুমোদিত সরকারি ও প্রতিষ্ঠানের ব্যবহারকারীদের জন্য পৃথক নিরাপদ প্রবেশ। প্রতিটি পোর্টালের নিজস্ব ঠিকানা ও লগইন রয়েছে। অ্যাকাউন্ট মন্ত্রণালয় বা প্রতিষ্ঠান তৈরি করে; পাবলিক নিবন্ধন নেই।')}</p></div>
-  <div class="f-portal-grid">${each(PORTALS, (p) => portalCard(p, true))}</div>
-  <div class="f-portal-who">
-    <h2 class="h-h3">${t('Which portal should I use?', 'কোন পোর্টাল ব্যবহার করব?')}</h2>
-    ${table({ id: 'who', compact: true, cols: [{ l: ['User', 'ব্যবহারকারী'] }, { l: ['Sign in at', 'যেখানে লগইন'] }], rows: [
-      [['Ministry / Department of Textiles official', 'মন্ত্রণালয় / বস্ত্র অধিদপ্তরের কর্মকর্তা'], ['Ministry Portal', 'মন্ত্রণালয় পোর্টাল'], 'portal-ministry.html'], [['Division Administrator', 'বিভাগীয় প্রশাসক'], ['Division Portal', 'বিভাগীয় পোর্টাল'], 'portal-division.html'], [['District Administrator', 'জেলা প্রশাসক'], ['District Portal', 'জেলা পোর্টাল'], 'portal-district.html'],
-      [['Principal / Institution Admin, teacher, staff', 'অধ্যক্ষ / প্রতিষ্ঠান অ্যাডমিন, শিক্ষক, কর্মচারী'], ['Institution Portal', 'প্রতিষ্ঠান পোর্টাল'], 'portal-institution.html'], [['Student', 'শিক্ষার্থী'], ['Student Login (public website)', 'শিক্ষার্থী লগইন (পাবলিক ওয়েবসাইট)'], 'student-login.html'], [['Admission candidate', 'ভর্তি প্রার্থী'], ['Admissions → Candidate login', 'ভর্তি → প্রার্থী লগইন'], 'candidate-login.html']].map((r) => ({ cells: [tt(r[0]), `<a class="link" href="${r[2]}">${tt(r[1])}</a>`] })) })}
-  </div>
-</div></section>`;
-  return page({ file: 'portals', title: ['Government Portals', 'সরকারি পোর্টাল'], body });
-}
-
-export default { index: home, about, officials, academic, institutions, 'institution-profile': institutionProfile, notices, 'notice-detail': noticeDetail, gallery, help, verify, 'public-dashboard': publicDashboard, portals };
+export default { index: home, about, officials, academic, institutions, 'institution-profile': institutionProfile, notices, 'notice-detail': noticeDetail, gallery, help, verify, 'public-dashboard': publicDashboard };
