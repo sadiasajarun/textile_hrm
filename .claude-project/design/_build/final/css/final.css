@@ -444,6 +444,21 @@ html[data-lang="bn"] .f-side-h{text-transform:none;letter-spacing:0;font-size:.8
 .f-proto .vnb-body button{color:inherit}
 
 /* ---------- Responsive ---------- */
+/* small components: inline table inputs, mark entry, service list, horizontal timeline, checklist, danger button */
+.f-inline{width:90px;min-height:36px;border:1px solid var(--border-strong);border-radius:4px;padding:0 8px;font:inherit;background:#fff}
+.f-mark{margin:0}
+.f-mark input{max-width:110px}
+.f-svc-list{display:flex;flex-direction:column}
+.f-svc-list li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.f-svc-list li:last-child{border-bottom:0}
+.f-tl-row{flex-direction:row;overflow-x:auto}
+.f-tl-row li{flex:1 1 0;min-width:120px;grid-template-columns:1fr;gap:8px;padding:0 12px 0 0}
+.f-tl-row li:not(:last-child)::before{left:28px;right:0;top:13px;bottom:auto;width:auto;height:2px}
+.f-checklist{border:0;padding:0;margin:16px 0}
+.f-checklist legend{margin-bottom:8px}
+.btn-danger{background:#fff;color:var(--danger);border-color:var(--danger)}
+.btn-danger:hover{background:var(--danger-bg)}
+
 @media (max-width:1200px){
   .f-nav a{padding:10px 10px;font-size:1rem}
   .f-brand b{font-size:1.15rem}
@@ -505,8 +520,9 @@ html[data-lang="bn"] .f-side-h{text-transform:none;letter-spacing:0;font-size:.8
   .f-review div{grid-template-columns:1fr auto}
   .f-review dd{grid-column:1;grid-row:2}
   .f-stepper{padding:18px}
-  .f-stp-ind li{font-size:0}
-  .f-stp-ind li > span{font-size:1rem}
+  .f-stp-ind li{min-width:0;font-size:.75rem}
+  .f-stp-ind li:not(.is-now) > span:not(:first-child){display:none}
+  .f-stp-ind li.is-now{flex:3}
   .f-login-card{padding:24px 20px}
   .f-portal-strip ul{margin-left:0}
   .f-notice{padding:20px}
@@ -516,4 +532,18 @@ html[data-lang="bn"] .f-side-h{text-transform:none;letter-spacing:0;font-size:.8
   .f-tools-count{margin-left:0}
   .f-quick{grid-template-columns:1fr}
   .f-index-head .container{flex-direction:column}
+}
+
+/* 390px fixes: grid items may shrink, action rows wrap */
+.f-pd-grid > *,.f-grid > *,.f-cand-grid > *,.f-grid2 > *{min-width:0}
+.h-pagehead-act{flex-wrap:wrap}
+@media (max-width:720px){
+  .f-kpis li{min-width:0;padding:18px 16px}
+  .f-welcome{flex-wrap:wrap;padding:20px}
+  .f-welcome .btn{white-space:normal}
+}
+@media (max-width:720px){
+  .f-alert,.f-flow-banner{flex-wrap:wrap}
+  .f-alert > div,.f-flow-banner > span{flex:1 1 calc(100% - 40px)}
+  .f-alert > .btn,.f-flow-banner > .btn{margin-left:36px}
 }

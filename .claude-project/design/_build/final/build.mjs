@@ -25,7 +25,14 @@ for (const m of modules) {
 }
 fs.mkdirSync(out, { recursive: true });
 fs.mkdirSync(assets, { recursive: true });
-for (const [file, render] of Object.entries(pages)) fs.writeFileSync(path.join(out, `${file}.html`), render());
+const badConds = [];
+for (const [file, render] of Object.entries(pages)) {
+  const html = render();
+  // Every data-when condition must be key=value[|value][&key=value]; a missing key hides the block forever.
+  for (const [, cond] of html.matchAll(/data-when(?:-not)?="([^"]*)"/g)) if (!cond.split('&').every((c) => /^\w+=[\w|]+$/.test(c))) badConds.push(`${file}: ${cond}`);
+  fs.writeFileSync(path.join(out, `${file}.html`), html);
+}
+if (badConds.length) { console.error(`Malformed data-when conditions:\n  ${badConds.join('\n  ')}`); process.exit(1); }
 fs.copyFileSync(path.join(here, 'css', 'final.css'), path.join(assets, 'final.css'));
 fs.copyFileSync(path.join(here, 'js', 'final.js'), path.join(assets, 'final.js'));
 for (const f of ['base.css', 'h.css']) fs.copyFileSync(path.join(here, '..', 'ghi', 'css', f), path.join(design, 'assets', 'ghi', f));

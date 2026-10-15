@@ -1,6 +1,6 @@
 # HANDOFF — Final prototype build (Variation H), continue on another device
 
-**Last updated:** 15 Oct 2026 · **Branch:** `main` · **Status:** about 85% built. **65 of about 71 pages** generate cleanly with full English/বাংলা coverage. The remaining work is listed in §4.
+**Last updated:** 15 Oct 2026 · **Branch:** `main` · **Status:** complete. All **71 pages** build with full English/বাংলা coverage. The §4 work is done: Phase 2 licence pages (`pages/license.mjs`), missing CSS, light QA (`_build/final/qa/qa-final.mjs`, see `design/FINAL_QA_REPORT.md`) and the FINAL_* documents. §2–§4 below are kept as the build reference.
 
 ## 1. Read these first (all are in the repo)
 
@@ -82,7 +82,7 @@ Requirements: Node 18 or later. No npm install is needed unless you add new icon
 ```bash
 cd .claude-project/design/_build/final && node build.mjs && cd ../../../.. && git status --porcelain
 ```
-This must print `Built 65 pages` followed by **no changed files**. That proves your device reproduces the committed prototype exactly. Verified on a fresh clone on 15 Oct 2026. If files show as changed, check that `.gitattributes` (LF line endings) was respected; don't start editing until it is clean.
+This must print `Built 71 pages, 70 icons.` followed by **no changed files** (65 pages before the Phase 2 licence pages were added). That proves your device reproduces the committed prototype exactly. Verified on a fresh clone on 15 Oct 2026. If files show as changed, check that `.gitattributes` (LF line endings) was respected; don't start editing until it is clean.
 
 To keep the new pages consistent with the existing ones:
 - Build them only with the helpers in `core.mjs` and the patterns in `ministry.mjs` / `admission.mjs`.

@@ -1,6 +1,6 @@
 # FINAL_SCOPE_COVERAGE — Textile Institution Management System (final prototype, Variation H)
 
-**Date:** 15 Oct 2026 · **Baseline:** Variation H (approved) · **Prototype root:** `.claude-project/design/prototype/` · **Review entry:** `prototype/prototype-index.html`
+**Date:** 15 Oct 2026 · **Status:** final prototype complete (71 routes, flows A–J), light QA passed · **Baseline:** Variation H (approved) · **Prototype root:** `.claude-project/design/prototype/` · **Review entry:** `prototype/prototype-index.html`
 
 **Sources, in priority order:**
 1. `Core_Features_Textile_Institution_Management_System.docx` (CF)
@@ -91,12 +91,18 @@ All routes are files in `prototype/`. A route written `x.html#tab` is a tab on t
 
 | Requirement | Role | Route / screen | Workflow | Edge cases | Status |
 |---|---|---|---|---|---|
-| Public license application (form, documents, submit, track) | Professional | `license.html`, `license-apply.html`, `license-track.html` | Stepper → submit → reference no. | Duplicate application, missing documents | Built (Flow J) |
-| Head Office review, approve/reject, issue unique number | Ministry | `ministry-licenses.html` | Review → approve → issue `TX-LIC-…` | Reject with reason | Built (Flow J) |
-| Third-party organisation registration | Organisation | `verifier-register.html` | Register → verify email (simulated) | Duplicate registration | Built |
-| Pay before verification | Organisation | `verifier.html` | Pay → search unlocked | Payment failed; pricing model **TBD** | Built / TBD |
-| Search by license/certificate number; result | Organisation | `verifier.html` | Search → valid / expired / revoked / not found | Not found | Built |
-| Link between Phase 1 certificate and Phase 2 license | — | Noted in `license.html` | — | — | TBD |
+| Licence overview (who can apply, how it works, documents, fees) | Public | `license.html` | Apply / Track | Eligibility, fees, validity **TBD** | Built / TBD |
+| Public license application (form, documents, submit) | Professional | `license-apply.html` | 4-step stepper → submit → reference LIC-APP-2026-00071 | Duplicate application (NID), missing documents, already applied, previously rejected | Built (Flow J) |
+| Track application | Professional | `license-track.html` | Find by reference + mobile → status timeline | Not found, not submitted yet, returned (upload + resubmit), rejected with reason, issued | Built (Flow J) |
+| Head Office review against validation criteria | Ministry | `ministry-licenses.html` (Applications) | Review panel: details, documents, checklist | Full validation criteria **TBD** | Built / TBD |
+| Approve / reject; issue unique number | Ministry | `ministry-licenses.html` | Approve and issue `TX-LIC-2026-000418` · Return for correction · Reject with reason | Returned, rejected | Built (Flow J) |
+| Issued licence register | Ministry | `ministry-licenses.html#issued` | Search, status filter | Valid, expired, revoked; renewal/revocation rules **TBD** | Built / TBD |
+| Third-party organisation registration | Organisation | `verifier-register.html` | Register → verification workspace | Duplicate trade licence, already registered; account approval **TBD** | Built / TBD |
+| Pay before verification | Organisation | `verifier.html` | Pay → search unlocked | Search locked before payment, payment pending, payment failed; pricing model and gateway **TBD** | Built / TBD |
+| Search by license/certificate number; result | Organisation | `verifier.html` | Search → valid / expired / revoked / not found; Phase 1 certificates also verifiable | Not found | Built (Flow J) |
+| Usage history | Organisation | `verifier.html` | Payment and searches recorded | No checks yet (empty state) | Built |
+| Verifier organisations list | Ministry | `ministry-licenses.html#orgs` | — | — | Built (demo data) |
+| Link between Phase 1 certificate and Phase 2 license | — | Noted in `license.html`, `license-apply.html`, `ministry-licenses.html#rules` | — | — | TBD |
 
 ## E. Critical E2E flows (stakeholder instruction §22)
 
@@ -113,12 +119,15 @@ All routes are files in `prototype/`. A route written `x.html#tab` is a tab on t
 | **I** Certificate → Alumni | `student-certificate` → `inst-certificates` → `alumni` |
 | **J** License | `license-apply` → `ministry-licenses` → `verifier-register` → `verifier` |
 
-Cross-page flow state is kept in browser storage (`final.js`). The prototype index has a **Reset demo data** control. Detailed steps are in `FINAL_WORKFLOW_MAP.md`.
+Cross-page flow state is kept in browser storage (`final.js`). The prototype index has a **Reset demo data** control. Detailed steps are in `FINAL_WORKFLOW_MAP.md`; edge cases in `FINAL_EDGE_CASE_MATRIX.md`; routes in `FINAL_ROUTE_MAP.md`; QA in `FINAL_QA_REPORT.md`. All ten flows pass the click-through check.
 
 ## F. Open items carried as TBD
 - Procurement / LC / PO / Gate Pass approval chain and responsible roles (SOW §6)
 - MY GOV API use case (SOW §6)
-- License pricing: per check vs. subscription; payment gateway (SOW §4.4)
+- License pricing: per check vs. subscription; amount; payment gateway; invoicing (SOW §4.4)
+- License eligibility and validation criteria; licence categories; licence number format (SOW §4.2)
+- License validity, renewal, revocation and appeal after rejection
+- Approval of third-party organisation accounts before activation; terms of use and data protection wording
 - Student profile vs. certificate data rule, "As Certificate follow" (SOW §6)
 - Division/District as predefined government regions (assumed: the 8 divisions and 64 districts)
 - Leave types beyond CL/SL/EL; accrual rules

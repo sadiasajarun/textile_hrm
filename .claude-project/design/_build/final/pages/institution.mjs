@@ -175,7 +175,7 @@ function finance() {
 
 // ================= ASSETS (Flow F) =================
 function assets() {
-  const after = (states) => states.join('|');
+  const after = (states) => `asset=${states.join('|')}`;
   const body = `${pageHead({ title: t('Assets and inventory', 'সম্পদ ও মজুদ'), sub: t('Assets from the Head Office, who holds them, availability, damage and loss.', 'প্রধান কার্যালয়ের সম্পদ, কার কাছে আছে, প্রাপ্যতা, ক্ষতি ও হারানো।') })}
   ${when('asset=none', alert('info', t('Flow F: no new allocation from the Ministry yet.', 'ফ্লো এফ: মন্ত্রণালয় থেকে এখনও নতুন বরাদ্দ আসেনি।'), '', a('ministry-assets.html', t('Open Ministry assets', 'মন্ত্রণালয়ের সম্পদ খুলুন'), 'btn btn-outline btn-sm')))}
   ${when('asset=received|assigned|transferred|returned|damaged|recovered', card(t('Batch AL-2026-077 — Industrial sewing machine (6) · tag KTI-SEW-0601…0606', 'ব্যাচ AL-2026-077 — শিল্প সেলাই মেশিন (৬) · ট্যাগ KTI-SEW-0601…0606'), `
@@ -201,7 +201,7 @@ function assets() {
 // ================= PROCUREMENT (Flow G) =================
 function procurement() {
   const S = ['submitted', 'approved', 'po', 'lc', 'received', 'gatepass'];
-  const from = (k) => S.slice(S.indexOf(k)).join('|');
+  const from = (k) => `proc=${S.slice(S.indexOf(k)).join('|')}`;
   const body = `${pageHead({ title: t('Procurement', 'ক্রয়'), sub: t('Request → approval → purchase order → LC (imports) → receipt → inventory → gate pass.', 'অনুরোধ → অনুমোদন → ক্রয়াদেশ → এলসি (আমদানি) → গ্রহণ → মজুদ → গেট পাস।') })}
   ${alert('warn', t('The approval chain, thresholds and required fields for procurement, LC, PO and gate pass are not yet defined by the client.', 'ক্রয়, এলসি, পিও ও গেট পাসের অনুমোদন ধাপ, সীমা ও প্রয়োজনীয় ঘর ক্লায়েন্ট এখনও নির্ধারণ করেননি।'), `${t('The prototype assumes: Principal → District (review) → Ministry (above ৳ 3 lakh).', 'প্রোটোটাইপে ধরা হয়েছে: অধ্যক্ষ → জেলা (পর্যালোচনা) → মন্ত্রণালয় (৩ লাখ টাকার বেশি)।')} ${tbd()}`)}
   ${when('proc=none', `<form class="h-card h-form" data-flow ${act({ set: 'proc=submitted', toast: ['PR-2026-071 submitted. District reviewed and forwarded it to the Ministry.', 'PR-2026-071 জমা হয়েছে। জেলা পর্যালোচনা করে মন্ত্রণালয়ে পাঠিয়েছে।'] })} novalidate>
