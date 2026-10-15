@@ -78,6 +78,18 @@ Requirements: Node 18 or later. No npm install is needed unless you add new icon
 - Ministry (10 pages), Division, District, Institution (14 pages), Teacher (5), Student (8 + alumni).
 - Flows B–I are wired through the shared state across these pages.
 
+## 3b. Consistency check — do this first, before editing anything
+```bash
+cd .claude-project/design/_build/final && node build.mjs && cd ../../../.. && git status --porcelain
+```
+This must print `Built 65 pages` followed by **no changed files**. That proves your device reproduces the committed prototype exactly. Verified on a fresh clone on 15 Oct 2026. If files show as changed, check that `.gitattributes` (LF line endings) was respected; don't start editing until it is clean.
+
+To keep the new pages consistent with the existing ones:
+- Build them only with the helpers in `core.mjs` and the patterns in `ministry.mjs` / `admission.mjs`.
+- Reuse existing CSS classes.
+- Add new styles only to `css/final.css`.
+- Keep the formal government tone of the existing copy.
+
 ## 4. Remaining work (do in this order)
 1. **Write `pages/license.mjs` (Phase 2, Flow J).** These pages are linked already and are currently dead links:
    - `license.html`: overview, eligibility, fees TBD, Apply / Track buttons, note that the link to Phase 1 certificates is TBD.
