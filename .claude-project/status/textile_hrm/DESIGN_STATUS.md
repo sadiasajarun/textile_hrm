@@ -2,15 +2,15 @@
 
 ```yaml
 phase: P3-design
-current_step: P3d            # client confirmation — paused (rework round 2)
-selected_variation: null     # D | E | F (A/B/C kept for reference)
+current_step: P3d            # client confirmation — paused (rework round 3, Phase 1 G/H/I)
+selected_variation: null     # G | H | I | hybrid (A–F kept for reference)
 approved: false
 approved_at: null
-variations_generated: 6      # round 1: A/B/C · round 2 (rework): D/E/F
+variations_generated: 9      # round 1: A/B/C · round 2: D/E/F · round 3: G/H/I
 archetypes: [civic-clarity, heritage-weave, command-center, national-service-portal, connected-institution-network, action-service-hub]
 html_files: 39               # A/B/C 9 + D/E/F 30
-showcase: .claude-project/design/variations/showcase-DEF.html   # round 1: showcase-ALL.html
-recommendation: D            # see showcase-DEF.html "Recommendation"; not merged
+showcase: .claude-project/design/variations/showcase-GHI.html   # earlier: showcase-ALL.html, showcase-DEF.html
+recommendation: G (single) / hybrid G public + I officials' workspaces + G learner workspaces  # see showcase-GHI.html
 prd_version_used: v1
 ```
 
@@ -52,3 +52,17 @@ Design systems: `design/DESIGN_SYSTEM_D.md`, `DESIGN_SYSTEM_E.md`, `DESIGN_SYSTE
 1. Open `variations/showcase-DEF.html` and choose D, E or F. (Round 1, `showcase-ALL.html`, stays available.)
 2. Record it here: `selected_variation: <D|E|F>`, `approved: true`, `approved_at: <ISO8601>`. Or reply to Claude with the choice.
 3. Resume: `/fullstack-pm textile_hrm --phase P3-design --resume`. This runs P3e (all 108 pages in role folders), P3f (QA) and P3g (snapshot).
+
+### Round 3 — Phase 1 design directions (G/H/I)
+
+Brief: public-first website (IPEMIS / Invest Bangladesh / BIDA references), 5-item public nav, public login for Candidate/Student/Teacher only, officials on separate portal domains, fixed palette Ocean Blue #356A82 · Teal #3A817E · Sky Mist #DCECEF, real Bangla/English. Phase 1 = 7 key screens per direction; Phase 2 (full prototype) waits for explicit confirmation.
+
+| Key | Name | Files |
+|---|---|---|
+| G | Public Service First | `variations/G-01-landing.html` … `G-07-student-dashboard.html` |
+| H | Institutional & Premium | `variations/H-01-landing.html` … `H-07-student-dashboard.html` |
+| I | Functional Government Workspace | `variations/I-01-landing.html` … `I-07-student-dashboard.html` |
+
+Screens: 01 Landing · 02 Notices · 03 Login & portal entry · 04 Ministry · 05 Principal · 06 Teacher · 07 Student. Showcase: `variations/showcase-GHI.html`.
+Build: `_build/ghi/` (Node, no dependencies; `node build.mjs`). Photos: Wikimedia Commons, credits in `assets/ghi/img/CREDITS.json`.
+QA (partial, stopped at the client's request): 40/40 interaction flows pass in all three directions; open items listed in the hand-off (390px overflow on some pages, a few targets 20–23px, IDs/names stay Latin in Bangla mode).
