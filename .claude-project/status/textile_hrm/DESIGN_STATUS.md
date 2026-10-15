@@ -11,6 +11,7 @@ archetypes: [civic-clarity, heritage-weave, command-center, national-service-por
 html_files: 39               # A/B/C 9 + D/E/F 30 (variation screens; final prototype counted below)
 final_prototype: .claude-project/design/prototype/   # 78 routes, flows A–J
 final_entry: .claude-project/design/prototype/prototype-index.html
+live_url: https://sadiasajarun.github.io/textile_hrm/   # GitHub Pages from the gh-pages branch; republished by .github/workflows/pages.yml on every push to main
 final_build: .claude-project/design/_build/final/   # node build.mjs
 final_docs: [FINAL_SCOPE_COVERAGE.md, FINAL_ROUTE_MAP.md, FINAL_WORKFLOW_MAP.md, FINAL_EDGE_CASE_MATRIX.md, FINAL_DESIGN_SYSTEM.md, FINAL_QA_REPORT.md]
 final_qa: light — 97/97 checks, 0 dead links, 0 page errors, 0 overflow at 1440/390, Bangla spot-check pass
