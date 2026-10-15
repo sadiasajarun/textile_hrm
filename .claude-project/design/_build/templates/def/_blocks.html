@@ -1,0 +1,389 @@
+{# Shared content blocks for D/E/F. Layout and composition differ per variation; content stays consistent. #}
+{% import 'def/_m.html' as m %}
+
+{# ---------------------------------------------------------------- public blocks #}
+{% macro stats_grid(stats, cols='grid-cols-2') -%}
+<dl class="grid {{ cols }} gap-px bg-line rounded-ui overflow-hidden border border-line">
+  {% for s in stats %}<div class="bg-surface p-4"><dt class="label flex items-center gap-1.5">{{ icon(s.icon,'w-4 h-4') }}{{ t(s.label) }}</dt><dd class="figure mt-1">{{ num(s.value) }}</dd></div>{% endfor %}
+</dl>
+{%- endmacro %}
+
+{% macro service_tile(s, pf) -%}
+{% set target = {'Find an institution': pf['02'], 'Track application': pf['02'] ~ '#track', 'Verify a certificate': pf['02'] ~ '#verify'}.get(s.name) %}
+{% if target %}<a href="{{ target }}" class="card card-pad flex flex-col gap-3 h-full">{% else %}<button type="button" class="card card-pad flex flex-col gap-3 h-full text-left" {{ m.ph(s.name, '/services/' ~ s.name|lower|replace(' ','-'), 'PRD §6.1 /services') }}>{% endif %}
+  <span class="icon-chip">{{ icon(s.icon) }}</span>
+  <span class="font-semibold text-[1.0625rem] leading-snug">{{ t(s.name) }}</span>
+  <span class="text-sm text-ink-2">{{ t(s.desc) }}</span>
+  {% if s.phase2 %}<span class="self-start">{{ m.tag('Phase 2') }}</span>{% endif %}
+  <span class="link text-sm mt-auto inline-flex items-center gap-1">{{ t('Open') }} {{ icon('arrow-right','w-4 h-4') }}</span>
+{% if target %}</a>{% else %}</button>{% endif %}
+{%- endmacro %}
+
+{% macro service_row(s, pf, filter_list=None, compact=false) -%}
+{% set target = {'Find an institution': pf['02'], 'Track application': pf['02'] ~ '#track', 'Verify a certificate': pf['02'] ~ '#verify'}.get(s.name) %}
+<li class="qrow items-center" {% if filter_list %}data-item data-text="{{ s.name }} {{ s.who }} {{ s.desc }} {{ tb(s.name) }}"{% endif %}>
+  <span class="icon-chip">{{ icon(s.icon) }}</span>
+  <div class="flex-1 min-w-0"><p class="font-semibold">{{ t(s.name) }} {% if s.phase2 %}{{ m.tag('Phase 2') }}{% endif %}</p>{% if compact %}<p class="text-sm muted">{{ t(s.desc) }}</p><p class="text-xs muted mt-0.5">{% if s.steps %}{{ num(s.steps|string) }} {{ t("step" if s.steps == 1 else "steps") }} · {% endif %}{{ t(s.time) }}</p>{% else %}<p class="text-sm muted">{{ t(s.who) }} · {{ t(s.desc) }}</p>{% endif %}</div>
+  <div class="{{ 'hidden' if compact else 'hidden md:block' }} text-right text-sm min-w-[150px]"><p class="font-semibold">{% if s.steps %}{{ num(s.steps|string) }} {{ t("step" if s.steps == 1 else "steps") }}{% else %}{{ t("Information") }}{% endif %}</p><p class="muted">{{ t(s.time) }}</p></div>
+  {% if target %}<a href="{{ target }}" class="btn btn-secondary btn-sm">{{ t('Start') }}</a>{% else %}<button type="button" class="btn btn-secondary btn-sm" {{ m.ph(s.name, '/services/' ~ s.name|lower|replace(' ','-'), 'PRD §6.1 /services') }}>{{ t('Start') }}</button>{% endif %}
+</li>
+{%- endmacro %}
+
+{% macro admission_steps(dates, style='bars') -%}
+{% if style == 'bars' %}
+<ol class="grid gap-4 grid-cols-2 sm:grid-cols-5">{% for s in dates %}<li class="hstep {{ s.state }}"><span class="bar"></span><span class="font-semibold text-sm">{{ t(s.label) }}</span><span class="text-xs muted">{{ s.date }}</span>{% if s.state == 'current' %}<span>{{ m.tag('Pending') }}</span>{% endif %}</li>{% endfor %}</ol>
+{% else %}
+<ol class="timeline">{% for s in dates %}<li class="tl-item {{ 'tl-done' if s.state == 'done' else ('tl-current' if s.state == 'current' else '') }}"><span class="tl-dot">{% if s.state == 'done' %}{{ icon('check') }}{% elif s.state == 'current' %}{{ icon('clock') }}{% else %}{{ icon('circle-dashed') }}{% endif %}</span><div><p class="font-semibold">{{ t(s.label) }}</p><p class="text-sm muted">{{ s.date }}</p></div></li>{% endfor %}</ol>
+{% endif %}
+{%- endmacro %}
+
+{% macro admission_actions(pf) -%}
+<div class="flex flex-wrap gap-2">
+  <button type="button" class="btn btn-primary" {{ m.ph('Apply for admission', '/admissions/apply', 'PRD §6.1 /admissions/apply', 'Steps: applicant information → academic information → documents → review → submit.') }}>{{ icon('clipboard-list') }}{{ t('Apply for admission') }}</button>
+  <button type="button" class="btn btn-secondary" {{ m.ph('Check admission result', '/admissions/results', 'PRD §6.1 /admissions/results') }}>{{ t('Check admission result') }}</button>
+  <a href="{{ pf['02'] }}#track" class="btn btn-secondary">{{ icon('route') }}{{ t('Track application') }}</a>
+</div>
+{%- endmacro %}
+
+{% macro notices_table(notices, list_id='notice-list') -%}
+<div class="flex flex-wrap items-center gap-3 mb-3">
+  <label class="field w-full sm:w-64"><span class="sr-only">{{ t('Category') }}</span>
+    <select class="select" data-filter="#{{ list_id }}" data-key="category" aria-label="Category"><option value="" data-bn="{{ tb('All') }}">All</option>{% for c in ['Admission','Examination / Results','Teacher / Staff','Certificate / License','General'] %}<option value="{{ c|lower }}" data-bn="{{ tb(c) }}">{{ c }}</option>{% endfor %}</select>
+  </label>
+</div>
+<div class="card overflow-x-auto"><table class="tbl tbl-stack"><thead><tr><th>{{ t('Date') }}</th><th>{{ t('Notices') }}</th><th>{{ t('Category') }}</th><th>{{ t('Issuing authority') }}</th></tr></thead>
+<tbody id="{{ list_id }}">{% for n in notices %}<tr data-item data-category="{{ n.category|lower }}"><td class="whitespace-nowrap muted tnum">{{ n.date }}</td><td><button type="button" class="font-semibold text-left hover:underline" {{ m.ph('Notice detail', '/notices/:id', 'PRD §6.1 /notices/:id', n.title) }}>{{ t(n.title) }}</button></td><td><span class="tag tag-neutral">{{ icon('megaphone','w-3.5 h-3.5') }}{{ t(n.category) }}</span></td><td class="text-sm text-ink-2">{{ t(n.authority) }}</td></tr>{% endfor %}</tbody></table>
+<p class="empty" data-empty="#{{ list_id }}" hidden>{{ icon('inbox') }}No notices in this category yet.</p></div>
+{%- endmacro %}
+
+{% macro faq(items) -%}
+<div class="card divide-y divide-line">
+  {% for f in items %}<details class="group"{% if loop.first %} open{% endif %}><summary class="flex items-center justify-between gap-3 px-5 min-h-14 font-semibold list-none">{{ t(f.q) }}{{ icon('chevron-down','w-5 h-5 text-ink-3 group-open:rotate-180 transition-transform') }}</summary><p class="px-5 pb-4 text-ink-2">{{ t(f.a) }}</p></details>{% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro help_cards() -%}
+<div class="grid gap-4 sm:grid-cols-3">
+  {% for name, ic, desc in [('User guides','book-open','Step-by-step guides for every role, in Bangla and English.'),('Video tutorials','circle-play','Short videos for applicants, students, teachers and officers. (Placeholder content)'),('Contact the help desk','life-buoy','Help desk: 16xxx (TBD) · help@textile.gov.bd (TBD) · Sun–Thu 9:00–17:00')] %}
+  <button type="button" class="card card-pad text-left flex flex-col gap-2" {{ m.ph(name, '/help', 'PRD §6.1 /help') }}><span class="icon-chip">{{ icon(ic) }}</span><span class="font-semibold">{{ t(name) }}</span><span class="text-sm text-ink-2">{{ desc }}</span></button>
+  {% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro verify_box(prefix, sample='CERT-2025-KTI-0412') -%}
+<form class="space-y-3" data-lookup data-valid="{{ sample }}" data-found="#{{ prefix }}-found" data-notfound="#{{ prefix }}-nf">
+  <label class="field"><span>{{ t('Certificate or license number') }}</span><input class="input" placeholder="e.g. {{ sample }}" aria-describedby="{{ prefix }}-hint"><span class="field-error">{{ icon('circle-alert','w-4 h-4') }}{{ t('This field is required') }}</span></label>
+  <p id="{{ prefix }}-hint" class="text-xs muted">Prototype sample: <span class="font-mono">{{ sample }}</span>. Organizations register and pay before checking (SOW 4.4). {{ m.tbd('Free public lookup — TBD') }}</p>
+  <button class="btn btn-primary" type="submit">{{ icon('shield-check') }}{{ t('Verify') }}</button>
+</form>
+<div id="{{ prefix }}-found" class="mt-4 card card-pad" hidden role="status">
+  <div class="flex items-center justify-between gap-3"><p class="font-semibold">Sample verification result</p>{{ m.tag('Valid') }}</div>
+  <dl class="mt-3 grid grid-cols-[130px_1fr] gap-y-1.5 text-sm"><dt class="muted">Number</dt><dd class="font-mono">{{ sample }}</dd><dt class="muted">Holder</dt><dd>Rafiul Alam</dd><dt class="muted">Issued by</dt><dd>Karnaphuli Textile Institute</dd><dt class="muted">Issue date</dt><dd>12 Mar 2026</dd></dl>
+  <p class="mt-2 text-xs muted">Only the minimum details needed to confirm validity are shown (PRD Q-16).</p>
+</div>
+<div id="{{ prefix }}-nf" class="mt-4 banner banner-danger" hidden role="alert">{{ icon('circle-x') }}<span><strong>{{ t('Not found') }}.</strong> Check the number and try again. Numbers look like CERT-2025-XXX-0000 or LIC-2026-000000.</span></div>
+{%- endmacro %}
+
+{% macro track_box(prefix, sample, timeline) -%}
+<form class="space-y-3" data-lookup data-valid="{{ sample.no }}" data-found="#{{ prefix }}-found" data-notfound="#{{ prefix }}-nf">
+  <label class="field"><span>{{ t('Reference number') }}</span><input class="input" placeholder="e.g. {{ sample.no }}"><span class="field-error">{{ icon('circle-alert','w-4 h-4') }}{{ t('This field is required') }}</span></label>
+  <p class="text-xs muted">Prototype sample: <span class="font-mono">{{ sample.no }}</span></p>
+  <button class="btn btn-primary" type="submit">{{ icon('route') }}{{ t('Check status') }}</button>
+</form>
+<div id="{{ prefix }}-found" class="mt-4 card card-pad" hidden role="status">
+  <div class="flex flex-wrap items-center justify-between gap-2"><div><p class="font-semibold">{{ sample.type }}</p><p class="text-sm muted">{{ sample.name }} · <span class="font-mono">{{ sample.no }}</span></p></div>{{ m.tag('Under review') }}</div>
+  <div class="mt-4">{{ m.timeline(timeline) }}</div>
+</div>
+<div id="{{ prefix }}-nf" class="mt-4 banner banner-danger" hidden role="alert">{{ icon('circle-x') }}<span><strong>{{ t('Not found') }}.</strong> No application has this reference number. It is printed on your submission confirmation.</span></div>
+{%- endmacro %}
+
+{% macro directory_rows(rows, list_id, style='table') -%}
+{% for r in rows %}
+{% set attrs = 'data-name="' ~ r.name ~ '" data-code="' ~ r.code ~ '" data-type="' ~ r.type ~ '" data-district="' ~ r.district ~ '" data-division="' ~ r.division ~ '" data-phone="' ~ r.phone ~ '" data-programs="' ~ r.programs|join(', ') ~ '" data-principal="' ~ r.principal ~ '"' %}
+{% if style == 'table' %}
+<tr data-item data-text="{{ r.name }} {{ r.code }}" data-division="{{ r.division|lower }}" data-district="{{ r.district|lower }}" data-type="{{ r.type|lower }}">
+  <td class="font-mono text-sm whitespace-nowrap">{{ r.code }}</td>
+  <td><span class="font-semibold">{{ r.name }}</span></td>
+  <td class="text-sm">{{ t(r.type) }}</td>
+  <td class="text-sm">{{ r.district }}, {{ r.division }}</td>
+  <td class="text-sm whitespace-nowrap">{{ r.phone }}</td>
+  <td><button type="button" class="btn btn-secondary btn-sm" data-profile {{ attrs|safe }}>{{ t('View') }}</button></td>
+</tr>
+{% else %}
+<li class="qrow items-center" data-item data-text="{{ r.name }} {{ r.code }}" data-division="{{ r.division|lower }}" data-district="{{ r.district|lower }}" data-type="{{ r.type|lower }}">
+  <span class="icon-chip">{{ icon('school') }}</span>
+  <div class="flex-1 min-w-0"><p class="font-semibold">{{ r.name }}</p><p class="text-sm muted">{{ t(r.type) }} · {{ r.district }}, {{ r.division }} · <span class="font-mono">{{ r.code }}</span></p></div>
+  <button type="button" class="btn btn-secondary btn-sm" data-profile {{ attrs|safe }}>{{ t('View') }}</button>
+</li>
+{% endif %}
+{% endfor %}
+{%- endmacro %}
+
+{% macro directory_filters(list_id, x, layout='grid') -%}
+<div class="grid gap-3 {{ 'sm:grid-cols-2 lg:grid-cols-4' if layout == 'grid' else '' }}">
+  <label class="field"><span>{{ t('Institution name or code') }}</span><input class="input" data-filter="#{{ list_id }}" placeholder="e.g. Karnaphuli or TI-CTG-014" data-bn-placeholder="{{ tb('Institution name or code') }}"></label>
+  <label class="field"><span>{{ t('Division') }}</span><select class="select" data-filter="#{{ list_id }}" data-key="division"><option value="" data-bn="{{ tb('All divisions') }}">All divisions</option>{% for dv in x.divisions %}<option value="{{ dv.name|lower }}" data-bn="{{ dv.bn }}">{{ dv.name }}</option>{% endfor %}</select></label>
+  <label class="field"><span>{{ t('District') }}</span><select class="select" data-filter="#{{ list_id }}" data-key="district"><option value="" data-bn="{{ tb('All districts') }}">All districts</option>{% for r in x.directory|map(attribute='district')|unique|sort %}<option value="{{ r|lower }}">{{ r }}</option>{% endfor %}</select></label>
+  <label class="field"><span>{{ t('Type') }}</span><select class="select" data-filter="#{{ list_id }}" data-key="type"><option value="" data-bn="{{ tb('All types') }}">All types</option>{% for ty in ['Textile Engineering College','Textile Institute','Textile Vocational Institute'] %}<option value="{{ ty|lower }}" data-bn="{{ tb(ty) }}">{{ ty }}</option>{% endfor %}</select></label>
+</div>
+{%- endmacro %}
+
+{% macro profile_drawer() -%}
+<dialog id="profile-drawer" class="dlg drawer" aria-labelledby="pd-h">
+  <div class="dlg-head"><h2 id="pd-h" class="text-lg" data-p="name">Institution</h2><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close">{{ icon('x') }}</button></div>
+  <div class="dlg-body space-y-4">
+    <p class="banner banner-info">{{ icon('info') }}<span>Public profile: only information approved for public access is shown (PRD §2.4).</span></p>
+    <dl class="grid grid-cols-[120px_1fr] gap-y-2 text-sm">
+      <dt class="muted">{{ t('Institution code') }}</dt><dd class="font-mono" data-p="code"></dd>
+      <dt class="muted">{{ t('Type') }}</dt><dd data-p="type"></dd>
+      <dt class="muted">{{ t('District') }}</dt><dd data-p="district"></dd>
+      <dt class="muted">{{ t('Division') }}</dt><dd data-p="division"></dd>
+      <dt class="muted">{{ t('Principal') }}</dt><dd data-p="principal"></dd>
+      <dt class="muted">{{ t('Contact') }}</dt><dd data-p="phone"></dd>
+      <dt class="muted">{{ t('Programs') }}</dt><dd data-p="programs"></dd>
+    </dl>
+    <p class="text-xs muted">Attendance, budget, assets and personal data are never shown on public pages.</p>
+  </div>
+  <div class="dlg-foot"><button type="button" class="btn btn-secondary" {{ m.ph('Public institution profile page', '/institutions/:code', 'PRD §6.1') }}>Full profile page</button><button type="button" class="btn btn-primary" data-close>{{ t('Close') }}</button></div>
+</dialog>
+{%- endmacro %}
+
+{# ---------------------------------------------------------------- internal blocks #}
+{% macro attention_table(items, pf) -%}
+<div class="overflow-x-auto"><table class="tbl tbl-stack">
+  <thead><tr><th>{{ t('Issue') }}</th><th>{{ t('Institution') }}</th><th>{{ t('Responsible') }}</th><th>{{ t('Age') }}</th><th><span class="sr-only">{{ t('Actions') }}</span></th></tr></thead>
+  <tbody>{% for a in items %}<tr>
+    <td><span class="tag tag-{{ a.sev }}">{{ icon(a.icon,'w-3.5 h-3.5') }}{{ t(a.type) }}</span><p class="mt-1 font-semibold leading-snug">{{ a.title }}</p></td>
+    <td class="text-sm">{{ a.where }}</td>
+    <td class="text-sm">{{ t(a.role) }}</td>
+    <td class="text-sm whitespace-nowrap {{ 'overdue' if a.overdue else 'muted' }}">{{ a.age }}<span class="block text-xs font-normal muted">SLA {{ a.sla }}{% if a.overdue %} · <span class="overdue">{{ t('Overdue') }}</span>{% endif %}</span></td>
+    <td>{% if a.link == 'inst' %}<a href="{{ pf['10'] }}" class="btn btn-secondary btn-sm">{{ t(a.action) }}</a>{% else %}<button type="button" class="btn btn-secondary btn-sm" {{ m.ph(a.title, '/ministry/alerts', 'PRD §6.2 /ministry/alerts') }}>{{ t(a.action) }}</button>{% endif %}</td>
+  </tr>{% endfor %}</tbody>
+</table></div>
+{%- endmacro %}
+
+{% macro attention_queue(items, pf, btn='Review') -%}
+<ul>{% for a in items %}<li class="qrow">
+  <span class="sev-bar sev-{{ a.sev }}" aria-hidden="true"></span>
+  <span class="icon-chip {{ a.sev }}">{{ icon(a.icon) }}</span>
+  <div class="flex-1 min-w-0">
+    <p class="text-xs font-semibold muted">{{ t(a.type) }}</p>
+    <p class="font-semibold leading-snug">{{ a.title }}</p>
+    <p class="text-sm text-ink-2">{{ a.where }} · {{ t('Responsible') }}: {{ t(a.role) }}</p>
+    <p class="text-xs mt-1 {{ 'overdue' if a.overdue else 'muted' }}">{{ icon('clock','w-3.5 h-3.5 inline -mt-0.5') }} {{ a.age }} (SLA {{ a.sla }}){% if a.overdue %} — {{ t('Overdue') }}{% endif %}</p>
+  </div>
+  {% if a.link == 'inst' %}<a href="{{ pf['10'] }}" class="btn btn-primary btn-sm self-center">{{ t(a.action) }}</a>{% else %}<button type="button" class="btn btn-secondary btn-sm self-center" {{ m.ph(a.title, '/ministry/alerts', 'PRD §6.2 /ministry/alerts') }}>{{ t(a.action) }}</button>{% endif %}
+</li>{% endfor %}</ul>
+{%- endmacro %}
+
+{% macro simple_actions(items, label='Review') -%}
+<ul>{% for a in items %}<li class="qrow items-center">
+  <span class="sev-bar sev-{{ a.sev }}" aria-hidden="true"></span>
+  <span class="icon-chip {{ a.sev }}">{{ icon(a.icon) }}</span>
+  <div class="flex-1 min-w-0"><p class="font-semibold leading-snug">{{ a.title }}</p><p class="text-sm {{ 'overdue' if a.overdue else 'muted' }}">{{ a.where }} · {{ a.age }}{% if a.overdue %} — {{ t('Overdue') }}{% endif %}</p></div>
+  {% if 'Submit' in a.title %}<button type="button" class="btn btn-secondary btn-sm" data-open="#report-dialog">{{ t('Submit') }}</button>{% else %}<button type="button" class="btn btn-secondary btn-sm" {{ m.ph(a.title, '/actions', 'PRD §6.3–6.4') }}>{{ t(label) }}</button>{% endif %}
+</li>{% endfor %}</ul>
+{%- endmacro %}
+
+{% macro pending_list(items) -%}
+<ul class="divide-y divide-line">{% for p in items %}<li><button type="button" class="w-full text-left flex items-start gap-3 px-[var(--card-pad)] py-3 hover:bg-band" {{ m.ph(p.title, '/ministry/approvals', 'PRD §6.2') }}><span class="icon-chip">{{ icon(p.icon) }}</span><span class="min-w-0"><span class="block font-semibold leading-snug">{{ p.title }}</span><span class="block text-sm muted">{{ p.meta }}</span></span></button></li>{% endfor %}</ul>
+{%- endmacro %}
+
+{% macro recent_list(items) -%}
+<ol class="space-y-3 p-[var(--card-pad)]">{% for r in items %}<li class="flex gap-3 text-sm"><span class="text-ink-3 mt-0.5">{{ icon(r.icon,'w-4 h-4') }}</span><span><span class="block text-xs muted">{{ r.time }}</span>{{ r.text }}</span></li>{% endfor %}</ol>
+{%- endmacro %}
+
+{% macro quick_actions(items) -%}
+<div class="grid gap-2 p-[var(--card-pad)]">{% for label, ic, attrs in items %}{% if 'href=' in attrs %}<a {{ attrs|safe }} class="btn btn-secondary justify-start w-full">{{ icon(ic) }}{{ t(label) }}</a>{% else %}<button type="button" {{ attrs|safe }} class="btn btn-secondary justify-start w-full">{{ icon(ic) }}{{ t(label) }}</button>{% endif %}{% endfor %}</div>
+{%- endmacro %}
+
+{% macro division_rows(divisions, drill=true) -%}
+{% for dv in divisions|sort(attribute='attendance') %}
+<tr>
+  <td>{% if drill %}<button type="button" class="font-semibold hover:underline text-primary text-left" data-drill="{{ 'chattogram' if dv.id == 'chattogram' else 'other' }}">{{ dv.name }}</button>{% else %}<span class="font-semibold">{{ dv.name }}</span>{% endif %}</td>
+  <td class="num">{{ num(dv.institutions|string) }}</td>
+  <td class="num">{{ num('{:,}'.format(dv.students)) }}</td>
+  <td class="num">{{ num(dv.attendance|string ~ '%') }}</td>
+  <td>{{ m.health(dv.health) }}</td>
+</tr>
+{% endfor %}
+{%- endmacro %}
+
+{% macro district_rows(districts, drill=true, deny=false) -%}
+{% for ds in districts %}
+<tr>
+  <td>{% if ds.institutions and drill and ds.id == 'chattogram' %}<button type="button" class="font-semibold hover:underline text-primary text-left" data-drill="ctg-district">{{ ds.name }}</button>{% else %}<span class="font-semibold">{{ ds.name }}</span>{% endif %}</td>
+  <td class="num">{{ num(ds.institutions|string) }}</td>
+  <td class="num">{% if ds.students %}{{ num('{:,}'.format(ds.students)) }}{% else %}—{% endif %}</td>
+  <td class="num">{% if ds.attendance %}{{ num(ds.attendance|string ~ '%') }}{% else %}—{% endif %}</td>
+  <td>{% if ds.institutions %}{{ m.health(ds.health) }}{% else %}<span class="text-sm muted">No institution in this district</span>{% endif %}</td>
+</tr>
+{% endfor %}
+{%- endmacro %}
+
+{% macro institution_rows(insts, pf) -%}
+{% for i in insts %}
+<tr>
+  <td>{% if i.id == 'karnaphuli-ti' %}<a href="{{ pf['10'] }}" class="font-semibold text-primary hover:underline">{{ i.name }}</a>{% else %}<button type="button" class="font-semibold hover:underline text-left" {{ m.ph('Institution 360° — ' ~ i.name, '/ministry/institutions/' ~ i.id, 'PRD §6.2', 'The same 360° layout as Karnaphuli Textile Institute, scoped to this institution.') }}>{{ i.name }}</button>{% endif %}<span class="block text-xs muted">{{ t(i.type) }} · <span class="font-mono">{{ i.code }}</span></span></td>
+  <td class="num">{{ num('{:,}'.format(i.students)) }}</td>
+  <td class="num">{{ num(i.attendance|string ~ '%') }}</td>
+  <td>{{ m.health(i.health) }}</td>
+  <td class="text-sm">{{ i.issue }}</td>
+</tr>
+{% endfor %}
+{%- endmacro %}
+
+{% macro class_rows(classes) -%}
+{% for c in classes %}{% set rate = (c.present / c.total * 100) if c.present is not none else none %}
+<tr><td><span class="font-semibold">{{ c.name }}</span><span class="block text-xs muted">{{ c.subject }} · {{ c.teacher }}</span></td>
+<td class="num">{% if c.present is not none %}{{ num(c.present|string) }} / {{ num(c.total|string) }}{% else %}— / {{ num(c.total|string) }}{% endif %}</td>
+<td class="num {{ 'overdue' if rate is not none and rate < 80 else '' }}">{% if rate is not none %}{{ num('%.1f'|format(rate) ~ '%') }}{% else %}—{% endif %}</td>
+<td>{% if c.state == 'recorded' %}{{ m.tag('Recorded') }}{% elif c.state == 'pending_sync' %}{{ m.tag('Pending sync') }}{% else %}{{ m.tag('Not recorded') }}{% endif %}</td></tr>
+{% endfor %}
+{%- endmacro %}
+
+{% macro request_rows(reqs) -%}
+{% for r in reqs %}
+<tr><td class="font-mono text-xs whitespace-nowrap">{{ r.no }}</td><td class="font-medium">{{ t(r.service) }}</td><td class="text-sm">{{ r.student }}</td><td>{{ m.tag({'Under review':'Under review','Correction required':'Correction required','Submitted':'Submitted','Approved':'Approved'}[r.status]) }}</td><td class="num whitespace-nowrap {{ 'overdue' if r.overdue else 'muted' }}">{{ r.age }} / {{ r.sla }}</td></tr>
+{% endfor %}
+{%- endmacro %}
+
+{% macro roster(r, total=60) -%}
+<div data-roster class="space-y-3">
+  <div class="flex flex-wrap gap-4 text-sm"><span>{{ t('Present') }}: <strong data-count="P">{{ r|selectattr('status','equalto','P')|list|length }}</strong></span><span>{{ t('Absent') }}: <strong data-count="A">{{ r|selectattr('status','equalto','A')|list|length }}</strong></span><span>{{ t('Leave') }}: <strong data-count="L">{{ r|selectattr('status','equalto','L')|list|length }}</strong></span><span class="muted">Showing 6 of {{ total }} students</span></div>
+  <ul class="divide-y divide-line border border-line rounded-ui">
+  {% for s in r %}<li class="flex flex-wrap items-center gap-3 px-3 py-2" data-roster-row><span class="font-mono text-sm w-12">{{ s.roll }}</span><span class="flex-1 min-w-[120px] font-medium">{{ s.name }}</span>
+    <span class="inline-flex gap-1" role="group" aria-label="Attendance for {{ s.name }}">{% for code, lab in [('P','Present'),('A','Absent'),('L','Leave')] %}<button type="button" data-mark="{{ code }}" aria-pressed="{{ 'true' if s.status == code else 'false' }}" class="w-11 h-11 rounded-ui border border-line font-bold aria-pressed:bg-primary aria-pressed:text-white aria-pressed:border-primary" aria-label="{{ lab }}">{{ code }}</button>{% endfor %}</span></li>{% endfor %}
+  </ul>
+</div>
+{%- endmacro %}
+
+{% macro activity(items) -%}
+<ol class="timeline">{% for a in items %}<li class="tl-item tl-done"><span class="tl-dot">{{ icon('history') }}</span><div><p class="text-sm"><strong>{{ a.who }}</strong> {{ a.what }}</p><p class="text-xs muted">{{ a.time }}</p></div></li>{% endfor %}</ol>
+{%- endmacro %}
+
+{% macro request_dialog(pf) -%}
+<dialog id="req-dialog" class="dlg drawer" aria-labelledby="rq-h">
+  <div class="dlg-head"><div><p class="text-xs muted font-mono">SR-2026-01467</p><h2 id="rq-h" class="text-lg">{{ t('Course Drop') }} — Mim Akter</h2></div><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close">{{ icon('x') }}</button></div>
+  <div class="dlg-body space-y-5">
+    <div class="flex flex-wrap gap-2">{{ m.tag('Under review') }}<span class="tag tag-danger">{{ icon('hourglass','w-3.5 h-3.5') }}4 days · SLA 3 · {{ t('Overdue') }}</span></div>
+    <dl class="grid grid-cols-[120px_1fr] gap-y-2 text-sm"><dt class="muted">{{ t('Student') }}</dt><dd>Mim Akter · KTI-2024-2401 · Year 2, Sec B</dd><dt class="muted">Course</dt><dd>Fabric Structure (Semester 3)</dd><dt class="muted">Reason</dt><dd>Medical — documents attached</dd><dt class="muted">Documents</dt><dd><button type="button" class="link" {{ m.ph('Document viewer', '/documents/:id', 'PRD §3 M11') }}>medical-certificate.pdf</button></dd></dl>
+    <div><p class="font-semibold mb-2">{{ t('Activity timeline') }}</p>{{ m.timeline([{'step':'Submitted','who':'Mim Akter','when':'11 Oct, 10:12','state':'done'},{'step':'Under review','who':"Principal's office",'when':'12 Oct, 09:30','state':'current'},{'step':'Decision','who':'Principal','when':'Pending','state':'todo'}]) }}</div>
+    <p class="text-xs muted">Approval chain per service is TBD (PRD Q-03). This prototype shows a single institution approver.</p>
+  </div>
+  <div class="dlg-foot">
+    <button type="button" class="btn btn-danger" data-open="#confirm-reject">{{ t('Reject') }}</button>
+    <button type="button" class="btn btn-secondary" data-toast="Correction requested — the student is notified" data-close-after>{{ t('Request correction') }}</button>
+    <button type="button" class="btn btn-primary" data-open="#confirm-approve">{{ t('Approve') }}</button>
+  </div>
+</dialog>
+<dialog id="confirm-approve" class="dlg" aria-labelledby="ca-h"><div class="dlg-head"><h2 id="ca-h" class="text-lg">{{ t('Approve') }}?</h2></div><div class="dlg-body text-sm">Approve the Course Drop request for Mim Akter? The student is notified and the decision is recorded in the activity log.</div><div class="dlg-foot"><button type="button" class="btn btn-secondary" data-close>{{ t('Cancel') }}</button><button type="button" class="btn btn-primary" data-toast="Approved — status updated and student notified" data-close-after>{{ t('Confirm') }}</button></div></dialog>
+<dialog id="confirm-reject" class="dlg" aria-labelledby="cr-h"><div class="dlg-head"><h2 id="cr-h" class="text-lg">{{ t('Reject') }}?</h2></div><div class="dlg-body space-y-3"><label class="field"><span>Reason (required)</span><textarea class="input py-2 min-h-24" required></textarea></label></div><div class="dlg-foot"><button type="button" class="btn btn-secondary" data-close>{{ t('Cancel') }}</button><button type="button" class="btn btn-danger" data-toast="Rejected — reason recorded and student notified" data-close-after>{{ t('Reject') }}</button></div></dialog>
+{%- endmacro %}
+
+{% macro history_dialog(items) -%}
+<dialog id="history-dialog" class="dlg drawer" aria-labelledby="hi-h">
+  <div class="dlg-head"><h2 id="hi-h" class="text-lg">{{ t('View history') }}</h2><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close">{{ icon('x') }}</button></div>
+  <div class="dlg-body space-y-4"><p class="text-sm muted">One record, one history: who changed what, when, the old and new values, and the reason.</p>{{ activity(items) }}<div class="banner banner-info">{{ icon('database') }}<span>Change 12 Oct 2026 · Head Office · Budget allocation: ৳ 4.00 Cr → ৳ 4.20 Cr · Reason: additional allocation (revision #2)</span></div></div>
+</dialog>
+{%- endmacro %}
+
+{% macro attendance_dialog(x) -%}
+<dialog id="attendance-dialog" class="dlg drawer" aria-labelledby="at-h">
+  <div class="dlg-head"><div><p class="text-xs muted">11:00 · Room 204</p><h2 id="at-h" class="text-lg">{{ t('Take attendance') }} — Diploma Y2 · Sec B</h2></div><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close">{{ icon('x') }}</button></div>
+  <div class="dlg-body space-y-4">
+    <div class="banner banner-info">{{ icon('wifi-off') }}<span>Offline? Attendance is saved on the device and shown as <strong>Pending sync</strong> until it reaches the server. Capture method is TBD (PRD Q-26).</span></div>
+    {{ roster(x.teacher.roster, 60) }}
+  </div>
+  <div class="dlg-foot"><button type="button" class="btn btn-secondary" data-close>{{ t('Save draft') }}</button><button type="button" class="btn btn-primary" data-toast="Attendance submitted — visible to the Principal, District, Division and Ministry" data-close-after>{{ t('Submit') }}</button></div>
+</dialog>
+{%- endmacro %}
+
+{% macro services_dialog(x) -%}
+<dialog id="services-dialog" class="dlg" aria-labelledby="sv-h" style="width:min(760px,calc(100vw - 24px))">
+  <div class="dlg-head"><h2 id="sv-h" class="text-lg">{{ t('Online services') }}</h2><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close">{{ icon('x') }}</button></div>
+  <div class="dlg-body"><ul class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{% for s in x.student_services %}<li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" {{ m.ph(s, '/student/services/' ~ s|lower|replace(' & ','-')|replace(' ','-') ~ '/apply', 'PRD §6.8', 'Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03).') }}>{{ icon('file-text','w-4 h-4 text-primary') }}<span class="text-sm font-semibold">{{ t(s) }}</span></button></li>{% endfor %}</ul></div>
+</dialog>
+{%- endmacro %}
+
+
+{# ---------------------------------------------------------------- sign-in #}
+{% macro login_form(pf, x) -%}
+{% set acc = [] %}{% for a in x.login_accounts %}{% set _ = acc.append(a.uid ~ '=' ~ (pf[a.page] if a.page in pf else a.page)) %}{% endfor %}
+<div id="login-wrap">
+  <div id="login-inactive" class="banner banner-warning mb-4" role="alert" tabindex="-1" hidden>{{ icon('ban') }}<span><strong>{{ t('Account inactive') }}.</strong> {{ t('Your account has been deactivated. Contact your institution or the help desk.') }}</span></div>
+  <div id="login-expired" class="banner banner-info mb-4" role="status" hidden>{{ icon('timer-off') }}<span><strong>{{ t('Session expired') }}.</strong> {{ t('You were signed out after 30 minutes of inactivity. Sign in again to continue.') }} {{ m.tbd('Timeout TBD') }}</span></div>
+  <div id="login-error" class="banner banner-danger mb-4" role="alert" tabindex="-1" hidden>{{ icon('circle-x') }}<span><strong>{{ t('Incorrect user ID or password') }}.</strong> {{ t('Check both and try again. Accounts lock after 5 failed attempts.') }} {{ m.tbd() }}</span></div>
+  <form id="login-form" class="space-y-4" novalidate data-accounts="{{ acc|join(';') }}" data-success="{{ pf['04'] }}">
+    <label class="field"><span>{{ t('Email / Mobile / User ID') }}</span><input id="uid" class="input" autocomplete="username" placeholder="e.g. ministry.admin" data-bn-placeholder="{{ tb('e.g. ministry.admin') }}"><span class="field-error">{{ icon('circle-alert','w-4 h-4') }}{{ t('This field is required') }}</span></label>
+    <div class="field"><span class="flex items-center justify-between gap-2"><label for="pw">{{ t('Password') }}</label><button type="button" class="link text-sm" data-show="#forgot" data-hide="#login-wrap">{{ t('Forgot password?') }}</button></span>
+      <span class="relative block"><input id="pw" type="password" class="input pr-12" autocomplete="current-password"><button type="button" class="absolute right-0 top-0 w-11 h-11 inline-flex items-center justify-center text-ink-3 hover:text-ink" data-reveal="#pw" aria-pressed="false" aria-label="Show password" data-bn-aria-label="{{ tb('Show password') }}">{{ icon('eye','w-5 h-5') }}</button></span>
+      <span class="field-error">{{ icon('circle-alert','w-4 h-4') }}{{ t('This field is required') }}</span></div>
+    <button type="submit" class="btn btn-primary w-full">{{ icon('log-in') }}{{ t('Sign in') }}</button>
+    <p class="text-xs muted">{{ t('After sign-in the system opens the workspace assigned to your account. You cannot choose a role.') }}</p>
+  </form>
+</div>
+<div id="forgot" hidden>
+  <form class="space-y-4" data-validate="#forgot-sent" novalidate>
+    <h2 class="text-lg">{{ t('Reset password') }}</h2>
+    <p class="text-sm text-ink-2">{{ t('Enter your registered email, mobile number or user ID. We will send reset instructions.') }} {{ m.tbd('Channel TBD · PRD Q-18') }}</p>
+    <label class="field"><span>{{ t('Email / Mobile / User ID') }}</span><input class="input" required><span class="field-error">{{ icon('circle-alert','w-4 h-4') }}{{ t('This field is required') }}</span></label>
+    <div class="flex flex-wrap gap-2"><button type="submit" class="btn btn-primary">{{ t('Send reset instructions') }}</button><button type="button" class="btn btn-ghost" data-show="#login-wrap" data-hide="#forgot">{{ icon('arrow-left') }}{{ t('Back') }}</button></div>
+  </form>
+  <div id="forgot-sent" class="banner banner-success mt-4" role="status" hidden>{{ icon('mail-check') }}<span>{{ t('If an account exists, reset instructions have been sent. The link expires in 30 minutes.') }}</span></div>
+</div>
+{%- endmacro %}
+
+{% macro login_preview(pf, x) -%}
+<section class="card card-pad preview-btn !border-warning" aria-labelledby="lp-h">
+  <h2 id="lp-h" class="text-base flex items-center gap-2 text-warning">{{ icon('eye','w-5 h-5') }}{{ t('Prototype Role Preview') }}</h2>
+  <p class="mt-1 text-sm text-ink-2">{{ t('For reviewers only. In production, the role and scope come from the account, assigned by the Ministry Super Admin.') }}</p>
+  <div class="mt-3 overflow-x-auto"><table class="tbl text-sm"><thead><tr><th>{{ t('User ID') }}</th><th>{{ t('Opens') }}</th></tr></thead><tbody>
+    {% for a in x.login_accounts %}<tr><td class="font-mono whitespace-nowrap">{{ a.uid }}</td><td>{% if a.page in pf %}<a class="link" href="{{ pf[a.page] }}">{{ t(a.role) }}</a>{% else %}{{ t(a.role) }}{% endif %} <span class="muted">· {{ a.scope }}</span></td></tr>{% endfor %}
+  </tbody></table></div>
+  <p class="mt-2 text-xs muted">{{ t('Password for every demo account') }}: <span class="font-mono font-semibold text-ink">demo1234</span></p>
+  <div class="mt-3 flex flex-wrap gap-2"><button type="button" class="btn btn-secondary btn-sm" data-show="#login-expired">{{ t('Show: session expired') }}</button><button type="button" class="btn btn-secondary btn-sm" data-open="#workspace-dialog">{{ t('Show: several workspaces') }}</button></div>
+</section>
+{%- endmacro %}
+
+{% macro workspace_dialog(pf) -%}
+<dialog id="workspace-dialog" class="dlg" aria-labelledby="ws-h">
+  <div class="dlg-head"><h2 id="ws-h" class="text-lg">{{ t('Choose a workspace') }}</h2><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close">{{ icon('x') }}</button></div>
+  <div class="dlg-body space-y-3">
+    <p class="text-sm text-ink-2">{{ t('Your account has two assigned workspaces. You can switch later from the user menu.') }}</p>
+    <a href="{{ pf['07'] }}" class="card card-pad flex items-center gap-3"><span class="icon-chip">{{ icon('school') }}</span><span class="flex-1"><span class="block font-semibold">{{ t('Institution Admin / Principal') }}</span><span class="block text-sm muted">Karnaphuli Textile Institute</span></span>{{ icon('arrow-right','w-5 h-5 text-ink-3') }}</a>
+    <a href="{{ pf['08'] }}" class="card card-pad flex items-center gap-3"><span class="icon-chip">{{ icon('book-open') }}</span><span class="flex-1"><span class="block font-semibold">{{ t('Teacher') }}</span><span class="block text-sm muted">Karnaphuli Textile Institute · Textile Machine Design</span></span>{{ icon('arrow-right','w-5 h-5 text-ink-3') }}</a>
+    <p class="text-xs muted">{{ t('Only workspaces assigned to you are listed.') }} {{ m.tbd('Multi-role rule TBD · PRD Q-17') }}</p>
+  </div>
+</dialog>
+{%- endmacro %}
+
+
+{% macro report_dialog(level, to) -%}
+<dialog id="report-dialog" class="dlg" aria-labelledby="rp-h">
+  <div class="dlg-head"><h2 id="rp-h" class="text-lg">{{ t('Submit report') }} — {{ t(level) }}</h2><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close">{{ icon('x') }}</button></div>
+  <form class="dlg-body space-y-4" data-validate="#report-done" novalidate>
+    <label class="field"><span>{{ t('Reporting period') }}</span><select class="select" required><option value="2026-09">September 2026</option><option value="2026-10">October 2026</option></select></label>
+    <label class="field"><span>{{ t('Summary') }} *</span><textarea class="input py-2 min-h-24" required placeholder="Key issues, actions taken, support needed"></textarea><span class="field-error">{{ icon('circle-alert','w-4 h-4') }}{{ t('This field is required') }}</span></label>
+    <label class="field"><span>{{ t('Attachment') }} ({{ t('optional') }})</span><input type="file" class="input py-2"></label>
+    <p class="text-xs muted">{{ t('Report template and required fields are TBD') }} (PRD Q-15). {{ m.tbd() }}</p>
+    <div class="flex flex-wrap justify-end gap-2"><button type="button" class="btn btn-secondary" data-close>{{ t('Cancel') }}</button><button type="submit" class="btn btn-primary">{{ t('Submit') }}</button></div>
+  </form>
+  <div id="report-done" class="dlg-body" hidden><div class="banner banner-success">{{ icon('circle-check') }}<span>{{ t('Report submitted to') }} {{ t(to) }}. {{ t('It now appears in their pending reports.') }}</span></div><div class="mt-4 flex justify-end"><button type="button" class="btn btn-primary" data-close>{{ t('Close') }}</button></div></div>
+</dialog>
+{%- endmacro %}
+
+{% macro inst_cards(insts, pf) -%}
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-3">
+{% for i in insts %}
+<article class="card card-pad flex flex-col gap-3">
+  <div><h3 class="text-base leading-snug">{{ i.name }}</h3><p class="text-xs muted">{{ t(i.type) }} · <span class="font-mono whitespace-nowrap">{{ i.code }}</span></p><p class="mt-1.5">{{ m.health(i.health) }}</p></div>
+  <div class="flex flex-wrap items-baseline gap-x-2"><span class="figure {{ '!text-danger' if i.attendance < 80 else '' }}">{{ num(i.attendance|string ~ '%') }}</span><span class="text-sm muted">{{ t('Attendance today') }}</span></div>
+  <span class="hbar hbar-threshold" style="--th:50%"><span style="width:{{ ((i.attendance-60)/40*100)|round(1) }}%;--bar:var(--map-{{ health_of(i.attendance) }})"></span></span>
+  <dl class="grid grid-cols-2 gap-2 text-sm"><div><dt class="muted">{{ t('Students') }}</dt><dd class="font-semibold tnum">{{ num('{:,}'.format(i.students)) }}</dd></div><div><dt class="muted">{{ t('Teachers') }}</dt><dd class="font-semibold tnum">{{ num(i.teachers|string) }}</dd></div></dl>
+  <p class="text-sm {{ 'text-ink-2' if i.issue != 'No open issues' else 'muted' }}">{{ icon('info','w-4 h-4 inline -mt-0.5 text-ink-3') }} {{ i.issue }}</p>
+  <button type="button" class="btn btn-secondary btn-sm mt-auto self-start" {{ m.ph('Institution 360° — ' ~ i.name, '/district/institutions/' ~ i.id, 'PRD §6.4', 'Same 360° layout as the Ministry view, limited to this district.') }}>{{ t('Open 360°') }}</button>
+</article>
+{% endfor %}
+</div>
+{%- endmacro %}

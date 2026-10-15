@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="D">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D/E/F showcase · Textile Institution Management System</title>
+<link rel="stylesheet" href="../assets/tims-def.css">
+<script src="../assets/tims-def.js" defer></script>
+<style>
+  .shot { aspect-ratio: 16 / 10; object-fit: cover; object-position: top; width: 100%; display: block; background: var(--band); border-bottom: 1px solid var(--line); }
+</style>
+</head>
+<body class="bg-band">
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="bg-surface border-b border-line">
+  <div class="mx-auto max-w-[1440px] px-4 lg:px-8 py-6 flex flex-wrap items-center justify-between gap-4">
+    <div><p class="text-sm muted">Ministry of Textiles and Jute · Textile Institution Management System · P3 design rework</p><h1 class="text-[1.75rem] mt-1">Prototype directions D, E and F</h1></div>
+    <div class="flex flex-wrap items-center gap-2"><span class="demo-tag"><svg class="w-3 h-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="M12 16v-4" />
+  <path d="M12 8h.01" />
+</svg>Demo / Illustrative Data</span><span class="tbd-tag">Prototype only · not a build</span><span class="hidden md:inline"><div class="inline-flex items-center gap-1 text-sm font-semibold" role="group" aria-label="Language">
+  <button type="button" data-lang="bn" class="px-2 min-h-9 rounded hover:bg-band">বাংলা</button>
+  <span aria-hidden="true" class="opacity-50">|</span>
+  <button type="button" data-lang="en" class="px-2 min-h-9 rounded hover:bg-band">English</button>
+</div></span></div>
+  </div>
+</header>
+
+<main id="main" class="mx-auto max-w-[1440px] px-4 lg:px-8 py-8 space-y-8">
+  <section class="grid gap-4 lg:grid-cols-3" aria-label="Directions">
+    <article class="card card-pad space-y-3" data-theme="D" style="font-family:var(--font-body)">
+      <div class="flex items-center justify-between gap-2"><h2 class="text-xl">D · National Service Portal</h2><span class="w-8 h-8 rounded-full" style="background:var(--primary)" aria-hidden="true"></span></div>
+      <p class="text-sm text-ink-2">Official, public-service-first</p>
+      <dl class="text-sm grid grid-cols-[80px_1fr] gap-y-1"><dt class="muted">Type</dt><dd>Noto Sans + Noto Sans Bengali</dd><dt class="muted">Shell</dt><dd>Green header band, horizontal top navigation, no sidebar</dd><dt class="muted">Radius</dt><dd>6px</dd></dl>
+      <div class="flex flex-wrap gap-2 pt-1"><a class="btn btn-primary btn-sm" href="D-01-landing.html">Open D from the public home</a><a class="btn btn-secondary btn-sm" href="../DESIGN_SYSTEM_D.md">Design system</a></div>
+    </article>
+    <article class="card card-pad space-y-3" data-theme="E" style="font-family:var(--font-body)">
+      <div class="flex items-center justify-between gap-2"><h2 class="text-xl">E · Connected Institution Network</h2><span class="w-8 h-8 rounded-full" style="background:var(--primary)" aria-hidden="true"></span></div>
+      <p class="text-sm text-ink-2">Map + hierarchy, strategic</p>
+      <dl class="text-sm grid grid-cols-[80px_1fr] gap-y-1"><dt class="muted">Type</dt><dd>Source Sans 3 + Hind Siliguri</dd><dt class="muted">Shell</dt><dd>Light sidebar, hierarchy bar, map-led drill-down</dd><dt class="muted">Radius</dt><dd>10px cards / 8px controls</dd></dl>
+      <div class="flex flex-wrap gap-2 pt-1"><a class="btn btn-primary btn-sm" href="E-01-landing.html">Open E from the public home</a><a class="btn btn-secondary btn-sm" href="../DESIGN_SYSTEM_E.md">Design system</a></div>
+    </article>
+    <article class="card card-pad space-y-3" data-theme="F" style="font-family:var(--font-body)">
+      <div class="flex items-center justify-between gap-2"><h2 class="text-xl">F · Action &amp; Service Hub</h2><span class="w-8 h-8 rounded-full" style="background:var(--primary)" aria-hidden="true"></span></div>
+      <p class="text-sm text-ink-2">Task-first, queue-driven</p>
+      <dl class="text-sm grid grid-cols-[80px_1fr] gap-y-1"><dt class="muted">Type</dt><dd>Lexend + Noto Sans Bengali</dd><dt class="muted">Shell</dt><dd>Compact rail with counts, inbox home, pill tabs</dd><dt class="muted">Radius</dt><dd>8px, pill tags and tabs</dd></dl>
+      <div class="flex flex-wrap gap-2 pt-1"><a class="btn btn-primary btn-sm" href="F-01-landing.html">Open F from the public home</a><a class="btn btn-secondary btn-sm" href="../DESIGN_SYSTEM_F.md">Design system</a></div>
+    </article>
+  </section>
+
+  <section class="card" aria-labelledby="cmp-h">
+    <div class="card-head"><h2 id="cmp-h">Compare by screen</h2><p class="text-sm muted">Each screen exists in all three directions with the same content and demo data.</p></div>
+    <div class="px-[var(--card-pad)] pt-3"><div class="tabs" role="tablist" data-panels="#cmp-panels" aria-label="Screen type">
+<button type="button" class="tab" role="tab" data-target="p01" aria-selected="true">Landing</button><button type="button" class="tab" role="tab" data-target="p02" aria-selected="false" tabindex="-1">Public</button><button type="button" class="tab" role="tab" data-target="p03" aria-selected="false" tabindex="-1">Login</button><button type="button" class="tab" role="tab" data-target="p04" aria-selected="false" tabindex="-1">Ministry</button><button type="button" class="tab" role="tab" data-target="p05" aria-selected="false" tabindex="-1">Division</button><button type="button" class="tab" role="tab" data-target="p06" aria-selected="false" tabindex="-1">District</button><button type="button" class="tab" role="tab" data-target="p07" aria-selected="false" tabindex="-1">Principal</button><button type="button" class="tab" role="tab" data-target="p08" aria-selected="false" tabindex="-1">Teacher</button><button type="button" class="tab" role="tab" data-target="p09" aria-selected="false" tabindex="-1">Student</button><button type="button" class="tab" role="tab" data-target="p10" aria-selected="false" tabindex="-1">Institution 360</button>    </div></div>
+    <div id="cmp-panels" class="p-[var(--card-pad)]">
+      <div data-panel="p01" role="tabpanel">
+        <p class="font-semibold mb-3">01 · Public Home <span class="muted font-normal">· role: public</span></p>
+        <div class="grid gap-5 md:grid-cols-3">
+          <figure class="card overflow-hidden">
+            <a href="D-01-landing.html" aria-label="Open D Public Home"><img class="shot" src="shots/D-01.jpg" alt="D — Public Home screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">D · National Service Portal</p><p class="text-sm text-ink-2">Official portal: seal header, red line, search-first hero, admission panel, service tiles, notices table.</p><a class="link text-sm inline-flex items-center gap-1" href="D-01-landing.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="E-01-landing.html" aria-label="Open E Public Home"><img class="shot" src="shots/E-01.jpg" alt="E — Public Home screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">E · Connected Institution Network</p><p class="text-sm text-ink-2">Network hero: every institution drawn on the division map, services grouped by audience, division cards.</p><a class="link text-sm inline-flex items-center gap-1" href="E-01-landing.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="F-01-landing.html" aria-label="Open F Public Home"><img class="shot" src="shots/F-01.jpg" alt="F — Public Home screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">F · Action &amp; Service Hub</p><p class="text-sm text-ink-2">Task search filters every public service live; tracking and admission stay beside it.</p><a class="link text-sm inline-flex items-center gap-1" href="F-01-landing.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+        </div>
+      </div>
+      <div data-panel="p02" role="tabpanel" hidden>
+        <p class="font-semibold mb-3">02 · Public Institutions &amp; Services <span class="muted font-normal">· role: public</span></p>
+        <div class="grid gap-5 md:grid-cols-3">
+          <figure class="card overflow-hidden">
+            <a href="D-02-public-services.html" aria-label="Open D Public Institutions &amp; Services"><img class="shot" src="shots/D-02.jpg" alt="D — Public Institutions &amp; Services screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">D · National Service Portal</p><p class="text-sm text-ink-2">Institution Directory as an official register: filter bar, sortable table, public profile drawer.</p><a class="link text-sm inline-flex items-center gap-1" href="D-02-public-services.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="E-02-public-services.html" aria-label="Open E Public Institutions &amp; Services"><img class="shot" src="shots/E-02.jpg" alt="E — Public Institutions &amp; Services screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">E · Connected Institution Network</p><p class="text-sm text-ink-2">Network explorer: clickable map and chips filter a live list; empty state for divisions without demo data.</p><a class="link text-sm inline-flex items-center gap-1" href="E-02-public-services.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="F-02-public-services.html" aria-label="Open F Public Institutions &amp; Services"><img class="shot" src="shots/F-02.jpg" alt="F — Public Institutions &amp; Services screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">F · Action &amp; Service Hub</p><p class="text-sm text-ink-2">Service Centre: one page of services, institution finder, tracking and verification, with a section index.</p><a class="link text-sm inline-flex items-center gap-1" href="F-02-public-services.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+        </div>
+      </div>
+      <div data-panel="p03" role="tabpanel" hidden>
+        <p class="font-semibold mb-3">03 · Sign in <span class="muted font-normal">· role: public</span></p>
+        <div class="grid gap-5 md:grid-cols-3">
+          <figure class="card overflow-hidden">
+            <a href="D-03-login.html" aria-label="Open D Sign in"><img class="shot" src="shots/D-03.jpg" alt="D — Sign in screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">D · National Service Portal</p><p class="text-sm text-ink-2">Two-panel sign-in card: who signs in on the green panel, form on the right.</p><a class="link text-sm inline-flex items-center gap-1" href="D-03-login.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="E-03-login.html" aria-label="Open E Sign in"><img class="shot" src="shots/E-03.jpg" alt="E — Sign in screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">E · Connected Institution Network</p><p class="text-sm text-ink-2">Split screen explaining the role hierarchy; the form sits beside it.</p><a class="link text-sm inline-flex items-center gap-1" href="E-03-login.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="F-03-login.html" aria-label="Open F Sign in"><img class="shot" src="shots/F-03.jpg" alt="F — Sign in screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">F · Action &amp; Service Hub</p><p class="text-sm text-ink-2">Minimal sign-in with the tasks that need no account.</p><a class="link text-sm inline-flex items-center gap-1" href="F-03-login.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+        </div>
+      </div>
+      <div data-panel="p04" role="tabpanel" hidden>
+        <p class="font-semibold mb-3">04 · Ministry Dashboard <span class="muted font-normal">· role: ministry</span></p>
+        <div class="grid gap-5 md:grid-cols-3">
+          <figure class="card overflow-hidden">
+            <a href="D-04-ministry-dashboard.html" aria-label="Open D Ministry Dashboard"><img class="shot" src="shots/D-04.jpg" alt="D — Ministry Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">D · National Service Portal</p><p class="text-sm text-ink-2">Four-figure summary, attention table with SLA, pending list, division → district → institution drill table.</p><a class="link text-sm inline-flex items-center gap-1" href="D-04-ministry-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="E-04-ministry-dashboard.html" aria-label="Open E Ministry Dashboard"><img class="shot" src="shots/E-04.jpg" alt="E — Ministry Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">E · Connected Institution Network</p><p class="text-sm text-ink-2">Map-led: health map drills into Chattogram districts, then institutions; exceptions, trend, attention.</p><a class="link text-sm inline-flex items-center gap-1" href="E-04-ministry-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="F-04-ministry-dashboard.html" aria-label="Open F Ministry Dashboard"><img class="shot" src="shots/F-04.jpg" alt="F — Ministry Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">F · Action &amp; Service Hub</p><p class="text-sm text-ink-2">Inbox: attention items filtered by type, tabs for pending and recent, division list opens a drill drawer.</p><a class="link text-sm inline-flex items-center gap-1" href="F-04-ministry-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+        </div>
+      </div>
+      <div data-panel="p05" role="tabpanel" hidden>
+        <p class="font-semibold mb-3">05 · Division Dashboard <span class="muted font-normal">· role: division</span></p>
+        <div class="grid gap-5 md:grid-cols-3">
+          <figure class="card overflow-hidden">
+            <a href="D-05-division-dashboard.html" aria-label="Open D Division Dashboard"><img class="shot" src="shots/D-05.jpg" alt="D — Division Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">D · National Service Portal</p><p class="text-sm text-ink-2">Scoped summary, actions, institutions needing attention, district table that includes empty districts.</p><a class="link text-sm inline-flex items-center gap-1" href="D-05-division-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="E-05-division-dashboard.html" aria-label="Open E Division Dashboard"><img class="shot" src="shots/E-05.jpg" alt="E — Division Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">E · Connected Institution Network</p><p class="text-sm text-ink-2">District map of the division: click a district for its institutions; grey districts show the empty state.</p><a class="link text-sm inline-flex items-center gap-1" href="E-05-division-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="F-05-division-dashboard.html" aria-label="Open F Division Dashboard"><img class="shot" src="shots/F-05.jpg" alt="F — Division Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">F · Action &amp; Service Hub</p><p class="text-sm text-ink-2">Action queue first; districts and institutions as tabs; scope card demonstrates permission denied.</p><a class="link text-sm inline-flex items-center gap-1" href="F-05-division-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+        </div>
+      </div>
+      <div data-panel="p06" role="tabpanel" hidden>
+        <p class="font-semibold mb-3">06 · District Dashboard <span class="muted font-normal">· role: district</span></p>
+        <div class="grid gap-5 md:grid-cols-3">
+          <figure class="card overflow-hidden">
+            <a href="D-06-district-dashboard.html" aria-label="Open D District Dashboard"><img class="shot" src="shots/D-06.jpg" alt="D — District Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">D · National Service Portal</p><p class="text-sm text-ink-2">District summary, actions, reports due, institution table.</p><a class="link text-sm inline-flex items-center gap-1" href="D-06-district-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="E-06-district-dashboard.html" aria-label="Open E District Dashboard"><img class="shot" src="shots/E-06.jpg" alt="E — District Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">E · Connected Institution Network</p><p class="text-sm text-ink-2">Location in the network plus side-by-side institution cards against the 80% threshold.</p><a class="link text-sm inline-flex items-center gap-1" href="E-06-district-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="F-06-district-dashboard.html" aria-label="Open F District Dashboard"><img class="shot" src="shots/F-06.jpg" alt="F — District Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">F · Action &amp; Service Hub</p><p class="text-sm text-ink-2">Queue of district actions, institution list, report submission dialog.</p><a class="link text-sm inline-flex items-center gap-1" href="F-06-district-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+        </div>
+      </div>
+      <div data-panel="p07" role="tabpanel" hidden>
+        <p class="font-semibold mb-3">07 · Institution / Principal Dashboard <span class="muted font-normal">· role: principal</span></p>
+        <div class="grid gap-5 md:grid-cols-3">
+          <figure class="card overflow-hidden">
+            <a href="D-07-principal-dashboard.html" aria-label="Open D Institution / Principal Dashboard"><img class="shot" src="shots/D-07.jpg" alt="D — Institution / Principal Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">D · National Service Portal</p><p class="text-sm text-ink-2">Threshold alert banner, approvals table with review drawer, class attendance, resources.</p><a class="link text-sm inline-flex items-center gap-1" href="D-07-principal-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="E-07-principal-dashboard.html" aria-label="Open E Institution / Principal Dashboard"><img class="shot" src="shots/E-07.jpg" alt="E — Institution / Principal Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">E · Connected Institution Network</p><p class="text-sm text-ink-2">Institution header with health domains, class attendance bars, approvals, budget by head, results.</p><a class="link text-sm inline-flex items-center gap-1" href="E-07-principal-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="F-07-principal-dashboard.html" aria-label="Open F Institution / Principal Dashboard"><img class="shot" src="shots/F-07.jpg" alt="F — Institution / Principal Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">F · Action &amp; Service Hub</p><p class="text-sm text-ink-2">14 decisions filtered by type with chips; threshold banner; quick actions.</p><a class="link text-sm inline-flex items-center gap-1" href="F-07-principal-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+        </div>
+      </div>
+      <div data-panel="p08" role="tabpanel" hidden>
+        <p class="font-semibold mb-3">08 · Teacher Dashboard <span class="muted font-normal">· role: teacher</span></p>
+        <div class="grid gap-5 md:grid-cols-3">
+          <figure class="card overflow-hidden">
+            <a href="D-08-teacher-dashboard.html" aria-label="Open D Teacher Dashboard"><img class="shot" src="shots/D-08.jpg" alt="D — Teacher Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">D · National Service Portal</p><p class="text-sm text-ink-2">Attendance-due banner, classes table, result entry with missing marks, leave balance.</p><a class="link text-sm inline-flex items-center gap-1" href="D-08-teacher-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="E-08-teacher-dashboard.html" aria-label="Open E Teacher Dashboard"><img class="shot" src="shots/E-08.jpg" alt="E — Teacher Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">E · Connected Institution Network</p><p class="text-sm text-ink-2">My day as a timeline, result entry, leave balance.</p><a class="link text-sm inline-flex items-center gap-1" href="E-08-teacher-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="F-08-teacher-dashboard.html" aria-label="Open F Teacher Dashboard"><img class="shot" src="shots/F-08.jpg" alt="F — Teacher Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">F · Action &amp; Service Hub</p><p class="text-sm text-ink-2">Three tasks for today, then the schedule.</p><a class="link text-sm inline-flex items-center gap-1" href="F-08-teacher-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+        </div>
+      </div>
+      <div data-panel="p09" role="tabpanel" hidden>
+        <p class="font-semibold mb-3">09 · Student Dashboard <span class="muted font-normal">· role: student</span></p>
+        <div class="grid gap-5 md:grid-cols-3">
+          <figure class="card overflow-hidden">
+            <a href="D-09-student-dashboard.html" aria-label="Open D Student Dashboard"><img class="shot" src="shots/D-09.jpg" alt="D — Student Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">D · National Service Portal</p><p class="text-sm text-ink-2">Profile header, attendance warning, three status cards, request timeline, six common services.</p><a class="link text-sm inline-flex items-center gap-1" href="D-09-student-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="E-09-student-dashboard.html" aria-label="Open E Student Dashboard"><img class="shot" src="shots/E-09.jpg" alt="E — Student Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">E · Connected Institution Network</p><p class="text-sm text-ink-2">Progress rings for attendance and GPA, request shown as a horizontal stepper.</p><a class="link text-sm inline-flex items-center gap-1" href="E-09-student-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="F-09-student-dashboard.html" aria-label="Open F Student Dashboard"><img class="shot" src="shots/F-09.jpg" alt="F — Student Dashboard screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">F · Action &amp; Service Hub</p><p class="text-sm text-ink-2">Things to do, then a searchable launcher for all 15 services.</p><a class="link text-sm inline-flex items-center gap-1" href="F-09-student-dashboard.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+        </div>
+      </div>
+      <div data-panel="p10" role="tabpanel" hidden>
+        <p class="font-semibold mb-3">10 · Institution 360° <span class="muted font-normal">· role: ministry</span></p>
+        <div class="grid gap-5 md:grid-cols-3">
+          <figure class="card overflow-hidden">
+            <a href="D-10-institution-360.html" aria-label="Open D Institution 360°"><img class="shot" src="shots/D-10.jpg" alt="D — Institution 360° screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">D · National Service Portal</p><p class="text-sm text-ink-2">Official record header with six health domains, underlined grouped tabs, More menu.</p><a class="link text-sm inline-flex items-center gap-1" href="D-10-institution-360.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="E-10-institution-360.html" aria-label="Open E Institution 360°"><img class="shot" src="shots/E-10.jpg" alt="E — Institution 360° screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">E · Connected Institution Network</p><p class="text-sm text-ink-2">Context column (location map, facts, health) beside grouped tabs.</p><a class="link text-sm inline-flex items-center gap-1" href="E-10-institution-360.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+          <figure class="card overflow-hidden">
+            <a href="F-10-institution-360.html" aria-label="Open F Institution 360°"><img class="shot" src="shots/F-10.jpg" alt="F — Institution 360° screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">F · Action &amp; Service Hub</p><p class="text-sm text-ink-2">Open items for the institution first, pill tabs below.</p><a class="link text-sm inline-flex items-center gap-1" href="F-10-institution-360.html">Open screen <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a></figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid gap-6 lg:grid-cols-2 items-start">
+    <div class="card card-pad space-y-3" aria-labelledby="how-h">
+      <h2 id="how-h" class="text-lg">How to review</h2>
+      <ol class="list-decimal pl-5 space-y-1.5 text-sm text-ink-2">
+        <li>Start from <strong>01 Public Home</strong>. It is a public website, so no sign-in is needed.</li>
+        <li>Choose <strong>Login</strong>. Demo accounts route by role (password <span class="font-mono">demo1234</span>): ministry.admin, division.ctg, district.ctg, saiful.islam (two workspaces), arif.hossain, mim.akter, inactive.user.</li>
+        <li>Inside the app, the dashed <strong>Prototype Role Preview</strong> menu jumps between roles. It exists only for review. In production, roles are assigned and never chosen.</li>
+        <li>Ministry dashboard: drill National → Chattogram Division → Chattogram District → Karnaphuli Textile Institute → Institution 360°.</li>
+        <li>Switch <strong>বাংলা | English</strong> on any page. Navigation, titles, buttons, KPI labels, statuses and table headings change.</li>
+        <li>The bottom-right bar switches D/E/F for the same screen.</li>
+      </ol>
+    </div>
+    <div class="card card-pad space-y-3" aria-labelledby="tbd-h">
+      <h2 id="tbd-h" class="text-lg">Open items shown as TBD</h2>
+      <ul class="text-sm text-ink-2 space-y-1.5">
+<li class="flex gap-2"><span class="tbd-tag flex-none">Q-02</span><span>Dashboard KPIs, alert thresholds (80% used as a placeholder) and severity</span></li><li class="flex gap-2"><span class="tbd-tag flex-none">Q-03</span><span>Approval chain, SLA, fees and documents for the 15 student services</span></li><li class="flex gap-2"><span class="tbd-tag flex-none">Q-06</span><span>Purpose of the MY GOV integration</span></li><li class="flex gap-2"><span class="tbd-tag flex-none">Q-12</span><span>Payment gateway</span></li><li class="flex gap-2"><span class="tbd-tag flex-none">Q-15</span><span>Report templates and submission rules</span></li><li class="flex gap-2"><span class="tbd-tag flex-none">Q-16</span><span>Which data is public; free certificate lookup</span></li><li class="flex gap-2"><span class="tbd-tag flex-none">Q-17</span><span>Multiple roles per user: workspace selector shown</span></li><li class="flex gap-2"><span class="tbd-tag flex-none">Q-18</span><span>Notification channel for password reset</span></li><li class="flex gap-2"><span class="tbd-tag flex-none">Q-23</span><span>Whether Division and District Admins approve or only monitor</span></li><li class="flex gap-2"><span class="tbd-tag flex-none">Q-26</span><span>Attendance capture method</span></li><li class="flex gap-2"><span class="tbd-tag flex-none">Q-29</span><span>Verified public figures and default language</span></li><li class="flex gap-2"><span class="tbd-tag flex-none">Q-32</span><span>Who publishes semester results</span></li>      </ul>
+    </div>
+  </section>
+
+  <section class="card card-pad space-y-2" aria-labelledby="rec-h" id="recommendation">
+    <h2 id="rec-h" class="text-lg">Recommendation</h2>
+<p class="text-sm text-ink-2"><strong class="text-ink">Recommended: D · National Service Portal.</strong> It reads as an official Bangladesh government service from the first screen, which is what citizens, institution staff and Ministry officers will expect. The public home leads with the four tasks people come for. The same calm shell (green band, top navigation, scope bar) carries through every role without a sidebar to learn. It also has the fewest risks: plain tables and tinted status tags hold up in Bangla, in high-contrast mode and on low-end phones.</p>
+<ul class="text-sm text-ink-2 list-disc pl-5 space-y-1">
+  <li><strong class="text-ink">E · Connected Institution Network</strong> has the clearest Ministry story. The health map and the National → Division → District → Institution drill-down answer the monitoring question best. It is heavier for students and teachers, and the map matters less on a phone.</li>
+  <li><strong class="text-ink">F · Action & Service Hub</strong> is fastest for daily operators (Principal, Teacher, Student) because every home is a queue of decisions. Its public site feels less like a government portal.</li>
+</ul>
+<p class="text-xs muted">The directions are kept separate on purpose. Choosing one, or asking for specific parts of another, is the client's decision at P3d.</p>  </section>
+</main>
+<footer class="mx-auto max-w-[1440px] px-4 lg:px-8 pb-10 text-xs muted">Directions A, B and C remain available in showcase-ALL.html. Boundaries: geoBoundaries gbOpen BGD ADM1/ADM2 (CC BY 4.0)</footer>
+</body>
+</html>

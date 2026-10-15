@@ -1,0 +1,83 @@
+{% extends 'def/_public.html' %}
+{% import 'def/_m.html' as m %}
+{% import 'def/_blocks.html' as b %}
+
+{% block content %}
+{% if v == 'D' %}
+{# =====================================================================  D · official sign-in card #}
+<div class="bg-band min-h-full">
+  <div class="mx-auto max-w-[1080px] px-4 lg:px-8 py-10 lg:py-14 space-y-6">
+    <div class="card grid lg:grid-cols-[1fr_1.05fr] overflow-hidden">
+      <div class="p-6 sm:p-8 bg-primary-dark text-white">
+        <span class="seal w-14 h-14 !border-white/70 !bg-transparent">{{ m.flag('w-8 h-[19px]') }}</span>
+        <h1 class="mt-5 text-[1.75rem] leading-tight">{{ t('Sign in to the Textile Institution Management System') }}</h1>
+        <p class="mt-3 opacity-90">{{ t('For officers, institution staff, teachers and students with an account issued by their authority.') }}</p>
+        <ul class="mt-6 space-y-3 text-sm">
+          {% for ic, txt in [('landmark','Ministry, division and district officers'),('school','Principals and institution administrators'),('book-open','Teachers'),('graduation-cap','Students and alumni')] %}<li class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-white/12 inline-flex items-center justify-center">{{ icon(ic,'w-4 h-4') }}</span>{{ t(txt) }}</li>{% endfor %}
+        </ul>
+        <div class="mt-8 pt-5 border-t border-white/20 text-sm">
+          <p class="font-semibold">{{ t('No account needed for public services') }}</p>
+          <div class="mt-2 flex flex-wrap gap-2"><a href="{{ pf['02'] }}#track" class="btn btn-on-dark btn-sm">{{ t('Track application') }}</a><a href="{{ pf['02'] }}#verify" class="btn btn-on-dark btn-sm">{{ t('Verify a certificate') }}</a><a href="{{ pf['02'] }}" class="btn btn-on-dark btn-sm">{{ t('Find an institution') }}</a></div>
+        </div>
+      </div>
+      <div class="p-6 sm:p-8">
+        <p class="label">{{ t('Secure sign-in') }}</p>
+        <h2 class="text-xl mt-1 mb-5">{{ t('Sign in') }}</h2>
+        {{ b.login_form(pf, x) }}
+      </div>
+    </div>
+    {{ b.login_preview(pf, x) }}
+  </div>
+</div>
+
+{% elif v == 'E' %}
+{# =====================================================================  E · split: hierarchy explanation + form #}
+<div class="grid lg:grid-cols-2 min-h-[calc(100vh-200px)]">
+  <aside class="dot-grid border-r border-line px-4 sm:px-10 py-10 lg:py-14 order-2 lg:order-1">
+    <div class="max-w-[520px] mx-auto">
+      <p class="text-sm font-semibold text-data">{{ t('How access works') }}</p>
+      <h2 class="section-title mt-1">{{ t('Your account decides what you see') }}</h2>
+      <p class="mt-2 text-ink-2">{{ t('Each account is assigned a role and a scope in the hierarchy. You see only the data inside your scope.') }}</p>
+      <ol class="mt-6 space-y-0">
+        {% for ic, role, scope in [('landmark','Ministry','All Bangladesh'),('map','Division','One of 8 divisions'),('map-pin','District','One district'),('school','Institution','One institution'),('users','Teacher / Student','Own classes or own record')] %}
+        <li class="flex gap-4">
+          <span class="flex flex-col items-center"><span class="w-11 h-11 rounded-full bg-surface border-2 border-data text-data inline-flex items-center justify-center">{{ icon(ic,'w-5 h-5') }}</span>{% if not loop.last %}<span class="w-0.5 flex-1 min-h-5 bg-data/40"></span>{% endif %}</span>
+          <span class="pb-5 pt-1.5"><span class="block font-semibold">{{ t(role) }}</span><span class="block text-sm muted">{{ t(scope) }}</span></span>
+        </li>
+        {% endfor %}
+      </ol>
+      <p class="text-sm text-ink-2 mt-2">{{ t('Roles are assigned by the Ministry Super Admin. Changes are recorded in the activity log.') }}</p>
+    </div>
+  </aside>
+  <div class="px-4 sm:px-10 py-10 lg:py-14 order-1 lg:order-2">
+    <div class="max-w-[440px] mx-auto space-y-6">
+      <div class="flex items-center gap-3">{{ m.netmark('w-12 h-12') }}<div><h1 class="text-[1.625rem] leading-tight">{{ t('Sign in') }}</h1><p class="text-sm muted">{{ t('Textile Institution Management System') }}</p></div></div>
+      <div class="card card-pad">{{ b.login_form(pf, x) }}</div>
+      <p class="text-sm">{{ t('Looking for a public service?') }} <a href="{{ pf['02'] }}" class="link">{{ t('Explore the network') }}</a></p>
+      {{ b.login_preview(pf, x) }}
+    </div>
+  </div>
+</div>
+
+{% else %}
+{# =====================================================================  F · minimal task-first sign-in #}
+<div class="mx-auto max-w-[480px] px-4 py-10 space-y-6">
+  <div>
+    <h1 class="text-[1.75rem]">{{ t('Sign in') }}</h1>
+    <p class="text-ink-2 mt-1">{{ t('For officers, institution staff, teachers and students.') }}</p>
+  </div>
+  <div class="card card-pad">{{ b.login_form(pf, x) }}</div>
+  <section class="card" aria-labelledby="f-nologin-h">
+    <div class="card-head"><h2 id="f-nologin-h">{{ t('You can do these without signing in') }}</h2></div>
+    <ul>
+      {% for label, ic, href in [('Track application','route',pf['02'] ~ '#track'),('Verify a certificate','shield-check',pf['02'] ~ '#verify'),('Find an institution','building-2',pf['02'] ~ '#find')] %}
+      <li><a href="{{ href }}" class="qrow items-center hover:bg-band"><span class="icon-chip">{{ icon(ic) }}</span><span class="flex-1 font-semibold">{{ t(label) }}</span>{{ icon('chevron-right','w-5 h-5 text-ink-3') }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {{ b.login_preview(pf, x) }}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block dialogs %}{{ b.workspace_dialog(pf) }}{% endblock %}

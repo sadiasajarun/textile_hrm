@@ -1,0 +1,114 @@
+{% import 'def/_m.html' as m %}
+{% set current = {'ministry':'04','division':'05','district':'06','principal':'07','teacher':'08','student':'09'}[role] if page_num != '10' else '10' %}
+<!DOCTYPE html>
+<html lang="en" data-theme="{{ v }}">
+<head>{{ m.head(page_title, asset) }}</head>
+<body>
+<a class="skip-link" href="#main">{{ t('Skip to main content') }}</a>
+
+{# mobile navigation panel (all variations) #}
+<nav id="mnav" class="lg:hidden fixed inset-0 z-50 bg-surface overflow-y-auto p-4" aria-label="Main menu" hidden>
+  <div class="flex items-center justify-between mb-4"><p class="font-bold">{{ t('Menu') }}</p><button type="button" class="btn btn-ghost btn-icon" data-nav-toggle="#mnav" aria-label="Close menu">{{ icon('x') }}</button></div>
+  <div class="sidenav space-y-1">{% for item in nav %}{{ m.nav_item(item, pf, v, current) }}{% endfor %}</div>
+  <div class="mt-4 pt-4 border-t border-line">{{ m.lang_toggle() }}</div>
+</nav>
+
+{% if v == 'D' %}
+{# ========== D: green header band + horizontal top navigation (no sidebar) ========== #}
+<div class="min-h-screen flex flex-col bg-bg">
+  <header class="bg-primary-dark text-white">
+    <div class="mx-auto max-w-[1440px] px-4 lg:px-8 min-h-16 flex items-center gap-2">
+      <button type="button" class="lg:hidden btn btn-on-dark btn-icon" data-nav-toggle="#mnav" aria-expanded="false" aria-label="Open menu">{{ icon('menu') }}</button>
+      <a href="{{ pf['01'] }}" class="flex items-center gap-3 min-w-0 mr-auto">
+        <span class="seal w-10 h-10 !border-white/60">{{ m.flag('w-6 h-[14px]') }}</span>
+        <span class="min-w-0 leading-tight hidden sm:block"><span class="block text-xs opacity-80">{{ t('Ministry of Textiles and Jute') }}</span><span class="block font-semibold truncate">{{ t('Textile Institution Management System') }}</span></span>
+      </a>
+      <div class="flex items-center gap-1 flex-none">
+      {{ m.role_preview('rp', v, pf, role_preview, true) }}
+      <span class="hidden md:block">{{ m.lang_toggle(true) }}</span>
+      {{ m.notif_menu('nt', pf, true) }}
+      {{ m.user_menu('um', user, role, pf, true) }}
+      </div>
+    </div>
+  </header>
+  <nav class="bg-surface border-b border-line hidden lg:block" aria-label="{{ user.role }} navigation">
+    <div class="mx-auto max-w-[1440px] px-4 lg:px-6 topnav flex overflow-x-auto">{% for item in nav %}{{ m.nav_item(item, pf, v, current) }}{% endfor %}</div>
+  </nav>
+  <div class="scopebar">
+    <div class="mx-auto max-w-[1440px] px-4 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+      <nav class="crumbs" aria-label="Breadcrumb">{% block crumbs %}{% endblock %}</nav>
+      <span class="scope-chip">{{ icon('shield-check') }}<span>{{ t('Scope') }}: <strong class="text-ink">{{ t(user.scope if page_num != '10' else 'All Bangladesh') }}</strong> <span class="muted font-normal">({{ t('assigned') }})</span></span></span>
+    </div>
+  </div>
+  <main id="main" class="flex-1 mx-auto w-full max-w-[1440px] px-4 lg:px-8 py-7 space-y-6">{% block content %}{% endblock %}</main>
+  <footer class="border-t border-line"><div class="mx-auto max-w-[1440px] px-4 lg:px-8 py-4 flex flex-wrap gap-x-6 text-xs muted"><span>Prototype D · PRD v1</span><span>{{ t('Demo / Illustrative Data') }}</span><span>{{ map_attr }}</span></div></footer>
+</div>
+
+{% elif v == 'E' %}
+{# ========== E: light sidebar + hierarchy bar ========== #}
+<div class="min-h-screen flex bg-bg mx-auto max-w-[1600px]">
+  <aside class="hidden lg:flex flex-col w-[248px] flex-none bg-surface border-r border-line min-h-screen sticky top-0 h-screen">
+    <a href="{{ pf['01'] }}" class="flex items-center gap-3 px-5 min-h-[72px] border-b border-line">{{ m.netmark('w-9 h-9') }}<span class="leading-tight min-w-0"><span class="block text-[11px] font-semibold text-ink-3 truncate">{{ t('Ministry of Textiles and Jute') }}</span><span class="block text-sm font-bold truncate">Textile Institution MS</span></span></a>
+    <nav class="flex-1 overflow-y-auto p-3 sidenav space-y-1" aria-label="{{ user.role }} navigation">
+      {% for item in nav %}{{ m.nav_item(item, pf, v, current) }}
+        {% if item[2] == current and item[3] %}{% for sub in item[3] %}<button type="button" class="sub" {{ m.ph(sub, '/' ~ sub|lower|replace(' ','-'), 'PRD §6') }}>{{ t(sub) }}</button>{% endfor %}{% endif %}
+      {% endfor %}
+    </nav>
+    <div class="m-3 p-3 rounded-ui bg-band text-sm"><p class="label">{{ t('Scope') }} ({{ t('assigned') }})</p><p class="font-bold text-data">{{ t(user.scope if page_num != '10' else 'All Bangladesh') }}</p></div>
+  </aside>
+  <div class="flex-1 min-w-0 flex flex-col">
+    <header class="bg-surface border-b border-line sticky top-0 z-30">
+      <div class="px-4 lg:px-6 min-h-16 flex items-center gap-2">
+        <button type="button" class="lg:hidden btn btn-ghost btn-icon" data-nav-toggle="#mnav" aria-expanded="false" aria-label="Open menu">{{ icon('menu') }}</button>
+        <form class="hidden xl:flex items-center gap-2 border border-line rounded-ui px-3 min-h-11 w-full max-w-[420px] mr-auto" role="search" onsubmit="return false"><span>{{ icon('search','w-4 h-4 text-ink-3') }}</span><input class="flex-1 min-w-0 min-h-10 bg-transparent outline-none text-sm" placeholder="Search institution, district, code" data-bn-placeholder="{{ tb('Institution name or code') }}" aria-label="Search"></form>
+        <a href="{{ pf['01'] }}" class="lg:hidden flex items-center gap-2 mr-auto min-w-0">{{ m.netmark('w-8 h-8') }}<span class="text-sm font-bold truncate">TIMS</span></a>
+        <div class="flex items-center gap-1 flex-none ml-auto">
+        {{ m.role_preview('rp', v, pf, role_preview) }}
+        <span class="hidden md:block">{{ m.lang_toggle() }}</span>
+        {{ m.notif_menu('nt', pf) }}
+        {{ m.user_menu('um', user, role, pf) }}
+        </div>
+      </div>
+      <div class="px-4 lg:px-6 py-2.5 border-t border-line bg-band flex flex-wrap items-center gap-3">
+        <nav class="crumbs" aria-label="Hierarchy">{% block crumbs_e %}{{ self.crumbs() }}{% endblock %}</nav>
+      </div>
+    </header>
+    <main id="main" class="flex-1 px-4 lg:px-6 py-6 space-y-6">{{ self.content() }}</main>
+    <footer class="px-4 lg:px-6 py-4 border-t border-line flex flex-wrap gap-x-6 text-xs muted"><span>Prototype E · PRD v1</span><span>{{ t('Demo / Illustrative Data') }}</span><span>{{ map_attr }}</span></footer>
+  </div>
+</div>
+
+{% else %}
+{# ========== F: compact rail with counts + inbox home ========== #}
+<div class="min-h-screen flex bg-bg mx-auto max-w-[1600px]">
+  <aside class="hidden lg:flex flex-col w-[224px] flex-none bg-surface border-r border-line sticky top-0 h-screen">
+    <a href="{{ pf['01'] }}" class="flex items-center gap-2.5 px-4 min-h-16 border-b border-line">{{ m.flag('w-8 h-[19px]') }}<span class="leading-tight min-w-0"><span class="block text-xs text-ink-3 truncate">{{ t('Ministry of Textiles and Jute') }}</span><span class="block text-sm font-semibold truncate">Textile Services</span></span></a>
+    <nav class="flex-1 overflow-y-auto p-2.5 sidenav space-y-1" aria-label="{{ user.role }} navigation">{% for item in nav %}{{ m.nav_item(item, pf, v, current) }}{% endfor %}</nav>
+    <div class="p-3 border-t border-line text-xs"><p class="muted">{{ t('Scope') }}</p><p class="font-semibold">{{ t(user.scope if page_num != '10' else 'All Bangladesh') }}</p></div>
+  </aside>
+  <div class="flex-1 min-w-0 flex flex-col">
+    <header class="bg-surface border-b border-line sticky top-0 z-30">
+      <div class="px-4 lg:px-6 min-h-16 flex items-center gap-2">
+        <button type="button" class="lg:hidden btn btn-ghost btn-icon" data-nav-toggle="#mnav" aria-expanded="false" aria-label="Open menu">{{ icon('menu') }}</button>
+        <nav class="crumbs mr-auto min-w-0 hidden md:flex" aria-label="Breadcrumb">{% block crumbs_f %}{{ self.crumbs() }}{% endblock %}</nav>
+        <a href="{{ pf['01'] }}" class="md:hidden flex items-center gap-2 mr-auto min-w-0">{{ m.flag('w-7 h-[17px]') }}<span class="text-sm font-semibold truncate">Textile Services</span></a>
+        <div class="flex items-center gap-1 flex-none">
+        {{ m.role_preview('rp', v, pf, role_preview) }}
+        <span class="hidden md:block">{{ m.lang_toggle() }}</span>
+        {{ m.notif_menu('nt', pf) }}
+        {{ m.user_menu('um', user, role, pf) }}
+        </div>
+      </div>
+      <nav class="crumbs md:hidden px-4 py-2 border-t border-line" aria-label="Breadcrumb (mobile)">{{ self.crumbs() }}</nav>
+    </header>
+    <main id="main" class="flex-1 px-4 lg:px-6 py-6 space-y-5">{{ self.content() }}</main>
+    <footer class="px-4 lg:px-6 py-4 border-t border-line flex flex-wrap gap-x-6 text-xs muted"><span>Prototype F · PRD v1</span><span>{{ t('Demo / Illustrative Data') }}</span><span>{{ map_attr }}</span></footer>
+  </div>
+</div>
+{% endif %}
+
+{{ m.dialogs() }}
+{% block dialogs %}{% endblock %}
+{{ m.var_nav(v, page_num, page_slug, pages, short) }}
+</body>
+</html>

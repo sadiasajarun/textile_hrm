@@ -2,15 +2,15 @@
 
 ```yaml
 phase: P3-design
-current_step: P3d            # client confirmation — paused
-selected_variation: null     # A | B | C | Mix
+current_step: P3d            # client confirmation — paused (rework round 2)
+selected_variation: null     # D | E | F (A/B/C kept for reference)
 approved: false
 approved_at: null
-variations_generated: 3
-archetypes: [civic-clarity, heritage-weave, command-center]
-differentiation_score: 7/7
-html_files: 9
-showcase: .claude-project/design/variations/showcase-ALL.html
+variations_generated: 6      # round 1: A/B/C · round 2 (rework): D/E/F
+archetypes: [civic-clarity, heritage-weave, command-center, national-service-portal, connected-institution-network, action-service-hub]
+html_files: 39               # A/B/C 9 + D/E/F 30
+showcase: .claude-project/design/variations/showcase-DEF.html   # round 1: showcase-ALL.html
+recommendation: D            # see showcase-DEF.html "Recommendation"; not merged
 prd_version_used: v1
 ```
 
@@ -24,12 +24,31 @@ prd_version_used: v1
 
 Design systems: `design/DESIGN_SYSTEM_A.md`, `DESIGN_SYSTEM_B.md`, `DESIGN_SYSTEM_C.md`.
 
+### Round 2 — rework (D/E/F)
+
+A/B/C were reviewed and did not meet the brief: they started inside the dashboard rather than from a public government website, showed KPI walls, and did not prove role scoping or real bilingual switching. Analysis: `design/DEF_ANALYSIS.md`. A/B/C files are unchanged.
+
+| Key | Name | Shell | Files |
+|---|---|---|---|
+| D | National Service Portal | Official seal header, red line, top navigation, no sidebar | `variations/D-01-landing.html` … `D-10-institution-360.html` |
+| E | Connected Institution Network | Light sidebar, hierarchy bar, map-led drill-down | `variations/E-01-landing.html` … `E-10-institution-360.html` |
+| F | Action & Service Hub | Rail with counts, inbox homes, pill tabs | `variations/F-01-landing.html` … `F-10-institution-360.html` |
+
+Screens per direction: 01 Public Home · 02 Public Institutions & Services · 03 Sign in · 04 Ministry · 05 Division · 06 District · 07 Principal · 08 Teacher · 09 Student · 10 Institution 360°.
+Design systems: `design/DESIGN_SYSTEM_D.md`, `DESIGN_SYSTEM_E.md`, `DESIGN_SYSTEM_F.md`. Showcase: `variations/showcase-DEF.html`.
+
 ## QA (P3c)
 - Blueprint `validate-variations`: **PM_3_DESIGN_VALIDATION_PASSED** (showcase present; every page has `var-nav-bar` and a 1440px frame).
 - Screenshot QA (`_build/qa/qa.mjs`, Chromium, 1440px and 375px): **10 pages, 0 issues**. No console errors, no broken links, no `href="#"`, no buttons without an action, no horizontal overflow at 375px.
 - Bangla toggle verified on B-01 and C-02 (Noto Sans/Serif Bengali, conjuncts render correctly).
 
+## QA (rework D/E/F)
+- `_build/qa/qa-def.mjs`, Chromium, **1440 / 1024 / 390 px**, 31 pages (30 screens + showcase-DEF): no console errors, no failed requests, no broken links, no `href="#"`, no button without an action, no horizontal overflow, no touch target under 24px. Every dialog, tab, drill-down, filter chip and dropdown trigger is clicked on each page without errors.
+- Flows (20/20 pass): demo sign-in routes each account to its workspace; a wrong password shows the error; empty fields show field errors; a multi-role account opens the workspace chooser; `?division=` filters the directory (9 Chattogram rows); certificate lookup shows found and not-found; `#drill=` deep links open the drill-down state.
+- Bangla toggle: navigation, titles, buttons, KPI labels, service cards, statuses and table headings switch on every page (Bangla digits included). Only personal and institution names stay in Latin script.
+- A/B/C unchanged: 32 output files byte-identical to the pre-rework hashes.
+
 ## To approve
-1. Open `variations/showcase-ALL.html` (or `showcase-ALL.png`) and choose A, B, C or a Mix.
-2. Record it here: `selected_variation: <A|B|C|Mix>`, `approved: true`, `approved_at: <ISO8601>`. Or reply to Claude with the choice.
+1. Open `variations/showcase-DEF.html` and choose D, E or F. (Round 1, `showcase-ALL.html`, stays available.)
+2. Record it here: `selected_variation: <D|E|F>`, `approved: true`, `approved_at: <ISO8601>`. Or reply to Claude with the choice.
 3. Resume: `/fullstack-pm textile_hrm --phase P3-design --resume`. This runs P3e (all 108 pages in role folders), P3f (QA) and P3g (snapshot).

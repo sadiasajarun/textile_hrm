@@ -5,6 +5,15 @@
 @import "./fonts.css";
 
 @source "../templates";
+/* D/E/F files have their own stylesheet (def.css); keep them out of tims.css */
+@source not "../templates/def";
+@source not "../build_def.py";
+@source not "../qa/qa-def.mjs";
+@source not "../data/def.json";
+@source not "../data/i18n.json";
+@source not "../css/def.css";
+@source not "../css/fonts-def.css";
+@source not "../README.md";
 @source "../build.py";
 
 @theme inline {

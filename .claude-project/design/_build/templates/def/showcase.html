@@ -1,0 +1,117 @@
+{% import 'def/_m.html' as m %}
+{% set notes = {
+  'D': {
+    '01': 'Official portal: seal header, red line, search-first hero, admission panel, service tiles, notices table.',
+    '02': 'Institution Directory as an official register: filter bar, sortable table, public profile drawer.',
+    '03': 'Two-panel sign-in card: who signs in on the green panel, form on the right.',
+    '04': 'Four-figure summary, attention table with SLA, pending list, division → district → institution drill table.',
+    '05': 'Scoped summary, actions, institutions needing attention, district table that includes empty districts.',
+    '06': 'District summary, actions, reports due, institution table.',
+    '07': 'Threshold alert banner, approvals table with review drawer, class attendance, resources.',
+    '08': 'Attendance-due banner, classes table, result entry with missing marks, leave balance.',
+    '09': 'Profile header, attendance warning, three status cards, request timeline, six common services.',
+    '10': 'Official record header with six health domains, underlined grouped tabs, More menu.'
+  },
+  'E': {
+    '01': 'Network hero: every institution drawn on the division map, services grouped by audience, division cards.',
+    '02': 'Network explorer: clickable map and chips filter a live list; empty state for divisions without demo data.',
+    '03': 'Split screen explaining the role hierarchy; the form sits beside it.',
+    '04': 'Map-led: health map drills into Chattogram districts, then institutions; exceptions, trend, attention.',
+    '05': 'District map of the division: click a district for its institutions; grey districts show the empty state.',
+    '06': 'Location in the network plus side-by-side institution cards against the 80% threshold.',
+    '07': 'Institution header with health domains, class attendance bars, approvals, budget by head, results.',
+    '08': 'My day as a timeline, result entry, leave balance.',
+    '09': 'Progress rings for attendance and GPA, request shown as a horizontal stepper.',
+    '10': 'Context column (location map, facts, health) beside grouped tabs.'
+  },
+  'F': {
+    '01': 'Task search filters every public service live; tracking and admission stay beside it.',
+    '02': 'Service Centre: one page of services, institution finder, tracking and verification, with a section index.',
+    '03': 'Minimal sign-in with the tasks that need no account.',
+    '04': 'Inbox: attention items filtered by type, tabs for pending and recent, division list opens a drill drawer.',
+    '05': 'Action queue first; districts and institutions as tabs; scope card demonstrates permission denied.',
+    '06': 'Queue of district actions, institution list, report submission dialog.',
+    '07': '14 decisions filtered by type with chips; threshold banner; quick actions.',
+    '08': 'Three tasks for today, then the schedule.',
+    '09': 'Things to do, then a searchable launcher for all 15 services.',
+    '10': 'Open items for the institution first, pill tabs below.'
+  }
+} %}
+<!DOCTYPE html>
+<html lang="en" data-theme="D">
+<head>{{ m.head('D/E/F showcase', asset) }}
+<style>
+  .shot { aspect-ratio: 16 / 10; object-fit: cover; object-position: top; width: 100%; display: block; background: var(--band); border-bottom: 1px solid var(--line); }
+</style>
+</head>
+<body class="bg-band">
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="bg-surface border-b border-line">
+  <div class="mx-auto max-w-[1440px] px-4 lg:px-8 py-6 flex flex-wrap items-center justify-between gap-4">
+    <div><p class="text-sm muted">Ministry of Textiles and Jute · Textile Institution Management System · P3 design rework</p><h1 class="text-[1.75rem] mt-1">Prototype directions D, E and F</h1></div>
+    <div class="flex flex-wrap items-center gap-2"><span class="demo-tag">{{ icon('info','w-3 h-3') }}Demo / Illustrative Data</span><span class="tbd-tag">Prototype only · not a build</span><span class="hidden md:inline">{{ m.lang_toggle() }}</span></div>
+  </div>
+</header>
+
+<main id="main" class="mx-auto max-w-[1440px] px-4 lg:px-8 py-8 space-y-8">
+  <section class="grid gap-4 lg:grid-cols-3" aria-label="Directions">
+    {% for v, info, ds, fonts, shell in [('D', variations.D, '../DESIGN_SYSTEM_D.md', 'Noto Sans + Noto Sans Bengali', 'Green header band, horizontal top navigation, no sidebar'), ('E', variations.E, '../DESIGN_SYSTEM_E.md', 'Source Sans 3 + Hind Siliguri', 'Light sidebar, hierarchy bar, map-led drill-down'), ('F', variations.F, '../DESIGN_SYSTEM_F.md', 'Lexend + Noto Sans Bengali', 'Compact rail with counts, inbox home, pill tabs')] %}
+    <article class="card card-pad space-y-3" data-theme="{{ v }}" style="font-family:var(--font-body)">
+      <div class="flex items-center justify-between gap-2"><h2 class="text-xl">{{ v }} · {{ info.name }}</h2><span class="w-8 h-8 rounded-full" style="background:var(--primary)" aria-hidden="true"></span></div>
+      <p class="text-sm text-ink-2">{{ info.tag }}</p>
+      <dl class="text-sm grid grid-cols-[80px_1fr] gap-y-1"><dt class="muted">Type</dt><dd>{{ fonts }}</dd><dt class="muted">Shell</dt><dd>{{ shell }}</dd><dt class="muted">Radius</dt><dd>{{ {'D':'6px','E':'10px cards / 8px controls','F':'8px, pill tags and tabs'}[v] }}</dd></dl>
+      <div class="flex flex-wrap gap-2 pt-1"><a class="btn btn-primary btn-sm" href="{{ v }}-01-landing.html">Open {{ v }} from the public home</a><a class="btn btn-secondary btn-sm" href="{{ ds }}">Design system</a></div>
+    </article>
+    {% endfor %}
+  </section>
+
+  <section class="card" aria-labelledby="cmp-h">
+    <div class="card-head"><h2 id="cmp-h">Compare by screen</h2><p class="text-sm muted">Each screen exists in all three directions with the same content and demo data.</p></div>
+    <div class="px-[var(--card-pad)] pt-3"><div class="tabs" role="tablist" data-panels="#cmp-panels" aria-label="Screen type">
+      {% for n, s, title, r in pages %}<button type="button" class="tab" role="tab" data-target="p{{ n }}" aria-selected="{{ 'true' if loop.first else 'false' }}"{% if not loop.first %} tabindex="-1"{% endif %}>{{ short[n] }}</button>{% endfor %}
+    </div></div>
+    <div id="cmp-panels" class="p-[var(--card-pad)]">
+      {% for n, s, title, r in pages %}
+      <div data-panel="p{{ n }}" role="tabpanel"{% if not loop.first %} hidden{% endif %}>
+        <p class="font-semibold mb-3">{{ n }} · {{ title }} <span class="muted font-normal">· role: {{ r }}</span></p>
+        <div class="grid gap-5 md:grid-cols-3">
+          {% for v in ['D','E','F'] %}
+          <figure class="card overflow-hidden">
+            <a href="{{ v }}-{{ n }}-{{ s }}.html" aria-label="Open {{ v }} {{ title }}"><img class="shot" src="shots/{{ v }}-{{ n }}.jpg" alt="{{ v }} — {{ title }} screenshot" loading="lazy"></a>
+            <figcaption class="p-4 space-y-2"><p class="font-semibold">{{ v }} · {{ variations[v].name }}</p><p class="text-sm text-ink-2">{{ notes[v][n] }}</p><a class="link text-sm inline-flex items-center gap-1" href="{{ v }}-{{ n }}-{{ s }}.html">Open screen {{ icon('arrow-right','w-4 h-4') }}</a></figcaption>
+          </figure>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="grid gap-6 lg:grid-cols-2 items-start">
+    <div class="card card-pad space-y-3" aria-labelledby="how-h">
+      <h2 id="how-h" class="text-lg">How to review</h2>
+      <ol class="list-decimal pl-5 space-y-1.5 text-sm text-ink-2">
+        <li>Start from <strong>01 Public Home</strong>. It is a public website, so no sign-in is needed.</li>
+        <li>Choose <strong>Login</strong>. Demo accounts route by role (password <span class="font-mono">demo1234</span>): ministry.admin, division.ctg, district.ctg, saiful.islam (two workspaces), arif.hossain, mim.akter, inactive.user.</li>
+        <li>Inside the app, the dashed <strong>Prototype Role Preview</strong> menu jumps between roles. It exists only for review. In production, roles are assigned and never chosen.</li>
+        <li>Ministry dashboard: drill National → Chattogram Division → Chattogram District → Karnaphuli Textile Institute → Institution 360°.</li>
+        <li>Switch <strong>বাংলা | English</strong> on any page. Navigation, titles, buttons, KPI labels, statuses and table headings change.</li>
+        <li>The bottom-right bar switches D/E/F for the same screen.</li>
+      </ol>
+    </div>
+    <div class="card card-pad space-y-3" aria-labelledby="tbd-h">
+      <h2 id="tbd-h" class="text-lg">Open items shown as TBD</h2>
+      <ul class="text-sm text-ink-2 space-y-1.5">
+        {% for q, txt in [('Q-02','Dashboard KPIs, alert thresholds (80% used as a placeholder) and severity'),('Q-03','Approval chain, SLA, fees and documents for the 15 student services'),('Q-06','Purpose of the MY GOV integration'),('Q-12','Payment gateway'),('Q-15','Report templates and submission rules'),('Q-16','Which data is public; free certificate lookup'),('Q-17','Multiple roles per user: workspace selector shown'),('Q-18','Notification channel for password reset'),('Q-23','Whether Division and District Admins approve or only monitor'),('Q-26','Attendance capture method'),('Q-29','Verified public figures and default language'),('Q-32','Who publishes semester results')] %}<li class="flex gap-2"><span class="tbd-tag flex-none">{{ q }}</span><span>{{ txt }}</span></li>{% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <section class="card card-pad space-y-2" aria-labelledby="rec-h" id="recommendation">
+    <h2 id="rec-h" class="text-lg">Recommendation</h2>
+    {% include 'def/_recommendation.html' %}
+  </section>
+</main>
+<footer class="mx-auto max-w-[1440px] px-4 lg:px-8 pb-10 text-xs muted">Directions A, B and C remain available in showcase-ALL.html. {{ map_attr }}</footer>
+</body>
+</html>

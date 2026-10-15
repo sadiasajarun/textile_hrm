@@ -1,0 +1,112 @@
+{% extends 'def/_app.html' %}
+{% import 'def/_m.html' as m %}
+{% import 'def/_blocks.html' as b %}
+{% set tc = x.teacher %}
+{% set res = tc.results %}
+
+{% block crumbs %}<span aria-current="page">{{ t('Home') }}</span><span class="muted">·</span><span>{{ t('Karnaphuli Textile Institute') }}</span>{% endblock %}
+
+{% block content %}
+{% macro class_btn(c, size='btn-sm') -%}
+{% if c.state == 'due' %}<button type="button" class="btn btn-primary {{ size }}" data-open="#attendance-dialog">{{ icon('user-check') }}{{ t('Take attendance') }}</button>
+{% elif c.state == 'recorded' %}<button type="button" class="btn btn-secondary {{ size }}" {{ m.ph('Attendance record — ' ~ c.name, '/teacher/attendance/:classId', 'PRD §6.7', 'Corrections after submission need a reason and are logged.') }}>{{ t('View') }}</button>
+{% else %}<button type="button" class="btn btn-ghost {{ size }}" {{ m.ph('Class — ' ~ c.name, '/teacher/classes/:id', 'PRD §6.7') }}>{{ t('View class') }}</button>{% endif %}
+{%- endmacro %}
+{% macro class_tag(c) -%}{% if c.state == 'recorded' %}{{ m.tag('Recorded') }}{% elif c.state == 'due' %}{{ m.tag('Due now') }}{% else %}{{ m.tag('Upcoming') }}{% endif %}{%- endmacro %}
+{% macro results_card(hcls='') -%}
+<section class="card" aria-labelledby="tres-h{{ hcls }}">
+  <div class="card-head"><h2 id="tres-h{{ hcls }}">{{ t('Result entry') }}</h2>{{ m.tag('Missing marks') }}</div>
+  <div class="card-pad space-y-3">
+    <p class="font-semibold">{{ res.course }}</p>
+    <div><div class="flex justify-between text-sm"><span>{{ t('58 of 60 students have marks') }}</span><span class="tnum">{{ num(((res.entered / res.total) * 100)|round|int ~ '%') }}</span></div><span class="hbar block mt-1.5"><span style="width:{{ (res.entered / res.total * 100)|round(1) }}%;--bar:var(--primary)"></span></span></div>
+    <div class="banner banner-warning">{{ icon('circle-alert') }}<span>{{ t('Missing marks') }}: {% for s in res.missing %}<strong>{{ s }}</strong>{{ ', ' if not loop.last }}{% endfor %}. {{ t('Results cannot be submitted until every mark is entered.') }}</span></div>
+    <button type="button" class="btn btn-secondary" {{ m.ph('Result entry — ' ~ res.course, '/teacher/results/:courseId', 'PRD §6.7', 'Grading scale and calculation rules are TBD (PRD Q-40).') }}>{{ icon('pencil') }}{{ t('Enter results') }}</button>
+  </div>
+</section>
+{%- endmacro %}
+{% macro leave_card() -%}
+<section class="card" aria-labelledby="tlv-h">
+  <div class="card-head"><h2 id="tlv-h">{{ t('My leave balance') }}</h2>{{ m.tbd('Leave types · PRD Q-08') }}</div>
+  <ul class="card-pad space-y-3">{% for l in tc.leave %}<li class="text-sm"><div class="flex justify-between"><span class="font-semibold">{{ t(l.type) }}</span><span class="tnum">{{ num((l.total - l.used)|string) }} / {{ num(l.total|string) }} {{ t('days left') }}</span></div><span class="hbar block mt-1.5"><span style="width:{{ ((l.total - l.used) / l.total * 100)|round(1) }}%;--bar:var(--data)"></span></span></li>{% endfor %}</ul>
+  <div class="px-[var(--card-pad)] pb-[var(--card-pad)]"><button type="button" class="btn btn-secondary" data-open="#leave-dialog">{{ icon('calendar-plus') }}{{ t('Apply for leave') }}</button></div>
+</section>
+{%- endmacro %}
+
+{% if v == 'D' %}
+{# =====================================================================  D #}
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div><p class="text-sm muted flex flex-wrap items-center gap-2"><span>Wednesday, 15 October 2026</span>{{ m.demo() }}</p><h1 class="text-[1.75rem] mt-1">{{ t('Good morning') }}, Arif Hossain</h1><p class="text-ink-2">{{ t('Teacher') }} · {{ t('Weaving') }} · {{ t('Karnaphuli Textile Institute') }}</p></div>
+  <button type="button" class="btn btn-secondary" data-open="#upload-dialog">{{ icon('upload') }}{{ t('Upload material') }}</button>
+</div>
+<div class="banner banner-warning" role="status">{{ icon('clock') }}<span class="flex-1"><strong>{{ t('Attendance due now') }}:</strong> Diploma Y2 · Sec B — {{ t('Fabric Structure') }}, 11:00, Room 204</span><button type="button" class="btn btn-primary btn-sm" data-open="#attendance-dialog">{{ t('Take attendance') }}</button></div>
+
+<section class="card" aria-labelledby="tcls-h"><div class="card-head"><h2 id="tcls-h">{{ t("Today's classes") }}</h2></div>
+  <div class="overflow-x-auto"><table class="tbl tbl-stack"><thead><tr><th>{{ t('Time') }}</th><th>{{ t('Class') }}</th><th>{{ t('Room') }}</th><th class="text-right">{{ t('Present') }}</th><th>{{ t('Status') }}</th><th><span class="sr-only">{{ t('Actions') }}</span></th></tr></thead>
+  <tbody>{% for c in tc.classes %}<tr><td class="tnum font-semibold">{{ num(c.time) }}</td><td><span class="font-semibold">{{ c.name }}</span><span class="block text-sm muted">{{ c.subject }}</span></td><td class="text-sm">{{ c.room }}</td><td class="num">{% if c.present is not none %}{{ num(c.present|string) }} / {{ num(c.total|string) }}{% else %}— / {{ num(c.total|string) }}{% endif %}</td><td>{{ class_tag(c) }}</td><td class="text-right">{{ class_btn(c) }}</td></tr>{% endfor %}</tbody></table></div>
+</section>
+
+<div class="grid gap-6 lg:grid-cols-2 items-start">{{ results_card('d') }}{{ leave_card() }}</div>
+
+{% elif v == 'E' %}
+{# =====================================================================  E #}
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div><p class="text-sm font-semibold text-data">{{ t('Teacher') }} · {{ t('Weaving') }}</p><h1 class="text-[1.875rem] mt-1">{{ t('Good morning') }}, Arif Hossain</h1></div>
+  <div class="flex items-center gap-2">{{ m.demo() }}<button type="button" class="btn btn-secondary" data-open="#upload-dialog">{{ icon('upload') }}{{ t('Upload material') }}</button></div>
+</div>
+<div class="grid gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] items-start">
+  <section class="card" aria-labelledby="eday-h">
+    <div class="card-head"><h2 id="eday-h">{{ t('My day') }}</h2><span class="text-sm muted">15 Oct 2026</span></div>
+    <ol class="card-pad timeline">{% for c in tc.classes %}
+      <li class="tl-item {{ 'tl-done' if c.state == 'recorded' else ('tl-current' if c.state == 'due' else '') }}">
+        <span class="tl-dot">{% if c.state == 'recorded' %}{{ icon('check') }}{% elif c.state == 'due' %}{{ icon('clock') }}{% else %}{{ icon('circle-dashed') }}{% endif %}</span>
+        <div class="pb-2 space-y-1.5"><p class="text-sm muted tnum">{{ num(c.time) }} · {{ c.room }}</p><p class="font-semibold">{{ c.name }} — {{ c.subject }}</p><p class="flex flex-wrap items-center gap-2">{{ class_tag(c) }}{% if c.present is not none %}<span class="text-sm tnum">{{ num(c.present|string) }} / {{ num(c.total|string) }} {{ t('Present') }}</span>{% endif %}</p>{{ class_btn(c) }}</div>
+      </li>{% endfor %}</ol>
+  </section>
+  <div class="space-y-6 min-w-0">{{ results_card('e') }}{{ leave_card() }}</div>
+</div>
+
+{% else %}
+{# =====================================================================  F #}
+<div><h1 class="text-[1.5rem] sm:text-[1.75rem]">{{ num('3') }} {{ t('tasks for today') }}</h1><p class="text-ink-2 mt-1 flex flex-wrap items-center gap-2"><span>Arif Hossain · {{ t('Teacher') }} · {{ t('Weaving') }}</span>{{ m.demo() }}</p></div>
+<div class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px] items-start">
+  <div class="space-y-5 min-w-0">
+    <section class="card" aria-labelledby="ftask-h"><div class="card-head"><h2 id="ftask-h">{{ t('My tasks') }}</h2></div>
+      <ul>
+        <li class="qrow items-center"><span class="sev-bar sev-danger" aria-hidden="true"></span><span class="icon-chip danger">{{ icon('user-check') }}</span><div class="flex-1 min-w-0"><p class="font-semibold">{{ t('Take attendance') }}: Diploma Y2 · Sec B</p><p class="text-sm overdue">{{ t('Due now') }} · 11:00 · Room 204</p></div><button type="button" class="btn btn-primary btn-sm" data-open="#attendance-dialog">{{ t('Start') }}</button></li>
+        <li class="qrow items-center"><span class="sev-bar sev-warning" aria-hidden="true"></span><span class="icon-chip warning">{{ icon('clipboard-check') }}</span><div class="flex-1 min-w-0"><p class="font-semibold">{{ t('Enter 2 missing marks') }}: {{ res.course }}</p><p class="text-sm muted">{{ res.missing|join(', ') }} · {{ t('Due') }} 20 Oct</p></div><button type="button" class="btn btn-secondary btn-sm" {{ m.ph('Result entry — ' ~ res.course, '/teacher/results/:courseId', 'PRD §6.7', 'Grading scale and calculation rules are TBD (PRD Q-40).') }}>{{ t('Enter results') }}</button></li>
+        <li class="qrow items-center"><span class="sev-bar sev-info" aria-hidden="true"></span><span class="icon-chip info">{{ icon('upload') }}</span><div class="flex-1 min-w-0"><p class="font-semibold">{{ t('Upload material') }}: {{ t('Weaving I (Lab)') }}</p><p class="text-sm muted">{{ t('Before the 14:00 class') }}</p></div><button type="button" class="btn btn-secondary btn-sm" data-open="#upload-dialog">{{ t('Upload') }}</button></li>
+      </ul>
+    </section>
+    <section class="card" aria-labelledby="fsch-h"><div class="card-head"><h2 id="fsch-h">{{ t("Today's classes") }}</h2></div>
+      <ul>{% for c in tc.classes %}<li class="qrow items-center"><span class="tnum font-semibold w-12">{{ num(c.time) }}</span><div class="flex-1 min-w-0"><p class="font-semibold">{{ c.name }}</p><p class="text-sm muted">{{ c.subject }} · {{ c.room }}</p></div>{{ class_tag(c) }}</li>{% endfor %}</ul>
+    </section>
+  </div>
+  <div class="space-y-5">{{ leave_card() }}</div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block dialogs %}
+{{ b.attendance_dialog(x) }}
+<dialog id="upload-dialog" class="dlg" aria-labelledby="up-h">
+  <div class="dlg-head"><h2 id="up-h" class="text-lg">{{ t('Upload material') }}</h2><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close">{{ icon('x') }}</button></div>
+  <form class="dlg-body space-y-4" data-validate="#upload-done" novalidate>
+    <label class="field"><span>{{ t('Class') }}</span><select class="select" required>{% for c in tc.classes %}<option>{{ c.name }} — {{ c.subject }}</option>{% endfor %}</select></label>
+    <label class="field"><span>{{ t('Title') }} *</span><input class="input" required placeholder="e.g. Plain weave — lab sheet 3"><span class="field-error">{{ icon('circle-alert','w-4 h-4') }}{{ t('This field is required') }}</span></label>
+    <label class="field"><span>{{ t('File') }}</span><input type="file" class="input py-2"><span class="text-xs muted">PDF, DOCX, PPTX, JPG · max 20 MB ({{ t('TBD') }})</span></label>
+    <div class="flex justify-end gap-2"><button type="button" class="btn btn-secondary" data-close>{{ t('Cancel') }}</button><button type="submit" class="btn btn-primary">{{ t('Upload') }}</button></div>
+  </form>
+  <div id="upload-done" class="dlg-body" hidden><div class="banner banner-success">{{ icon('circle-check') }}<span>{{ t('Material uploaded. Students in this class can see it now.') }}</span></div><div class="mt-4 flex justify-end"><button type="button" class="btn btn-primary" data-close>{{ t('Close') }}</button></div></div>
+</dialog>
+<dialog id="leave-dialog" class="dlg" aria-labelledby="lv-h">
+  <div class="dlg-head"><h2 id="lv-h" class="text-lg">{{ t('Apply for leave') }}</h2><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close">{{ icon('x') }}</button></div>
+  <form class="dlg-body space-y-4" data-validate="#leave-done" novalidate>
+    <label class="field"><span>{{ t('Leave type') }}</span><select class="select" required>{% for l in tc.leave %}<option>{{ l.type }} — {{ l.total - l.used }} days left</option>{% endfor %}</select></label>
+    <div class="grid grid-cols-2 gap-3"><label class="field"><span>{{ t('From') }} *</span><input type="date" class="input" required value="2026-10-21"><span class="field-error">{{ icon('circle-alert','w-4 h-4') }}{{ t('This field is required') }}</span></label><label class="field"><span>{{ t('To') }} *</span><input type="date" class="input" required><span class="field-error">{{ icon('circle-alert','w-4 h-4') }}{{ t('This field is required') }}</span></label></div>
+    <label class="field"><span>{{ t('Reason') }}</span><textarea class="input py-2 min-h-20"></textarea></label>
+    <p class="text-xs muted">{{ t('Goes to the Principal for approval.') }} {{ m.tbd('Delegation · PRD Q-45') }}</p>
+    <div class="flex justify-end gap-2"><button type="button" class="btn btn-secondary" data-close>{{ t('Cancel') }}</button><button type="submit" class="btn btn-primary">{{ t('Submit') }}</button></div>
+  </form>
+  <div id="leave-done" class="dlg-body" hidden><div class="banner banner-success">{{ icon('circle-check') }}<span>{{ t('Leave request submitted. Status') }}: <strong>{{ t('Submitted') }}</strong>.</span></div><div class="mt-4 flex justify-end"><button type="button" class="btn btn-primary" data-close>{{ t('Close') }}</button></div></div>
+</dialog>
+{% endblock %}

@@ -1,0 +1,216 @@
+{% extends 'def/_public.html' %}
+{% import 'def/_m.html' as m %}
+{% import 'def/_blocks.html' as b %}
+{% set popular = ['Apply for admission','Track application','Verify a certificate','Find an institution'] %}
+
+{% block content %}
+{% if v == 'D' %}
+{# =====================================================================  D · National Service Portal #}
+<section class="bg-band border-b border-line">
+  <div class="mx-auto max-w-[1440px] px-4 lg:px-8 py-10 lg:py-14 grid gap-8 lg:grid-cols-[1.35fr_1fr] items-start">
+    <div>
+      <p class="text-sm font-semibold text-primary">{{ t('Ministry of Textiles and Jute') }} · {{ t('Department of Textiles') }}</p>
+      <h1 class="mt-2 text-[2rem] sm:text-[2.5rem] leading-tight max-w-[22ch]">{{ t('Textile education and public services in one official portal') }}</h1>
+      <p class="mt-3 text-lg text-ink-2 max-w-[60ch]">{{ t('Find a textile institution, apply for admission, track an application or verify a certificate.') }}</p>
+      <form class="search-big mt-6 max-w-[640px]" role="search" action="{{ pf['02'] }}" method="get">
+        {{ icon('search','w-5 h-5 text-ink-3') }}
+        <input name="q" placeholder="Search an institution by name or code" data-bn-placeholder="{{ tb('Search an institution by name or code') }}" aria-label="Search an institution by name or code" data-bn-aria-label="{{ tb('Search an institution by name or code') }}">
+        <button class="btn btn-primary" type="submit">{{ t('Search') }}</button>
+      </form>
+      <div class="mt-4 flex flex-wrap items-center gap-2 text-sm"><span class="muted">{{ t('Popular services') }}:</span>
+        {% for name in popular %}{% set s = (x.services|selectattr('name','equalto',name)|first) %}
+          {% if name in ['Find an institution'] %}<a href="{{ pf['02'] }}" class="chip">{{ icon(s.icon,'w-4 h-4') }}{{ t(name) }}</a>
+          {% elif name == 'Track application' %}<a href="{{ pf['02'] }}#track" class="chip">{{ icon(s.icon,'w-4 h-4') }}{{ t(name) }}</a>
+          {% elif name == 'Verify a certificate' %}<a href="{{ pf['02'] }}#verify" class="chip">{{ icon(s.icon,'w-4 h-4') }}{{ t(name) }}</a>
+          {% else %}<button type="button" class="chip" {{ m.ph(name, '/admissions/apply', 'PRD §6.1') }}>{{ icon(s.icon,'w-4 h-4') }}{{ t(name) }}</button>{% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <aside class="card" aria-labelledby="adm-h">
+      <div class="card-head"><h2 id="adm-h" class="flex items-center gap-2">{{ icon('megaphone','w-5 h-5 text-red') }}{{ t('Admission 2026–27') }}</h2>{{ m.tag('Pending') }}</div>
+      <div class="card-pad space-y-5">
+        <p class="text-sm text-ink-2">{{ t('Entrance test results will be published on 30 October 2026.') }}</p>
+        {{ b.admission_steps(x.admission.dates, 'timeline') }}
+        {{ b.admission_actions(pf) }}
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="mx-auto max-w-[1440px] px-4 lg:px-8 py-10" aria-labelledby="stats-h">
+  <div class="flex flex-wrap items-end justify-between gap-3 mb-4"><h2 id="stats-h" class="section-title">{{ t('Public statistics') }}</h2><p class="text-sm muted flex items-center gap-2">{{ m.demo() }}<span>{{ t('Last updated') }}: 15 Oct 2026</span></p></div>
+  {{ b.stats_grid(x.public_stats, 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5') }}
+</section>
+
+<section class="mx-auto max-w-[1440px] px-4 lg:px-8 pb-12" aria-labelledby="svc-h">
+  <div class="flex flex-wrap items-end justify-between gap-3 mb-5"><div><h2 id="svc-h" class="section-title">{{ t('Public services') }}</h2><p class="muted mt-1">{{ t('No sign-in needed. Officers, teachers and students sign in for their own work.') }}</p></div><a href="{{ pf['02'] }}" class="link inline-flex items-center gap-1">{{ t('View all') }}{{ icon('arrow-right','w-4 h-4') }}</a></div>
+  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{% for s in x.services %}{{ b.service_tile(s, pf) }}{% endfor %}</div>
+</section>
+
+<section class="bg-band border-y border-line" aria-labelledby="find-h">
+  <div class="mx-auto max-w-[1440px] px-4 lg:px-8 py-10 grid gap-8 lg:grid-cols-[1fr_1.2fr] items-start">
+    <div>
+      <h2 id="find-h" class="section-title">{{ t('Find an institution') }}</h2>
+      <p class="mt-2 text-ink-2">{{ t('Search all 59 government textile institutions by division, district and type.') }}</p>
+      <form class="mt-5 card card-pad grid gap-3 sm:grid-cols-2" action="{{ pf['02'] }}" method="get">
+        <label class="field sm:col-span-2"><span>{{ t('Institution name or code') }}</span><input class="input" name="q" placeholder="e.g. Karnaphuli or TI-CTG-014" data-bn-placeholder="{{ tb('Institution name or code') }}"></label>
+        <label class="field"><span>{{ t('Division') }}</span><select class="select" name="division"><option value="" data-bn="{{ tb('All divisions') }}">All divisions</option>{% for dv in x.divisions %}<option value="{{ dv.name|lower }}" data-bn="{{ dv.bn }}">{{ dv.name }}</option>{% endfor %}</select></label>
+        <label class="field"><span>{{ t('Type') }}</span><select class="select" name="type"><option value="" data-bn="{{ tb('All types') }}">All types</option>{% for ty in ['Textile Engineering College','Textile Institute','Textile Vocational Institute'] %}<option value="{{ ty|lower }}" data-bn="{{ tb(ty) }}">{{ ty }}</option>{% endfor %}</select></label>
+        <div class="sm:col-span-2"><button class="btn btn-primary" type="submit">{{ icon('search') }}{{ t('Search') }}</button></div>
+      </form>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>{{ t('Textile institutions by division') }}</h3>{{ m.demo() }}</div>
+      <ul class="card-pad space-y-3">
+        {% for dv in x.divisions|sort(attribute='institutions', reverse=true) %}
+        <li class="grid grid-cols-[110px_1fr_auto] items-center gap-3 text-sm">
+          <a class="font-semibold hover:underline" href="{{ pf['02'] }}?division={{ dv.name|lower }}"><span data-bn="{{ dv.bn }}">{{ dv.name }}</span></a>
+          <span class="hbar" aria-hidden="true"><span style="width:{{ (dv.institutions / 13 * 100)|round(1) }}%"></span></span>
+          <span class="tnum font-semibold w-8 text-right">{{ num(dv.institutions|string) }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="mx-auto max-w-[1440px] px-4 lg:px-8 py-12 grid gap-8 lg:grid-cols-[1.6fr_1fr] items-start">
+  <div aria-labelledby="ntc-h">
+    <div class="flex items-end justify-between gap-3 mb-4"><h2 id="ntc-h" class="section-title">{{ t('Notices and circulars') }}</h2><button type="button" class="link inline-flex items-center gap-1" {{ m.ph('Notices', '/notices', 'PRD §6.1 /notices') }}>{{ t('View all') }}{{ icon('arrow-right','w-4 h-4') }}</button></div>
+    {{ b.notices_table(x.notices, 'd-notices') }}
+  </div>
+  <div class="card" aria-labelledby="ver-h">
+    <div class="card-head"><h2 id="ver-h" class="flex items-center gap-2">{{ icon('shield-check','w-5 h-5 text-primary') }}{{ t('Verify a certificate or license') }}</h2></div>
+    <div class="card-pad">{{ b.verify_box('d-ver') }}</div>
+  </div>
+</section>
+
+<section class="mx-auto max-w-[1440px] px-4 lg:px-8 pb-14 grid gap-8 lg:grid-cols-2 items-start">
+  <div><h2 class="section-title mb-4">{{ t('Frequently asked questions') }}</h2>{{ b.faq(x.faq) }}</div>
+  <div><h2 class="section-title mb-4">{{ t('Help centre') }}</h2>{{ b.help_cards() }}</div>
+</section>
+
+{% elif v == 'E' %}
+{# =====================================================================  E · Connected Institution Network #}
+{% set links = {} %}{% for dv in x.divisions %}{% set _ = links.update({dv.id: (pf['02'] ~ '?division=' ~ dv.name|lower, '')}) %}{% endfor %}
+<section class="dot-grid border-b border-line">
+  <div class="mx-auto max-w-[1440px] px-4 lg:px-8 py-10 lg:py-12 grid gap-8 lg:grid-cols-[1.1fr_1fr] items-center">
+    <div>
+      <p class="inline-flex items-center gap-2 text-sm font-semibold text-data">{{ m.flag('w-5 h-3') }}{{ t('Ministry of Textiles and Jute') }}</p>
+      <h1 class="mt-3 text-[2.125rem] sm:text-[2.75rem] leading-[1.15] max-w-[18ch]">{{ t('59 textile institutions. One connected network.') }}</h1>
+      <p class="mt-4 text-lg text-ink-2 max-w-[56ch]">{{ t('Every institution, district and division works from the same records, so citizens get services and the Ministry sees the whole picture.') }}</p>
+      <form class="search-big mt-6 max-w-[600px] !border-data" role="search" action="{{ pf['02'] }}" method="get">
+        {{ icon('search','w-5 h-5 text-ink-3') }}
+        <input name="q" placeholder="Search an institution by name or code" data-bn-placeholder="{{ tb('Search an institution by name or code') }}" aria-label="Search an institution by name or code">
+        <button class="btn btn-primary" type="submit">{{ t('Explore the network') }}</button>
+      </form>
+      <dl class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-[640px]">
+        {% for s in x.public_stats[:4] %}<div class="border-l-2 border-data pl-3"><dt class="label">{{ t(s.label) }}</dt><dd class="figure mt-0.5">{{ num(s.value) }}</dd></div>{% endfor %}
+      </dl>
+      <p class="mt-3">{{ m.demo() }}</p>
+    </div>
+    <figure class="card card-pad">
+      <figcaption class="flex flex-wrap items-center justify-between gap-2 mb-2"><span class="font-semibold">{{ t('The network by division') }}</span><span class="text-xs muted inline-flex items-center gap-1.5"><svg viewBox="0 0 12 12" class="w-3 h-3" aria-hidden="true"><circle cx="6" cy="6" r="4" fill="var(--surface)" stroke="var(--data)" stroke-width="2"/></svg>{{ t('One institution') }}</span></figcaption>
+      <div class="max-w-[420px] mx-auto">{{ nat_map(map_data, fills={'dhaka':'r-brand-soft','chattogram':'r-brand-soft','rajshahi':'r-brand-soft','khulna':'r-brand-soft','barishal':'r-brand-soft','sylhet':'r-brand-soft','rangpur':'r-brand-soft','mymensingh':'r-brand-soft'}, links=links, nodes=x.div_nodes, bn=x.div_bn, title='Textile institutions by division') }}</div>
+      <p class="text-xs muted text-center">{{ t('Select a division to see its institutions.') }}</p>
+    </figure>
+  </div>
+</section>
+
+<section class="mx-auto max-w-[1440px] px-4 lg:px-8 py-12" aria-labelledby="who-h">
+  <p class="text-sm font-semibold text-data">{{ t('Public services') }}</p>
+  <h2 id="who-h" class="section-title mt-1">{{ t('Services by who you are') }}</h2>
+  <div class="mt-6 grid gap-5 lg:grid-cols-3">
+    {% for group, ic, names in [('Applicants and students','graduation-cap',['Admission information','Apply for admission','Check admission result','Track application']),('Graduates and organizations','award',['Certificate information','Verify a certificate','Professional license application']),('Everyone','users',['Find an institution','Forms and downloads'])] %}
+    <div class="card">
+      <div class="card-head justify-start"><span class="icon-chip">{{ icon(ic) }}</span><h3>{{ t(group) }}</h3></div>
+      <ul>{% for name in names %}{{ b.service_row(x.services|selectattr('name','equalto',name)|first, pf, None, true) }}{% endfor %}</ul>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="bg-surface border-y border-line" aria-labelledby="eadm-h">
+  <div class="mx-auto max-w-[1440px] px-4 lg:px-8 py-10 grid gap-8 lg:grid-cols-[1fr_2fr] items-center">
+    <div><p class="text-sm font-semibold text-data">{{ t('Admission 2026–27') }}</p><h2 id="eadm-h" class="section-title mt-1">{{ t('Key dates') }}</h2><p class="mt-2 text-ink-2">{{ t('Entrance test results will be published on 30 October 2026.') }}</p><div class="mt-5">{{ b.admission_actions(pf) }}</div></div>
+    {{ b.admission_steps(x.admission.dates, 'bars') }}
+  </div>
+</section>
+
+<section class="mx-auto max-w-[1440px] px-4 lg:px-8 py-12" aria-labelledby="eglance-h">
+  <div class="flex flex-wrap items-end justify-between gap-3"><div><p class="text-sm font-semibold text-data">{{ t('Public Dashboard') }}</p><h2 id="eglance-h" class="section-title mt-1">{{ t('The network at a glance') }}</h2></div>{{ m.demo() }}</div>
+  <ul class="mt-6 grid gap-3 grid-cols-2 md:grid-cols-4">
+    {% for dv in x.divisions|sort(attribute='institutions', reverse=true) %}
+    <li><a href="{{ pf['02'] }}?division={{ dv.name|lower }}" class="card card-pad block h-full">
+      <span class="flex items-center justify-between gap-2"><span class="font-semibold" data-bn="{{ dv.bn }}">{{ dv.name }}</span>{{ icon('arrow-up-right','w-4 h-4 text-ink-3') }}</span>
+      <span class="mt-2 flex items-baseline gap-2"><span class="figure">{{ num(dv.institutions|string) }}</span><span class="text-sm muted">{{ t('institutions') }}</span></span>
+      <span class="block text-sm muted">{{ num('{:,}'.format(dv.students)) }} {{ t('students') }}</span>
+    </a></li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="mx-auto max-w-[1440px] px-4 lg:px-8 pb-12 grid gap-8 lg:grid-cols-[1.5fr_1fr] items-start">
+  <div aria-labelledby="entc-h"><h2 id="entc-h" class="section-title mb-4">{{ t('Notices and circulars') }}</h2>
+    <ul class="card">{% for n in x.notices %}<li class="qrow"><span class="text-center w-14 flex-none"><span class="block figure !text-xl">{{ num(n.date[:2]) }}</span><span class="text-xs muted">{{ n.date[3:] }}</span></span><div class="flex-1 min-w-0"><button type="button" class="font-semibold text-left hover:underline" {{ m.ph('Notice detail', '/notices/:id', 'PRD §6.1 /notices/:id', n.title) }}>{{ t(n.title) }}</button><p class="mt-1 text-sm muted">{{ t(n.category) }} · {{ t(n.authority) }}</p></div></li>{% endfor %}</ul>
+  </div>
+  <div class="card" style="background:var(--band)">
+    <div class="card-pad"><p class="text-sm font-semibold text-data">{{ t('Verify a certificate or license') }}</p><h2 class="section-title mt-1 mb-4">{{ t('Is this certificate genuine?') }}</h2>{{ b.verify_box('e-ver') }}</div>
+  </div>
+</section>
+
+<section class="mx-auto max-w-[1440px] px-4 lg:px-8 pb-14" aria-labelledby="ehelp-h">
+  <h2 id="ehelp-h" class="section-title mb-4">{{ t('Help centre') }}</h2>
+  <div class="grid gap-6 lg:grid-cols-[1.2fr_1fr] items-start">{{ b.faq(x.faq) }}<div class="grid gap-4">{{ b.help_cards() }}</div></div>
+</section>
+
+{% else %}
+{# =====================================================================  F · Action & Service Hub #}
+<section class="bg-surface border-b border-line">
+  <div class="mx-auto max-w-[1100px] px-4 lg:px-8 pt-10 pb-8">
+    <h1 class="text-[1.875rem] sm:text-[2.25rem] leading-tight">{{ t('What do you need to do today?') }}</h1>
+    <p class="mt-2 text-ink-2">{{ t('Type a task. Services open without signing in.') }}</p>
+    <label class="search-big mt-5">
+      {{ icon('search','w-5 h-5 text-ink-3') }}
+      <input data-filter="#f-tasks" data-key="text" placeholder="e.g. admission, certificate, track" data-bn-placeholder="{{ tb('e.g. admission, certificate, track') }}" aria-label="Search services" data-bn-aria-label="{{ tb('Search services') }}">
+    </label>
+    <div class="mt-3 flex flex-wrap gap-2">{% for q in ['Admission','Certificate','Track','Institution'] %}<button type="button" class="chip" data-set-filter="#f-tasks|text|{{ q|lower }}">{{ t(q) }}</button>{% endfor %}</div>
+  </div>
+</section>
+
+<div class="mx-auto max-w-[1100px] px-4 lg:px-8 py-8 grid gap-6 lg:grid-cols-[1.6fr_1fr] items-start">
+  <section class="card" aria-labelledby="ftask-h">
+    <div class="card-head"><h2 id="ftask-h">{{ t('Public services') }}</h2><span class="text-sm muted"><span data-count-for="#f-tasks">{{ x.services|length }}</span> {{ t('services') }}</span></div>
+    <ul id="f-tasks">{% for s in x.services %}{{ b.service_row(s, pf, true) }}{% endfor %}</ul>
+    <div class="empty" data-empty="#f-tasks" hidden>{{ icon('search-x') }}<p class="font-semibold">{{ t('No service matches your search') }}</p><p class="text-sm">{{ t('Try another word, or contact the help desk.') }}</p></div>
+  </section>
+  <div class="space-y-6">
+    <section class="card" aria-labelledby="ftrack-h">
+      <div class="card-head"><h2 id="ftrack-h" class="flex items-center gap-2">{{ icon('route','w-5 h-5 text-primary') }}{{ t('Track application') }}</h2></div>
+      <div class="card-pad">{{ b.track_box('f-trk', x.tracking_sample, x.tracking_sample.timeline) }}</div>
+    </section>
+    <section class="card" aria-labelledby="fadm-h">
+      <div class="card-head"><h2 id="fadm-h">{{ t('Admission 2026–27') }}</h2>{{ m.tag('Pending') }}</div>
+      <div class="card-pad space-y-4">{{ b.admission_steps(x.admission.dates, 'timeline') }}<button type="button" class="btn btn-primary w-full" {{ m.ph('Apply for admission', '/admissions/apply', 'PRD §6.1 /admissions/apply') }}>{{ t('Apply for admission') }}</button></div>
+    </section>
+  </div>
+</div>
+
+<div class="mx-auto max-w-[1100px] px-4 lg:px-8 pb-8 grid gap-6 lg:grid-cols-[1.6fr_1fr] items-start">
+  <section class="card" aria-labelledby="fntc-h">
+    <div class="card-head"><h2 id="fntc-h">{{ t('Notices and circulars') }}</h2><button type="button" class="link text-sm" {{ m.ph('Notices', '/notices', 'PRD §6.1 /notices') }}>{{ t('View all') }}</button></div>
+    <ul>{% for n in x.notices %}<li class="qrow items-center flex-wrap sm:flex-nowrap"><span class="sm:w-44 flex-none"><span class="tag tag-{{ 'info' if n.category == 'Admission' else 'neutral' }}">{{ t(n.category) }}</span></span><button type="button" class="flex-1 min-w-0 text-left font-medium hover:underline" {{ m.ph('Notice detail', '/notices/:id', 'PRD §6.1 /notices/:id', n.title) }}>{{ t(n.title) }}</button><span class="text-sm muted whitespace-nowrap hidden sm:inline">{{ n.date }}</span></li>{% endfor %}</ul>
+  </section>
+  <section class="card" aria-labelledby="fver-h">
+    <div class="card-head"><h2 id="fver-h">{{ t('Verify a certificate or license') }}</h2></div>
+    <div class="card-pad">{{ b.verify_box('f-ver') }}</div>
+  </section>
+</div>
+
+<section class="mx-auto max-w-[1100px] px-4 lg:px-8 pb-14" aria-labelledby="fhelp-h">
+  <h2 id="fhelp-h" class="section-title mb-4">{{ t('Need help?') }}</h2>
+  {{ b.help_cards() }}
+  <div class="mt-6">{{ b.faq(x.faq) }}</div>
+</section>
+{% endif %}
+{% endblock %}

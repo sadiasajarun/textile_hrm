@@ -1,0 +1,228 @@
+{# D/E/F shared component macros. Theme differences come from [data-theme] tokens in css/def.css. #}
+
+{% macro head(title, asset) -%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }} · Textile Institution Management System</title>
+<link rel="stylesheet" href="{{ asset }}tims-def.css">
+<script src="{{ asset }}tims-def.js" defer></script>
+{%- endmacro %}
+
+{% macro var_nav(v, num, slug, pages, short) -%}
+<nav class="var-nav-bar" aria-label="Design variation review (prototype only)">
+  {% for vv in ['D','E','F'] %}<a href="{{ vv }}-{{ num }}-{{ slug }}.html"{% if vv == v %} aria-current="page"{% endif %} title="Variation {{ vv }}">{{ vv }}</a>{% endfor %}
+  <span class="sep" aria-hidden="true"></span>
+  {% for n, s, tt, r in pages %}<a href="{{ v }}-{{ n }}-{{ s }}.html"{% if n == num %} aria-current="page"{% endif %} title="{{ short[n] }}">{{ n }}</a>{% endfor %}
+  <span class="sep" aria-hidden="true"></span>
+  <a href="showcase-DEF.html" title="Back to the D/E/F showcase" aria-label="Close, back to showcase">✕</a>
+</nav>
+{%- endmacro %}
+
+{% macro flag(cls='w-10 h-6') -%}
+<svg viewBox="0 0 10 6" class="{{ cls }} flex-none rounded-[2px]" role="img" aria-label="Flag of Bangladesh"><rect width="10" height="6" fill="#006A4E"/><circle cx="4.5" cy="3" r="2" fill="#F42A41"/></svg>
+{%- endmacro %}
+
+{% macro netmark(cls='w-10 h-10') -%}
+<svg viewBox="0 0 40 40" class="{{ cls }} flex-none" aria-hidden="true"><rect width="40" height="40" rx="10" fill="var(--primary)"/><g stroke="#fff" stroke-width="1.6" opacity=".9"><path d="M20 20 10 11M20 20l11-8M20 20l-9 10M20 20l10 9"/></g><g fill="#fff"><circle cx="20" cy="20" r="4.2"/><circle cx="10" cy="11" r="2.6"/><circle cx="31" cy="12" r="2.6"/><circle cx="11" cy="30" r="2.6"/><circle cx="30" cy="29" r="2.6"/></g></svg>
+{%- endmacro %}
+
+{% macro demo() -%}<span class="demo-tag" title="Figures are illustrative until verified by the Ministry (PRD Q-29)">{{ icon('info','w-3 h-3') }}{{ t('Demo / Illustrative Data') }}</span>{%- endmacro %}
+
+{% macro tbd(text='TBD — Requires Client Confirmation') -%}<span class="tbd-tag">{{ icon('circle-help','w-3 h-3') }}{{ text }}</span>{%- endmacro %}
+
+{% macro tag(text) -%}{% set k = status_kind(text) %}<span class="tag tag-{{ k[0] }}">{{ icon(k[1], 'w-3.5 h-3.5') }}{{ t(text) }}</span>{%- endmacro %}
+
+{% macro health(h, value=None) -%}<span class="health health-{{ h }}">{{ t({'good':'Good','watch':'Watch','attention':'Attention','none':'No data'}[h]) }}{% if value %}<span class="font-normal muted"> · {{ value }}</span>{% endif %}</span>{%- endmacro %}
+
+{% macro ph(title, route, ref='PRD v1 §6', extra='') -%}data-placeholder="{{ title }}|{{ route }}|{{ ref }}|{{ extra }}"{%- endmacro %}
+
+{% macro lang_toggle(dark=false) -%}
+<div class="inline-flex items-center gap-1 text-sm font-semibold" role="group" aria-label="Language">
+  <button type="button" data-lang="bn" class="px-2 min-h-9 rounded {{ 'hover:bg-white/15' if dark else 'hover:bg-band' }}">বাংলা</button>
+  <span aria-hidden="true" class="opacity-50">|</span>
+  <button type="button" data-lang="en" class="px-2 min-h-9 rounded {{ 'hover:bg-white/15' if dark else 'hover:bg-band' }}">English</button>
+</div>
+{%- endmacro %}
+
+{% macro a11y_menu(id, dark=false) -%}
+<div class="relative">
+  <button type="button" class="inline-flex items-center gap-1.5 px-2 min-h-9 rounded text-sm font-semibold {{ 'hover:bg-white/15' if dark else 'hover:bg-band' }}" data-dropdown="#{{ id }}" aria-expanded="false" aria-haspopup="true">{{ icon('accessibility','w-4 h-4') }}<span class="hidden sm:inline">{{ t('Accessibility') }}</span></button>
+  <div id="{{ id }}" class="menu right-0 mt-1 text-ink" data-menu hidden>
+    <p class="menu-label">{{ t('Text size') }}</p>
+    <div class="flex gap-1 px-2 pb-2"><button type="button" class="btn btn-secondary btn-sm flex-1" data-size="sm" aria-label="Smaller text">A−</button><button type="button" class="btn btn-secondary btn-sm flex-1" data-size="md" aria-label="Default text size">A</button><button type="button" class="btn btn-secondary btn-sm flex-1" data-size="lg" aria-label="Larger text">A+</button></div>
+    <button type="button" data-contrast aria-pressed="false">{{ icon('contrast','w-4 h-4') }}{{ t('High contrast') }}</button>
+  </div>
+</div>
+{%- endmacro %}
+
+{# ------------------------------------------------------------ shared dialogs #}
+{% macro dialogs() -%}
+<dialog id="placeholder-dialog" class="dlg" aria-labelledby="ph-h">
+  <div class="dlg-head"><h2 id="ph-h" class="text-lg flex items-center gap-2">{{ icon('layers','w-5 h-5 text-primary') }}<span data-ph-title>Screen</span></h2><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close">{{ icon('x') }}</button></div>
+  <div class="dlg-body space-y-3">
+    <p class="banner banner-info">{{ icon('info') }}<span><strong>{{ t('Part of the full build') }}.</strong> This screen is specified in PRD v1 and will be designed in the selected direction after the client chooses D, E or F.</span></p>
+    <dl class="grid grid-cols-[110px_1fr] gap-y-2 text-sm"><dt class="muted">Route</dt><dd class="font-mono" data-ph-route>—</dd><dt class="muted">Reference</dt><dd data-ph-ref>PRD v1</dd></dl>
+    <p class="text-sm text-ink-2" data-ph-extra hidden></p>
+  </div>
+  <div class="dlg-foot"><button type="button" class="btn btn-primary" data-close>{{ t('Close') }}</button></div>
+</dialog>
+<dialog id="denied-dialog" class="dlg" aria-labelledby="dn-h">
+  <div class="dlg-head"><h2 id="dn-h" class="text-lg flex items-center gap-2">{{ icon('lock','w-5 h-5 text-danger') }}{{ t('Permission denied') }}</h2><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close">{{ icon('x') }}</button></div>
+  <div class="dlg-body space-y-3 text-sm">
+    <p>You don't have access to <strong data-denied-scope>this scope</strong>. Your role only covers its assigned jurisdiction, and data from other divisions or districts stays hidden.</p>
+    <p class="muted">If you need wider access, ask the Ministry Super Admin to change your role assignment. Every access change is recorded in the activity log.</p>
+  </div>
+  <div class="dlg-foot"><button type="button" class="btn btn-primary" data-close>{{ t('Close') }}</button></div>
+</dialog>
+{%- endmacro %}
+
+{# ------------------------------------------------------------ public header #}
+{% macro public_header(v, pf, active) -%}
+{% set nav = [('Home','01'),('Institutions','02'),('Admissions',None),('Services',None),('Public Dashboard',None),('Notices',None),('Results / Verification',None),('Resources / Help',None)] %}
+<a class="skip-link" href="#main">{{ t('Skip to main content') }}</a>
+{% if v == 'D' %}
+<div class="bg-primary-dark text-white">
+  <div class="mx-auto max-w-[1440px] px-4 lg:px-8 min-h-10 flex items-center justify-between gap-3 text-sm">
+    <span class="truncate hidden sm:inline">{{ t("Government of the People's Republic of Bangladesh") }}</span>
+    <div class="flex items-center gap-1 ml-auto">{{ a11y_menu('a11y-pub', true) }}<button type="button" class="hidden md:inline-flex px-2 min-h-9 rounded hover:bg-white/15 font-semibold items-center gap-1.5" {{ ph('Help desk','/help','PRD §6.1 /help') }}>{{ icon('life-buoy','w-4 h-4') }}{{ t('Help desk') }}</button>{{ lang_toggle(true) }}</div>
+  </div>
+</div>
+<header class="bg-surface">
+  <div class="mx-auto max-w-[1440px] px-4 lg:px-8 py-4 flex items-center gap-4">
+    <a href="{{ pf['01'] }}" class="flex items-center gap-3 min-w-0 mr-auto">
+      <span class="seal w-11 h-11 sm:w-14 sm:h-14">{{ flag('w-6 h-[14px] sm:w-8 sm:h-[19px]') }}</span>
+      <span class="min-w-0 leading-tight">
+        <span class="hidden sm:block text-sm text-ink-2">{{ t('Ministry of Textiles and Jute') }} · {{ t('Department of Textiles') }}</span>
+        <span class="block font-head font-bold text-base sm:text-xl text-ink">{{ t('Textile Institution Management System') }}</span>
+      </span>
+    </a>
+    <form class="hidden lg:flex items-center gap-2 border border-line rounded-ui px-3 min-h-11 w-72" role="search" onsubmit="return false"><span>{{ icon('search','w-4 h-4 text-ink-3') }}</span><input class="flex-1 bg-transparent outline-none text-sm" placeholder="{{ 'Search institutions, services, notices' }}" data-bn-placeholder="{{ tb('Search') }}" aria-label="Search"></form>
+    <a href="{{ pf['03'] }}" class="btn btn-primary">{{ icon('log-in') }}{{ t('Login') }}</a>
+  </div>
+  <div class="red-line" aria-hidden="true"></div>
+</header>
+<nav class="bg-band border-b border-line" aria-label="Main">
+  <div class="mx-auto max-w-[1440px] px-2 lg:px-6 pub-nav flex overflow-x-auto">
+    {% for en, n in nav %}{% if n %}<a href="{{ pf[n] }}"{% if active == n %} aria-current="page"{% endif %}>{{ t(en) }}</a>{% else %}<button type="button" {{ ph(en, '/' ~ en|lower|replace(' / ','-')|replace(' ','-'), 'PRD §6.1') }}>{{ t(en) }}</button>{% endif %}{% endfor %}
+  </div>
+</nav>
+{% elif v == 'E' %}
+<header class="bg-surface border-b border-line">
+  <div class="mx-auto max-w-[1440px] px-4 lg:px-8 min-h-[72px] flex items-center gap-4">
+    <a href="{{ pf['01'] }}" class="flex items-center gap-3 min-w-0 mr-auto">
+      {{ netmark('w-11 h-11') }}
+      <span class="min-w-0 leading-tight"><span class="block text-xs font-semibold text-ink-3 flex items-center gap-1.5">{{ flag('w-5 h-3') }}{{ t('Ministry of Textiles and Jute') }}</span><span class="block font-bold text-lg text-ink">{{ t('Textile Institution Management System') }}</span></span>
+    </a>
+    <nav aria-label="Main" class="hidden 2xl:flex items-center pub-nav">
+      {% for en, n in nav %}{% if n %}<a href="{{ pf[n] }}"{% if active == n %} aria-current="page"{% endif %}>{{ t(en) }}</a>{% else %}<button type="button" {{ ph(en, '/' ~ en|lower|replace(' / ','-')|replace(' ','-'), 'PRD §6.1') }}>{{ t(en) }}</button>{% endif %}{% endfor %}
+    </nav>
+    <div class="flex items-center gap-1">{{ a11y_menu('a11y-pub') }}<span class="hidden sm:block">{{ lang_toggle() }}</span><a href="{{ pf['03'] }}" class="btn btn-primary ml-1">{{ icon('log-in') }}{{ t('Login') }}</a></div>
+  </div>
+  <nav aria-label="Main (compact)" class="2xl:hidden border-t border-line"><div class="px-2 pub-nav flex overflow-x-auto">{% for en, n in nav %}{% if n %}<a href="{{ pf[n] }}"{% if active == n %} aria-current="page"{% endif %}>{{ t(en) }}</a>{% else %}<button type="button" {{ ph(en, '/' ~ en|lower|replace(' / ','-')|replace(' ','-'), 'PRD §6.1') }}>{{ t(en) }}</button>{% endif %}{% endfor %}</div></nav>
+</header>
+{% else %}
+<header class="bg-surface border-b border-line">
+  <div class="mx-auto max-w-[1440px] px-4 lg:px-8 min-h-16 flex items-center gap-3">
+    <a href="{{ pf['01'] }}" class="flex items-center gap-3 min-w-0 mr-auto">
+      {{ flag('w-9 h-[22px]') }}
+      <span class="min-w-0 leading-tight"><span class="block text-xs text-ink-3">{{ t('Ministry of Textiles and Jute') }}</span><span class="block font-semibold text-[1.0625rem] text-ink">{{ t('Textile Institution Services') }}</span></span>
+    </a>
+    {{ a11y_menu('a11y-pub') }}
+    <span class="hidden sm:block">{{ lang_toggle() }}</span>
+    <a href="{{ pf['03'] }}" class="btn btn-primary">{{ icon('log-in') }}{{ t('Login') }}</a>
+  </div>
+  <nav aria-label="Main" class="border-t border-line"><div class="mx-auto max-w-[1440px] px-2 lg:px-6 pub-nav flex overflow-x-auto text-[.9375rem]">{% for en, n in nav %}{% if n %}<a href="{{ pf[n] }}"{% if active == n %} aria-current="page"{% endif %}>{{ t(en) }}</a>{% else %}<button type="button" {{ ph(en, '/' ~ en|lower|replace(' / ','-')|replace(' ','-'), 'PRD §6.1') }}>{{ t(en) }}</button>{% endif %}{% endfor %}</div></nav>
+</header>
+{% endif %}
+{%- endmacro %}
+
+{% macro public_footer(v, d) -%}
+<footer class="{{ 'bg-primary-dark text-white' if v == 'D' else ('bg-[#10232A] text-[#D6E2E4]' if v == 'E' else 'bg-surface border-t border-line text-ink-2') }}">
+  <div class="mx-auto max-w-[1440px] px-4 lg:px-8 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+    <div>
+      <div class="flex items-center gap-3">{{ flag('w-10 h-6') }}<div class="leading-tight"><p class="font-semibold">{{ t('Ministry of Textiles and Jute') }}</p><p class="text-sm opacity-85">{{ t('Department of Textiles') }}</p></div></div>
+      <p class="mt-4 text-sm opacity-85">{{ t('One platform for textile institutions, Ministry monitoring and professional verification.') }}</p>
+    </div>
+    {% for title, links in [('Important links', ['Ministry of Textiles and Jute','Department of Textiles','Bangladesh National Portal']), ('Public services', ['Admission information','Track application','Verify a certificate','Forms and downloads']), ('Help desk', ['Frequently asked questions','User guides','Contact the help desk','Accessibility'])] %}
+    <div><p class="font-semibold mb-3">{{ t(title) }}</p><ul class="space-y-2 text-sm opacity-90">{% for l in links %}<li><button type="button" class="hover:underline text-left" {{ ph(l, '/' ~ l|lower|replace(' ','-'), 'PRD §6.1') }}>{{ t(l) }}</button></li>{% endfor %}</ul></div>
+    {% endfor %}
+  </div>
+  <div class="border-t {{ 'border-white/15' if v != 'F' else 'border-line' }}"><div class="mx-auto max-w-[1440px] px-4 lg:px-8 py-4 flex flex-wrap gap-x-6 gap-y-1 text-xs opacity-85"><span>© 2026 Ministry of Textiles and Jute</span><span>Prototype D/E/F · PRD v1 · Last updated 15 Oct 2026</span><span>Privacy · Terms · Accessibility statement — content TBD (PRD Q-46)</span><span>{{ map_attr }}</span></div></div>
+</footer>
+{%- endmacro %}
+
+{# ------------------------------------------------------------ app header widgets #}
+{% macro role_preview(id, v, pf, role_preview, dark=false) -%}
+<div class="relative">
+  <button type="button" class="preview-btn inline-flex items-center gap-1.5 px-2.5 min-h-9 rounded text-xs font-bold {{ 'text-white hover:bg-white/15' if dark else 'text-warning hover:bg-warning-tint' }}" data-dropdown="#{{ id }}" aria-expanded="false" aria-haspopup="true">{{ icon('eye','w-4 h-4') }}<span class="hidden md:inline">{{ t('Prototype Role Preview') }}</span>{{ icon('chevron-down','w-3.5 h-3.5') }}</button>
+  <div id="{{ id }}" class="menu right-0 mt-1 w-80 text-ink" data-menu hidden>
+    <p class="menu-label">{{ t('Prototype only') }}</p>
+    <p class="px-2.5 pb-2 text-xs text-ink-3">In production a user cannot choose a role. Roles and scopes are assigned by the Ministry Super Admin.</p>
+    {% for label, scope, n in role_preview %}
+      {% if n %}<a href="{{ pf[n] }}">{{ icon('user','w-4 h-4 text-ink-3') }}<span><span class="block font-semibold">{{ t(label) }}</span><span class="block text-xs text-ink-3">{{ scope }}</span></span></a>
+      {% else %}<button type="button" {{ ph(label ~ ' workspace', '/' ~ label|lower|replace(' ','-'), 'PRD §6.9–6.10') }}>{{ icon('user','w-4 h-4 text-ink-3') }}<span><span class="block font-semibold">{{ t(label) }}</span><span class="block text-xs text-ink-3">{{ scope }}</span></span></button>{% endif %}
+    {% endfor %}
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro notif_menu(id, pf, dark=false) -%}
+<div class="relative">
+  <button type="button" class="relative inline-flex items-center justify-center w-11 h-11 rounded {{ 'hover:bg-white/15' if dark else 'hover:bg-band' }}" data-dropdown="#{{ id }}" aria-expanded="false" aria-label="{{ 'Notifications, 3 unread' }}" data-bn-aria-label="{{ tb('Notifications') }}">{{ icon('bell') }}<span class="absolute top-1.5 right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-danger text-white text-[10px] font-bold leading-[18px] text-center">3</span></button>
+  <div id="{{ id }}" class="menu right-0 mt-1 w-[340px] max-w-[calc(100vw-24px)] text-ink" data-menu hidden>
+    <div class="flex items-center justify-between px-2.5 py-1.5"><p class="font-semibold">{{ t('Notifications') }}</p><button type="button" class="link text-xs !w-auto !min-h-0" data-toast="All notifications marked as read">{{ t('Mark all as read') }}</button></div>
+    {% for txt, when, unread, target in [('Attendance below 80% at Karnaphuli Textile Institute','09:42',true,'10'),('5 student requests passed their SLA','08:30',true,'07'),('Result publication schedule approved','Yesterday',true,None),('Teacher training schedule published','14 Oct',false,None)] %}
+      {% if target %}<a href="{{ pf[target] }}" class="!items-start">{% else %}<button type="button" class="!items-start" {{ ph('Notification detail', '/notifications', 'PRD §3 M22') }}>{% endif %}
+        <span class="mt-1.5 w-2 h-2 rounded-full flex-none {{ 'bg-primary' if unread else 'bg-transparent' }}" aria-hidden="true"></span><span class="min-w-0"><span class="block text-sm {{ 'font-semibold' if unread else '' }}">{{ txt }}</span><span class="block text-xs text-ink-3">{{ when }}{% if unread %} · unread{% endif %}</span></span>
+      {% if target %}</a>{% else %}</button>{% endif %}
+    {% endfor %}
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro user_menu(id, user, role, pf, dark=false) -%}
+<div class="relative">
+  <button type="button" class="flex items-center gap-2 pl-1 pr-2 min-h-11 rounded {{ 'hover:bg-white/15' if dark else 'hover:bg-band' }}" data-dropdown="#{{ id }}" aria-expanded="false" aria-haspopup="true">
+    <span class="w-9 h-9 rounded-full {{ 'bg-white text-primary-dark' if dark else 'bg-primary text-on-primary' }} text-xs font-bold inline-flex items-center justify-center">{{ user.initials }}</span>
+    <span class="hidden sm:block text-left leading-tight"><span class="block text-sm font-semibold">{{ user.name }}</span><span class="block text-xs {{ 'opacity-80' if dark else 'text-ink-3' }}">{{ t(user.role) }}</span></span>
+    {{ icon('chevron-down','hidden sm:block w-4 h-4 opacity-70') }}
+  </button>
+  <div id="{{ id }}" class="menu right-0 mt-1 w-80 text-ink" data-menu hidden>
+    <p class="menu-label">{{ t('Your authorized workspaces') }}</p>
+    <a href="{{ pf[{'ministry':'04','division':'05','district':'06','principal':'07','teacher':'08','student':'09'}[role]] }}" aria-current="true">{{ icon('circle-check','w-4 h-4 text-primary') }}<span><span class="block font-semibold">{{ t(user.role) }}</span><span class="block text-xs text-ink-3">{{ user.scope }}</span></span></a>
+    {% if role == 'principal' %}<a href="{{ pf['08'] }}">{{ icon('user','w-4 h-4 text-ink-3') }}<span><span class="block font-semibold">{{ t('Teacher') }}</span><span class="block text-xs text-ink-3">Karnaphuli Textile Institute · Textile Machine Design</span></span></a>{% endif %}
+    <p class="px-2.5 py-1 text-xs text-ink-3">Only workspaces assigned to you are listed.</p>
+    <div class="border-t border-line my-1"></div>
+    <button type="button" {{ ph('My profile', '/' ~ role ~ '/profile', 'PRD §6') }}>{{ icon('user','w-4 h-4') }}{{ t('Profile') }}</button>
+    <a href="{{ pf['01'] }}">{{ icon('log-out','w-4 h-4') }}{{ t('Sign out') }}</a>
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro nav_item(item, pf, v, current, style='side') -%}
+{% set label, ic, n, subs, count = item %}
+{% if n %}<a href="{{ pf[n] }}"{% if n == current %} aria-current="page"{% endif %}>{{ icon(ic) }}<span class="truncate">{{ t(label) }}</span>{% if count %}<span class="count {{ 'alert' if v == 'F' else '' }}">{{ count }}</span>{% endif %}</a>
+{% else %}<button type="button" {{ ph(label, '/' ~ label|lower|replace(' & ','-')|replace(' / ','-')|replace(' ','-'), 'PRD §6 (role navigation)', 'This group contains: ' ~ subs|join(' · ')) }}>{{ icon(ic) }}<span class="truncate">{{ t(label) }}</span>{% if count %}<span class="count {{ 'alert' if v == 'F' else '' }}">{{ count }}</span>{% endif %}</button>{% endif %}
+{%- endmacro %}
+
+{% macro kpi(label, value, ic, sub=None, status=None, v='D') -%}
+<div class="flex items-start gap-3 min-w-0">
+  {% if v != 'D' %}<span class="icon-chip {{ status or '' }}">{{ icon(ic) }}</span>{% endif %}
+  <div class="min-w-0">
+    <p class="label">{{ t(label) }}</p>
+    <p class="figure mt-1 {{ '!text-danger' if status == 'danger' else '' }}">{{ num(value) }}</p>
+    {% if sub %}<p class="mt-1 text-xs {{ 'text-danger font-semibold' if status == 'danger' else ('text-warning font-semibold' if status == 'warning' else 'muted') }}">{{ sub }}</p>{% endif %}
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro timeline(items) -%}
+<ol class="timeline">
+  {% for s in items %}
+  <li class="tl-item {{ 'tl-done' if s.state == 'done' else ('tl-current' if s.state == 'current' else '') }}">
+    <span class="tl-dot">{% if s.state == 'done' %}{{ icon('check') }}{% elif s.state == 'current' %}{{ icon('clock') }}{% else %}{{ icon('circle-dashed') }}{% endif %}</span>
+    <div class="pb-1"><p class="font-semibold">{{ t(s.step) }}</p><p class="text-sm muted">{% if s.who is defined %}{{ s.who }} · {% endif %}{{ s.when }}</p></div>
+  </li>
+  {% endfor %}
+</ol>
+{%- endmacro %}

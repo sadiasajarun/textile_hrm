@@ -1,0 +1,232 @@
+{% extends 'def/_app.html' %}
+{% import 'def/_m.html' as m %}
+{% import 'def/_blocks.html' as b %}
+{% set ctg = x.chattogram %}
+{% set ctg_insts = ctg.institutions|selectattr('district','equalto','Chattogram')|list %}
+{% set overdue_n = x.ministry_attention|selectattr('overdue')|list|length %}
+
+{% block crumbs %}<span aria-current="page">{{ t('National') }}</span><span class="muted">·</span><span>{{ t('Overview') }}</span>{% endblock %}
+
+{% block content %}
+{% if v == 'D' %}
+{# =====================================================================  D · summary + attention table + drill table #}
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div>
+    <p class="text-sm muted flex flex-wrap items-center gap-2"><span>Wednesday, 15 October 2026</span>{{ m.demo() }}</p>
+    <h1 class="text-[1.75rem] mt-1">{{ t('Good morning') }}, Farhana Ahmed</h1>
+    <p class="text-lg text-ink-2">{{ t('Where does the Ministry need to pay attention today?') }}</p>
+  </div>
+  <div class="flex flex-wrap gap-2">
+    <button type="button" class="btn btn-secondary" {{ m.ph('Export dashboard', '/ministry/reports/export', 'PRD §6.2') }}>{{ icon('download') }}{{ t('Export') }}</button>
+    <button type="button" class="btn btn-primary" {{ m.ph('Generate report', '/ministry/reports', 'PRD §6.2 /ministry/reports') }}>{{ icon('file-text') }}{{ t('Generate report') }}</button>
+  </div>
+</div>
+
+<section class="card grid sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 lg:divide-x divide-line" aria-label="Situation summary">
+  <div class="card-pad">{{ m.kpi('Institutions reporting today', '57 / 59', 'school', '2 not yet reported', None, v) }}</div>
+  <div class="card-pad">{{ m.kpi('Student attendance today', x.national_att ~ '%', 'user-check', 'Threshold 80% · 1 division below', None, v) }}</div>
+  <div class="card-pad">{{ m.kpi('Need attention', x.ministry_attention|length|string, 'triangle-alert', overdue_n ~ ' overdue · 6 institutions', 'danger', v) }}</div>
+  <div class="card-pad">{{ m.kpi('Pending for me', '31', 'inbox', '4 due this week', 'warning', v) }}</div>
+</section>
+
+<div class="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] items-start">
+  <section class="card" aria-labelledby="att-h">
+    <div class="card-head"><h2 id="att-h" class="flex items-center gap-2">{{ icon('triangle-alert','w-5 h-5 text-danger') }}{{ t('Needs attention') }} <span class="count">{{ num(x.ministry_attention|length|string) }}</span></h2><button type="button" class="link text-sm" {{ m.ph('All alerts', '/ministry/alerts', 'PRD §6.2 /ministry/alerts') }}>{{ t('View all') }}</button></div>
+    {{ b.attention_table(x.ministry_attention, pf) }}
+  </section>
+  <div class="space-y-6">
+    <section class="card" aria-labelledby="pend-h"><div class="card-head"><h2 id="pend-h">{{ t('Pending for me') }} <span class="count">{{ num('31') }}</span></h2><button type="button" class="link text-sm" {{ m.ph('Approvals', '/ministry/approvals', 'PRD §6.2') }}>{{ t('View all') }}</button></div>{{ b.pending_list(x.ministry_pending) }}</section>
+    <section class="card" aria-labelledby="rec-h"><div class="card-head"><h2 id="rec-h">{{ t('Recently updated') }}</h2></div>{{ b.recent_list(x.recent) }}</section>
+  </div>
+</div>
+
+<section class="card" aria-labelledby="drill-h" id="drill">
+  <div class="card-head">
+    <div>
+      <h2 id="drill-h">{{ t('Institutions by location') }}</h2>
+      <nav class="crumbs mt-1" aria-label="Drill-down path">
+        <button type="button" data-drill="national">{{ t('National') }}</button>
+        <span data-drill-crumb="chattogram" hidden>{{ icon('chevron-right','w-4 h-4 inline') }} <span aria-current="location">{{ t('Chattogram Division') }}</span></span>
+        <span data-drill-crumb="ctg-district" hidden>{{ icon('chevron-right','w-4 h-4 inline') }} <button type="button" data-drill="chattogram">{{ t('Chattogram Division') }}</button> {{ icon('chevron-right','w-4 h-4 inline') }} <span aria-current="location">{{ t('Chattogram District') }}</span></span>
+        <span data-drill-crumb="other" hidden>{{ icon('chevron-right','w-4 h-4 inline') }} <span aria-current="location">{{ t('Division') }}</span></span>
+      </nav>
+    </div>
+    {{ m.demo() }}
+  </div>
+  <div data-drill-panel="national" class="overflow-x-auto">
+    <table class="tbl tbl-stack"><thead><tr><th>{{ t('Division') }}</th><th class="text-right">{{ t('Institutions') }}</th><th class="text-right">{{ t('Students') }}</th><th class="text-right">{{ t('Attendance today') }}</th><th>{{ t('Health') }}</th></tr></thead>
+    <tbody>{{ b.division_rows(x.divisions) }}</tbody></table>
+    <p class="px-4 py-3 text-xs muted border-t border-line">{{ t('Sorted by attendance, lowest first. Select a division to drill down.') }}</p>
+  </div>
+  <div data-drill-panel="chattogram" class="overflow-x-auto" hidden>
+    <table class="tbl tbl-stack"><thead><tr><th>{{ t('District') }}</th><th class="text-right">{{ t('Institutions') }}</th><th class="text-right">{{ t('Students') }}</th><th class="text-right">{{ t('Attendance today') }}</th><th>{{ t('Health') }}</th></tr></thead>
+    <tbody>{{ b.district_rows(ctg.districts) }}</tbody></table>
+  </div>
+  <div data-drill-panel="ctg-district" class="overflow-x-auto" hidden>
+    <table class="tbl tbl-stack"><thead><tr><th>{{ t('Institution') }}</th><th class="text-right">{{ t('Students') }}</th><th class="text-right">{{ t('Attendance today') }}</th><th>{{ t('Health') }}</th><th>{{ t('Issue') }}</th></tr></thead>
+    <tbody>{{ b.institution_rows(ctg_insts, pf) }}</tbody></table>
+  </div>
+  <div data-drill-panel="other" hidden>
+    <div class="empty">{{ icon('database') }}<p class="font-semibold">{{ t('Demo data covers Chattogram only') }}</p><p class="text-sm max-w-[48ch]">{{ t('Every division opens the same district and institution view. Select Chattogram to see the full drill-down.') }}</p><button type="button" class="btn btn-secondary btn-sm mt-2" data-drill="chattogram">{{ t('Open Chattogram Division') }}</button></div>
+  </div>
+</section>
+
+{% elif v == 'E' %}
+{# =====================================================================  E · map-led drill-down + comparison #}
+{% set links = {} %}{% for dv in x.divisions %}{% set _ = links.update({dv.id: ('#drill', 'data-drill="' ~ ('chattogram' if dv.id == 'chattogram' else 'other') ~ '"')}) %}{% endfor %}
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div><p class="text-sm font-semibold text-data">{{ t('Ministry Super Admin') }} · Farhana Ahmed</p><h1 class="text-[1.75rem] sm:text-[2rem] mt-1 max-w-[30ch]">{{ t('Where does the Ministry need to pay attention today?') }}</h1></div>
+  <div class="flex items-center gap-2">{{ m.demo() }}<button type="button" class="btn btn-secondary" {{ m.ph('Generate report', '/ministry/reports', 'PRD §6.2 /ministry/reports') }}>{{ icon('file-text') }}{{ t('Generate report') }}</button></div>
+</div>
+
+<section class="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-5 border-y border-line py-5" aria-label="Situation summary">
+  {{ m.kpi('Student attendance today', x.national_att ~ '%', 'user-check', 'Threshold 80%', None, v) }}
+  {% set below = x.divisions|selectattr('health','equalto','attention')|list %}{{ m.kpi('Divisions below threshold', below|length ~ ' / 8', 'map', below|map(attribute='name')|join(', ') ~ ' below 80%', 'danger', v) }}
+  {{ m.kpi('Need attention', x.ministry_attention|length|string, 'triangle-alert', overdue_n ~ ' overdue', 'warning', v) }}
+  {{ m.kpi('Pending for me', '31', 'inbox', '4 due this week', None, v) }}
+</section>
+
+<div class="grid gap-6 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] items-start">
+  <section class="card card-pad" aria-labelledby="emap-h">
+    <div class="flex flex-wrap items-center justify-between gap-2"><h2 id="emap-h" class="text-lg">{{ t('Attendance today by division') }}</h2>
+      <p class="flex flex-wrap gap-3 text-xs">{% for k, l in [('good','Good'),('watch','Watch'),('attention','Attention')] %}<span class="inline-flex items-center gap-1.5"><span class="legend-dot" style="background:var(--map-{{ k }})"></span>{{ t(l) }}</span>{% endfor %}</p></div>
+    <div class="max-w-[460px] mx-auto mt-3">{{ nat_map(map_data, fills=x.div_health_fill, values=x.div_att, links=links, bn=x.div_bn, title='Attendance today by division') }}</div>
+    <p class="text-xs muted text-center">{{ t('Good ≥ 85% · Watch 80–85% · Attention < 80%. Select a division to drill down.') }}</p>
+  </section>
+
+  <section id="drill" class="card scroll-mt-20" aria-labelledby="edrill-h">
+    <div class="card-head">
+      <nav class="crumbs" aria-label="Drill-down path" id="edrill-h">
+        <button type="button" data-drill="national">{{ t('National') }}</button>
+        <span data-drill-crumb="chattogram" hidden>{{ icon('chevron-right','w-4 h-4 inline') }} <span aria-current="location">{{ t('Chattogram Division') }}</span></span>
+        <span data-drill-crumb="ctg-district" hidden>{{ icon('chevron-right','w-4 h-4 inline') }} <button type="button" data-drill="chattogram">{{ t('Chattogram Division') }}</button> {{ icon('chevron-right','w-4 h-4 inline') }} <span aria-current="location">{{ t('Chattogram District') }}</span></span>
+        <span data-drill-crumb="other" hidden>{{ icon('chevron-right','w-4 h-4 inline') }} <span aria-current="location">{{ t('Division') }}</span></span>
+      </nav>
+    </div>
+    <div data-drill-panel="national">
+      <p class="px-[var(--card-pad)] pt-4 text-sm font-semibold">{{ t('Divisions ranked by attendance') }}</p>
+      <ul class="p-[var(--card-pad)] pt-3 space-y-2.5">
+        {% for dv in x.divisions|sort(attribute='attendance') %}
+        <li><button type="button" class="w-full grid grid-cols-[96px_1fr_52px] items-center gap-3 text-sm text-left rounded-ui px-1 min-h-9 hover:bg-band" data-drill="{{ 'chattogram' if dv.id == 'chattogram' else 'other' }}">
+          <span class="font-semibold" data-bn="{{ dv.bn }}">{{ dv.name }}</span>
+          <span class="hbar hbar-threshold" style="--th:{{ ((80-60)/40*100)|round(1) }}%"><span style="width:{{ ((dv.attendance-60)/40*100)|round(1) }}%;--bar:var(--map-{{ dv.health }})"></span></span>
+          <span class="tnum text-right font-semibold">{{ num(dv.attendance|string ~ '%') }}</span>
+        </button></li>
+        {% endfor %}
+      </ul>
+      <p class="px-[var(--card-pad)] pb-4 text-xs muted">{{ t('Scale 60–100%. Red line marks the 80% threshold.') }}</p>
+    </div>
+    <div data-drill-panel="chattogram" hidden>
+      {% set dlinks = {'chattogram': ('#drill', 'data-drill="ctg-district"')} %}
+      <div class="p-[var(--card-pad)] pb-2 grid sm:grid-cols-[1fr_1fr] gap-4 items-center">
+        <div class="max-w-[240px] mx-auto w-full">{{ district_map(map_data, 'chattogram', fills=x.dist_health_fill, links=dlinks, labels=false, title='Chattogram Division districts', bn=x.dist_bn) }}</div>
+        <div class="text-sm space-y-1"><p class="font-semibold text-base">{{ t('Chattogram Division') }}</p><p>{{ num(ctg.institutions|length|string) }} {{ t('institutions') }} · {{ num('{:,}'.format(ctg.students)) }} {{ t('students') }}</p><p>{{ t('Attendance today') }}: <strong class="overdue">{{ num(ctg.attendance|string ~ '%') }}</strong></p><p class="muted">{{ t('4 of 11 districts have no textile institution.') }}</p></div>
+      </div>
+      <div class="overflow-x-auto"><table class="tbl tbl-stack"><thead><tr><th>{{ t('District') }}</th><th class="text-right">{{ t('Institutions') }}</th><th class="text-right">{{ t('Students') }}</th><th class="text-right">{{ t('Attendance today') }}</th><th>{{ t('Health') }}</th></tr></thead><tbody>{{ b.district_rows(ctg.districts|selectattr('institutions')|list) }}</tbody></table></div>
+    </div>
+    <div data-drill-panel="ctg-district" hidden>
+      <ul>{% for i in ctg_insts %}<li class="qrow items-center"><span class="sev-bar sev-{{ {'attention':'danger','watch':'warning','good':'info'}[i.health] }}" aria-hidden="true"></span><div class="flex-1 min-w-0">{% if i.id == 'karnaphuli-ti' %}<a href="{{ pf['10'] }}" class="font-semibold text-primary hover:underline">{{ i.name }}</a>{% else %}<button type="button" class="font-semibold text-left hover:underline" {{ m.ph('Institution 360° — ' ~ i.name, '/ministry/institutions/' ~ i.id, 'PRD §6.2') }}>{{ i.name }}</button>{% endif %}<p class="text-sm muted">{{ i.issue }}</p></div><div class="text-right"><p class="tnum font-semibold">{{ num(i.attendance|string ~ '%') }}</p>{{ m.health(i.health) }}</div></li>{% endfor %}</ul>
+    </div>
+    <div data-drill-panel="other" hidden>
+      <div class="empty">{{ icon('database') }}<p class="font-semibold">{{ t('Demo data covers Chattogram only') }}</p><p class="text-sm">{{ t('Every division opens the same district and institution view. Select Chattogram to see the full drill-down.') }}</p><button type="button" class="btn btn-secondary btn-sm mt-2" data-drill="chattogram">{{ t('Open Chattogram Division') }}</button></div>
+    </div>
+  </section>
+</div>
+
+<div class="grid gap-6 lg:grid-cols-[1fr_1fr_1.25fr] items-start">
+  <section class="card" aria-labelledby="exc-h">
+    <div class="card-head"><h2 id="exc-h">{{ t('Exceptions by type') }}</h2><button type="button" class="link text-sm" {{ m.ph('All alerts', '/ministry/alerts', 'PRD §6.2 /ministry/alerts') }}>{{ t('Review exceptions') }}</button></div>
+    <ul class="card-pad space-y-3">{% for grp, items in x.ministry_attention|groupby('type') %}<li class="grid grid-cols-[1fr_auto] gap-1 text-sm"><span class="flex items-center gap-2">{{ icon(items[0].icon,'w-4 h-4 text-ink-3') }}{{ t(grp) }}</span><span class="tnum font-semibold">{{ num(items|length|string) }}</span><span class="hbar col-span-2"><span style="width:{{ items|length * 40 }}%;--bar:var(--{{ items[0].sev }})"></span></span></li>{% endfor %}</ul>
+  </section>
+  <section class="card" aria-labelledby="trend-h">
+    <div class="card-head"><h2 id="trend-h">{{ t('Attendance trend') }}</h2><span class="text-xs muted">{{ t('Last 14 days') }}</span></div>
+    <div class="card-pad">{{ line_chart([{'values': d.trend.students, 'color': 'var(--data)'}, {'values': d.trend.teachers, 'color': 'var(--primary)', 'dashed': true}], d.trend.days, lo=75, hi=95, threshold=80, w=420, h=200, title='National attendance, last 14 days') }}
+      <p class="mt-2 flex flex-wrap gap-4 text-xs"><span class="inline-flex items-center gap-1.5"><span class="legend-dot" style="background:var(--data)"></span>{{ t('Students') }}</span><span class="inline-flex items-center gap-1.5"><span class="legend-dot" style="background:var(--primary)"></span>{{ t('Teachers') }}</span></p></div>
+  </section>
+  <section class="card" aria-labelledby="eatt-h">
+    <div class="card-head"><h2 id="eatt-h">{{ t('Needs attention') }}</h2><span class="count">{{ num(x.ministry_attention|length|string) }}</span></div>
+    {{ b.attention_queue(x.ministry_attention[:3], pf) }}
+    <div class="px-[var(--card-pad)] py-3 border-t border-line"><button type="button" class="link text-sm" {{ m.ph('All alerts', '/ministry/alerts', 'PRD §6.2 /ministry/alerts') }}>{{ t('View all') }} ({{ num(x.ministry_attention|length|string) }})</button></div>
+  </section>
+</div>
+
+{% else %}
+{# =====================================================================  F · inbox of actions #}
+{% set groups = {'Low attendance':'attendance','Pending approvals':'approvals','License pending':'approvals','Incomplete report':'reports','Result publication pending':'reports','Asset follow-up':'resources','Budget exception':'resources'} %}
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div><h1 class="text-[1.5rem] sm:text-[1.75rem] max-w-[34ch]">{{ t('Where does the Ministry need to pay attention today?') }}</h1><p class="text-ink-2 mt-1 flex flex-wrap items-center gap-2"><span>{{ num(x.ministry_attention|length|string) }} {{ t('open items') }} · <span class="overdue">{{ num(overdue_n|string) }} {{ t('overdue') }}</span></span>{{ m.demo() }}</p></div>
+</div>
+
+<div class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px] items-start">
+  <section class="card" aria-label="Inbox">
+    <div class="px-[var(--card-pad)] pt-3"><div class="tabs" role="tablist" data-panels="#f-inbox" aria-label="Inbox">
+      <button type="button" class="tab" role="tab" aria-selected="true" data-target="attn">{{ t('Needs attention') }} <span class="count alert">{{ num(x.ministry_attention|length|string) }}</span></button>
+      <button type="button" class="tab" role="tab" aria-selected="false" tabindex="-1" data-target="pend">{{ t('Pending for me') }} <span class="count">{{ num('31') }}</span></button>
+      <button type="button" class="tab" role="tab" aria-selected="false" tabindex="-1" data-target="rec">{{ t('Recently updated') }}</button>
+    </div></div>
+    <div id="f-inbox">
+      <div data-panel="attn" role="tabpanel">
+        <div class="px-[var(--card-pad)] py-3 flex flex-wrap gap-2 border-b border-line" role="group" aria-label="Filter by type">
+          <button type="button" class="chip" aria-pressed="true" data-set-filter="#f-q|group|">{{ t('All') }}</button>
+          {% for g, l in [('attendance','Attendance'),('approvals','Approvals'),('reports','Reports & results'),('resources','Budget & assets')] %}<button type="button" class="chip" aria-pressed="false" data-set-filter="#f-q|group|{{ g }}">{{ t(l) }}</button>{% endfor %}
+          <select class="hidden" data-filter="#f-q" data-key="group" aria-hidden="true" tabindex="-1"><option value=""></option>{% for g in ['attendance','approvals','reports','resources'] %}<option value="{{ g }}">{{ g }}</option>{% endfor %}</select>
+        </div>
+        <ul id="f-q">{% for a in x.ministry_attention %}<li class="qrow" data-item data-group="{{ groups[a.type] }}">
+          <span class="sev-bar sev-{{ a.sev }}" aria-hidden="true"></span>
+          <div class="flex-1 min-w-0">
+            <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs"><span class="tag tag-{{ a.sev }}">{{ t(a.type) }}</span>{% if a.overdue %}<span class="overdue">{{ t('Overdue') }} · {{ a.age }}</span>{% else %}<span class="muted">{{ a.age }} · SLA {{ a.sla }}</span>{% endif %}</p>
+            <p class="font-semibold leading-snug mt-1">{{ a.title }}</p>
+            <p class="text-sm text-ink-2">{{ a.where }} · {{ t(a.role) }}</p>
+          </div>
+          {% if a.link == 'inst' %}<a href="{{ pf['10'] }}" class="btn btn-primary btn-sm self-center">{{ t(a.action) }}</a>{% else %}<button type="button" class="btn btn-secondary btn-sm self-center" {{ m.ph(a.title, '/ministry/alerts', 'PRD §6.2 /ministry/alerts') }}>{{ t(a.action) }}</button>{% endif %}
+        </li>{% endfor %}</ul>
+        <div class="empty" data-empty="#f-q" hidden>{{ icon('circle-check') }}<p class="font-semibold">{{ t('Nothing in this category') }}</p></div>
+      </div>
+      <div data-panel="pend" role="tabpanel" hidden>{{ b.pending_list(x.ministry_pending) }}<p class="px-[var(--card-pad)] py-3 text-sm muted border-t border-line">{{ t('Showing 4 of 31.') }} <button type="button" class="link" {{ m.ph('Approvals', '/ministry/approvals', 'PRD §6.2') }}>{{ t('View all') }}</button></p></div>
+      <div data-panel="rec" role="tabpanel" hidden>{{ b.recent_list(x.recent) }}</div>
+    </div>
+  </section>
+
+  <div class="space-y-5">
+    <section class="card" aria-labelledby="fsit-h">
+      <div class="card-head"><h2 id="fsit-h">{{ t("Today's situation") }}</h2></div>
+      <dl class="divide-y divide-line">
+        {% for l, val, note, st in [('Student attendance today', x.national_att ~ '%', 'Threshold 80%', ''),('Institutions reporting today','57 / 59','2 not yet reported','warning'),('Pending approvals','31','4 due this week',''),('Admission status','2026–27','Result publication 30 Oct','')] %}
+        <div class="px-[var(--card-pad)] py-3 flex items-center justify-between gap-3"><dt><span class="block text-sm font-semibold">{{ t(l) }}</span><span class="block text-xs {{ 'text-warning font-semibold' if st == 'warning' else 'muted' }}">{{ note }}</span></dt><dd class="figure !text-xl">{{ num(val) }}</dd></div>
+        {% endfor %}
+      </dl>
+    </section>
+    <section class="card" aria-labelledby="fdiv-h">
+      <div class="card-head"><h2 id="fdiv-h">{{ t('By division') }}</h2></div>
+      <ul>{% for dv in x.divisions|sort(attribute='attendance') %}<li>
+        <button type="button" class="w-full flex items-center gap-3 px-[var(--card-pad)] min-h-11 text-left hover:bg-band border-b border-line" {% if dv.id == 'chattogram' %}data-open="#f-div-drawer"{% else %}{{ m.ph(dv.name ~ ' Division', '/ministry/divisions/' ~ dv.id, 'PRD §6.2', 'Same layout as Chattogram Division. Demo data covers Chattogram only.') }}{% endif %}>
+          <span class="health health-{{ dv.health }}"></span><span class="flex-1 font-medium" data-bn="{{ dv.bn }}">{{ dv.name }}</span><span class="tnum text-sm {{ 'overdue' if dv.health == 'attention' else '' }}">{{ num(dv.attendance|string ~ '%') }}</span>{{ icon('chevron-right','w-4 h-4 text-ink-3') }}</button>
+      </li>{% endfor %}</ul>
+    </section>
+    <section class="card" aria-labelledby="fqa-h">
+      <div class="card-head"><h2 id="fqa-h">{{ t('Quick actions') }}</h2></div>
+      {{ b.quick_actions([('Generate report','file-text', m.ph('Generate report', '/ministry/reports', 'PRD §6.2')), ('Review admission status','clipboard-list', m.ph('Admission status', '/ministry/admissions', 'PRD §6.2')), ('View pending reports','file-clock', m.ph('Pending reports', '/ministry/reports/pending', 'PRD §6.2')), ('Open institution','school', 'href="' ~ pf['10'] ~ '"')]) }}
+    </section>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block dialogs %}
+{% if v == 'F' %}
+<dialog id="f-div-drawer" class="dlg drawer" aria-labelledby="fdd-h">
+  <div class="dlg-head"><div><p class="text-xs muted">{{ t('Division') }}</p><h2 id="fdd-h" class="text-lg">{{ t('Chattogram Division') }}</h2></div><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close">{{ icon('x') }}</button></div>
+  <div class="dlg-body space-y-4">
+    <p class="text-sm">{{ num(ctg.institutions|length|string) }} {{ t('institutions') }} · {{ num('{:,}'.format(ctg.students)) }} {{ t('students') }} · {{ t('Attendance today') }} <strong class="overdue">{{ num(ctg.attendance|string ~ '%') }}</strong></p>
+    <nav class="crumbs" aria-label="Drill-down path"><button type="button" data-drill="f-districts">{{ t('Districts') }}</button><span data-drill-crumb="f-ctg" hidden>{{ icon('chevron-right','w-4 h-4 inline') }} <span aria-current="location">{{ t('Chattogram District') }}</span></span></nav>
+    <ul data-drill-panel="f-districts" class="border border-line rounded-ui">{% for ds in ctg.districts %}<li class="border-b border-line last:border-0">
+      {% if ds.id == 'chattogram' %}<button type="button" class="w-full flex items-center gap-3 px-3 min-h-11 text-left hover:bg-band" data-drill="f-ctg">{% else %}<div class="flex items-center gap-3 px-3 min-h-11">{% endif %}
+        <span class="health health-{{ ds.health }}"></span><span class="flex-1 font-medium" data-bn="{{ ds.bn }}">{{ ds.name }}</span>
+        {% if ds.institutions %}<span class="text-sm muted">{{ num(ds.institutions|string) }} · {{ num(ds.attendance|string ~ '%') }}</span>{% else %}<span class="text-xs muted">{{ t('No institution in this district') }}</span>{% endif %}
+        {% if ds.id == 'chattogram' %}{{ icon('chevron-right','w-4 h-4 text-ink-3') }}</button>{% else %}</div>{% endif %}
+    </li>{% endfor %}</ul>
+    <ul data-drill-panel="f-ctg" class="border border-line rounded-ui" hidden>{% for i in ctg_insts %}<li class="flex items-center gap-3 px-3 py-2.5 border-b border-line last:border-0"><span class="health health-{{ i.health }}"></span><span class="flex-1 min-w-0"><span class="block font-semibold">{{ i.name }}</span><span class="block text-xs muted">{{ i.issue }}</span></span>{% if i.id == 'karnaphuli-ti' %}<a class="btn btn-primary btn-sm" href="{{ pf['10'] }}">{{ t('Open 360°') }}</a>{% else %}<button type="button" class="btn btn-secondary btn-sm" {{ m.ph('Institution 360° — ' ~ i.name, '/ministry/institutions/' ~ i.id, 'PRD §6.2') }}>{{ t('Open 360°') }}</button>{% endif %}</li>{% endfor %}</ul>
+  </div>
+</dialog>
+{% endif %}
+{% endblock %}

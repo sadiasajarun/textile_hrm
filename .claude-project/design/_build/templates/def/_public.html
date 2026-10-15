@@ -1,0 +1,17 @@
+{% import 'def/_m.html' as m %}
+<!DOCTYPE html>
+<html lang="en" data-theme="{{ v }}">
+<head>{{ m.head(page_title, asset) }}</head>
+<body>
+<div class="min-h-screen flex flex-col">
+  {{ m.public_header(v, pf, page_num) }}
+  <main id="main" class="flex-1">
+    {% block content %}{% endblock %}
+  </main>
+  {{ m.public_footer(v, d) }}
+</div>
+{{ m.dialogs() }}
+{% block dialogs %}{% endblock %}
+{{ m.var_nav(v, page_num, page_slug, pages, short) }}
+</body>
+</html>

@@ -1,0 +1,81 @@
+{% extends 'def/_app.html' %}
+{% import 'def/_m.html' as m %}
+{% import 'def/_blocks.html' as b %}
+{% set ctg = x.chattogram %}
+{% set dist = ctg.districts|selectattr('id','equalto','chattogram')|first %}
+{% set insts = ctg.institutions|selectattr('district','equalto','Chattogram')|list %}
+
+{% block crumbs %}<button type="button" data-denied="Chattogram Division overview (Division Admin only)">{{ t('Chattogram Division') }}</button>{{ icon('chevron-right','w-4 h-4') }}<span aria-current="page">{{ t('Chattogram District') }}</span>{% endblock %}
+
+{% block content %}
+{% set q23 = m.tbd('Approve or monitor only? · PRD Q-23') %}
+{% if v == 'D' %}
+{# =====================================================================  D #}
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div><p class="text-sm muted flex items-center gap-2"><span>{{ t('District Admin') }} · Nasrin Sultana</span>{{ m.demo() }}</p><h1 class="text-[1.75rem] mt-1">{{ t('Chattogram District') }}</h1><p class="text-ink-2">{{ t('Three institutions. One needs follow-up today.') }}</p></div>
+  <div class="flex flex-wrap gap-2"><button type="button" class="btn btn-secondary" {{ m.ph('District reports', '/district/reports', 'PRD §6.4') }}>{{ icon('file-text') }}{{ t('Reports') }}</button><button type="button" class="btn btn-primary" data-open="#report-dialog">{{ icon('send') }}{{ t('Submit report') }}</button></div>
+</div>
+
+<section class="card grid sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 lg:divide-x divide-line" aria-label="Situation summary">
+  <div class="card-pad">{{ m.kpi('Institutions', insts|length|string, 'school', None, None, v) }}</div>
+  <div class="card-pad">{{ m.kpi('Students', '{:,}'.format(dist.students), 'graduation-cap', None, None, v) }}</div>
+  <div class="card-pad">{{ m.kpi('Student attendance today', dist.attendance ~ '%', 'user-check', 'Division ' ~ ctg.attendance ~ '%', 'danger' if dist.attendance < 80 else 'warning', v) }}</div>
+  <div class="card-pad">{{ m.kpi('Overdue requests', '5', 'inbox', 'All at Karnaphuli Textile Institute', 'warning', v) }}</div>
+</section>
+
+<div class="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] items-start">
+  <section class="card" aria-labelledby="ddact-h"><div class="card-head"><h2 id="ddact-h">{{ t('My actions') }} <span class="count">{{ num(x.district_actions|length|string) }}</span></h2>{{ q23 }}</div>{{ b.simple_actions(x.district_actions, 'Review') }}</section>
+  <section class="card" aria-labelledby="ddrep-h"><div class="card-head"><h2 id="ddrep-h">{{ t('Reports due') }}</h2></div>
+    <ul>{% for name, due, st in [('District monthly report — September','18 Oct 2026','Due now'),('Admission seat summary 2026–27','25 Oct 2026','Upcoming'),('District monthly report — August','18 Sep 2026','Submitted')] %}<li class="qrow items-center"><span class="icon-chip">{{ icon('file-text') }}</span><div class="flex-1 min-w-0"><p class="font-semibold">{{ name }}</p><p class="text-sm muted">{{ t('Due') }} {{ due }}</p></div>{{ m.tag(st) }}</li>{% endfor %}</ul>
+  </section>
+</div>
+
+<section class="card" aria-labelledby="ddins-h"><div class="card-head"><h2 id="ddins-h">{{ t('Institutions in this district') }}</h2></div>
+  <div class="overflow-x-auto"><table class="tbl tbl-stack"><thead><tr><th>{{ t('Institution') }}</th><th class="text-right">{{ t('Students') }}</th><th class="text-right">{{ t('Attendance today') }}</th><th>{{ t('Health') }}</th><th>{{ t('Issue') }}</th></tr></thead>
+  <tbody>{% for i in insts %}<tr><td><button type="button" class="font-semibold hover:underline text-left" {{ m.ph('Institution 360° — ' ~ i.name, '/district/institutions/' ~ i.id, 'PRD §6.4', 'Same 360° layout as the Ministry view, limited to this district.') }}>{{ i.name }}</button><span class="block text-xs muted">{{ t(i.type) }} · <span class="font-mono">{{ i.code }}</span></span></td><td class="num">{{ num('{:,}'.format(i.students)) }}</td><td class="num {{ 'overdue' if i.attendance < 80 else '' }}">{{ num(i.attendance|string ~ '%') }}</td><td>{{ m.health(i.health) }}</td><td class="text-sm">{{ i.issue }}</td></tr>{% endfor %}</tbody></table></div>
+</section>
+
+{% elif v == 'E' %}
+{# =====================================================================  E #}
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div><p class="text-sm font-semibold text-data">{{ t('District Admin') }} · Nasrin Sultana</p><h1 class="text-[1.875rem] mt-1">{{ t('Chattogram District') }}</h1></div>
+  <div class="flex items-center gap-2">{{ m.demo() }}<button type="button" class="btn btn-primary" data-open="#report-dialog">{{ icon('send') }}{{ t('Submit report') }}</button></div>
+</div>
+
+<div class="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)] items-start">
+  <aside class="card card-pad space-y-3" aria-labelledby="eloc-h">
+    <h2 id="eloc-h" class="text-base">{{ t('Location in the network') }}</h2>
+    <div class="max-w-[220px] mx-auto">{{ district_map(map_data, 'chattogram', fills={'chattogram':'r-brand'}, labels=false, title='Chattogram District within Chattogram Division', selected='chattogram') }}</div>
+    <dl class="text-sm space-y-1.5"><div class="flex justify-between gap-2"><dt class="muted">{{ t('Division') }}</dt><dd class="font-semibold">{{ t('Chattogram Division') }}</dd></div><div class="flex justify-between gap-2"><dt class="muted">{{ t('Institutions') }}</dt><dd class="font-semibold tnum">{{ num(insts|length|string) }}</dd></div><div class="flex justify-between gap-2"><dt class="muted">{{ t('Students') }}</dt><dd class="font-semibold tnum">{{ num('{:,}'.format(dist.students)) }}</dd></div><div class="flex justify-between gap-2"><dt class="muted">{{ t('Attendance today') }}</dt><dd class="font-semibold tnum overdue">{{ num(dist.attendance|string ~ '%') }}</dd></div></dl>
+  </aside>
+  <div class="space-y-6 min-w-0">
+    <section aria-labelledby="ecmp-h"><h2 id="ecmp-h" class="text-lg mb-3">{{ t('Institutions in this district') }}</h2>{{ b.inst_cards(insts, pf) }}</section>
+    <section class="card" aria-labelledby="edact-h"><div class="card-head"><h2 id="edact-h">{{ t('Actions for this district') }}</h2>{{ q23 }}</div>{{ b.simple_actions(x.district_actions, 'Review') }}</section>
+  </div>
+</div>
+
+{% else %}
+{# =====================================================================  F #}
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div><h1 class="text-[1.5rem] sm:text-[1.75rem]">{{ t('Chattogram District') }}: {{ num(x.district_actions|length|string) }} {{ t('things need you today') }}</h1><p class="text-ink-2 mt-1 flex flex-wrap items-center gap-2"><span>{{ t('District Admin') }} · Nasrin Sultana</span>{{ m.demo() }} {{ q23 }}</p></div>
+</div>
+<div class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px] items-start">
+  <div class="space-y-5 min-w-0">
+    <section class="card" aria-labelledby="fdact-h"><div class="card-head"><h2 id="fdact-h">{{ t('My actions') }}</h2></div>
+      <ul>{% for a in x.district_actions %}<li class="qrow items-center"><span class="sev-bar sev-{{ a.sev }}" aria-hidden="true"></span><div class="flex-1 min-w-0"><p class="font-semibold leading-snug">{{ a.title }}</p><p class="text-sm {{ 'overdue' if a.overdue else 'muted' }}">{{ a.where }} · {{ a.age }}{% if a.overdue %} — {{ t('Overdue') }}{% endif %}</p></div>{% if 'Submit' in a.title %}<button type="button" class="btn btn-primary btn-sm" data-open="#report-dialog">{{ t('Submit') }}</button>{% else %}<button type="button" class="btn btn-secondary btn-sm" {{ m.ph(a.title, '/district/actions', 'PRD §6.4') }}>{{ t('Review') }}</button>{% endif %}</li>{% endfor %}</ul>
+    </section>
+    <section class="card" aria-labelledby="fdins-h"><div class="card-head"><h2 id="fdins-h">{{ t('Institutions in this district') }}</h2></div>
+      <ul>{% for i in insts|sort(attribute='attendance') %}<li class="qrow items-center"><span class="health health-{{ i.health }}"></span><div class="flex-1 min-w-0"><p class="font-semibold">{{ i.name }}</p><p class="text-sm muted">{{ i.issue }}</p></div><span class="tnum font-semibold {{ 'overdue' if i.attendance < 80 else '' }}">{{ num(i.attendance|string ~ '%') }}</span><button type="button" class="btn btn-ghost btn-sm" {{ m.ph('Institution 360° — ' ~ i.name, '/district/institutions/' ~ i.id, 'PRD §6.4') }}>{{ t('Open') }}</button></li>{% endfor %}</ul>
+    </section>
+  </div>
+  <div class="space-y-5">
+    <section class="card" aria-labelledby="fdsum-h"><div class="card-head"><h2 id="fdsum-h">{{ t("Today's situation") }}</h2></div>
+      <dl class="divide-y divide-line">{% for l, val, note, st in [('Student attendance today', dist.attendance ~ '%', 'Division ' ~ ctg.attendance ~ '%', 'danger'),('Overdue requests','5','Karnaphuli Textile Institute','warning'),('Students', '{:,}'.format(dist.students), insts|length ~ ' institutions', '')] %}<div class="px-[var(--card-pad)] py-3 flex items-center justify-between gap-3"><dt><span class="block text-sm font-semibold">{{ t(l) }}</span><span class="block text-xs muted">{{ note }}</span></dt><dd class="figure !text-xl {{ '!text-danger' if st == 'danger' else '' }}">{{ num(val) }}</dd></div>{% endfor %}</dl>
+    </section>
+    <section class="card" aria-labelledby="fdqa-h"><div class="card-head"><h2 id="fdqa-h">{{ t('Quick actions') }}</h2></div>{{ b.quick_actions([('Submit report','send','data-open="#report-dialog"'),('Generate report','file-text', m.ph('District reports', '/district/reports', 'PRD §6.4')),('View pending reports','file-clock', m.ph('Pending reports', '/district/reports/pending', 'PRD §6.4'))]) }}</section>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block dialogs %}{{ b.report_dialog('District Admin', 'Chattogram Division') }}{% endblock %}

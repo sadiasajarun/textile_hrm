@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="D">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student Dashboard · Textile Institution Management System</title>
+<link rel="stylesheet" href="../assets/tims-def.css">
+<script src="../assets/tims-def.js" defer></script></head>
+<body>
+<a class="skip-link" href="#main"><span data-bn="মূল বিষয়বস্তুতে যান">Skip to main content</span></a>
+
+<nav id="mnav" class="lg:hidden fixed inset-0 z-50 bg-surface overflow-y-auto p-4" aria-label="Main menu" hidden>
+  <div class="flex items-center justify-between mb-4"><p class="font-bold"><span data-bn="মেনু">Menu</span></p><button type="button" class="btn btn-ghost btn-icon" data-nav-toggle="#mnav" aria-label="Close menu"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg></button></div>
+  <div class="sidenav space-y-1"><a href="D-09-student-dashboard.html" aria-current="page"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+</svg><span class="truncate"><span data-bn="প্রচ্ছদ">Home</span></span></a>
+<button type="button" data-placeholder="Academics|/academics|PRD §6 (role navigation)|This group contains: Classes &amp; materials · Advising · Curriculum · Code of conduct · Academic calendar · Teaching evaluation"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 7v14" />
+  <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
+</svg><span class="truncate"><span data-bn="একাডেমিক">Academics</span></span></button><button type="button" data-placeholder="Results &amp; Attendance|/results-attendance|PRD §6 (role navigation)|This group contains: Results &amp; grade table · Attendance"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+  <path d="m9 14 2 2 4-4" />
+</svg><span class="truncate"><span data-bn="ফলাফল ও উপস্থিতি">Results &amp; Attendance</span></span></button><button type="button" data-placeholder="Services|/services|PRD §6 (role navigation)|This group contains: Online services (15) · My requests · Payments &amp; ledger · Certificate · Library"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
+  <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+</svg><span class="truncate"><span data-bn="সেবা">Services</span></span><span class="count ">1</span></button><button type="button" data-placeholder="Profile|/profile|PRD §6 (role navigation)|This group contains: My profile"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" />
+</svg><span class="truncate"><span data-bn="প্রোফাইল">Profile</span></span></button></div>
+  <div class="mt-4 pt-4 border-t border-line"><div class="inline-flex items-center gap-1 text-sm font-semibold" role="group" aria-label="Language">
+  <button type="button" data-lang="bn" class="px-2 min-h-9 rounded hover:bg-band">বাংলা</button>
+  <span aria-hidden="true" class="opacity-50">|</span>
+  <button type="button" data-lang="en" class="px-2 min-h-9 rounded hover:bg-band">English</button>
+</div></div>
+</nav>
+
+<div class="min-h-screen flex flex-col bg-bg">
+  <header class="bg-primary-dark text-white">
+    <div class="mx-auto max-w-[1440px] px-4 lg:px-8 min-h-16 flex items-center gap-2">
+      <button type="button" class="lg:hidden btn btn-on-dark btn-icon" data-nav-toggle="#mnav" aria-expanded="false" aria-label="Open menu"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <line x1="4" x2="20" y1="12" y2="12" />
+  <line x1="4" x2="20" y1="6" y2="6" />
+  <line x1="4" x2="20" y1="18" y2="18" />
+</svg></button>
+      <a href="D-01-landing.html" class="flex items-center gap-3 min-w-0 mr-auto">
+        <span class="seal w-10 h-10 !border-white/60"><svg viewBox="0 0 10 6" class="w-6 h-[14px] flex-none rounded-[2px]" role="img" aria-label="Flag of Bangladesh"><rect width="10" height="6" fill="#006A4E"/><circle cx="4.5" cy="3" r="2" fill="#F42A41"/></svg></span>
+        <span class="min-w-0 leading-tight hidden sm:block"><span class="block text-xs opacity-80"><span data-bn="বস্ত্র ও পাট মন্ত্রণালয়">Ministry of Textiles and Jute</span></span><span class="block font-semibold truncate"><span data-bn="টেক্সটাইল শিক্ষাপ্রতিষ্ঠান ব্যবস্থাপনা সিস্টেম">Textile Institution Management System</span></span></span>
+      </a>
+      <div class="flex items-center gap-1 flex-none">
+      <div class="relative">
+  <button type="button" class="preview-btn inline-flex items-center gap-1.5 px-2.5 min-h-9 rounded text-xs font-bold text-white hover:bg-white/15" data-dropdown="#rp" aria-expanded="false" aria-haspopup="true"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+  <circle cx="12" cy="12" r="3" />
+</svg><span class="hidden md:inline"><span data-bn="প্রোটোটাইপ রোল প্রিভিউ">Prototype Role Preview</span></span><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></button>
+  <div id="rp" class="menu right-0 mt-1 w-80 text-ink" data-menu hidden>
+    <p class="menu-label"><span data-bn="শুধু প্রোটোটাইপ">Prototype only</span></p>
+    <p class="px-2.5 pb-2 text-xs text-ink-3">In production a user cannot choose a role. Roles and scopes are assigned by the Ministry Super Admin.</p>
+<a href="D-04-ministry-dashboard.html"><svg class="w-4 h-4 text-ink-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" />
+</svg><span><span class="block font-semibold"><span data-bn="মন্ত্রণালয় সুপার অ্যাডমিন">Ministry Super Admin</span></span><span class="block text-xs text-ink-3">All Bangladesh</span></span></a>
+<a href="D-05-division-dashboard.html"><svg class="w-4 h-4 text-ink-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" />
+</svg><span><span class="block font-semibold"><span data-bn="বিভাগীয় অ্যাডমিন">Division Admin</span></span><span class="block text-xs text-ink-3">Chattogram Division</span></span></a>
+<a href="D-06-district-dashboard.html"><svg class="w-4 h-4 text-ink-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" />
+</svg><span><span class="block font-semibold"><span data-bn="জেলা অ্যাডমিন">District Admin</span></span><span class="block text-xs text-ink-3">Chattogram District</span></span></a>
+<a href="D-07-principal-dashboard.html"><svg class="w-4 h-4 text-ink-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" />
+</svg><span><span class="block font-semibold"><span data-bn="প্রতিষ্ঠান অ্যাডমিন / অধ্যক্ষ">Institution Admin / Principal</span></span><span class="block text-xs text-ink-3">Karnaphuli Textile Institute</span></span></a>
+<a href="D-08-teacher-dashboard.html"><svg class="w-4 h-4 text-ink-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" />
+</svg><span><span class="block font-semibold"><span data-bn="শিক্ষক">Teacher</span></span><span class="block text-xs text-ink-3">Arif Hossain</span></span></a>
+<a href="D-09-student-dashboard.html"><svg class="w-4 h-4 text-ink-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" />
+</svg><span><span class="block font-semibold"><span data-bn="শিক্ষার্থী">Student</span></span><span class="block text-xs text-ink-3">Mim Akter</span></span></a>
+<button type="button" data-placeholder="Alumni workspace|/alumni|PRD §6.9–6.10|"><svg class="w-4 h-4 text-ink-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" />
+</svg><span><span class="block font-semibold"><span data-bn="প্রাক্তন শিক্ষার্থী">Alumni</span></span><span class="block text-xs text-ink-3">Alumni workspace</span></span></button><button type="button" data-placeholder="Third-party verifier workspace|/third-party-verifier|PRD §6.9–6.10|"><svg class="w-4 h-4 text-ink-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" />
+</svg><span><span class="block font-semibold"><span data-bn="তৃতীয় পক্ষ যাচাইকারী">Third-party verifier</span></span><span class="block text-xs text-ink-3">Phase 2</span></span></button>  </div>
+</div>
+      <span class="hidden md:block"><div class="inline-flex items-center gap-1 text-sm font-semibold" role="group" aria-label="Language">
+  <button type="button" data-lang="bn" class="px-2 min-h-9 rounded hover:bg-white/15">বাংলা</button>
+  <span aria-hidden="true" class="opacity-50">|</span>
+  <button type="button" data-lang="en" class="px-2 min-h-9 rounded hover:bg-white/15">English</button>
+</div></span>
+      <div class="relative">
+  <button type="button" class="relative inline-flex items-center justify-center w-11 h-11 rounded hover:bg-white/15" data-dropdown="#nt" aria-expanded="false" aria-label="Notifications, 3 unread" data-bn-aria-label="নোটিফিকেশন"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+  <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+</svg><span class="absolute top-1.5 right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-danger text-white text-[10px] font-bold leading-[18px] text-center">3</span></button>
+  <div id="nt" class="menu right-0 mt-1 w-[340px] max-w-[calc(100vw-24px)] text-ink" data-menu hidden>
+    <div class="flex items-center justify-between px-2.5 py-1.5"><p class="font-semibold"><span data-bn="নোটিফিকেশন">Notifications</span></p><button type="button" class="link text-xs !w-auto !min-h-0" data-toast="All notifications marked as read"><span data-bn="সব পড়া হয়েছে">Mark all as read</span></button></div>
+<a href="D-10-institution-360.html" class="!items-start">        <span class="mt-1.5 w-2 h-2 rounded-full flex-none bg-primary" aria-hidden="true"></span><span class="min-w-0"><span class="block text-sm font-semibold">Attendance below 80% at Karnaphuli Textile Institute</span><span class="block text-xs text-ink-3">09:42 · unread</span></span>
+</a><a href="D-07-principal-dashboard.html" class="!items-start">        <span class="mt-1.5 w-2 h-2 rounded-full flex-none bg-primary" aria-hidden="true"></span><span class="min-w-0"><span class="block text-sm font-semibold">5 student requests passed their SLA</span><span class="block text-xs text-ink-3">08:30 · unread</span></span>
+</a><button type="button" class="!items-start" data-placeholder="Notification detail|/notifications|PRD §3 M22|">        <span class="mt-1.5 w-2 h-2 rounded-full flex-none bg-primary" aria-hidden="true"></span><span class="min-w-0"><span class="block text-sm font-semibold">Result publication schedule approved</span><span class="block text-xs text-ink-3">Yesterday · unread</span></span>
+</button><button type="button" class="!items-start" data-placeholder="Notification detail|/notifications|PRD §3 M22|">        <span class="mt-1.5 w-2 h-2 rounded-full flex-none bg-transparent" aria-hidden="true"></span><span class="min-w-0"><span class="block text-sm ">Teacher training schedule published</span><span class="block text-xs text-ink-3">14 Oct</span></span>
+</button>  </div>
+</div>
+      <div class="relative">
+  <button type="button" class="flex items-center gap-2 pl-1 pr-2 min-h-11 rounded hover:bg-white/15" data-dropdown="#um" aria-expanded="false" aria-haspopup="true">
+    <span class="w-9 h-9 rounded-full bg-white text-primary-dark text-xs font-bold inline-flex items-center justify-center">MA</span>
+    <span class="hidden sm:block text-left leading-tight"><span class="block text-sm font-semibold">Mim Akter</span><span class="block text-xs opacity-80"><span data-bn="শিক্ষার্থী">Student</span></span></span>
+    <svg class="hidden sm:block w-4 h-4 opacity-70" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg>
+  </button>
+  <div id="um" class="menu right-0 mt-1 w-80 text-ink" data-menu hidden>
+    <p class="menu-label"><span data-bn="আপনার অনুমোদিত ওয়ার্কস্পেস">Your authorized workspaces</span></p>
+    <a href="D-09-student-dashboard.html" aria-current="true"><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="m9 12 2 2 4-4" />
+</svg><span><span class="block font-semibold"><span data-bn="শিক্ষার্থী">Student</span></span><span class="block text-xs text-ink-3">Karnaphuli Textile Institute</span></span></a>
+    <p class="px-2.5 py-1 text-xs text-ink-3">Only workspaces assigned to you are listed.</p>
+    <div class="border-t border-line my-1"></div>
+    <button type="button" data-placeholder="My profile|/student/profile|PRD §6|"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" />
+</svg><span data-bn="প্রোফাইল">Profile</span></button>
+    <a href="D-01-landing.html"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+  <polyline points="16 17 21 12 16 7" />
+  <line x1="21" x2="9" y1="12" y2="12" />
+</svg><span data-bn="সাইন আউট">Sign out</span></a>
+  </div>
+</div>
+      </div>
+    </div>
+  </header>
+  <nav class="bg-surface border-b border-line hidden lg:block" aria-label="Student navigation">
+    <div class="mx-auto max-w-[1440px] px-4 lg:px-6 topnav flex overflow-x-auto"><a href="D-09-student-dashboard.html" aria-current="page"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+</svg><span class="truncate"><span data-bn="প্রচ্ছদ">Home</span></span></a>
+<button type="button" data-placeholder="Academics|/academics|PRD §6 (role navigation)|This group contains: Classes &amp; materials · Advising · Curriculum · Code of conduct · Academic calendar · Teaching evaluation"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 7v14" />
+  <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
+</svg><span class="truncate"><span data-bn="একাডেমিক">Academics</span></span></button><button type="button" data-placeholder="Results &amp; Attendance|/results-attendance|PRD §6 (role navigation)|This group contains: Results &amp; grade table · Attendance"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+  <path d="m9 14 2 2 4-4" />
+</svg><span class="truncate"><span data-bn="ফলাফল ও উপস্থিতি">Results &amp; Attendance</span></span></button><button type="button" data-placeholder="Services|/services|PRD §6 (role navigation)|This group contains: Online services (15) · My requests · Payments &amp; ledger · Certificate · Library"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
+  <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+</svg><span class="truncate"><span data-bn="সেবা">Services</span></span><span class="count ">1</span></button><button type="button" data-placeholder="Profile|/profile|PRD §6 (role navigation)|This group contains: My profile"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" />
+</svg><span class="truncate"><span data-bn="প্রোফাইল">Profile</span></span></button></div>
+  </nav>
+  <div class="scopebar">
+    <div class="mx-auto max-w-[1440px] px-4 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+      <nav class="crumbs" aria-label="Breadcrumb"><span aria-current="page"><span data-bn="প্রচ্ছদ">Home</span></span><span class="muted">·</span><span><span data-bn="কর্ণফুলী টেক্সটাইল ইনস্টিটিউট">Karnaphuli Textile Institute</span></span></nav>
+      <span class="scope-chip"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+  <path d="m9 12 2 2 4-4" />
+</svg><span><span data-bn="পরিধি">Scope</span>: <strong class="text-ink"><span data-bn="কর্ণফুলী টেক্সটাইল ইনস্টিটিউট">Karnaphuli Textile Institute</span></strong> <span class="muted font-normal">(<span data-bn="নির্ধারিত">assigned</span>)</span></span></span>
+    </div>
+  </div>
+  <main id="main" class="flex-1 mx-auto w-full max-w-[1440px] px-4 lg:px-8 py-7 space-y-6">
+<section class="card card-pad flex flex-wrap items-center gap-5" aria-labelledby="sp-h">
+  <span class="w-16 h-16 rounded-full bg-primary text-on-primary text-xl font-bold inline-flex items-center justify-center">MA</span>
+  <div class="flex-1 min-w-[220px]"><h1 id="sp-h" class="text-[1.625rem]">Mim Akter</h1><p class="text-ink-2"><span data-bn="ডিপ্লোমা ইন টেক্সটাইল ইঞ্জিনিয়ারিং">Diploma in Textile Engineering</span> · Year 2 · Semester 3 · Section B</p><p class="text-sm muted"><span class="font-mono">KTI-2024-2401</span> · <span data-bn="কর্ণফুলী টেক্সটাইল ইনস্টিটিউট">Karnaphuli Textile Institute</span> · <span class="demo-tag" title="Figures are illustrative until verified by the Ministry (PRD Q-29)"><svg class="w-3 h-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="M12 16v-4" />
+  <path d="M12 8h.01" />
+</svg><span data-bn="ডেমো / উদাহরণমূলক তথ্য">Demo / Illustrative Data</span></span></p></div>
+  <div class="flex flex-wrap gap-2"><button type="button" class="btn btn-secondary" data-placeholder="My profile|/student/profile|PRD §6.8|Edit rule after a certificate is issued is TBD (PRD Q-07)."><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" />
+</svg><span data-bn="প্রোফাইল">Profile</span></button><button type="button" class="btn btn-primary" data-open="#services-dialog"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="7" height="7" x="3" y="3" rx="1" />
+  <rect width="7" height="7" x="14" y="3" rx="1" />
+  <rect width="7" height="7" x="14" y="14" rx="1" />
+  <rect width="7" height="7" x="3" y="14" rx="1" />
+</svg><span data-bn="অনলাইন সেবা">Online services</span></button></div>
+</section>
+<div class="banner banner-warning" role="status"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" />
+</svg><span><strong><span data-bn="এই সেমিস্টারে আপনার উপস্থিতি ৭৮%।">Your attendance this semester is 78%.</span></strong> <span data-bn="এটি ৮০% সীমার নিচে। যুক্তিসংগত কারণে ক্লাস বাদ গেলে শ্রেণিশিক্ষকের সঙ্গে কথা বলুন।">It is below the 80% threshold. Talk to your class teacher if you have missed classes for a valid reason.</span> <span class="tbd-tag"><svg class="w-3 h-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+  <path d="M12 17h.01" />
+</svg>Student minimum · PRD Q-02</span></span></div>
+
+<div class="grid gap-6 md:grid-cols-3">
+  <section class="card card-pad flex items-center gap-4" aria-label="Attendance this semester"><span class="relative inline-flex"><svg viewBox="0 0 72 72" width="72" height="72" aria-hidden="true"><circle cx="36.0" cy="36.0" r="32.0" fill="none" stroke="var(--surface-2)" stroke-width="8"/><circle cx="36.0" cy="36.0" r="32.0" fill="none" stroke="var(--warning)" stroke-width="8" stroke-linecap="round" stroke-dasharray="156.83 201.06" transform="rotate(-90 36.0 36.0)"/></svg><span class="absolute inset-0 flex items-center justify-center font-bold tnum"><span data-num>78%</span></span></span><div><p class="label"><span data-bn="এই সেমিস্টারে উপস্থিতি">Attendance this semester</span></p><p class="text-sm text-warning font-semibold"><span data-bn="৮০%-এর নিচে">Below 80%</span></p></div></section>
+  <section class="card card-pad" aria-label="Latest result"><p class="label"><span data-bn="সর্বশেষ ফলাফল">Latest result</span> · <span data-bn="সেমিস্টার ২">Semester 2</span></p><p class="figure mt-1">GPA <span data-num>3.42</span></p><p class="mt-1"><span class="tag tag-success"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="m9 12 2 2 4-4" />
+</svg><span data-bn="প্রকাশিত">Published</span></span></p></section>
+  <section class="card card-pad" aria-label="Fees"><p class="label"><span data-bn="ফি">Fees</span></p><p class="figure mt-1"><span data-num>৳ 3,500</span></p><p class="text-sm text-warning font-semibold"><span data-bn="পরিশোধের শেষ তারিখ ৩১ অক্টোবর ২০২৬">Due 31 Oct 2026</span></p><button type="button" class="btn btn-primary btn-sm mt-3" data-placeholder="Pay fees|/student/payments|PRD §6.8|Payment gateway is TBD (PRD Q-12)."><span data-bn="ফি পরিশোধ">Pay fees</span></button></section>
+</div>
+
+<div class="grid gap-6 lg:grid-cols-2 items-start">
+  <section class="card" aria-labelledby="scls-h"><div class="card-head"><h2 id="scls-h"><span data-bn="আজকের ক্লাস">Today&#39;s classes</span></h2></div>
+    <ul><li class="qrow items-center"><span class="tnum font-semibold w-12"><span data-num>11:00</span></span><div class="flex-1"><p class="font-semibold">Fabric Structure</p><p class="text-sm muted">Arif Hossain · Room 204</p></div><button type="button" class="btn btn-ghost btn-sm" data-placeholder="Class materials — Fabric Structure|/student/classes/:id|PRD §6.8|"><span data-bn="উপকরণ">Materials</span></button></li><li class="qrow items-center"><span class="tnum font-semibold w-12"><span data-num>13:00</span></span><div class="flex-1"><p class="font-semibold">Yarn Manufacturing II</p><p class="text-sm muted">Nusrat Jahan · Spinning Lab</p></div><button type="button" class="btn btn-ghost btn-sm" data-placeholder="Class materials — Yarn Manufacturing II|/student/classes/:id|PRD §6.8|"><span data-bn="উপকরণ">Materials</span></button></li></ul>
+  </section>
+  <section class="card" aria-labelledby="sreq-htimeline">
+  <div class="card-head"><div><h2 id="sreq-htimeline"><span data-bn="আমার আবেদন">My request</span>: <span data-bn="কোর্স বাদ">Course Drop</span></h2><p class="text-xs muted font-mono">SR-2026-01467</p></div><span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg><span data-bn="পর্যালোচনাধীন">Under review</span></span></div>
+  <div class="card-pad">
+<ol class="timeline">
+  <li class="tl-item tl-done">
+    <span class="tl-dot"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg></span>
+    <div class="pb-1"><p class="font-semibold"><span data-bn="জমা হয়েছে">Submitted</span></p><p class="text-sm muted">Mim Akter · 11 Oct 2026, 10:12</p></div>
+  </li>
+  <li class="tl-item tl-current">
+    <span class="tl-dot"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg></span>
+    <div class="pb-1"><p class="font-semibold"><span data-bn="পর্যালোচনাধীন">Under review</span></p><p class="text-sm muted">Principal&#39;s office · 12 Oct 2026, 09:30</p></div>
+  </li>
+  <li class="tl-item ">
+    <span class="tl-dot"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10.1 2.182a10 10 0 0 1 3.8 0" />
+  <path d="M13.9 21.818a10 10 0 0 1-3.8 0" />
+  <path d="M17.609 3.721a10 10 0 0 1 2.69 2.7" />
+  <path d="M2.182 13.9a10 10 0 0 1 0-3.8" />
+  <path d="M20.279 17.609a10 10 0 0 1-2.7 2.69" />
+  <path d="M21.818 10.1a10 10 0 0 1 0 3.8" />
+  <path d="M3.721 6.391a10 10 0 0 1 2.7-2.69" />
+  <path d="M6.391 20.279a10 10 0 0 1-2.69-2.7" />
+</svg></span>
+    <div class="pb-1"><p class="font-semibold"><span data-bn="সিদ্ধান্ত">Decision</span></p><p class="text-sm muted">Principal · Pending</p></div>
+  </li>
+  <li class="tl-item ">
+    <span class="tl-dot"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10.1 2.182a10 10 0 0 1 3.8 0" />
+  <path d="M13.9 21.818a10 10 0 0 1-3.8 0" />
+  <path d="M17.609 3.721a10 10 0 0 1 2.69 2.7" />
+  <path d="M2.182 13.9a10 10 0 0 1 0-3.8" />
+  <path d="M20.279 17.609a10 10 0 0 1-2.7 2.69" />
+  <path d="M21.818 10.1a10 10 0 0 1 0 3.8" />
+  <path d="M3.721 6.391a10 10 0 0 1 2.7-2.69" />
+  <path d="M6.391 20.279a10 10 0 0 1-2.69-2.7" />
+</svg></span>
+    <div class="pb-1"><p class="font-semibold"><span data-bn="সম্পন্ন">Completed</span></p><p class="text-sm muted">After the decision</p></div>
+  </li>
+</ol>
+    <p class="mt-4 text-sm text-ink-2"><span data-bn="৩ কর্মদিবসের মধ্যে সিদ্ধান্ত প্রত্যাশিত। আপনাকে নোটিফিকেশন পাঠানো হবে।">Expected decision within 3 working days. You will get a notification.</span> <span class="tbd-tag"><svg class="w-3 h-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+  <path d="M12 17h.01" />
+</svg>SLA · PRD Q-03</span></p>
+  </div>
+</section>
+</div>
+
+<section class="card" aria-labelledby="ssvc-h"><div class="card-head"><h2 id="ssvc-h"><span data-bn="অনলাইন সেবা">Online services</span></h2><button type="button" class="link text-sm" data-open="#services-dialog"><span data-bn="সব ১৫টি সেবা">All 15 services</span></button></div>
+  <div class="card-pad grid gap-3 sm:grid-cols-2 lg:grid-cols-3"><button type="button" class="card px-3 py-3 text-left flex items-center gap-2.5 hover:border-primary " data-placeholder="Admit Card|/student/services/admit-card/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary flex-none" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="প্রবেশপত্র">Admit Card</span></span></button><button type="button" class="card px-3 py-3 text-left flex items-center gap-2.5 hover:border-primary " data-placeholder="Online Payment|/student/services/online-payment/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary flex-none" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="অনলাইন পেমেন্ট">Online Payment</span></span></button><button type="button" class="card px-3 py-3 text-left flex items-center gap-2.5 hover:border-primary " data-placeholder="Testimonial|/student/services/testimonial/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary flex-none" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="প্রশংসাপত্র">Testimonial</span></span></button><button type="button" class="card px-3 py-3 text-left flex items-center gap-2.5 hover:border-primary " data-placeholder="Certificate &amp; Transcript|/student/services/certificate-transcript/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary flex-none" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="সনদ ও ট্রান্সক্রিপ্ট">Certificate &amp; Transcript</span></span></button><button type="button" class="card px-3 py-3 text-left flex items-center gap-2.5 hover:border-primary " data-placeholder="Course Drop|/student/services/course-drop/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary flex-none" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="কোর্স বাদ">Course Drop</span></span></button><button type="button" class="card px-3 py-3 text-left flex items-center gap-2.5 hover:border-primary " data-placeholder="Waiver|/student/services/waiver/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary flex-none" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="মওকুফ">Waiver</span></span></button></div>
+</section>
+
+</main>
+  <footer class="border-t border-line"><div class="mx-auto max-w-[1440px] px-4 lg:px-8 py-4 flex flex-wrap gap-x-6 text-xs muted"><span>Prototype D · PRD v1</span><span><span data-bn="ডেমো / উদাহরণমূলক তথ্য">Demo / Illustrative Data</span></span><span>Boundaries: geoBoundaries gbOpen BGD ADM1/ADM2 (CC BY 4.0)</span></div></footer>
+</div>
+
+
+<dialog id="placeholder-dialog" class="dlg" aria-labelledby="ph-h">
+  <div class="dlg-head"><h2 id="ph-h" class="text-lg flex items-center gap-2"><svg class="w-5 h-5 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
+  <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
+  <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
+</svg><span data-ph-title>Screen</span></h2><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg></button></div>
+  <div class="dlg-body space-y-3">
+    <p class="banner banner-info"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="M12 16v-4" />
+  <path d="M12 8h.01" />
+</svg><span><strong><span data-bn="পূর্ণাঙ্গ সংস্করণের অংশ">Part of the full build</span>.</strong> This screen is specified in PRD v1 and will be designed in the selected direction after the client chooses D, E or F.</span></p>
+    <dl class="grid grid-cols-[110px_1fr] gap-y-2 text-sm"><dt class="muted">Route</dt><dd class="font-mono" data-ph-route>—</dd><dt class="muted">Reference</dt><dd data-ph-ref>PRD v1</dd></dl>
+    <p class="text-sm text-ink-2" data-ph-extra hidden></p>
+  </div>
+  <div class="dlg-foot"><button type="button" class="btn btn-primary" data-close><span data-bn="বন্ধ করুন">Close</span></button></div>
+</dialog>
+<dialog id="denied-dialog" class="dlg" aria-labelledby="dn-h">
+  <div class="dlg-head"><h2 id="dn-h" class="text-lg flex items-center gap-2"><svg class="w-5 h-5 text-danger" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+</svg><span data-bn="অনুমতি নেই">Permission denied</span></h2><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg></button></div>
+  <div class="dlg-body space-y-3 text-sm">
+    <p>You don't have access to <strong data-denied-scope>this scope</strong>. Your role only covers its assigned jurisdiction, and data from other divisions or districts stays hidden.</p>
+    <p class="muted">If you need wider access, ask the Ministry Super Admin to change your role assignment. Every access change is recorded in the activity log.</p>
+  </div>
+  <div class="dlg-foot"><button type="button" class="btn btn-primary" data-close><span data-bn="বন্ধ করুন">Close</span></button></div>
+</dialog>
+<dialog id="services-dialog" class="dlg" aria-labelledby="sv-h" style="width:min(760px,calc(100vw - 24px))">
+  <div class="dlg-head"><h2 id="sv-h" class="text-lg"><span data-bn="অনলাইন সেবা">Online services</span></h2><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg></button></div>
+  <div class="dlg-body"><ul class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3"><li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" data-placeholder="Admit Card|/student/services/admit-card/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="প্রবেশপত্র">Admit Card</span></span></button></li><li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" data-placeholder="Waiver|/student/services/waiver/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="মওকুফ">Waiver</span></span></button></li><li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" data-placeholder="Re-admission|/student/services/re-admission/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="পুনঃভর্তি">Re-admission</span></span></button></li><li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" data-placeholder="Course Drop|/student/services/course-drop/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="কোর্স বাদ">Course Drop</span></span></button></li><li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" data-placeholder="Semester Drop|/student/services/semester-drop/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="সেমিস্টার বাদ">Semester Drop</span></span></button></li><li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" data-placeholder="Online Payment|/student/services/online-payment/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="অনলাইন পেমেন্ট">Online Payment</span></span></button></li><li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" data-placeholder="Testimonial|/student/services/testimonial/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="প্রশংসাপত্র">Testimonial</span></span></button></li><li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" data-placeholder="Incomplete Transcript|/student/services/incomplete-transcript/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="অসম্পূর্ণ ট্রান্সক্রিপ্ট">Incomplete Transcript</span></span></button></li><li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" data-placeholder="PVC &amp; Transcript|/student/services/pvc-transcript/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="পিভিসি ও ট্রান্সক্রিপ্ট">PVC &amp; Transcript</span></span></button></li><li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" data-placeholder="Certificate &amp; Transcript|/student/services/certificate-transcript/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="সনদ ও ট্রান্সক্রিপ্ট">Certificate &amp; Transcript</span></span></button></li><li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" data-placeholder="Duplicate Certificate &amp; Transcript|/student/services/duplicate-certificate-transcript/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="সনদ ও ট্রান্সক্রিপ্টের অনুলিপি">Duplicate Certificate &amp; Transcript</span></span></button></li><li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" data-placeholder="Medium of Instruction|/student/services/medium-of-instruction/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="শিক্ষার মাধ্যম সনদ">Medium of Instruction</span></span></button></li><li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" data-placeholder="Transfer Program|/student/services/transfer-program/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="প্রোগ্রাম পরিবর্তন">Transfer Program</span></span></button></li><li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" data-placeholder="Cancel Studentship|/student/services/cancel-studentship/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="ছাত্রত্ব বাতিল">Cancel Studentship</span></span></button></li><li><button type="button" class="w-full text-left card px-3 py-2.5 hover:border-primary flex items-center gap-2" data-placeholder="Convocation|/student/services/convocation/apply|PRD §6.8|Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03)."><svg class="w-4 h-4 text-primary" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" />
+</svg><span class="text-sm font-semibold"><span data-bn="সমাবর্তন">Convocation</span></span></button></li></ul></div>
+</dialog>
+<dialog id="track-dialog" class="dlg drawer" aria-labelledby="tk-h">
+  <div class="dlg-head"><div><p class="text-xs muted font-mono">SR-2026-01467</p><h2 id="tk-h" class="text-lg"><span data-bn="কোর্স বাদ">Course Drop</span></h2></div><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg></button></div>
+  <div class="dlg-body space-y-4"><span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg><span data-bn="পর্যালোচনাধীন">Under review</span></span><ol class="timeline">
+  <li class="tl-item tl-done">
+    <span class="tl-dot"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg></span>
+    <div class="pb-1"><p class="font-semibold"><span data-bn="জমা হয়েছে">Submitted</span></p><p class="text-sm muted">Mim Akter · 11 Oct 2026, 10:12</p></div>
+  </li>
+  <li class="tl-item tl-current">
+    <span class="tl-dot"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg></span>
+    <div class="pb-1"><p class="font-semibold"><span data-bn="পর্যালোচনাধীন">Under review</span></p><p class="text-sm muted">Principal&#39;s office · 12 Oct 2026, 09:30</p></div>
+  </li>
+  <li class="tl-item ">
+    <span class="tl-dot"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10.1 2.182a10 10 0 0 1 3.8 0" />
+  <path d="M13.9 21.818a10 10 0 0 1-3.8 0" />
+  <path d="M17.609 3.721a10 10 0 0 1 2.69 2.7" />
+  <path d="M2.182 13.9a10 10 0 0 1 0-3.8" />
+  <path d="M20.279 17.609a10 10 0 0 1-2.7 2.69" />
+  <path d="M21.818 10.1a10 10 0 0 1 0 3.8" />
+  <path d="M3.721 6.391a10 10 0 0 1 2.7-2.69" />
+  <path d="M6.391 20.279a10 10 0 0 1-2.69-2.7" />
+</svg></span>
+    <div class="pb-1"><p class="font-semibold"><span data-bn="সিদ্ধান্ত">Decision</span></p><p class="text-sm muted">Principal · Pending</p></div>
+  </li>
+  <li class="tl-item ">
+    <span class="tl-dot"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10.1 2.182a10 10 0 0 1 3.8 0" />
+  <path d="M13.9 21.818a10 10 0 0 1-3.8 0" />
+  <path d="M17.609 3.721a10 10 0 0 1 2.69 2.7" />
+  <path d="M2.182 13.9a10 10 0 0 1 0-3.8" />
+  <path d="M20.279 17.609a10 10 0 0 1-2.7 2.69" />
+  <path d="M21.818 10.1a10 10 0 0 1 0 3.8" />
+  <path d="M3.721 6.391a10 10 0 0 1 2.7-2.69" />
+  <path d="M6.391 20.279a10 10 0 0 1-2.69-2.7" />
+</svg></span>
+    <div class="pb-1"><p class="font-semibold"><span data-bn="সম্পন্ন">Completed</span></p><p class="text-sm muted">After the decision</p></div>
+  </li>
+</ol><button type="button" class="btn btn-danger btn-sm" data-toast="Request withdrawn (prototype) — status: Withdrawn"><span data-bn="আবেদন প্রত্যাহার">Withdraw request</span></button></div>
+</dialog>
+<nav class="var-nav-bar" aria-label="Design variation review (prototype only)">
+<a href="D-09-student-dashboard.html" aria-current="page" title="Variation D">D</a><a href="E-09-student-dashboard.html" title="Variation E">E</a><a href="F-09-student-dashboard.html" title="Variation F">F</a>  <span class="sep" aria-hidden="true"></span>
+<a href="D-01-landing.html" title="Landing">01</a><a href="D-02-public-services.html" title="Public">02</a><a href="D-03-login.html" title="Login">03</a><a href="D-04-ministry-dashboard.html" title="Ministry">04</a><a href="D-05-division-dashboard.html" title="Division">05</a><a href="D-06-district-dashboard.html" title="District">06</a><a href="D-07-principal-dashboard.html" title="Principal">07</a><a href="D-08-teacher-dashboard.html" title="Teacher">08</a><a href="D-09-student-dashboard.html" aria-current="page" title="Student">09</a><a href="D-10-institution-360.html" title="Institution 360">10</a>  <span class="sep" aria-hidden="true"></span>
+  <a href="showcase-DEF.html" title="Back to the D/E/F showcase" aria-label="Close, back to showcase">✕</a>
+</nav>
+</body>
+</html>

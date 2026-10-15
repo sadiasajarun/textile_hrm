@@ -1,0 +1,100 @@
+{% extends 'def/_app.html' %}
+{% import 'def/_m.html' as m %}
+{% import 'def/_blocks.html' as b %}
+{% set st = x.student %}
+{% set top_services = ['Admit Card','Online Payment','Testimonial','Certificate & Transcript','Course Drop','Waiver'] %}
+
+{% block crumbs %}<span aria-current="page">{{ t('Home') }}</span><span class="muted">·</span><span>{{ t('Karnaphuli Textile Institute') }}</span>{% endblock %}
+
+{% block content %}
+{% macro svc_btn(s, cls='') -%}<button type="button" class="card px-3 py-3 text-left flex items-center gap-2.5 hover:border-primary {{ cls }}" {{ m.ph(s, '/student/services/' ~ s|lower|replace(' & ','-')|replace(' ','-') ~ '/apply', 'PRD §6.8', 'Steps: details → documents → fee (if any) → review → submit. Eligibility, documents, fee and approver per service are TBD (PRD Q-03).') }}>{{ icon('file-text','w-4 h-4 text-primary flex-none') }}<span class="text-sm font-semibold">{{ t(s) }}</span></button>{%- endmacro %}
+{% macro request_card(style='timeline') -%}
+<section class="card" aria-labelledby="sreq-h{{ style }}">
+  <div class="card-head"><div><h2 id="sreq-h{{ style }}">{{ t('My request') }}: {{ t(st.request.service) }}</h2><p class="text-xs muted font-mono">{{ st.request.no }}</p></div>{{ m.tag(st.request.status) }}</div>
+  <div class="card-pad">
+    {% if style == 'timeline' %}{{ m.timeline(st.request.timeline) }}
+    {% else %}<ol class="grid grid-cols-4 gap-3">{% for s in st.request.timeline %}<li class="hstep {{ 'done' if s.state == 'done' else ('current' if s.state == 'current' else '') }}"><span class="bar"></span><span class="font-semibold text-sm">{{ t(s.step) }}</span><span class="text-xs muted">{{ s.when }}</span></li>{% endfor %}</ol>{% endif %}
+    <p class="mt-4 text-sm text-ink-2">{{ t('Expected decision within 3 working days. You will get a notification.') }} {{ m.tbd('SLA · PRD Q-03') }}</p>
+  </div>
+</section>
+{%- endmacro %}
+
+{% if v == 'D' %}
+{# =====================================================================  D #}
+<section class="card card-pad flex flex-wrap items-center gap-5" aria-labelledby="sp-h">
+  <span class="w-16 h-16 rounded-full bg-primary text-on-primary text-xl font-bold inline-flex items-center justify-center">MA</span>
+  <div class="flex-1 min-w-[220px]"><h1 id="sp-h" class="text-[1.625rem]">{{ st.name }}</h1><p class="text-ink-2">{{ t(st.program) }} · {{ st.year }}</p><p class="text-sm muted"><span class="font-mono">{{ st.id }}</span> · {{ t('Karnaphuli Textile Institute') }} · {{ m.demo() }}</p></div>
+  <div class="flex flex-wrap gap-2"><button type="button" class="btn btn-secondary" {{ m.ph('My profile', '/student/profile', 'PRD §6.8', 'Edit rule after a certificate is issued is TBD (PRD Q-07).') }}>{{ icon('user') }}{{ t('Profile') }}</button><button type="button" class="btn btn-primary" data-open="#services-dialog">{{ icon('layout-grid') }}{{ t('Online services') }}</button></div>
+</section>
+<div class="banner banner-warning" role="status">{{ icon('triangle-alert') }}<span><strong>{{ t('Your attendance this semester is 78%.') }}</strong> {{ t('It is below the 80% threshold. Talk to your class teacher if you have missed classes for a valid reason.') }} {{ m.tbd('Student minimum · PRD Q-02') }}</span></div>
+
+<div class="grid gap-6 md:grid-cols-3">
+  <section class="card card-pad flex items-center gap-4" aria-label="Attendance this semester"><span class="relative inline-flex">{{ ring(st.attendance, 72, 8, 'var(--warning)') }}<span class="absolute inset-0 flex items-center justify-center font-bold tnum">{{ num(st.attendance|string ~ '%') }}</span></span><div><p class="label">{{ t('Attendance this semester') }}</p><p class="text-sm text-warning font-semibold">{{ t('Below 80%') }}</p></div></section>
+  <section class="card card-pad" aria-label="Latest result"><p class="label">{{ t('Latest result') }} · {{ t('Semester 2') }}</p><p class="figure mt-1">GPA {{ num(st.gpa) }}</p><p class="mt-1">{{ m.tag('Published') }}</p></section>
+  <section class="card card-pad" aria-label="Fees"><p class="label">{{ t('Fees') }}</p><p class="figure mt-1">{{ num('৳ 3,500') }}</p><p class="text-sm text-warning font-semibold">{{ t('Due 31 Oct 2026') }}</p><button type="button" class="btn btn-primary btn-sm mt-3" {{ m.ph('Pay fees', '/student/payments', 'PRD §6.8', 'Payment gateway is TBD (PRD Q-12).') }}>{{ t('Pay fees') }}</button></section>
+</div>
+
+<div class="grid gap-6 lg:grid-cols-2 items-start">
+  <section class="card" aria-labelledby="scls-h"><div class="card-head"><h2 id="scls-h">{{ t("Today's classes") }}</h2></div>
+    <ul>{% for c in st.classes %}<li class="qrow items-center"><span class="tnum font-semibold w-12">{{ num(c.time) }}</span><div class="flex-1"><p class="font-semibold">{{ c.subject }}</p><p class="text-sm muted">{{ c.teacher }} · {{ c.room }}</p></div><button type="button" class="btn btn-ghost btn-sm" {{ m.ph('Class materials — ' ~ c.subject, '/student/classes/:id', 'PRD §6.8') }}>{{ t('Materials') }}</button></li>{% endfor %}</ul>
+  </section>
+  {{ request_card('timeline') }}
+</div>
+
+<section class="card" aria-labelledby="ssvc-h"><div class="card-head"><h2 id="ssvc-h">{{ t('Online services') }}</h2><button type="button" class="link text-sm" data-open="#services-dialog">{{ t('All 15 services') }}</button></div>
+  <div class="card-pad grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{% for s in top_services %}{{ svc_btn(s) }}{% endfor %}</div>
+</section>
+
+{% elif v == 'E' %}
+{# =====================================================================  E #}
+<section class="card overflow-hidden" aria-labelledby="esp-h">
+  <div class="dot-grid px-[var(--card-pad)] py-6 grid gap-6 lg:grid-cols-[1.3fr_2fr] items-center">
+    <div><p class="text-sm font-semibold text-data">{{ t('Student') }} · <span class="font-mono">{{ st.id }}</span></p><h1 id="esp-h" class="text-[1.875rem] mt-1">{{ st.name }}</h1><p class="text-ink-2">{{ t(st.program) }}</p><p class="text-sm muted">{{ st.year }} · {{ m.demo() }}</p></div>
+    <dl class="grid grid-cols-3 gap-4">
+      <div class="flex flex-col items-center text-center gap-1"><span class="relative inline-flex">{{ ring(st.attendance, 84, 9, 'var(--warning)') }}<span class="absolute inset-0 flex items-center justify-center font-bold tnum text-lg">{{ num(st.attendance|string ~ '%') }}</span></span><dt class="label">{{ t('Attendance this semester') }}</dt></div>
+      <div class="flex flex-col items-center text-center gap-1"><span class="relative inline-flex">{{ ring(85.5, 84, 9, 'var(--data)') }}<span class="absolute inset-0 flex items-center justify-center font-bold tnum text-lg">{{ num(st.gpa) }}</span></span><dt class="label">{{ t('GPA') }} · {{ t('Semester 2') }}</dt></div>
+      <div class="flex flex-col items-center text-center gap-1 justify-center"><dd class="figure !text-2xl">{{ num('৳ 3,500') }}</dd><dt class="label">{{ t('Fees') }} · {{ t('Due 31 Oct 2026') }}</dt><button type="button" class="btn btn-primary btn-sm" {{ m.ph('Pay fees', '/student/payments', 'PRD §6.8', 'Payment gateway is TBD (PRD Q-12).') }}>{{ t('Pay fees') }}</button></div>
+    </dl>
+  </div>
+</section>
+<div class="banner banner-warning" role="status">{{ icon('triangle-alert') }}<span><strong>{{ t('Your attendance this semester is 78%.') }}</strong> {{ t('It is below the 80% threshold. Talk to your class teacher if you have missed classes for a valid reason.') }} {{ m.tbd('Student minimum · PRD Q-02') }}</span></div>
+{{ request_card('steps') }}
+<div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-start">
+  <section class="card" aria-labelledby="escl-h"><div class="card-head"><h2 id="escl-h">{{ t("Today's classes") }}</h2></div><ol class="card-pad timeline">{% for c in st.classes %}<li class="tl-item {{ 'tl-current' if loop.first else '' }}"><span class="tl-dot">{{ icon('book-open') }}</span><div><p class="font-semibold"><span class="tnum">{{ num(c.time) }}</span> · {{ c.subject }}</p><p class="text-sm muted">{{ c.teacher }} · {{ c.room }}</p></div></li>{% endfor %}</ol></section>
+  <section class="card" aria-labelledby="esvc-h"><div class="card-head"><h2 id="esvc-h">{{ t('Online services') }}</h2><button type="button" class="link text-sm" data-open="#services-dialog">{{ t('All 15 services') }}</button></div><div class="card-pad grid gap-2 sm:grid-cols-2">{% for s in top_services %}{{ svc_btn(s) }}{% endfor %}</div></section>
+</div>
+
+{% else %}
+{# =====================================================================  F #}
+<div><h1 class="text-[1.5rem] sm:text-[1.75rem]">{{ t('Hello') }}, {{ st.name }}</h1><p class="text-ink-2 mt-1 flex flex-wrap items-center gap-2"><span>{{ t(st.program) }} · {{ st.year }}</span>{{ m.demo() }}</p></div>
+<div class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_340px] items-start">
+  <div class="space-y-5 min-w-0">
+    <section class="card" aria-labelledby="fstd-h"><div class="card-head"><h2 id="fstd-h">{{ t('Things to do') }} <span class="count alert">{{ num('3') }}</span></h2></div>
+      <ul>
+        <li class="qrow items-center"><span class="sev-bar sev-warning" aria-hidden="true"></span><span class="icon-chip warning">{{ icon('wallet') }}</span><div class="flex-1 min-w-0"><p class="font-semibold">{{ t('Pay fees') }}: {{ num('৳ 3,500') }}</p><p class="text-sm text-warning font-semibold">{{ t('Due 31 Oct 2026') }}</p></div><button type="button" class="btn btn-primary btn-sm" {{ m.ph('Pay fees', '/student/payments', 'PRD §6.8', 'Payment gateway is TBD (PRD Q-12).') }}>{{ t('Pay fees') }}</button></li>
+        <li class="qrow items-center"><span class="sev-bar sev-warning" aria-hidden="true"></span><span class="icon-chip warning">{{ icon('user-check') }}</span><div class="flex-1 min-w-0"><p class="font-semibold">{{ t('Your attendance this semester is 78%.') }}</p><p class="text-sm muted">{{ t('Below 80%') }} · {{ m.tbd('Student minimum · PRD Q-02') }}</p></div><button type="button" class="btn btn-secondary btn-sm" {{ m.ph('My attendance', '/student/attendance', 'PRD §6.8') }}>{{ t('View') }}</button></li>
+        <li class="qrow items-center"><span class="sev-bar sev-info" aria-hidden="true"></span><span class="icon-chip info">{{ icon('clock') }}</span><div class="flex-1 min-w-0"><p class="font-semibold">{{ t(st.request.service) }} · <span class="font-mono text-sm">{{ st.request.no }}</span></p><p class="text-sm muted">{{ t('Under review') }} · {{ t("Principal's office") }}</p></div><button type="button" class="btn btn-secondary btn-sm" data-open="#track-dialog">{{ t('Track request') }}</button></li>
+      </ul>
+    </section>
+    <section class="card" aria-labelledby="fsvc-h">
+      <div class="card-head"><h2 id="fsvc-h">{{ t('Start a service request') }}</h2><span class="text-sm muted"><span data-count-for="#f-svc">15</span> {{ t('services') }}</span></div>
+      <div class="p-[var(--card-pad)] pb-3"><label class="search-big !border !border-line">{{ icon('search','w-5 h-5 text-ink-3') }}<input data-filter="#f-svc" data-key="text" placeholder="e.g. transcript, admit card" data-bn-placeholder="{{ tb('e.g. transcript, admit card') }}" aria-label="Search services"></label></div>
+      <ul id="f-svc" class="px-[var(--card-pad)] pb-[var(--card-pad)] grid gap-2 sm:grid-cols-2">{% for s in x.student_services %}<li data-item data-text="{{ s }} {{ tb(s) }}">{{ svc_btn(s, 'w-full') }}</li>{% endfor %}</ul>
+      <div class="empty" data-empty="#f-svc" hidden>{{ icon('search-x') }}<p class="font-semibold">{{ t('No service matches your search') }}</p></div>
+    </section>
+  </div>
+  <div class="space-y-5">
+    <section class="card" aria-labelledby="fscls-h"><div class="card-head"><h2 id="fscls-h">{{ t("Today's classes") }}</h2></div><ul>{% for c in st.classes %}<li class="qrow items-center"><span class="tnum font-semibold w-12">{{ num(c.time) }}</span><div class="flex-1"><p class="font-semibold">{{ c.subject }}</p><p class="text-sm muted">{{ c.room }}</p></div></li>{% endfor %}</ul></section>
+    <section class="card" aria-labelledby="fsres-h"><div class="card-head"><h2 id="fsres-h">{{ t('Results') }}</h2></div><ul>{% for r in st.results %}<li class="qrow items-center"><span class="flex-1 font-semibold">{{ r.sem }}</span><span class="tnum">GPA {{ num(r.gpa) }}</span>{{ m.tag(r.state) }}</li>{% endfor %}</ul></section>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block dialogs %}
+{{ b.services_dialog(x) }}
+<dialog id="track-dialog" class="dlg drawer" aria-labelledby="tk-h">
+  <div class="dlg-head"><div><p class="text-xs muted font-mono">{{ st.request.no }}</p><h2 id="tk-h" class="text-lg">{{ t(st.request.service) }}</h2></div><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close">{{ icon('x') }}</button></div>
+  <div class="dlg-body space-y-4">{{ m.tag(st.request.status) }}{{ m.timeline(st.request.timeline) }}<button type="button" class="btn btn-danger btn-sm" data-toast="Request withdrawn (prototype) — status: Withdrawn">{{ t('Withdraw request') }}</button></div>
+</dialog>
+{% endblock %}

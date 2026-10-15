@@ -1,0 +1,123 @@
+{% extends 'def/_app.html' %}
+{% import 'def/_m.html' as m %}
+{% import 'def/_blocks.html' as b %}
+{% set p = x.principal %}
+{% set i360 = d.inst360 %}
+{% set kinds = {'Approve request':'requests','Review attendance':'attendance','Publish result':'results','Assign asset':'assets','Review leave':'leave'} %}
+
+{% block crumbs %}<span aria-current="page">{{ t('Karnaphuli Textile Institute') }}</span><span class="muted">·</span><span>{{ t('Overview') }}</span>{% endblock %}
+
+{% block content %}
+{% macro act_btn(a, primary=false) -%}
+{% set cls = 'btn btn-sm ' ~ ('btn-primary' if primary else 'btn-secondary') %}
+{% if 'Mim Akter' in a.title %}<button type="button" class="{{ cls }}" data-open="#req-dialog">{{ t(a.btn) }}</button>
+{% elif a.kind == 'Publish result' %}<button type="button" class="{{ cls }}" data-open="#publish-dialog">{{ t(a.btn) }}</button>
+{% elif a.kind == 'Review attendance' %}<a href="#classes" class="{{ cls }}">{{ t(a.btn) }}</a>
+{% else %}<button type="button" class="{{ cls }}" {{ m.ph(a.kind ~ ' — ' ~ a.title, '/principal/approvals', 'PRD §6.5') }}>{{ t(a.btn) }}</button>{% endif %}
+{%- endmacro %}
+{% macro classes_table() -%}
+<div class="overflow-x-auto"><table class="tbl tbl-stack"><thead><tr><th>{{ t('Class') }}</th><th class="text-right">{{ t('Present') }}</th><th class="text-right">{{ t('Rate') }}</th><th>{{ t('Status') }}</th></tr></thead><tbody>{{ b.class_rows(i360.classes) }}</tbody></table></div>
+<p class="px-4 py-3 text-xs muted border-t border-line">{{ t('Showing 6 of 18 classes.') }} {{ m.tbd('Capture method · PRD Q-26') }}</p>
+{%- endmacro %}
+
+{% if v == 'D' %}
+{# =====================================================================  D #}
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div><p class="text-sm muted flex flex-wrap items-center gap-2"><span>{{ t('Principal') }} · Md. Saiful Islam · <span class="font-mono">TI-CTG-014</span></span>{{ m.demo() }}</p><h1 class="text-[1.75rem] mt-1">{{ t('Karnaphuli Textile Institute') }}</h1></div>
+  <div class="flex flex-wrap gap-2"><button type="button" class="btn btn-secondary" {{ m.ph('Institution reports', '/principal/reports', 'PRD §6.5') }}>{{ icon('file-text') }}{{ t('Generate report') }}</button></div>
+</div>
+<div class="banner banner-danger" role="status">{{ icon('triangle-alert') }}<div class="flex-1"><p><strong>{{ t('Attendance is below the 80% threshold today (72.4%).') }}</strong> {{ t('District and Division Admins can see this alert.') }}</p></div><a href="#classes" class="btn btn-secondary btn-sm">{{ t('Review class') }}</a></div>
+
+<section class="card grid sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 lg:divide-x divide-line" aria-label="Situation summary">
+  {% for k in p.kpis %}<div class="card-pad">{{ m.kpi(k.label, k.value, k.icon, None, k.status if k.status is defined else None, v) }}</div>{% endfor %}
+</section>
+
+<section class="card" aria-labelledby="pact-h">
+  <div class="card-head"><h2 id="pact-h">{{ t('My pending actions') }} <span class="count">{{ num('14') }}</span></h2><button type="button" class="link text-sm" {{ m.ph('Approvals inbox', '/principal/approvals', 'PRD §6.5') }}>{{ t('View all') }}</button></div>
+  <div class="overflow-x-auto"><table class="tbl tbl-stack"><thead><tr><th>{{ t('Type') }}</th><th>{{ t('Request') }}</th><th>{{ t('Status') }}</th><th><span class="sr-only">{{ t('Actions') }}</span></th></tr></thead>
+  <tbody>{% for a in p.actions %}<tr><td class="whitespace-nowrap"><span class="inline-flex items-center gap-2 text-sm font-semibold">{{ icon(a.icon,'w-4 h-4 text-ink-3') }}{{ t(a.kind) }}</span></td><td><p class="font-semibold">{{ a.title }}</p><p class="text-sm muted">{{ a.meta }}</p></td><td>{% if a.overdue %}{{ m.tag('Overdue') }}{% else %}{{ m.tag('Pending') }}{% endif %}</td><td class="text-right">{{ act_btn(a, loop.first) }}</td></tr>{% endfor %}</tbody></table></div>
+</section>
+
+<div class="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] items-start">
+  <section id="classes" class="card scroll-mt-4" aria-labelledby="pcls-h"><div class="card-head"><h2 id="pcls-h">{{ t('Attendance by class today') }}</h2></div>{{ classes_table() }}</section>
+  <div class="space-y-6">
+    <section class="card" aria-labelledby="pres-h"><div class="card-head"><h2 id="pres-h">{{ t('Resources') }}</h2></div>
+      <div class="card-pad space-y-4 text-sm">
+        <div><div class="flex justify-between"><span class="font-semibold">{{ t('Budget utilization') }}</span><span class="tnum">{{ num(i360.budget.pct|string ~ '%') }}</span></div><span class="hbar mt-1.5 block"><span style="width:{{ i360.budget.pct }}%;--bar:var(--primary)"></span></span><p class="mt-1 muted">{{ num(i360.budget.used) }} / {{ num(i360.budget.allocated) }}</p></div>
+        <div><p class="font-semibold mb-2">{{ t('Assets') }}</p><div class="flex flex-wrap gap-2">{% for a in i360.assets if a.label != 'Unavailable' %}<span class="tag tag-{{ a.tag }}">{{ t(a.label) }} · {{ num('{:,}'.format(a.value)) }}</span>{% endfor %}</div></div>
+      </div>
+    </section>
+    <section class="card" aria-labelledby="pact2-h"><div class="card-head"><h2 id="pact2-h">{{ t('Activity timeline') }}</h2></div><div class="card-pad">{{ b.activity(i360.activity[:4]) }}</div></section>
+  </div>
+</div>
+
+{% elif v == 'E' %}
+{# =====================================================================  E #}
+<section class="card card-pad grid gap-5 lg:grid-cols-[1.2fr_2fr] items-center" aria-labelledby="eph-h">
+  <div class="flex items-center gap-4"><span class="icon-chip !w-14 !h-14">{{ icon('school','!w-7 !h-7') }}</span><div><h1 id="eph-h" class="text-[1.625rem] leading-tight">{{ t('Karnaphuli Textile Institute') }}</h1><p class="text-sm muted"><span class="font-mono">TI-CTG-014</span> · {{ t('Textile Institute') }} · {{ t('Chattogram District') }}</p><p class="mt-1">{{ m.demo() }}</p></div></div>
+  <ul class="grid grid-cols-2 sm:grid-cols-3 gap-2">{% for h in x.inst360.health %}<li class="rounded-ui border border-line px-3 py-2"><p class="text-xs muted flex items-center gap-1.5">{{ icon(h.icon,'w-3.5 h-3.5') }}{{ t(h.domain) }}</p>{{ m.health(h.state) }}<p class="text-xs text-ink-2">{{ h.value }}</p></li>{% endfor %}</ul>
+</section>
+
+<div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-start">
+  <section id="classes" class="card scroll-mt-28" aria-labelledby="ecls-h">
+    <div class="card-head"><h2 id="ecls-h">{{ t('Attendance by class today') }}</h2><span class="text-xs muted">{{ t('Red line marks the 80% threshold.') }}</span></div>
+    <ul class="card-pad space-y-3">{% for c in i360.classes %}{% set rate = (c.present / c.total * 100) if c.present is not none else none %}<li class="grid grid-cols-[minmax(0,150px)_1fr_64px] items-center gap-3 text-sm"><span><span class="block font-semibold truncate">{{ c.name }}</span><span class="block text-xs muted truncate">{{ c.teacher }}</span></span>{% if rate is not none %}<span class="hbar hbar-threshold" style="--th:80%"><span style="width:{{ rate|round(1) }}%;--bar:var(--map-{{ health_of(rate) }})"></span></span><span class="tnum text-right font-semibold {{ 'overdue' if rate < 80 else '' }}">{{ num('%.1f'|format(rate) ~ '%') }}</span>{% else %}<span class="col-span-2">{% if c.state == 'pending_sync' %}{{ m.tag('Pending sync') }}{% else %}{{ m.tag('Not recorded') }}{% endif %}</span>{% endif %}</li>{% endfor %}</ul>
+    <p class="px-[var(--card-pad)] pb-4 text-xs muted">{{ t('Showing 6 of 18 classes.') }} {{ m.tbd('Capture method · PRD Q-26') }}</p>
+  </section>
+  <section class="card" aria-labelledby="eapp-h">
+    <div class="card-head"><h2 id="eapp-h">{{ t('Approvals and actions') }}</h2><span class="count">{{ num('14') }}</span></div>
+    <ul>{% for a in p.actions %}<li class="qrow items-center"><span class="icon-chip {{ 'danger' if a.overdue else '' }}">{{ icon(a.icon) }}</span><div class="flex-1 min-w-0"><p class="text-xs font-semibold muted">{{ t(a.kind) }}</p><p class="font-semibold leading-snug">{{ a.title }}</p><p class="text-sm {{ 'overdue' if a.overdue else 'muted' }}">{{ a.meta }}</p></div>{{ act_btn(a, loop.first) }}</li>{% endfor %}</ul>
+  </section>
+</div>
+
+<div class="grid gap-6 lg:grid-cols-2 items-start">
+  <section class="card" aria-labelledby="ebud-h"><div class="card-head"><h2 id="ebud-h">{{ t('Budget by head') }}</h2><span class="text-sm muted">{{ i360.budget.used }} / {{ i360.budget.allocated }}</span></div>
+    <ul class="card-pad space-y-3">{% for h in x.inst360.budget_heads %}<li class="grid grid-cols-[minmax(0,170px)_1fr_48px] items-center gap-3 text-sm"><span class="truncate">{{ t(h.head) }}</span><span class="hbar"><span style="width:{{ h.pct }}%;--bar:{{ 'var(--warning)' if h.pct > 80 else 'var(--data)' }}"></span></span><span class="tnum text-right">{{ num(h.pct|string ~ '%') }}</span></li>{% endfor %}</ul>
+  </section>
+  <section class="card" aria-labelledby="eres-h"><div class="card-head"><h2 id="eres-h">{{ t('Results by semester') }}</h2>{{ m.tbd('Publisher · PRD Q-32') }}</div>
+    <ul>{% for r in i360.results %}<li class="qrow items-center"><span class="flex-1 font-semibold">{{ r.sem }}</span><span class="text-sm muted">{{ r.date }}</span><span class="tag tag-{{ r.tag }}">{{ t(r.status) }}</span></li>{% endfor %}</ul>
+  </section>
+</div>
+
+{% else %}
+{# =====================================================================  F #}
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div><h1 class="text-[1.5rem] sm:text-[1.75rem]">{{ num('14') }} {{ t('items need your decision') }}</h1><p class="text-ink-2 mt-1 flex flex-wrap items-center gap-2"><span>{{ t('Karnaphuli Textile Institute') }} · {{ t('Principal') }}</span>{{ m.demo() }}</p></div>
+</div>
+<div class="banner banner-danger" role="status">{{ icon('triangle-alert') }}<span class="flex-1"><strong>{{ t('Attendance is below the 80% threshold today (72.4%).') }}</strong> {{ t('District and Division Admins can see this alert.') }}</span></div>
+<div class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px] items-start">
+  <div class="space-y-5 min-w-0">
+    <section class="card" aria-label="Inbox">
+      <div class="px-[var(--card-pad)] py-3 flex flex-wrap gap-2 border-b border-line" role="group" aria-label="Filter by type">
+        <button type="button" class="chip" aria-pressed="true" data-set-filter="#p-q|kind|">{{ t('All') }} <span class="count">{{ num(p.actions|length|string) }}</span></button>
+        {% for k, l in [('requests','Requests'),('attendance','Attendance'),('results','Results'),('assets','Assets'),('leave','Leave')] %}<button type="button" class="chip" aria-pressed="false" data-set-filter="#p-q|kind|{{ k }}">{{ t(l) }}</button>{% endfor %}
+        <select class="hidden" data-filter="#p-q" data-key="kind" aria-hidden="true" tabindex="-1"><option value=""></option>{% for k in ['requests','attendance','results','assets','leave'] %}<option value="{{ k }}">{{ k }}</option>{% endfor %}</select>
+      </div>
+      <ul id="p-q">{% for a in p.actions %}<li class="qrow items-center" data-item data-kind="{{ kinds[a.kind] }}"><span class="sev-bar sev-{{ 'danger' if a.overdue else 'info' }}" aria-hidden="true"></span><div class="flex-1 min-w-0"><p class="flex flex-wrap items-center gap-x-3 text-xs"><span class="tag tag-{{ 'danger' if a.overdue else 'neutral' }}">{{ t(a.kind) }}</span>{% if a.overdue %}<span class="overdue">{{ t('Overdue') }}</span>{% endif %}</p><p class="font-semibold leading-snug mt-1">{{ a.title }}</p><p class="text-sm muted">{{ a.meta }}</p></div>{{ act_btn(a, loop.first) }}</li>{% endfor %}</ul>
+      <div class="empty" data-empty="#p-q" hidden>{{ icon('circle-check') }}<p class="font-semibold">{{ t('Nothing in this category') }}</p></div>
+      <p class="px-[var(--card-pad)] py-3 text-sm muted border-t border-line">{{ t('Showing 6 of 14.') }} <button type="button" class="link" {{ m.ph('Approvals inbox', '/principal/approvals', 'PRD §6.5') }}>{{ t('View all') }}</button></p>
+    </section>
+    <section id="classes" class="card scroll-mt-20" aria-labelledby="fcls-h"><div class="card-head"><h2 id="fcls-h">{{ t('Attendance by class today') }}</h2></div>{{ classes_table() }}</section>
+  </div>
+  <div class="space-y-5">
+    <section class="card" aria-labelledby="fpsum-h"><div class="card-head"><h2 id="fpsum-h">{{ t("Today's situation") }}</h2></div>
+      <dl class="divide-y divide-line">{% for k in p.kpis %}<div class="px-[var(--card-pad)] py-3 flex items-center justify-between gap-3"><dt class="text-sm font-semibold flex items-center gap-2">{{ icon(k.icon,'w-4 h-4 text-ink-3') }}{{ t(k.label) }}</dt><dd class="figure !text-xl {{ '!text-danger' if k.status is defined and k.status == 'danger' else '' }}">{{ num(k.value) }}</dd></div>{% endfor %}</dl>
+    </section>
+    <section class="card" aria-labelledby="fpqa-h"><div class="card-head"><h2 id="fpqa-h">{{ t('Quick actions') }}</h2></div>{{ b.quick_actions([('Publish result','clipboard-check','data-open="#publish-dialog"'),('Record expense','wallet', m.ph('Record expense', '/principal/finance/expenses/new', 'PRD §6.5 Finance')),('Report asset issue','package-x', m.ph('Report asset issue', '/principal/assets', 'PRD §6.5 Assets')),('Generate report','file-text', m.ph('Institution reports', '/principal/reports', 'PRD §6.5'))]) }}</section>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block dialogs %}
+{{ b.request_dialog(pf) }}
+<dialog id="publish-dialog" class="dlg" aria-labelledby="pub-h">
+  <div class="dlg-head"><h2 id="pub-h" class="text-lg">{{ t('Publish result') }}: Semester 3</h2><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close">{{ icon('x') }}</button></div>
+  <div class="dlg-body space-y-3 text-sm">
+    <p>{{ t('4 courses validated on 13 Oct. Publishing makes results visible to students and notifies them.') }}</p>
+    <div class="banner banner-warning">{{ icon('history') }}<span>{{ t('Any change after publication is logged and shown as') }} <strong>{{ t('Corrected after publication') }}</strong>.</span></div>
+    <p class="muted">{{ t('Who publishes results is TBD') }} {{ m.tbd('PRD Q-32') }}</p>
+  </div>
+  <div class="dlg-foot"><button type="button" class="btn btn-secondary" data-close>{{ t('Cancel') }}</button><button type="button" class="btn btn-primary" data-toast="Semester 3 results published — 4 courses, students notified" data-close-after>{{ t('Publish') }}</button></div>
+</dialog>
+{% endblock %}

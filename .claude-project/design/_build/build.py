@@ -34,6 +34,14 @@ FONT_FAMILIES = {
     "noto-serif-bengali": ([600], ["bengali"]),
 }
 
+FONT_FAMILIES_DEF = {
+    "noto-sans": ([400, 500, 600, 700], ["latin"]),
+    "source-sans-3": ([400, 600, 700], ["latin"]),
+    "lexend": ([400, 500, 600], ["latin"]),
+    "hind-siliguri": ([400, 500, 600, 700], ["bengali"]),
+    "noto-sans-bengali": ([400, 500, 600, 700], ["bengali"]),
+}
+
 NODE_MODULES = None
 
 
@@ -179,9 +187,10 @@ def bd_map(fills=None, values=None, links=None, selected=None, labels=True, dist
 
 
 # ---------------------------------------------------------------- fonts
-def build_fonts():
+def build_fonts(families=None, css_name="fonts.css"):
     """Assemble @font-face rules for latin/bengali subsets and copy woff2 files into assets/fonts."""
-    out_css = BUILD / "css" / "fonts.css"
+    families = families or FONT_FAMILIES
+    out_css = BUILD / "css" / css_name
     fonts_dir = ASSETS / "fonts"
     if out_css.exists() and fonts_dir.exists() and any(fonts_dir.iterdir()):
         return
@@ -189,7 +198,7 @@ def build_fonts():
         raise SystemExit("fonts.css missing: pass --node-modules to bundle fonts")
     fonts_dir.mkdir(parents=True, exist_ok=True)
     rules = []
-    for pkg, (weights, subsets) in FONT_FAMILIES.items():
+    for pkg, (weights, subsets) in families.items():
         base = Path(NODE_MODULES) / "@fontsource" / pkg
         for wt in weights:
             css = (base / f"{wt}.css").read_text(encoding="utf-8")
@@ -198,7 +207,8 @@ def build_fonts():
                 if not subset or subset.group(1) not in subsets:
                     continue
                 woff2 = re.search(r"url\(\./files/([^)]+\.woff2)\)", block).group(1)
-                shutil.copyfile(base / "files" / woff2, fonts_dir / woff2)
+                if not (fonts_dir / woff2).exists():
+                    shutil.copyfile(base / "files" / woff2, fonts_dir / woff2)
                 face = re.search(r"@font-face\s*{[^}]*}", block).group(0)
                 face = re.sub(r"src:[^;]+;", f"src: url(fonts/{woff2}) format('woff2');", face)
                 rules.append(face)
@@ -210,7 +220,7 @@ def env():
     e = Environment(loader=FileSystemLoader(BUILD / "templates"), autoescape=True, undefined=StrictUndefined,
                     trim_blocks=True, lstrip_blocks=True)
     e.globals.update(icon=icon, sparkline=sparkline, line_chart=line_chart, donut=donut, ring=ring, bd_map=bd_map,
-                     health_of=health_of, map_attr=MAP["attribution"])
+                     health_of=health_of, map_attr=MAP["attribution"], map_data=MAP)
     return e
 
 
@@ -261,14 +271,14 @@ def render_variations(e, data):
     return written
 
 
-def compile_css():
+def compile_css(src="app.css", out="tims.css"):
     link = BUILD / "node_modules"
     if NODE_MODULES and not link.exists():
         link.symlink_to(Path(NODE_MODULES).resolve(), target_is_directory=True)
     cli = Path(NODE_MODULES or "") / ".bin" / "tailwindcss"
     if not cli.exists():
         raise SystemExit(f"Tailwind CLI not found at {cli}")
-    subprocess.run([str(cli), "-i", str(BUILD / "css" / "app.css"), "-o", str(ASSETS / "tims.css"), "--minify"],
+    subprocess.run([str(cli), "-i", str(BUILD / "css" / src), "-o", str(ASSETS / out), "--minify"],
                    check=True, cwd=BUILD)
 
 
@@ -276,16 +286,23 @@ def main():
     global NODE_MODULES
     ap = argparse.ArgumentParser()
     ap.add_argument("--node-modules", required=False)
-    ap.add_argument("--stage", default="variations", choices=["variations"])
+    ap.add_argument("--stage", default="all", choices=["variations", "def", "all"])
     args = ap.parse_args()
     NODE_MODULES = args.node_modules
     ASSETS.mkdir(parents=True, exist_ok=True)
-    build_fonts()
     e = env()
     data = load_data()
-    written = render_variations(e, data)
-    compile_css()
-    print(f"Rendered {len(written)} files; CSS -> {ASSETS / 'tims.css'}")
+    if args.stage in ("variations", "all"):
+        build_fonts()
+        written = render_variations(e, data)
+        compile_css()
+        print(f"A/B/C: rendered {len(written)} files; CSS -> {ASSETS / 'tims.css'}")
+    if args.stage in ("def", "all"):
+        import build_def
+        build_fonts(FONT_FAMILIES_DEF, "fonts-def.css")
+        written = build_def.render(e, data)
+        compile_css("def.css", "tims-def.css")
+        print(f"D/E/F: rendered {len(written)} files; CSS -> {ASSETS / 'tims-def.css'}")
 
 
 if __name__ == "__main__":

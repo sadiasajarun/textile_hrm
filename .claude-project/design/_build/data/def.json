@@ -1,0 +1,1139 @@
+{
+  "_note": "Demo / Illustrative Data for D/E/F. Institution and person names are fictional; divisions and districts are real.",
+  "chattogram": {
+    "districts": [
+      {
+        "id": "chattogram",
+        "name": "Chattogram",
+        "bn": "চট্টগ্রাম"
+      },
+      {
+        "id": "cumilla",
+        "name": "Cumilla",
+        "bn": "কুমিল্লা"
+      },
+      {
+        "id": "brahmanbaria",
+        "name": "Brahmanbaria",
+        "bn": "ব্রাহ্মণবাড়িয়া"
+      },
+      {
+        "id": "chandpur",
+        "name": "Chandpur",
+        "bn": "চাঁদপুর"
+      },
+      {
+        "id": "noakhali",
+        "name": "Noakhali",
+        "bn": "নোয়াখালী"
+      },
+      {
+        "id": "feni",
+        "name": "Feni",
+        "bn": "ফেনী"
+      },
+      {
+        "id": "coxs-bazar",
+        "name": "Cox's Bazar",
+        "bn": "কক্সবাজার"
+      },
+      {
+        "id": "lakshmipur",
+        "name": "Lakshmipur",
+        "bn": "লক্ষ্মীপুর"
+      },
+      {
+        "id": "bandarban",
+        "name": "Bandarban",
+        "bn": "বান্দরবান"
+      },
+      {
+        "id": "khagrachhari",
+        "name": "Khagrachhari",
+        "bn": "খাগড়াছড়ি"
+      },
+      {
+        "id": "rangamati",
+        "name": "Rangamati",
+        "bn": "রাঙ্গামাটি"
+      }
+    ],
+    "institutions": [
+      {
+        "id": "karnaphuli-ti",
+        "name": "Karnaphuli Textile Institute",
+        "code": "TI-CTG-014",
+        "type": "Textile Institute",
+        "district": "Chattogram",
+        "students": 812,
+        "teachers": 46,
+        "attendance": 72.4,
+        "health": "attention",
+        "issue": "Attendance below 80% · 5 requests overdue",
+        "principal": "Md. Saiful Islam",
+        "phone": "+880 31-000-0014",
+        "programs": [
+          "Diploma in Textile Engineering",
+          "Diploma in Apparel Manufacturing"
+        ]
+      },
+      {
+        "id": "halda-tvi",
+        "name": "Halda Textile Vocational Institute",
+        "code": "TVI-CTG-033",
+        "type": "Textile Vocational Institute",
+        "district": "Chattogram",
+        "students": 520,
+        "teachers": 24,
+        "attendance": 79.6,
+        "health": "watch",
+        "issue": "Semester 3 results under review",
+        "principal": "Shamima Nasrin",
+        "phone": "+880 31-000-0033",
+        "programs": [
+          "Textile Vocational (SSC Voc.)"
+        ]
+      },
+      {
+        "id": "sangu-tvi",
+        "name": "Sangu Textile Vocational Institute",
+        "code": "TVI-CTG-041",
+        "type": "Textile Vocational Institute",
+        "district": "Chattogram",
+        "students": 465,
+        "teachers": 20,
+        "attendance": 86.3,
+        "health": "good",
+        "issue": "No open issues",
+        "principal": "Anwar Hossain",
+        "phone": "+880 31-000-0041",
+        "programs": [
+          "Textile Vocational (SSC Voc.)",
+          "Handloom Weaving"
+        ]
+      },
+      {
+        "id": "gomti-tec",
+        "name": "Gomti Textile Engineering College",
+        "code": "TEC-CTG-005",
+        "type": "Textile Engineering College",
+        "district": "Cumilla",
+        "students": 1048,
+        "teachers": 68,
+        "attendance": 82.7,
+        "health": "watch",
+        "issue": "2 assets awaiting action",
+        "principal": "Prof. Anisur Rahman",
+        "phone": "+880 81-000-0005",
+        "programs": [
+          "B.Sc. in Textile Engineering"
+        ]
+      },
+      {
+        "id": "titas-tvi",
+        "name": "Titas Textile Vocational Institute",
+        "code": "TVI-CTG-036",
+        "type": "Textile Vocational Institute",
+        "district": "Brahmanbaria",
+        "students": 472,
+        "teachers": 21,
+        "attendance": 86.4,
+        "health": "good",
+        "issue": "No open issues",
+        "principal": "Kohinoor Akter",
+        "phone": "+880 851-000-036",
+        "programs": [
+          "Textile Vocational (SSC Voc.)"
+        ]
+      },
+      {
+        "id": "dakatia-tvi",
+        "name": "Dakatia Textile Vocational Institute",
+        "code": "TVI-CTG-038",
+        "type": "Textile Vocational Institute",
+        "district": "Chandpur",
+        "students": 498,
+        "teachers": 22,
+        "attendance": 85.1,
+        "health": "good",
+        "issue": "No open issues",
+        "principal": "Mizanur Rahman",
+        "phone": "+880 841-000-038",
+        "programs": [
+          "Textile Vocational (SSC Voc.)"
+        ]
+      },
+      {
+        "id": "bamni-ti",
+        "name": "Bamni Textile Institute",
+        "code": "TI-CTG-018",
+        "type": "Textile Institute",
+        "district": "Noakhali",
+        "students": 1412,
+        "teachers": 52,
+        "attendance": 83.9,
+        "health": "watch",
+        "issue": "Monthly report not submitted",
+        "principal": "Farzana Haque",
+        "phone": "+880 321-000-018",
+        "programs": [
+          "Diploma in Textile Engineering"
+        ]
+      },
+      {
+        "id": "muhuri-tvi",
+        "name": "Muhuri Textile Vocational Institute",
+        "code": "TVI-CTG-039",
+        "type": "Textile Vocational Institute",
+        "district": "Feni",
+        "students": 444,
+        "teachers": 19,
+        "attendance": 87.2,
+        "health": "good",
+        "issue": "No open issues",
+        "principal": "Abul Kalam",
+        "phone": "+880 331-000-039",
+        "programs": [
+          "Textile Vocational (SSC Voc.)"
+        ]
+      },
+      {
+        "id": "matamuhuri-tvi",
+        "name": "Matamuhuri Textile Vocational Institute",
+        "code": "TVI-CTG-044",
+        "type": "Textile Vocational Institute",
+        "district": "Cox's Bazar",
+        "students": 449,
+        "teachers": 18,
+        "attendance": 80.9,
+        "health": "watch",
+        "issue": "Principal post vacant",
+        "principal": "Vacant",
+        "phone": "+880 341-000-044",
+        "programs": [
+          "Textile Vocational (SSC Voc.)"
+        ]
+      }
+    ]
+  },
+  "public_stats": [
+    {
+      "label": "Textile institutions",
+      "value": "59",
+      "icon": "school"
+    },
+    {
+      "label": "Students enrolled",
+      "value": "38,420",
+      "icon": "graduation-cap"
+    },
+    {
+      "label": "Teachers",
+      "value": "2,146",
+      "icon": "users"
+    },
+    {
+      "label": "Districts covered",
+      "value": "47",
+      "icon": "map-pin"
+    },
+    {
+      "label": "Programs offered",
+      "value": "6",
+      "icon": "book-open"
+    }
+  ],
+  "services": [
+    {
+      "name": "Admission information",
+      "icon": "info",
+      "who": "Applicants",
+      "steps": 0,
+      "time": "Read online",
+      "desc": "Current cycle, eligibility, seats, dates and documents."
+    },
+    {
+      "name": "Apply for admission",
+      "icon": "clipboard-list",
+      "who": "Applicants",
+      "steps": 4,
+      "time": "About 15 minutes",
+      "desc": "Apply online for the 2026–27 admission cycle."
+    },
+    {
+      "name": "Check admission result",
+      "icon": "list-checks",
+      "who": "Applicants",
+      "steps": 1,
+      "time": "Instant",
+      "desc": "See your result and allocated institution."
+    },
+    {
+      "name": "Track application",
+      "icon": "route",
+      "who": "Applicants and students",
+      "steps": 1,
+      "time": "Instant",
+      "desc": "Follow any application by its reference number."
+    },
+    {
+      "name": "Certificate information",
+      "icon": "award",
+      "who": "Graduates",
+      "steps": 0,
+      "time": "Read online",
+      "desc": "Who can apply, documents, fees and processing steps."
+    },
+    {
+      "name": "Verify a certificate",
+      "icon": "shield-check",
+      "who": "Organizations",
+      "steps": 2,
+      "time": "After payment",
+      "desc": "Registered organizations verify a certificate number."
+    },
+    {
+      "name": "Professional license application",
+      "icon": "id-card",
+      "who": "Textile professionals",
+      "steps": 4,
+      "time": "About 20 minutes",
+      "desc": "Apply for a professional license (Phase 2).",
+      "phase2": true
+    },
+    {
+      "name": "Find an institution",
+      "icon": "building-2",
+      "who": "Everyone",
+      "steps": 1,
+      "time": "Instant",
+      "desc": "Search by name, code, division, district or type."
+    },
+    {
+      "name": "Forms and downloads",
+      "icon": "file-down",
+      "who": "Everyone",
+      "steps": 0,
+      "time": "Download",
+      "desc": "Forms, user guides, policies and calendars."
+    }
+  ],
+  "admission": {
+    "cycle": "2026–27",
+    "dates": [
+      {
+        "label": "Online application",
+        "date": "01–31 Aug 2026",
+        "state": "done"
+      },
+      {
+        "label": "Entrance test",
+        "date": "20 Sep 2026",
+        "state": "done"
+      },
+      {
+        "label": "Result publication",
+        "date": "30 Oct 2026",
+        "state": "current"
+      },
+      {
+        "label": "Institution allocation",
+        "date": "05 Nov 2026",
+        "state": "todo"
+      },
+      {
+        "label": "Final admission",
+        "date": "10–20 Nov 2026",
+        "state": "todo"
+      }
+    ]
+  },
+  "notices": [
+    {
+      "title": "Admission 2026–27: entrance test result publication schedule",
+      "date": "12 Oct 2026",
+      "category": "Admission",
+      "authority": "Department of Textiles"
+    },
+    {
+      "title": "Diploma semester final examination routine — January 2027",
+      "date": "09 Oct 2026",
+      "category": "Examination / Results",
+      "authority": "Department of Textiles"
+    },
+    {
+      "title": "Teacher training on the new attendance system — schedule",
+      "date": "07 Oct 2026",
+      "category": "Teacher / Staff",
+      "authority": "Ministry of Textiles and Jute"
+    },
+    {
+      "title": "Certificate applications open for 2025 graduates",
+      "date": "02 Oct 2026",
+      "category": "Certificate / License",
+      "authority": "Department of Textiles"
+    },
+    {
+      "title": "Holiday notice: Durga Puja",
+      "date": "28 Sep 2026",
+      "category": "General",
+      "authority": "Ministry of Textiles and Jute"
+    }
+  ],
+  "faq": [
+    {
+      "q": "Who can sign in to the system?",
+      "a": "Only officers, teachers and students with an account created by their authority. Citizens use the public services without signing in."
+    },
+    {
+      "q": "How do I track my admission application?",
+      "a": "Use Track application with the reference number you received after submitting, for example ADM-2026-104233."
+    },
+    {
+      "q": "Can anyone verify a certificate?",
+      "a": "Organizations register and pay before verifying a certificate or license number. Free public lookup is TBD — requires client confirmation."
+    },
+    {
+      "q": "I forgot my password. What should I do?",
+      "a": "Use Forgot password on the sign-in page. Reset instructions are sent to your registered contact (channel TBD)."
+    }
+  ],
+  "ministry_attention": [
+    {
+      "type": "Low attendance",
+      "icon": "user-check",
+      "title": "Student attendance below 80% for 3 days",
+      "where": "Surma Textile Vocational Institute · Sylhet",
+      "role": "Principal",
+      "age": "3 days",
+      "sla": "1 day",
+      "overdue": true,
+      "sev": "danger",
+      "action": "Review",
+      "link": "inst"
+    },
+    {
+      "type": "Low attendance",
+      "icon": "user-check",
+      "title": "Institution attendance 72.4% today",
+      "where": "Karnaphuli Textile Institute · Chattogram",
+      "role": "Principal",
+      "age": "Today",
+      "sla": "1 day",
+      "overdue": false,
+      "sev": "danger",
+      "action": "Open institution",
+      "link": "inst"
+    },
+    {
+      "type": "Pending approvals",
+      "icon": "inbox",
+      "title": "5 student service requests past SLA",
+      "where": "Karnaphuli Textile Institute · Chattogram",
+      "role": "Principal",
+      "age": "4 days",
+      "sla": "3 days",
+      "overdue": true,
+      "sev": "warning",
+      "action": "Review",
+      "link": "inst"
+    },
+    {
+      "type": "Incomplete report",
+      "icon": "file-text",
+      "title": "Monthly report for September not submitted",
+      "where": "Bamni Textile Institute · Noakhali",
+      "role": "Institution Admin",
+      "age": "6 days",
+      "sla": "5 days",
+      "overdue": true,
+      "sev": "warning",
+      "action": "View pending report",
+      "link": "placeholder"
+    },
+    {
+      "type": "Result publication pending",
+      "icon": "clipboard-check",
+      "title": "Semester 3 results not published 21 days after exams",
+      "where": "Kirtankhola Textile Vocational Institute · Barishal",
+      "role": "Principal",
+      "age": "3 days",
+      "sla": "5 days",
+      "overdue": false,
+      "sev": "info",
+      "action": "Review",
+      "link": "placeholder"
+    },
+    {
+      "type": "Asset follow-up",
+      "icon": "package",
+      "title": "6 damaged assets with no action recorded",
+      "where": "Rupsha Textile Institute · Khulna",
+      "role": "Principal",
+      "age": "6 days",
+      "sla": "5 days",
+      "overdue": true,
+      "sev": "warning",
+      "action": "Review",
+      "link": "placeholder"
+    },
+    {
+      "type": "Budget exception",
+      "icon": "wallet",
+      "title": "94% of annual budget used at mid-year",
+      "where": "Meghna Textile Engineering College · Narsingdi",
+      "role": "Institution Admin",
+      "age": "9 days",
+      "sla": "7 days",
+      "overdue": true,
+      "sev": "warning",
+      "action": "Review",
+      "link": "placeholder"
+    },
+    {
+      "type": "License pending",
+      "icon": "id-card",
+      "title": "18 professional license applications awaiting review",
+      "where": "Head Office — License review",
+      "role": "Ministry Super Admin",
+      "age": "5 days",
+      "sla": "7 days",
+      "overdue": false,
+      "sev": "info",
+      "action": "Review",
+      "link": "placeholder"
+    }
+  ],
+  "ministry_pending": [
+    {
+      "title": "Approve admission result publication — 2026–27",
+      "meta": "Admission · due 30 Oct",
+      "icon": "clipboard-list"
+    },
+    {
+      "title": "Review 18 professional license applications",
+      "meta": "Phase 2 · oldest 5 days",
+      "icon": "id-card"
+    },
+    {
+      "title": "Approve budget revision — Meghna Textile Engineering College",
+      "meta": "Finance · ৳ 35 lakh",
+      "icon": "wallet"
+    },
+    {
+      "title": "Assign Principal — Matamuhuri Textile Vocational Institute",
+      "meta": "Administration · post vacant",
+      "icon": "user-round-cog"
+    }
+  ],
+  "recent": [
+    {
+      "time": "09:41",
+      "text": "Karnaphuli Textile Institute recorded attendance for Diploma Y1 · Sec B",
+      "icon": "user-check"
+    },
+    {
+      "time": "09:12",
+      "text": "Sylhet Division Admin acknowledged the low-attendance alert",
+      "icon": "bell"
+    },
+    {
+      "time": "Yesterday",
+      "text": "Gomti Textile Engineering College published Semester 1 results",
+      "icon": "clipboard-check"
+    },
+    {
+      "time": "Yesterday",
+      "text": "Head Office allocated additional budget to Karnaphuli Textile Institute",
+      "icon": "wallet"
+    }
+  ],
+  "division_actions": [
+    {
+      "title": "Review: Karnaphuli Textile Institute attendance 72.4%",
+      "where": "Chattogram District",
+      "age": "Today",
+      "overdue": false,
+      "sev": "danger",
+      "icon": "user-check"
+    },
+    {
+      "title": "Follow up: Bamni Textile Institute monthly report missing",
+      "where": "Noakhali District",
+      "age": "6 days",
+      "overdue": true,
+      "sev": "warning",
+      "icon": "file-text"
+    },
+    {
+      "title": "Principal post vacant: Matamuhuri Textile Vocational Institute",
+      "where": "Cox's Bazar District",
+      "age": "21 days",
+      "overdue": true,
+      "sev": "warning",
+      "icon": "user-x"
+    },
+    {
+      "title": "Submit division monthly report to the Ministry",
+      "where": "Due 20 Oct 2026",
+      "age": "Due in 5 days",
+      "overdue": false,
+      "sev": "info",
+      "icon": "send"
+    }
+  ],
+  "district_actions": [
+    {
+      "title": "Review attendance plan — Karnaphuli Textile Institute",
+      "where": "Attendance 72.4% today",
+      "age": "Today",
+      "overdue": false,
+      "sev": "danger",
+      "icon": "user-check"
+    },
+    {
+      "title": "Follow up 5 overdue student requests — Karnaphuli Textile Institute",
+      "where": "Oldest 6 days",
+      "age": "4 days",
+      "overdue": true,
+      "sev": "warning",
+      "icon": "inbox"
+    },
+    {
+      "title": "Check Semester 3 result review — Halda Textile Vocational Institute",
+      "where": "Submitted 08 Oct",
+      "age": "7 days",
+      "overdue": false,
+      "sev": "info",
+      "icon": "clipboard-check"
+    },
+    {
+      "title": "Submit district monthly report to the Division",
+      "where": "Due 18 Oct 2026",
+      "age": "Due in 3 days",
+      "overdue": false,
+      "sev": "info",
+      "icon": "send"
+    }
+  ],
+  "principal": {
+    "name": "Md. Saiful Islam",
+    "kpis": [
+      {
+        "label": "Students",
+        "value": "812",
+        "icon": "graduation-cap"
+      },
+      {
+        "label": "Teachers & staff",
+        "value": "46 / 48",
+        "icon": "users"
+      },
+      {
+        "label": "Today's attendance",
+        "value": "72.4%",
+        "icon": "user-check",
+        "status": "danger"
+      },
+      {
+        "label": "Pending approvals",
+        "value": "14",
+        "icon": "inbox",
+        "status": "warning"
+      }
+    ],
+    "actions": [
+      {
+        "kind": "Approve request",
+        "title": "Course Drop — Mim Akter",
+        "meta": "SR-2026-01467 · Under review · 4 days (SLA 3)",
+        "overdue": true,
+        "icon": "inbox",
+        "btn": "Review"
+      },
+      {
+        "kind": "Approve request",
+        "title": "Waiver — Lamia Chowdhury",
+        "meta": "SR-2026-01431 · Under review · 5 days (SLA 3)",
+        "overdue": true,
+        "icon": "inbox",
+        "btn": "Review"
+      },
+      {
+        "kind": "Review attendance",
+        "title": "Diploma Y2 · Sec A not recorded today",
+        "meta": "Teacher: Tahmina Akter · class started 10:00",
+        "overdue": false,
+        "icon": "user-check",
+        "btn": "Review"
+      },
+      {
+        "kind": "Publish result",
+        "title": "Semester 3 results ready to publish",
+        "meta": "Validated 13 Oct · 4 courses",
+        "overdue": false,
+        "icon": "clipboard-check",
+        "btn": "Publish"
+      },
+      {
+        "kind": "Assign asset",
+        "title": "Replacement ring frame received — assign to Weaving Lab",
+        "meta": "Asset RF-131 · received 14 Oct",
+        "overdue": false,
+        "icon": "package",
+        "btn": "Assign"
+      },
+      {
+        "kind": "Review leave",
+        "title": "Casual leave — Kamrul Hasan (2 days)",
+        "meta": "17–18 Oct · balance 6 days",
+        "overdue": false,
+        "icon": "calendar-off",
+        "btn": "Review"
+      }
+    ]
+  },
+  "teacher": {
+    "name": "Arif Hossain",
+    "role": "Teacher · Weaving",
+    "classes": [
+      {
+        "time": "09:00",
+        "name": "Diploma Y1 · Sec B",
+        "subject": "Weaving I",
+        "room": "Weaving Lab 2",
+        "state": "recorded",
+        "present": 41,
+        "total": 62
+      },
+      {
+        "time": "11:00",
+        "name": "Diploma Y2 · Sec B",
+        "subject": "Fabric Structure",
+        "room": "Room 204",
+        "state": "due",
+        "present": null,
+        "total": 60
+      },
+      {
+        "time": "14:00",
+        "name": "Diploma Y1 · Sec A",
+        "subject": "Weaving I (Lab)",
+        "room": "Weaving Lab 2",
+        "state": "upcoming",
+        "present": null,
+        "total": 64
+      }
+    ],
+    "roster": [
+      {
+        "roll": "2401",
+        "name": "Mim Akter",
+        "status": "P"
+      },
+      {
+        "roll": "2402",
+        "name": "Rafiul Alam",
+        "status": "P"
+      },
+      {
+        "roll": "2403",
+        "name": "Sajid Rahman",
+        "status": "A"
+      },
+      {
+        "roll": "2404",
+        "name": "Lamia Chowdhury",
+        "status": "P"
+      },
+      {
+        "roll": "2405",
+        "name": "Tanvir Ahmed",
+        "status": "L"
+      },
+      {
+        "roll": "2406",
+        "name": "Nadia Islam",
+        "status": "P"
+      }
+    ],
+    "results": {
+      "course": "Fabric Structure · Semester 3",
+      "entered": 58,
+      "total": 60,
+      "missing": [
+        "2403 Sajid Rahman",
+        "2417 Rakib Hasan"
+      ]
+    },
+    "leave": [
+      {
+        "type": "Casual leave",
+        "used": 4,
+        "total": 10
+      },
+      {
+        "type": "Sick leave",
+        "used": 5,
+        "total": 14
+      },
+      {
+        "type": "Earned leave",
+        "used": 8,
+        "total": 30
+      }
+    ]
+  },
+  "student": {
+    "name": "Mim Akter",
+    "program": "Diploma in Textile Engineering",
+    "year": "Year 2 · Semester 3 · Section B",
+    "id": "KTI-2024-2401",
+    "classes": [
+      {
+        "time": "11:00",
+        "subject": "Fabric Structure",
+        "teacher": "Arif Hossain",
+        "room": "Room 204"
+      },
+      {
+        "time": "13:00",
+        "subject": "Yarn Manufacturing II",
+        "teacher": "Nusrat Jahan",
+        "room": "Spinning Lab"
+      }
+    ],
+    "attendance": 78,
+    "gpa": "3.42",
+    "fees": "৳ 3,500 due 31 Oct",
+    "request": {
+      "no": "SR-2026-01467",
+      "service": "Course Drop",
+      "status": "Under review",
+      "timeline": [
+        {
+          "step": "Submitted",
+          "who": "Mim Akter",
+          "when": "11 Oct 2026, 10:12",
+          "state": "done"
+        },
+        {
+          "step": "Under review",
+          "who": "Principal's office",
+          "when": "12 Oct 2026, 09:30",
+          "state": "current"
+        },
+        {
+          "step": "Decision",
+          "who": "Principal",
+          "when": "Pending",
+          "state": "todo"
+        },
+        {
+          "step": "Completed",
+          "when": "After the decision",
+          "state": "todo"
+        }
+      ]
+    },
+    "results": [
+      {
+        "sem": "Semester 2",
+        "gpa": "3.42",
+        "state": "Published"
+      },
+      {
+        "sem": "Semester 1",
+        "gpa": "3.18",
+        "state": "Published"
+      }
+    ]
+  },
+  "student_services": [
+    "Admit Card",
+    "Waiver",
+    "Re-admission",
+    "Course Drop",
+    "Semester Drop",
+    "Online Payment",
+    "Testimonial",
+    "Incomplete Transcript",
+    "PVC & Transcript",
+    "Certificate & Transcript",
+    "Duplicate Certificate & Transcript",
+    "Medium of Instruction",
+    "Transfer Program",
+    "Cancel Studentship",
+    "Convocation"
+  ],
+  "tracking_sample": {
+    "no": "ADM-2026-104233",
+    "name": "Applicant: Sumaiya Rahman",
+    "type": "Admission application 2026–27",
+    "timeline": [
+      {
+        "step": "Submitted",
+        "when": "18 Aug 2026",
+        "state": "done"
+      },
+      {
+        "step": "Documents validated",
+        "when": "02 Sep 2026",
+        "state": "done"
+      },
+      {
+        "step": "Entrance test taken",
+        "when": "20 Sep 2026",
+        "state": "done"
+      },
+      {
+        "step": "Result publication",
+        "when": "Expected 30 Oct 2026",
+        "state": "current"
+      },
+      {
+        "step": "Institution allocation",
+        "when": "—",
+        "state": "todo"
+      }
+    ]
+  },
+  "inst360": {
+    "facts": {
+      "established": "1979",
+      "session": "2026–27",
+      "address": "Kalurghat, Chattogram (demo)",
+      "programs": 2,
+      "classes": 18
+    },
+    "health": [
+      {
+        "domain": "Attendance",
+        "state": "attention",
+        "value": "72.4% today",
+        "icon": "user-check"
+      },
+      {
+        "domain": "Results",
+        "state": "watch",
+        "value": "Sem 5 missing marks",
+        "icon": "clipboard-check"
+      },
+      {
+        "domain": "Reporting",
+        "state": "good",
+        "value": "All reports on time",
+        "icon": "file-text"
+      },
+      {
+        "domain": "Budget",
+        "state": "good",
+        "value": "64% used",
+        "icon": "wallet"
+      },
+      {
+        "domain": "Assets",
+        "state": "watch",
+        "value": "3 damaged",
+        "icon": "package"
+      },
+      {
+        "domain": "Staffing",
+        "state": "good",
+        "value": "46 of 48 posts",
+        "icon": "users"
+      }
+    ],
+    "open_issues": [
+      {
+        "title": "Attendance below 80% today (72.4%)",
+        "meta": "Principal notified 09:42 · Division Admin copied",
+        "sev": "danger",
+        "icon": "user-check"
+      },
+      {
+        "title": "5 student service requests past SLA",
+        "meta": "Oldest 6 days · Certificate & Transcript",
+        "sev": "warning",
+        "icon": "inbox"
+      },
+      {
+        "title": "Semester 5: 2 courses missing marks",
+        "meta": "Result entry due 20 Oct",
+        "sev": "warning",
+        "icon": "clipboard-check"
+      }
+    ],
+    "teachers": [
+      {
+        "name": "Arif Hossain",
+        "designation": "Instructor",
+        "dept": "Weaving",
+        "status": "Active"
+      },
+      {
+        "name": "Nusrat Jahan",
+        "designation": "Instructor",
+        "dept": "Spinning",
+        "status": "Active"
+      },
+      {
+        "name": "Tahmina Akter",
+        "designation": "Junior Instructor",
+        "dept": "Wet Processing",
+        "status": "Active"
+      },
+      {
+        "name": "Kamrul Hasan",
+        "designation": "Instructor",
+        "dept": "Apparel Manufacturing",
+        "status": "Active"
+      },
+      {
+        "name": "Sharmin Sultana",
+        "designation": "Chief Instructor",
+        "dept": "Fabric Manufacturing",
+        "status": "Active"
+      },
+      {
+        "name": "—",
+        "designation": "Instructor",
+        "dept": "Textile Machine Design",
+        "status": "Vacant"
+      }
+    ],
+    "enrolment": [
+      {
+        "program": "Diploma in Textile Engineering",
+        "y": [
+          128,
+          122,
+          118,
+          112
+        ]
+      },
+      {
+        "program": "Diploma in Apparel Manufacturing",
+        "y": [
+          88,
+          84,
+          82,
+          78
+        ]
+      }
+    ],
+    "budget_heads": [
+      {
+        "head": "Salaries & allowances",
+        "alloc": "৳ 2.40 Cr",
+        "pct": 58
+      },
+      {
+        "head": "Lab consumables",
+        "alloc": "৳ 0.55 Cr",
+        "pct": 81
+      },
+      {
+        "head": "Maintenance",
+        "alloc": "৳ 0.45 Cr",
+        "pct": 72
+      },
+      {
+        "head": "Training & events",
+        "alloc": "৳ 0.30 Cr",
+        "pct": 40
+      },
+      {
+        "head": "Other",
+        "alloc": "৳ 0.50 Cr",
+        "pct": 66
+      }
+    ],
+    "asset_rows": [
+      {
+        "id": "RF-112",
+        "name": "Ring frame",
+        "where": "Spinning Lab",
+        "status": "Damaged",
+        "note": "Motor burnt · reported 14 Oct"
+      },
+      {
+        "id": "RF-131",
+        "name": "Ring frame (replacement)",
+        "where": "Store",
+        "status": "Available",
+        "note": "Received 14 Oct · assign to Weaving Lab"
+      },
+      {
+        "id": "LM-044",
+        "name": "Power loom",
+        "where": "Weaving Lab 2",
+        "status": "In use",
+        "note": "Assigned to Arif Hossain"
+      },
+      {
+        "id": "PC-208",
+        "name": "Desktop computer",
+        "where": "Computer Lab",
+        "status": "Lost",
+        "note": "Police report attached · 02 Oct"
+      },
+      {
+        "id": "SM-019",
+        "name": "Sewing machine",
+        "where": "Apparel Lab",
+        "status": "Recovered",
+        "note": "Found in store · 09 Oct"
+      }
+    ],
+    "certificates": {
+      "issued": 214,
+      "pending": 9,
+      "verified": 37
+    }
+  },
+  "login_accounts": [
+    {
+      "uid": "ministry.admin",
+      "role": "Ministry Super Admin",
+      "scope": "All Bangladesh",
+      "page": "04"
+    },
+    {
+      "uid": "division.ctg",
+      "role": "Division Admin",
+      "scope": "Chattogram Division",
+      "page": "05"
+    },
+    {
+      "uid": "district.ctg",
+      "role": "District Admin",
+      "scope": "Chattogram District",
+      "page": "06"
+    },
+    {
+      "uid": "saiful.islam",
+      "role": "Principal + Teacher",
+      "scope": "Karnaphuli Textile Institute",
+      "page": "#workspace-dialog"
+    },
+    {
+      "uid": "arif.hossain",
+      "role": "Teacher",
+      "scope": "Karnaphuli Textile Institute",
+      "page": "08"
+    },
+    {
+      "uid": "mim.akter",
+      "role": "Student",
+      "scope": "Karnaphuli Textile Institute",
+      "page": "09"
+    },
+    {
+      "uid": "inactive.user",
+      "role": "Account inactive",
+      "scope": "—",
+      "page": "#login-inactive"
+    }
+  ]
+}

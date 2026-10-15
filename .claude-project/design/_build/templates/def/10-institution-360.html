@@ -1,0 +1,159 @@
+{% extends 'def/_app.html' %}
+{% import 'def/_m.html' as m %}
+{% import 'def/_blocks.html' as b %}
+{% set i360 = d.inst360 %}
+{% set ix = x.inst360 %}
+{% set inst = x.chattogram.institutions|selectattr('id','equalto','karnaphuli-ti')|first %}
+{% set itrend = [84.1, 83.0, 82.6, 81.9, 80.8, 80.2, 79.5, 78.1, 77.6, 76.9, 75.8, 74.6, 73.9, 72.4] %}
+
+{% block crumbs %}<a href="{{ pf['04'] }}">{{ t('National') }}</a>{{ icon('chevron-right','w-4 h-4') }}<a href="{{ pf['04'] }}{{ '#open=f-div-drawer' if v == 'F' else '#drill=chattogram' }}">{{ t('Chattogram Division') }}</a>{{ icon('chevron-right','w-4 h-4') }}<a href="{{ pf['04'] }}{{ '#open=f-div-drawer' if v == 'F' else '#drill=ctg-district' }}">{{ t('Chattogram District') }}</a>{{ icon('chevron-right','w-4 h-4') }}<span aria-current="page">{{ t('Karnaphuli Textile Institute') }}</span>{% endblock %}
+
+{% block content %}
+{# ---------------------------------------------------------------- panel content (same data, every direction) #}
+{% macro p_overview() -%}
+<div class="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] items-start">
+  <section class="card" aria-labelledby="ov-iss"><div class="card-head"><h3 id="ov-iss">{{ t('Open issues') }} <span class="count">{{ num(ix.open_issues|length|string) }}</span></h3></div>
+    <ul>{% for o in ix.open_issues %}<li class="qrow items-center"><span class="sev-bar sev-{{ o.sev }}" aria-hidden="true"></span><span class="icon-chip {{ o.sev }}">{{ icon(o.icon) }}</span><div class="flex-1 min-w-0"><p class="font-semibold">{{ o.title }}</p><p class="text-sm muted">{{ o.meta }}</p></div><button type="button" class="btn btn-secondary btn-sm" data-toast="Principal notified — follow-up recorded in the activity log">{{ t('Notify Principal') }}</button></li>{% endfor %}</ul>
+  </section>
+  <section class="card" aria-labelledby="ov-act"><div class="card-head"><h3 id="ov-act">{{ t('Activity timeline') }}</h3><button type="button" class="link text-sm" data-open="#history-dialog">{{ t('View history') }}</button></div><div class="card-pad">{{ b.activity(i360.activity[:4]) }}</div></section>
+</div>
+{%- endmacro %}
+
+{% macro p_people() -%}
+<div class="grid gap-6 lg:grid-cols-2 items-start">
+  <section class="card" aria-labelledby="pp-t"><div class="card-head"><h3 id="pp-t">{{ t('Teachers') }}</h3><span class="text-sm muted">{{ num('46') }} / {{ num('48') }} {{ t('posts filled') }}</span></div>
+    <div class="overflow-x-auto"><table class="tbl tbl-stack"><thead><tr><th>{{ t('Name') }}</th><th>{{ t('Department') }}</th><th>{{ t('Status') }}</th></tr></thead><tbody>{% for tr in ix.teachers %}<tr><td><span class="font-semibold">{{ tr.name }}</span><span class="block text-xs muted">{{ tr.designation }}</span></td><td class="text-sm">{{ tr.dept }}</td><td>{{ m.tag(tr.status) }}</td></tr>{% endfor %}</tbody></table></div>
+    <p class="px-4 py-3 text-xs muted border-t border-line">{{ t('Showing 6 of 48 posts.') }}</p>
+  </section>
+  <section class="card" aria-labelledby="pp-s"><div class="card-head"><h3 id="pp-s">{{ t('Students by program and year') }}</h3><span class="text-sm muted">{{ num('812') }}</span></div>
+    <div class="overflow-x-auto"><table class="tbl"><thead><tr><th>{{ t('Program') }}</th>{% for y in ['Y1','Y2','Y3','Y4'] %}<th class="text-right">{{ y }}</th>{% endfor %}</tr></thead><tbody>{% for e in ix.enrolment %}<tr><td class="font-semibold text-sm">{{ t(e.program) }}</td>{% for n in e.y %}<td class="num">{{ num(n|string) }}</td>{% endfor %}</tr>{% endfor %}</tbody></table></div>
+  </section>
+</div>
+{%- endmacro %}
+
+{% macro p_att() -%}
+<div class="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] items-start">
+  <section class="card" aria-labelledby="at-tr"><div class="card-head"><h3 id="at-tr">{{ t('Attendance trend') }}</h3><span class="text-xs muted">{{ t('Last 14 days') }}</span></div>
+    <div class="card-pad">{{ line_chart([{'values': itrend, 'color': 'var(--danger)'}], d.trend.days, lo=65, hi=90, threshold=80, w=560, h=210, area=true, title='Karnaphuli Textile Institute attendance, last 14 days') }}<p class="mt-2 text-sm text-ink-2">{{ t('Attendance has fallen for 9 days and has been below 80% since 08 Oct.') }}</p></div>
+  </section>
+  <section class="card" aria-labelledby="at-rs"><div class="card-head"><h3 id="at-rs">{{ t('Results by semester') }}</h3></div>
+    <ul>{% for r in i360.results %}<li class="qrow items-center"><span class="flex-1 font-semibold">{{ r.sem }}</span><span class="text-sm muted hidden sm:inline">{{ r.date }}</span><span class="tag tag-{{ r.tag }}">{{ t(r.status) }}</span></li>{% endfor %}</ul>
+  </section>
+</div>
+<section class="card" aria-labelledby="at-cl"><div class="card-head"><h3 id="at-cl">{{ t('Attendance by class today') }}</h3></div>
+  <div class="overflow-x-auto"><table class="tbl tbl-stack"><thead><tr><th>{{ t('Class') }}</th><th class="text-right">{{ t('Present') }}</th><th class="text-right">{{ t('Rate') }}</th><th>{{ t('Status') }}</th></tr></thead><tbody>{{ b.class_rows(i360.classes) }}</tbody></table></div>
+</section>
+{%- endmacro %}
+
+{% macro p_fin() -%}
+<div class="grid gap-6 lg:grid-cols-2 items-start">
+  <section class="card" aria-labelledby="fn-b"><div class="card-head"><h3 id="fn-b">{{ t('Budget') }} · FY 2026–27</h3><button type="button" class="link text-sm" data-open="#history-dialog">{{ t('View history') }}</button></div>
+    <div class="card-pad space-y-4">
+      <dl class="grid grid-cols-3 gap-3">{% for l, v2 in [('Allocated', i360.budget.allocated), ('Used', i360.budget.used), ('Remaining', i360.budget.remaining)] %}<div><dt class="label">{{ t(l) }}</dt><dd class="font-bold tnum">{{ num(v2) }}</dd></div>{% endfor %}</dl>
+      <ul class="space-y-3">{% for h in ix.budget_heads %}<li class="grid grid-cols-[minmax(0,160px)_1fr_44px] items-center gap-3 text-sm"><span class="truncate">{{ t(h.head) }}</span><span class="hbar"><span style="width:{{ h.pct }}%;--bar:{{ 'var(--warning)' if h.pct > 80 else 'var(--data)' }}"></span></span><span class="tnum text-right">{{ num(h.pct|string ~ '%') }}</span></li>{% endfor %}</ul>
+    </div>
+  </section>
+  <section class="card" aria-labelledby="fn-a"><div class="card-head"><h3 id="fn-a">{{ t('Assets') }}</h3><div class="flex flex-wrap gap-1.5">{% for a in i360.assets if a.label in ['Damaged','Lost'] %}<span class="tag tag-{{ a.tag }}">{{ t(a.label) }} · {{ num(a.value|string) }}</span>{% endfor %}</div></div>
+    <ul>{% for a in ix.asset_rows %}<li class="qrow items-center"><span class="font-mono text-xs w-14 flex-none">{{ a.id }}</span><div class="flex-1 min-w-0"><p class="font-semibold">{{ a.name }} <span class="font-normal muted">· {{ a.where }}</span></p><p class="text-xs muted">{{ a.note }}</p></div>{{ m.tag(a.status) }}</li>{% endfor %}</ul>
+  </section>
+</div>
+{%- endmacro %}
+
+{% macro p_svc() -%}
+<div class="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] items-start">
+  <section class="card" aria-labelledby="sv-r"><div class="card-head"><h3 id="sv-r">{{ t('Student service requests') }}</h3><span class="tag tag-danger">{{ num('5') }} {{ t('past SLA') }}</span></div>
+    <div class="overflow-x-auto"><table class="tbl tbl-stack"><thead><tr><th>{{ t('Reference number') }}</th><th>{{ t('Service') }}</th><th>{{ t('Student') }}</th><th>{{ t('Status') }}</th><th class="text-right">{{ t('Age') }} / SLA</th></tr></thead><tbody>{{ b.request_rows(i360.requests) }}</tbody></table></div>
+  </section>
+  <section class="card" aria-labelledby="sv-c"><div class="card-head"><h3 id="sv-c">{{ t('Certificates') }}</h3></div>
+    <dl class="divide-y divide-line">{% for l, n in [('Issued this year', ix.certificates.issued), ('Pending', ix.certificates.pending), ('Verified by organizations', ix.certificates.verified)] %}<div class="px-[var(--card-pad)] py-3 flex justify-between gap-3"><dt class="text-sm">{{ t(l) }}</dt><dd class="font-bold tnum">{{ num(n|string) }}</dd></div>{% endfor %}</dl>
+  </section>
+</div>
+{%- endmacro %}
+
+{% macro tabs_and_panels() -%}
+<div class="flex items-end gap-2 {{ '' if v == 'F' else 'border-b border-line' }}">
+  <div class="tabs flex-1 min-w-0 {{ '!border-0' if v != 'F' else '' }}" role="tablist" data-panels="#i360-panels" aria-label="Institution 360° sections">
+    {% for id, label, ic in [('ov','Overview','layout-dashboard'),('pp','People & Academics','users'),('at','Attendance & Results','clipboard-check'),('fn','Finance & Assets','wallet'),('sv','Services & Certificates','inbox')] %}<button type="button" class="tab" role="tab" data-target="{{ id }}" aria-selected="{{ 'true' if loop.first else 'false' }}"{% if not loop.first %} tabindex="-1"{% endif %}>{{ t(label) }}</button>{% endfor %}
+  </div>
+  <div class="relative flex-none mb-1">
+    <button type="button" class="btn btn-ghost btn-sm" data-dropdown="#more-menu" aria-expanded="false" aria-haspopup="true">{{ t('More') }}{{ icon('chevron-down','w-4 h-4') }}</button>
+    <div id="more-menu" class="menu right-0 mt-1 w-72" data-menu hidden>
+      <button type="button" {{ m.ph('Library — Karnaphuli Textile Institute', '/ministry/institutions/:id/library', 'PRD §3 M16', 'Loan and fine rules need sign-off (PRD Q-09).') }}>{{ icon('library','w-4 h-4') }}{{ t('Library') }}</button>
+      <button type="button" {{ m.ph('Procurement / LC / PO / Gate pass', '/ministry/institutions/:id/procurement', 'PRD §3', 'Workflows require confirmation (PRD Q-04).') }}>{{ icon('truck','w-4 h-4') }}{{ t('Procurement / LC / PO / Gate pass') }}</button>
+      <button type="button" {{ m.ph('Alumni', '/ministry/institutions/:id/alumni', 'PRD §3') }}>{{ icon('graduation-cap','w-4 h-4') }}{{ t('Alumni') }}</button>
+      <button type="button" data-open="#mygov-dialog">{{ icon('plug','w-4 h-4') }}{{ t('MY GOV integration') }}</button>
+      <button type="button" data-open="#history-dialog">{{ icon('history','w-4 h-4') }}{{ t('Activity log') }}</button>
+    </div>
+  </div>
+</div>
+<div id="i360-panels" class="space-y-6">
+  <div data-panel="ov" role="tabpanel" class="space-y-6">{{ p_overview() }}</div>
+  <div data-panel="pp" role="tabpanel" class="space-y-6" hidden>{{ p_people() }}</div>
+  <div data-panel="at" role="tabpanel" class="space-y-6" hidden>{{ p_att() }}</div>
+  <div data-panel="fn" role="tabpanel" class="space-y-6" hidden>{{ p_fin() }}</div>
+  <div data-panel="sv" role="tabpanel" class="space-y-6" hidden>{{ p_svc() }}</div>
+</div>
+{%- endmacro %}
+
+{% if v == 'D' %}
+{# =====================================================================  D · official record header + underlined tabs #}
+<section class="card" aria-labelledby="d360-h">
+  <div class="card-pad flex flex-wrap items-start justify-between gap-4">
+    <div class="flex items-start gap-4 min-w-0">
+      <span class="seal w-14 h-14">{{ icon('school','w-6 h-6 text-primary') }}</span>
+      <div class="min-w-0"><p class="text-sm muted flex flex-wrap items-center gap-2"><span>{{ t('Institution 360°') }}</span>{{ m.demo() }}</p><h1 id="d360-h" class="text-[1.75rem] leading-tight">{{ t('Karnaphuli Textile Institute') }}</h1>
+        <dl class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2 text-sm">
+          {% for l, val in [('Institution code', inst.code), ('Type', t(inst.type)), ('District', t('Chattogram District')), ('Principal', inst.principal), ('Students', num('812')), ('Teachers & staff', num('46 / 48')), ('Academic session', ix.facts.session), ('Last updated', 'Today 09:41')] %}<div><dt class="muted">{{ t(l) }}</dt><dd class="font-semibold">{{ val }}</dd></div>{% endfor %}
+        </dl>
+      </div>
+    </div>
+    <div class="flex flex-wrap gap-2"><button type="button" class="btn btn-secondary" data-open="#history-dialog">{{ icon('history') }}{{ t('View history') }}</button><button type="button" class="btn btn-primary" {{ m.ph('Institution report', '/ministry/reports?institution=TI-CTG-014', 'PRD §6.2') }}>{{ icon('file-text') }}{{ t('Generate report') }}</button></div>
+  </div>
+  <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 border-t border-line divide-x divide-y lg:divide-y-0 divide-line">{% for h in ix.health %}<li class="px-4 py-3"><p class="text-xs muted flex items-center gap-1.5">{{ icon(h.icon,'w-3.5 h-3.5') }}{{ t(h.domain) }}</p>{{ m.health(h.state) }}<p class="text-xs text-ink-2">{{ h.value }}</p></li>{% endfor %}</ul>
+</section>
+{{ tabs_and_panels() }}
+
+{% elif v == 'E' %}
+{# =====================================================================  E · context column + tabs #}
+<div class="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)] items-start">
+  <aside class="card lg:sticky lg:top-36 space-y-0" aria-labelledby="e360-h">
+    <div class="card-pad space-y-3">
+      <p class="text-sm font-semibold text-data">{{ t('Institution 360°') }}</p>
+      <h1 id="e360-h" class="text-[1.375rem] leading-tight">{{ t('Karnaphuli Textile Institute') }}</h1>
+      <p class="text-sm muted"><span class="font-mono">{{ inst.code }}</span> · {{ t(inst.type) }}</p>
+      <div class="max-w-[200px] mx-auto">{{ district_map(map_data, 'chattogram', fills={'chattogram':'r-brand'}, labels=false, title='Location: Chattogram District', selected='chattogram') }}</div>
+      <dl class="text-sm space-y-1.5">{% for l, val in [('Principal', inst.principal), ('Students', num('812')), ('Teachers & staff', num('46 / 48')), ('Academic session', ix.facts.session)] %}<div class="flex justify-between gap-2"><dt class="muted">{{ t(l) }}</dt><dd class="font-semibold text-right">{{ val }}</dd></div>{% endfor %}</dl>
+      <p>{{ m.demo() }}</p>
+    </div>
+    <ul class="border-t border-line">{% for h in ix.health %}<li class="flex items-center justify-between gap-2 px-[var(--card-pad)] py-2 border-b border-line last:border-0 text-sm"><span class="flex items-center gap-2">{{ icon(h.icon,'w-4 h-4 text-ink-3') }}{{ t(h.domain) }}</span>{{ m.health(h.state) }}</li>{% endfor %}</ul>
+    <div class="card-pad"><button type="button" class="btn btn-secondary w-full" data-open="#history-dialog">{{ icon('history') }}{{ t('View history') }}</button></div>
+  </aside>
+  <div class="space-y-6 min-w-0">{{ tabs_and_panels() }}</div>
+</div>
+
+{% else %}
+{# =====================================================================  F · open items first, pill tabs #}
+<div class="flex flex-wrap items-start justify-between gap-4">
+  <div><p class="text-sm muted flex items-center gap-2"><span>{{ t('Institution 360°') }}</span>{{ m.demo() }}</p><h1 class="text-[1.5rem] sm:text-[1.75rem]">{{ t('Karnaphuli Textile Institute') }}</h1><p class="text-ink-2"><span class="font-mono text-sm">{{ inst.code }}</span> · {{ t('Chattogram District') }} · {{ inst.principal }}</p></div>
+  <div class="flex flex-wrap gap-2"><button type="button" class="btn btn-secondary" data-open="#history-dialog">{{ icon('history') }}{{ t('View history') }}</button></div>
+</div>
+<section class="card" aria-labelledby="f360-open">
+  <div class="card-head"><h2 id="f360-open">{{ t('Open items for this institution') }} <span class="count alert">{{ num(ix.open_issues|length|string) }}</span></h2><div class="flex flex-wrap gap-3">{% for h in ix.health if h.state != 'good' %}<span class="text-sm inline-flex items-center gap-1.5">{{ t(h.domain) }}: {{ m.health(h.state) }}</span>{% endfor %}</div></div>
+  <ul>{% for o in ix.open_issues %}<li class="qrow items-center"><span class="sev-bar sev-{{ o.sev }}" aria-hidden="true"></span><div class="flex-1 min-w-0"><p class="font-semibold">{{ o.title }}</p><p class="text-sm muted">{{ o.meta }}</p></div><button type="button" class="btn {{ 'btn-primary' if loop.first else 'btn-secondary' }} btn-sm" data-toast="Principal notified — follow-up recorded in the activity log">{{ t('Notify Principal') }}</button></li>{% endfor %}</ul>
+</section>
+{{ tabs_and_panels() }}
+{% endif %}
+{% endblock %}
+
+{% block dialogs %}
+{{ b.history_dialog(i360.activity) }}
+<dialog id="mygov-dialog" class="dlg" aria-labelledby="mg-h">
+  <div class="dlg-head"><h2 id="mg-h" class="text-lg">{{ t('MY GOV integration') }}</h2><button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Close">{{ icon('x') }}</button></div>
+  <div class="dlg-body space-y-4">
+    <div class="banner banner-danger" role="alert">{{ icon('plug-zap') }}<span><strong>{{ t('Service unavailable') }}.</strong> {{ t('MY GOV did not respond. Data from this source may be out of date.') }}</span></div>
+    <div class="space-y-2" aria-hidden="true"><div class="skeleton h-4 w-3/4"></div><div class="skeleton h-4 w-1/2"></div><div class="skeleton h-4 w-2/3"></div></div>
+    <p class="text-sm text-ink-2">{{ t('The purpose of the MY GOV integration is not yet defined.') }} {{ m.tbd('PRD Q-06') }}</p>
+  </div>
+  <div class="dlg-foot"><button type="button" class="btn btn-secondary" data-close>{{ t('Close') }}</button><button type="button" class="btn btn-primary" data-toast="Retrying… (prototype)">{{ icon('refresh-cw') }}{{ t('Try again') }}</button></div>
+</dialog>
+{% endblock %}
