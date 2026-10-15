@@ -1,0 +1,17 @@
+{
+  "name": "textile-hrm-prototype-build",
+  "private": true,
+  "description": "Build tooling for the Textile Institution Management System HTML prototypes",
+  "devDependencies": {
+    "@fontsource/dm-sans": "5.1.0",
+    "@fontsource/fraunces": "5.1.0",
+    "@fontsource/ibm-plex-sans": "5.1.0",
+    "@fontsource/noto-sans-bengali": "5.1.0",
+    "@fontsource/noto-serif-bengali": "5.1.0",
+    "@fontsource/public-sans": "5.1.0",
+    "@tailwindcss/cli": "4.1.11",
+    "lucide-static": "0.460.0",
+    "playwright-core": "1.55.0",
+    "tailwindcss": "4.1.11"
+  }
+}

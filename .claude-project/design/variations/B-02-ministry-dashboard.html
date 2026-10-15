@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="B">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ministry Dashboard · Textile Institution Management System</title>
+<link rel="stylesheet" href="../assets/tims.css">
+<script src="../assets/tims.js" defer></script></head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="mx-auto flex min-h-screen bg-bg" style="max-width:1440px">
+  <aside id="app-sidebar" data-open="false" class="sidebar hidden lg:flex data-[open=true]:flex data-[open=true]:fixed data-[open=true]:inset-y-0 data-[open=true]:left-0 data-[open=true]:z-50 flex-col w-[264px]  flex-none min-h-screen">
+  <div class="flex items-center gap-3 px-5 h-16 ">
+    <svg viewBox="0 0 10 6" class="w-8 h-[19px] flex-none rounded-[2px]" role="img" aria-label="Flag of Bangladesh"><rect width="10" height="6" fill="#006A4E"/><circle cx="4.5" cy="3" r="2" fill="#F42A41"/></svg>
+    <div class="min-w-0 leading-tight"><p class="text-[.8125rem] font-semibold text-white truncate">Textile Institution MS</p><p class="text-xs truncate" style="color:var(--sidebar-muted)">Ministry of Textiles and Jute</p></div>
+  </div>
+  <nav class="flex-1 overflow-y-auto px-3 pb-6" aria-label="Ministry workspace">
+    <p class="nav-group">Overview</p>
+    <ul class="space-y-0.5">
+      <li>
+<a class="nav-item" href="B-02-ministry-dashboard.html" aria-current="page"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="7" height="9" x="3" y="3" rx="1" />
+  <rect width="7" height="5" x="14" y="3" rx="1" />
+  <rect width="7" height="9" x="14" y="12" rx="1" />
+  <rect width="7" height="5" x="3" y="16" rx="1" />
+</svg><span data-bn="ড্যাশবোর্ড">Dashboard</span></a>
+      </li>
+      <li>
+<a class="nav-item" href="B-03-institution-360.html"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect x="16" y="16" width="6" height="6" rx="1" />
+  <rect x="2" y="16" width="6" height="6" rx="1" />
+  <rect x="9" y="2" width="6" height="6" rx="1" />
+  <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" />
+  <path d="M12 12V8" />
+</svg><span data-bn="প্রশাসনিক স্তর">Hierarchy</span></a>
+      </li>
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Alerts — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 18v-6a5 5 0 1 1 10 0v6" />
+  <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" />
+  <path d="M21 12h1" />
+  <path d="M18.5 4.5 18 5" />
+  <path d="M2 12h1" />
+  <path d="M12 2v1" />
+  <path d="m4.929 4.929.707.707" />
+  <path d="M12 12v6" />
+</svg><span data-bn="সতর্কতা">Alerts</span><span class="nav-count">12</span></button>      </li>
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Live Attendance — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9" />
+  <path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5" />
+  <circle cx="12" cy="9" r="2" />
+  <path d="M16.2 4.8c2 2 2.26 5.11.8 7.47" />
+  <path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1" />
+  <path d="M9.5 18h5" />
+  <path d="m8 22 4-11 4 11" />
+</svg><span data-bn="লাইভ উপস্থিতি">Live Attendance</span></button>      </li>
+    </ul>
+    <p class="nav-group">Operations</p>
+    <ul class="space-y-0.5">
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Admissions — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+  <path d="M12 11h4" />
+  <path d="M12 16h4" />
+  <path d="M8 11h.01" />
+  <path d="M8 16h.01" />
+</svg><span data-bn="ভর্তি">Admissions</span></button>      </li>
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Budget &amp; Assets — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
+  <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
+</svg><span data-bn="বাজেট ও সম্পদ">Budget &amp; Assets</span></button>      </li>
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Reports — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3 3v16a2 2 0 0 0 2 2h16" />
+  <path d="M18 17V9" />
+  <path d="M13 17V5" />
+  <path d="M8 17v-3" />
+</svg><span data-bn="প্রতিবেদন">Reports</span></button>      </li>
+    </ul>
+    <p class="nav-group">Phase 2</p>
+    <ul class="space-y-0.5">
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Licenses — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M16 10h2" />
+  <path d="M16 14h2" />
+  <path d="M6.17 15a3 3 0 0 1 5.66 0" />
+  <circle cx="9" cy="11" r="2" />
+  <rect x="2" y="5" width="20" height="14" rx="2" />
+</svg><span data-bn="লাইসেন্স">Licenses</span><span class="nav-count">18</span></button>      </li>
+    </ul>
+    <p class="nav-group">Administration</p>
+    <ul class="space-y-0.5">
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Setup — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 7h-9" />
+  <path d="M14 17H5" />
+  <circle cx="17" cy="17" r="3" />
+  <circle cx="7" cy="7" r="3" />
+</svg><span data-bn="সেটআপ">Setup</span></button>      </li>
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Users &amp; Roles — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M2 21a8 8 0 0 1 10.434-7.62" />
+  <circle cx="10" cy="8" r="5" />
+  <circle cx="18" cy="18" r="3" />
+  <path d="m19.5 14.3-.4.9" />
+  <path d="m16.9 20.8-.4.9" />
+  <path d="m21.7 19.5-.9-.4" />
+  <path d="m15.2 16.9-.9-.4" />
+  <path d="m21.7 16.5-.9.4" />
+  <path d="m15.2 19.1-.9.4" />
+  <path d="m19.5 21.7-.4-.9" />
+  <path d="m16.9 15.2-.4-.9" />
+</svg><span data-bn="ব্যবহারকারী ও ভূমিকা">Users &amp; Roles</span></button>      </li>
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Integrations — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M6.3 20.3a2.4 2.4 0 0 0 3.4 0L12 18l-6-6-2.3 2.3a2.4 2.4 0 0 0 0 3.4Z" />
+  <path d="m2 22 3-3" />
+  <path d="M7.5 13.5 10 11" />
+  <path d="M10.5 16.5 13 14" />
+  <path d="m18 3-4 4h6l-4 4" />
+</svg><span data-bn="ইন্টিগ্রেশন">Integrations</span></button>      </li>
+    </ul>
+  </nav>
+  <div class="px-5 py-4 text-xs" style="color:var(--sidebar-muted); border-top:1px solid var(--sidebar-border)">Scope: <strong style="color:var(--sidebar-active-ink)">All Bangladesh</strong></div>
+</aside>
+  <div class="flex-1 min-w-0 flex flex-col">
+    <header class="topbar sticky top-0 z-30">
+  <div class="h-16  px-4 lg:px-6 flex items-center gap-3">
+    <button type="button" class="btn btn-ghost btn-icon lg:hidden" data-nav-toggle aria-controls="app-sidebar" aria-expanded="false" aria-label="Open navigation"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <line x1="4" x2="20" y1="12" y2="12" />
+  <line x1="4" x2="20" y1="6" y2="6" />
+  <line x1="4" x2="20" y1="18" y2="18" />
+</svg></button>
+    <button type="button" class="search-field sm:flex-1 max-w-[520px]" aria-label="Search" data-toast="Global search: institutions, students, teachers, assets, applications, certificates, licenses, reports (PRD §3 M22)"><svg class="w-4 h-4 flex-none" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="11" cy="11" r="8" />
+  <path d="m21 21-4.3-4.3" />
+</svg><span class="hidden sm:inline flex-1 text-left truncate" data-bn="প্রতিষ্ঠান, শিক্ষার্থী, আবেদন খুঁজুন">Search institutions, students, applications…</span></button>
+    <div class="ml-auto flex items-center gap-1 sm:gap-2">
+      <div class="hidden md:block"><div class="inline-flex items-center gap-1 text-sm font-semibold" role="group" aria-label="Language">
+  <button type="button" data-lang="bn" class="px-2 py-1 rounded hover:bg-surface-2">বাংলা</button>
+  <span aria-hidden="true" class="opacity-50">|</span>
+  <button type="button" data-lang="en" class="px-2 py-1 rounded hover:bg-surface-2">English</button>
+</div></div>
+      <button type="button" class="btn btn-ghost btn-icon relative" aria-label="Notifications, 8 unread" data-toast="Notification panel: 8 unread (PRD §3 M22)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+  <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+</svg><span class="absolute top-1.5 right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-danger text-white text-[10px] font-bold leading-[18px]">8</span></button>
+      <button type="button" class="flex items-center gap-2 pl-1 pr-2 h-10 rounded-ui hover:bg-surface-2" data-toast="Profile menu: my profile, workspace switcher, sign out">
+        <span class="w-8 h-8 rounded-full bg-primary text-on-primary text-xs font-bold inline-flex items-center justify-center ring-2 ring-gold ring-offset-2 ring-offset-bg">FA</span>
+        <span class="hidden sm:block text-left leading-tight"><span class="block text-sm font-semibold">Farhana Ahmed</span><span class="block text-xs text-ink-3">Ministry Super Admin</span></span>
+        <svg class="hidden sm:block w-4 h-4 text-ink-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg>
+      </button>
+    </div>
+  </div>
+</header>
+    <main id="main" class="flex-1 px-4 lg:px-6 py-7 space-y-6">
+
+<div class="flex flex-wrap items-start justify-between gap-4">
+  <div class="min-w-0">
+    <nav class="crumbs" aria-label="Breadcrumb"><span><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <line x1="3" x2="21" y1="22" y2="22" />
+  <line x1="6" x2="6" y1="18" y2="11" />
+  <line x1="10" x2="10" y1="18" y2="11" />
+  <line x1="14" x2="14" y1="18" y2="11" />
+  <line x1="18" x2="18" y1="18" y2="11" />
+  <polygon points="12 2 20 7 4 7" />
+</svg></span><span aria-current="page">Ministry</span><span aria-hidden="true">›</span><span>All Bangladesh</span></nav>
+    <h1 class="mt-2 text-[1.875rem] leading-tight max-w-[34ch]" data-bn="আজ মন্ত্রণালয়ের কোথায় মনোযোগ দেওয়া প্রয়োজন?">Where does the Ministry need to pay attention today?</h1>
+    <p class="mt-2 text-ink-2 "><strong class="text-danger">7 institutions</strong> need attention · <strong>31 approvals</strong> are overdue · student attendance is <strong>84.3%</strong>, 1.6 points below the 7-day average. <span class="demo-tag" title="Figures are illustrative until verified by the Ministry (PRD Q-29)"><svg class="w-3 h-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="M12 16v-4" />
+  <path d="M12 8h.01" />
+</svg>Demo / Illustrative Data</span></p>
+  </div>
+  <div class="flex flex-wrap gap-2">
+    <button type="button" class="btn btn-secondary btn-sm" data-toast="Customize dashboard: choose and reorder widgets (rules TBD — PRD Q-02)"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="7" height="9" x="3" y="3" rx="1" />
+  <rect width="7" height="5" x="14" y="3" rx="1" />
+  <rect width="7" height="9" x="14" y="12" rx="1" />
+  <rect width="7" height="5" x="3" y="16" rx="1" />
+</svg>Customize</button>
+    <button type="button" class="btn btn-primary btn-sm" data-toast="Export: CSV / Excel / PDF (formats TBD — PRD Q-15)"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+  <polyline points="7 10 12 15 17 10" />
+  <line x1="12" x2="12" y1="15" y2="3" />
+</svg>Export</button>
+  </div>
+</div>
+
+<div class=" flex flex-wrap items-center gap-2" role="toolbar" aria-label="Scope and filters">
+  <button type="button" class="scope-chip" data-toast="Scope: All Bangladesh"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+  <path d="M2 12h20" />
+</svg><strong>All Bangladesh</strong><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></button>
+  <span class="text-ink-3" aria-hidden="true">›</span>
+  <button type="button" class="scope-chip" data-toast="Choose a division">Division<svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></button>
+  <span class="text-ink-3" aria-hidden="true">›</span>
+  <button type="button" class="scope-chip" data-toast="Choose a district">District<svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></button>
+  <span class="text-ink-3" aria-hidden="true">›</span>
+  <button type="button" class="scope-chip" data-toast="Choose an institution">Institution<svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></button>
+  <span class="hidden md:block w-px h-6 bg-line mx-1" aria-hidden="true"></span>
+  <button type="button" class="scope-chip" data-toast="Filter by institution type">Type: <strong>All</strong><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></button>
+  <button type="button" class="scope-chip" data-toast="Academic session">Session: <strong>2026–27</strong><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></button>
+  <button type="button" class="scope-chip" data-toast="Date range"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M8 2v4" />
+  <path d="M16 2v4" />
+  <rect width="18" height="18" x="3" y="4" rx="2" />
+  <path d="M3 10h18" />
+  <path d="M8 14h.01" />
+  <path d="M12 14h.01" />
+  <path d="M16 14h.01" />
+  <path d="M8 18h.01" />
+  <path d="M12 18h.01" />
+  <path d="M16 18h.01" />
+</svg><span><strong>Today</strong>, 15 Oct 2026</span></button>
+</div>
+
+<section aria-label="Executive KPIs" class="grid gap-4 grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
+<a href="#ranking" class="card card-link card-pad flex flex-col gap-2 min-w-0" >
+  <div class="flex items-start justify-between gap-2">
+    <span class="flex items-center gap-2 text-sm font-medium text-ink-2 min-w-0"><span class="icon-tile"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <line x1="3" x2="21" y1="22" y2="22" />
+  <line x1="6" x2="6" y1="18" y2="11" />
+  <line x1="10" x2="10" y1="18" y2="11" />
+  <line x1="14" x2="14" y1="18" y2="11" />
+  <line x1="18" x2="18" y1="18" y2="11" />
+  <polygon points="12 2 20 7 4 7" />
+</svg></span><span class="leading-snug" data-bn="মোট প্রতিষ্ঠান">Total Institutions</span></span>
+  </div>
+  <div class="kpi-value tnum">59</div>
+<div class="-mx-0.5"><svg viewBox="0 0 160 26" class="block w-full" height="26" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,26 0.0,24.0 14.5,24.0 29.1,18.5 43.6,18.5 58.2,13.0 72.7,13.0 87.3,7.5 101.8,7.5 116.4,7.5 130.9,2.0 145.5,2.0 160.0,2.0 160,26" fill="var(--chart-1)" opacity=".12"/><polyline points="0.0,24.0 14.5,24.0 29.1,18.5 43.6,18.5 58.2,13.0 72.7,13.0 87.3,7.5 101.8,7.5 116.4,7.5 130.9,2.0 145.5,2.0 160.0,2.0" fill="none" stroke="var(--chart-1)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>  <div class="mt-auto flex items-center gap-1.5 min-w-0 whitespace-nowrap">
+<span class="delta delta-up"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+  <polyline points="16 7 22 7 22 13" />
+</svg>+1</span><span class="text-xs text-ink-3 truncate">vs last session</span>  </div>
+</a><a href="#ranking" class="card card-link card-pad flex flex-col gap-2 min-w-0" >
+  <div class="flex items-start justify-between gap-2">
+    <span class="flex items-center gap-2 text-sm font-medium text-ink-2 min-w-0"><span class="icon-tile"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+  <path d="M22 10v6" />
+  <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+</svg></span><span class="leading-snug" data-bn="মোট শিক্ষার্থী">Total Students</span></span>
+  </div>
+  <div class="kpi-value tnum">38,420</div>
+<div class="-mx-0.5"><svg viewBox="0 0 160 26" class="block w-full" height="26" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,26 0.0,24.0 14.5,20.4 29.1,18.4 43.6,14.8 58.2,12.8 72.7,10.2 87.3,8.7 101.8,6.7 116.4,4.6 130.9,3.6 145.5,2.6 160.0,2.0 160,26" fill="var(--chart-1)" opacity=".12"/><polyline points="0.0,24.0 14.5,20.4 29.1,18.4 43.6,14.8 58.2,12.8 72.7,10.2 87.3,8.7 101.8,6.7 116.4,4.6 130.9,3.6 145.5,2.6 160.0,2.0" fill="none" stroke="var(--chart-1)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>  <div class="mt-auto flex items-center gap-1.5 min-w-0 whitespace-nowrap">
+<span class="delta delta-up"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+  <polyline points="16 7 22 7 22 13" />
+</svg>3.2%</span><span class="text-xs text-ink-3 truncate">vs last session</span>  </div>
+</a><a href="#ranking" class="card card-link card-pad flex flex-col gap-2 min-w-0" >
+  <div class="flex items-start justify-between gap-2">
+    <span class="flex items-center gap-2 text-sm font-medium text-ink-2 min-w-0"><span class="icon-tile"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+  <circle cx="9" cy="7" r="4" />
+  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+</svg></span><span class="leading-snug" data-bn="মোট শিক্ষক">Total Teachers</span></span>
+  </div>
+  <div class="kpi-value tnum">2,146</div>
+<div class="-mx-0.5"><svg viewBox="0 0 160 26" class="block w-full" height="26" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,26 0.0,24.0 14.5,20.3 29.1,18.7 43.6,16.7 58.2,14.0 72.7,12.3 87.3,10.3 101.8,8.7 116.4,7.0 130.9,4.7 145.5,3.3 160.0,2.0 160,26" fill="var(--chart-1)" opacity=".12"/><polyline points="0.0,24.0 14.5,20.3 29.1,18.7 43.6,16.7 58.2,14.0 72.7,12.3 87.3,10.3 101.8,8.7 116.4,7.0 130.9,4.7 145.5,3.3 160.0,2.0" fill="none" stroke="var(--chart-1)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>  <div class="mt-auto flex items-center gap-1.5 min-w-0 whitespace-nowrap">
+<span class="delta delta-up"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+  <polyline points="16 7 22 7 22 13" />
+</svg>0.8%</span><span class="text-xs text-ink-3 truncate">vs last session</span>  </div>
+</a><a href="#map" class="card card-link card-pad flex flex-col gap-2 min-w-0" >
+  <div class="flex items-start justify-between gap-2">
+    <span class="flex items-center gap-2 text-sm font-medium text-ink-2 min-w-0"><span class="icon-tile"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+  <circle cx="9" cy="7" r="4" />
+  <polyline points="16 11 18 13 22 9" />
+</svg></span><span class="leading-snug" data-bn="আজ শিক্ষার্থী উপস্থিতি">Today&#39;s Student Attendance</span></span>
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-ink-3 flex-none"><span class="w-1.5 h-1.5 rounded-full bg-success"></span>Live</span>  </div>
+  <div class="kpi-value tnum">84.3%</div>
+<div class="-mx-0.5"><svg viewBox="0 0 160 26" class="block w-full" height="26" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,26 0.0,8.2 14.5,14.3 29.1,2.0 43.6,9.9 58.2,20.5 72.7,7.3 87.3,13.4 101.8,9.0 116.4,17.0 130.9,10.8 145.5,9.9 160.0,24.0 160,26" fill="var(--danger)" opacity=".12"/><polyline points="0.0,8.2 14.5,14.3 29.1,2.0 43.6,9.9 58.2,20.5 72.7,7.3 87.3,13.4 101.8,9.0 116.4,17.0 130.9,10.8 145.5,9.9 160.0,24.0" fill="none" stroke="var(--danger)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>  <div class="mt-auto flex items-center gap-1.5 min-w-0 whitespace-nowrap">
+<span class="delta delta-down"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polyline points="22 17 13.5 8.5 8.5 13.5 2 7" />
+  <polyline points="16 17 22 17 22 11" />
+</svg>1.6 pts</span><span class="text-xs text-ink-3 truncate">vs 7-day avg</span>  </div>
+</a><a href="#trend" class="card card-link card-pad flex flex-col gap-2 min-w-0" >
+  <div class="flex items-start justify-between gap-2">
+    <span class="flex items-center gap-2 text-sm font-medium text-ink-2 min-w-0"><span class="icon-tile"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+  <path d="m9 12 2 2 4-4" />
+</svg></span><span class="leading-snug" data-bn="আজ শিক্ষক উপস্থিতি">Today&#39;s Teacher Attendance</span></span>
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-ink-3 flex-none"><span class="w-1.5 h-1.5 rounded-full bg-success"></span>Live</span>  </div>
+  <div class="kpi-value tnum">92.1%</div>
+<div class="-mx-0.5"><svg viewBox="0 0 160 26" class="block w-full" height="26" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,26 0.0,24.0 14.5,12.0 29.1,8.0 43.6,18.0 58.2,10.0 72.7,2.0 87.3,14.0 101.8,16.0 116.4,8.0 130.9,12.0 145.5,14.0 160.0,6.0 160,26" fill="var(--chart-1)" opacity=".12"/><polyline points="0.0,24.0 14.5,12.0 29.1,8.0 43.6,18.0 58.2,10.0 72.7,2.0 87.3,14.0 101.8,16.0 116.4,8.0 130.9,12.0 145.5,14.0 160.0,6.0" fill="none" stroke="var(--chart-1)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>  <div class="mt-auto flex items-center gap-1.5 min-w-0 whitespace-nowrap">
+<span class="delta delta-up"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+  <polyline points="16 7 22 7 22 13" />
+</svg>0.4 pts</span><span class="text-xs text-ink-3 truncate">vs 7-day avg</span>  </div>
+</a><a href="#admission" class="card card-link card-pad flex flex-col gap-2 min-w-0" title="Active Admission Cycle: 2026–27 — Step 8 of 12 · Result processing">
+  <div class="flex items-start justify-between gap-2">
+    <span class="flex items-center gap-2 text-sm font-medium text-ink-2 min-w-0"><span class="icon-tile"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+  <path d="M12 11h4" />
+  <path d="M12 16h4" />
+  <path d="M8 11h.01" />
+  <path d="M8 16h.01" />
+</svg></span><span class="leading-snug" data-bn="চলমান ভর্তি কার্যক্রম">Active Admission Cycle</span></span>
+  </div>
+  <div class="kpi-value tnum">2026–27</div>
+  <div class="mt-auto flex items-center gap-1.5 min-w-0 whitespace-nowrap">
+<span class="text-xs text-ink-3 leading-snug whitespace-normal">Step 8 of 12 · Result processing</span>  </div>
+</a><a href="#budget" class="card card-link card-pad flex flex-col gap-2 min-w-0" title="Budget Utilization: 61.8% — ৳ 115.2 Cr of ৳ 186.4 Cr · FY 2026–27">
+  <div class="flex items-start justify-between gap-2">
+    <span class="flex items-center gap-2 text-sm font-medium text-ink-2 min-w-0"><span class="icon-tile"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
+  <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
+</svg></span><span class="leading-snug" data-bn="বাজেট ব্যবহার">Budget Utilization</span></span>
+  </div>
+  <div class="kpi-value tnum">61.8%</div>
+<div class="-mx-0.5"><svg viewBox="0 0 160 26" class="block w-full" height="26" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,26 0.0,24.0 14.5,21.5 29.1,18.7 43.6,16.2 58.2,13.8 72.7,11.7 87.3,9.7 101.8,7.6 116.4,6.0 130.9,4.4 145.5,3.1 160.0,2.0 160,26" fill="var(--chart-1)" opacity=".12"/><polyline points="0.0,24.0 14.5,21.5 29.1,18.7 43.6,16.2 58.2,13.8 72.7,11.7 87.3,9.7 101.8,7.6 116.4,6.0 130.9,4.4 145.5,3.1 160.0,2.0" fill="none" stroke="var(--chart-1)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>  <div class="mt-auto flex items-center gap-1.5 min-w-0 whitespace-nowrap">
+<span class="text-xs text-ink-3 leading-snug whitespace-normal">৳ 115.2 Cr of ৳ 186.4 Cr · FY 2026–27</span>  </div>
+</a><a href="#ranking" class="card card-link card-pad flex flex-col gap-2 min-w-0" title="Assets / Equipment: 14,862 — 37 damaged or lost">
+  <div class="flex items-start justify-between gap-2">
+    <span class="flex items-center gap-2 text-sm font-medium text-ink-2 min-w-0"><span class="icon-tile"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z" />
+  <path d="m7 16.5-4.74-2.85" />
+  <path d="m7 16.5 5-3" />
+  <path d="M7 16.5v5.17" />
+  <path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z" />
+  <path d="m17 16.5-5-3" />
+  <path d="m17 16.5 4.74-2.85" />
+  <path d="M17 16.5v5.17" />
+  <path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z" />
+  <path d="M12 8 7.26 5.15" />
+  <path d="m12 8 4.74-2.85" />
+  <path d="M12 13.5V8" />
+</svg></span><span class="leading-snug" data-bn="সম্পদ / যন্ত্রপাতি">Assets / Equipment</span></span>
+  </div>
+  <div class="kpi-value tnum">14,862</div>
+  <div class="mt-auto flex items-center gap-1.5 min-w-0 whitespace-nowrap">
+<span class="text-xs text-ink-3 leading-snug whitespace-normal">37 damaged or lost</span>  </div>
+</a><a href="#alerts" class="card card-link card-pad flex flex-col gap-2 min-w-0" >
+  <div class="flex items-start justify-between gap-2">
+    <span class="flex items-center gap-2 text-sm font-medium text-ink-2 min-w-0"><span class="icon-tile"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
+  <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+</svg></span><span class="leading-snug" data-bn="অনুমোদনের অপেক্ষায়">Pending Approvals</span></span>
+  </div>
+  <div class="kpi-value tnum">214</div>
+  <div class="mt-auto flex items-center gap-1.5 min-w-0 whitespace-nowrap">
+<span class="delta delta-down"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polyline points="22 17 13.5 8.5 8.5 13.5 2 7" />
+  <polyline points="16 17 22 17 22 11" />
+</svg>31 overdue</span>  </div>
+</a><a href="B-03-institution-360.html" class="card card-link card-pad flex flex-col gap-2 min-w-0" >
+  <div class="flex items-start justify-between gap-2">
+    <span class="flex items-center gap-2 text-sm font-medium text-ink-2 min-w-0"><span class="icon-tile"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" />
+</svg></span><span class="leading-snug" data-bn="মনোযোগ প্রয়োজন এমন প্রতিষ্ঠান">Institutions Requiring Attention</span></span>
+  </div>
+  <div class="kpi-value tnum">7</div>
+  <div class="mt-auto flex items-center gap-1.5 min-w-0 whitespace-nowrap">
+<span class="delta delta-down"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polyline points="22 17 13.5 8.5 8.5 13.5 2 7" />
+  <polyline points="16 17 22 17 22 11" />
+</svg>+2</span><span class="text-xs text-ink-3 truncate">since yesterday</span>  </div>
+</a></section>
+
+<div class="grid gap-6 xl:grid-cols-12">
+  <section id="map" class="card xl:col-span-7 min-w-0" aria-labelledby="map-h">
+    <div class="flex flex-wrap items-center justify-between gap-2 px-5 py-4 border-b border-line"><h2 id="map-h" class="text-base font-sans font-semibold">Student attendance by division · today</h2><div class="flex items-center gap-2 text-xs text-ink-3"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M14 4.1 12 6" />
+  <path d="m5.1 8-2.9-.8" />
+  <path d="m6 12-1.9 2" />
+  <path d="M7.2 2.2 8 5.1" />
+  <path d="M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z" />
+</svg>Select a division to drill down</div></div>
+    <div class="grid md:grid-cols-5 gap-4 p-5">
+      <div class="md:col-span-3"><div class="max-w-[380px] mx-auto"><svg viewBox="0 0 600 841.3" class="bd-map " role="img" aria-label="Student attendance by division today"><a href="#map" data-toast="Division drill-down — designed in the full build (P3e)" aria-label="Barishal Division · 81.5%"><path class="region r-watch" d="M325.1,669.4L327.8,664.1L326,655.3L319.7,665.3L320.9,668.7L325.1,669.4ZM314.4,657.3L313.9,644.4L305.3,639.6L299.3,654L295.9,673.3L298.5,671.8L302.4,659.8L310.2,661.8L314.4,657.3ZM321.3,653.8L326.9,645.8L324.2,638.9L319.5,643L321.3,653.8ZM378,624.6L377.5,615L381.5,601.8L378.9,597.5L372.7,621.7L376.4,629.6L378,624.6ZM336.1,648.5L354.2,635.4L361.3,625.7L368.8,579.8L353.9,561.7L347.6,537.7L339.3,538.6L331.6,545.7L327.3,555.5L334.9,568.8L341.1,592L340.2,616.2L331,630.3L334.4,635.3L332.5,641.7L333.7,647.7L336.1,648.5ZM247.3,531L246.6,540.6L240.9,548.3L248.9,553.4L251.9,572.6L246.8,578.9L249.2,583.1L243.9,588.8L242.7,600.8L238.2,608.3L248.9,648.5L252.7,649.1L252.8,641.2L260.4,635.8L257.1,648.7L265,653.3L257.6,657.1L259.9,667.1L258.2,670.2L278.3,677.8L288.7,673L289.1,665.2L295.8,656.2L296.7,644.1L304.4,634.8L320.3,637.3L326.1,632.6L325.8,627.7L337.4,594.1L336.8,586.9L329.9,583.6L330,572.9L321.7,566L318.7,553.2L319.3,549.8L341.5,530.8L341.8,527.4L340.7,523.9L307.6,504L298,511L290.6,511L283.7,509.2L281.3,502.6L276.6,501.4L269.7,504.4L259.6,520.2L247.3,531Z"><title>Barishal Division · 81.5%</title></path></a><a href="B-03-institution-360.html" aria-label="Chattogram Division · 79.2%"><path class="region r-attention r-selected" d="M497.1,677.3L498.5,664.9L495,657.8L489.5,659.8L492.3,665.7L491.5,681.8L497.1,677.3ZM413.1,556.8L412.7,560.6L414.3,566.6L422.8,571.4L422.4,561L413.1,556.8ZM442.8,563.7L437.9,557.4L425.9,553.9L433.7,564.1L432.5,583.4L444.1,591.3L448.7,599.6L455.9,593.2L452.5,576.9L442.8,563.7ZM389.7,546.6L388.6,550.7L392.3,557L392.1,564.5L395.6,568L402.7,568.3L407.1,562.3L404,555L396.5,548.3L389.7,546.6ZM422.7,551.1L414.9,542.5L408,540.7L407.3,543.7L414,548.8L422.7,551.1ZM422.3,338.6L422.6,335.2L416,333.3L406.1,333.5L394.8,339.3L390.5,338.6L387.8,341.6L390.7,356.4L382.9,362.8L381.7,372.5L372.2,385.2L353.4,388.5L349,400.1L348.6,408.4L339.8,417.2L345.4,434.1L342.5,437.2L334.7,438.5L330.7,449.4L331.5,454.5L338.3,464.3L339.1,471.9L328.4,488.3L329.6,499.2L355.3,526.1L359.6,542.2L374.9,568.7L384.6,577.3L388,585L390.5,601.9L385.4,631.2L387.5,634.8L398.5,632.4L402.1,623.3L400.9,593.9L396.7,581.6L385.3,571.2L388.8,559.3L381,528.2L391.4,536.3L400.4,535.1L404.9,530.5L424.3,538.8L431.2,532.3L436,539.5L444.5,539.9L468.5,571.4L479.3,595.2L480.3,605.1L500.3,640.9L502.9,659.8L501.6,677.1L498,688.9L499.6,717.6L512.4,718.2L511.5,734.8L520.1,765.7L537.4,792L541.5,805.1L557.3,826.3L546.2,787.6L547.2,777.5L538,765.4L541.1,759.3L540,742.2L545.4,736.8L548,729.6L553.7,729.9L556.4,722.7L559.4,721.9L570,738.5L584,737.4L584.9,745.8L589,753.8L593.5,753.4L600,745.7L591.5,715.8L589.4,680.6L594.4,662.8L585,627.9L589.1,630.4L589.9,617.4L580.4,570L579.4,545.3L571.3,538.1L570,522.3L561.5,514.4L562.4,497L558.3,487.4L557.7,472.9L562.7,464.2L559.2,460.3L561,454.2L552.9,440.3L547.7,416L548.8,407.8L545.4,403.3L539.9,415.4L539.4,406.3L533.4,401.9L524.8,406.9L520.7,415.2L513.6,412.8L509.4,403.5L505.7,403.3L501.7,406.8L507.1,431.5L505.4,445.4L496.4,444.7L483.4,466.8L483.6,474.7L488.3,484.5L487.2,492.8L472.9,509.2L455.3,510.4L452.3,506.1L449.8,481.2L439.9,470.3L435.3,469.9L434.3,472.5L433.1,485.1L435.3,496.3L428.3,491.6L420.4,456.5L403.8,422.3L403,417.7L407.8,413.7L405.5,399.1L412.5,398L413,374.7L420.7,367L422.6,361.5L419.4,351.1L422.3,338.6Z"><title>Chattogram Division · 79.2%</title></path></a><a href="#map" data-toast="Division drill-down — designed in the full build (P3e)" aria-label="Dhaka Division · 88.4%"><path class="region r-good" d="M410.4,333.4L405.3,324.7L413.7,319.4L412,314L415.8,311.4L411.5,306.9L414,302.4L411.2,299.4L408.4,301.7L403.6,299.9L413.1,292.8L413.5,288.4L407.5,277.5L369.9,284.7L361.4,292.4L345.2,297.5L333.3,296.3L332.3,300.7L340.7,307.3L337.9,316.6L340.2,321.9L337.2,327L329.6,328L324.9,322.8L316,319.1L294.7,327.7L287.6,320.1L287.6,309.6L284.2,302.2L286.2,297.3L272.8,284.2L274,278.2L271.5,264.4L265.5,256.5L260.4,256.7L253,265.6L245.9,260.2L240.8,262.3L238.2,276.5L220.9,293.8L222.6,298.6L220.5,306.5L228.3,328.2L229.7,357.2L228.6,363.3L218.1,371.2L226.9,387.2L227.8,400.5L208.1,399.6L199.9,392.6L190.7,397L185.4,394.7L178.2,384.5L158.6,379.8L159.1,382.9L166.1,386.6L167.8,391.5L165.1,406L168.2,411.1L174.8,414.8L180.3,413L191,431.5L190.4,437.7L201.2,441.8L200.6,457.2L204.5,466.2L209.8,469L206.9,474.8L212.5,476.3L214.8,478.7L214.4,483.7L220.9,483.9L222.4,488L213,492.5L230.3,515.5L230.8,525.3L235.8,529.6L247.3,531L259.6,520.2L269.7,504.4L276.6,501.4L281.3,502.6L283.7,509.2L298,511L311.7,502.3L318.2,494.8L322.4,496L326.2,501.7L330.1,499.8L328.4,488.3L339.1,471.9L338.3,464.3L331.5,454.5L330.7,449.4L334.7,438.5L342.5,437.2L345.4,434.1L339.8,417.2L348.6,408.4L349,400.1L353.4,388.5L372.2,385.2L381.7,372.5L382.9,362.8L390.7,356.4L387.8,341.6L400.2,334.8L410.4,333.4Z"><title>Dhaka Division · 88.4%</title></path></a><a href="#map" data-toast="Division drill-down — designed in the full build (P3e)" aria-label="Khulna Division · 84.0%"><path class="region r-watch" d="M242.1,529L232.9,528.3L229.8,522.7L230.3,515.5L213,492.5L222.4,488L220.9,483.9L214.4,483.7L214.8,478.7L212.5,476.3L206.9,474.8L209.8,469L204.5,466.2L200.6,457.2L201.2,441.8L190.4,437.7L191,431.5L180.3,413L174.8,414.8L168.2,411.1L165.1,406L167.8,391.5L166.1,386.6L159.1,382.9L158.4,373.6L152.5,372.3L151.2,377L145.2,376.2L137.5,372.6L122.5,349.3L101,349L94.1,341.9L88.7,341.1L87.1,348.5L88,354L92.9,360L90.9,365.1L93.2,378L82.4,385.1L77.5,383.1L73.4,385.9L76.3,394.7L71.3,397.5L73.8,402.1L71,408.4L72.6,413.6L68.8,414.2L95.1,438.3L97.3,443.5L92.5,450L90.9,470.7L98.9,475.8L104,472.5L122.2,478.8L116.4,489.1L109.5,492.3L113.2,502.6L108.7,510.4L108.7,515.3L112.9,518.3L109,520.5L120.3,529.9L115.6,539.4L115.3,544.1L121.1,550.2L117.4,557.1L121.5,563.5L120.4,569.7L126.6,582.4L125,597.3L126.8,606.8L136.7,618.9L138.1,626L130.5,634.8L138.4,649.8L138.4,662.4L145,677.9L153.5,681.2L153.3,686.1L156.6,690.4L152,696.4L154.7,700.9L164.4,698L164,681.6L169.5,663L174.1,662.5L170.3,673.3L178.2,689.3L183.7,686.8L189.2,677.3L184.3,671.1L191.4,660.2L194.5,648.5L197.2,649.3L198.1,657.7L195.9,679.5L200.8,690.1L206.1,689L203.6,682.9L215.7,682.6L217.1,679.8L211.9,672.5L229.8,673.9L235.3,672.5L238.1,667.8L236.9,636L240.9,632.7L241.5,615.8L238.2,608.3L242.7,600.8L243.9,588.8L249.2,583.1L246.8,578.9L251.9,572.6L248.9,553.4L240.9,548.3L246.6,540.6L247.3,531L242.1,529Z"><title>Khulna Division · 84.0%</title></path></a><a href="#map" data-toast="Division drill-down — designed in the full build (P3e)" aria-label="Mymensingh Division · 85.6%"><path class="region r-good" d="M407.7,277.8L413.1,275.3L416.1,270.4L405.3,261.3L410.6,253L403.2,253L400.4,245.5L383.1,239.7L378.5,225.8L381,211.1L379.8,203.3L376,204.9L354.5,201.3L303.7,203.8L270.9,194L245.5,182.6L235.9,185L232.5,183.6L232.3,177.7L227.3,172.5L224.3,175.8L225.1,194.8L218.5,200.3L213.8,208.4L210.8,229.7L215.5,243.3L214.3,250L222.7,253.5L229.8,264.3L228.5,286.3L238.2,276.5L240.8,262.3L245.9,260.2L253,265.6L260.4,256.7L265.5,256.5L271.5,264.4L274,278.2L272.8,284.2L286.2,297.3L284.2,302.2L287.6,309.6L287.6,320.1L294.7,327.7L316,319.1L324.9,322.8L329.6,328L337.2,327L340.2,321.9L337.9,316.6L340.7,307.3L332.3,300.7L333.3,296.3L345.2,297.5L361.4,292.4L369.9,284.7L407.7,277.8Z"><title>Mymensingh Division · 85.6%</title></path></a><a href="#map" data-toast="Division drill-down — designed in the full build (P3e)" aria-label="Rajshahi Division · 86.1%"><path class="region r-good" d="M228.5,286.3L229.8,264.3L222.7,253.5L214.3,250L215.5,243.3L210.8,229.7L212.2,218.4L196.6,223.3L174.3,218.9L154.9,210L148.3,202.6L149.2,196.8L124.5,189.3L118.4,191.5L115.8,202.7L105.6,199.1L97.7,202.3L86.8,198L74,199.2L71.7,202.7L66.2,202.1L61.9,198.3L54.8,200.3L56.2,204.9L52.5,209.4L53.5,216.2L51.2,217.2L53.3,224.1L49.8,226.1L47,233.2L40.1,236L40.1,244.8L31,243.3L26.2,234.8L19.9,232.5L12.6,238.7L15.9,241L17.5,249L6,258.8L0,271.5L9.8,284.8L9.8,291.9L21.5,301.8L35,303.8L65.6,323.3L72.8,322.1L78,325L83.2,320.4L91.2,330.2L88.7,341.1L94.1,341.9L101,349L122.5,349.3L137.5,372.6L149.6,377L152.5,372.3L158.4,373.6L158.6,379.8L178.2,384.5L185.4,394.7L196.1,396.2L199.9,392.6L208.1,399.6L219.9,401.2L227.8,400.5L226.9,387.2L218.1,371.2L228.6,363.3L229.7,357.2L228.3,328.2L220.5,306.5L222.6,298.6L220.9,293.8L228.5,286.3Z"><title>Rajshahi Division · 86.1%</title></path></a><a href="#map" data-toast="Division drill-down — designed in the full build (P3e)" aria-label="Rangpur Division · 87.3%"><path class="region r-good" d="M227.3,172.5L232.1,177.4L231,171L237.2,134.5L231.5,125L234.6,119.8L230.6,111.6L239.2,98.2L231.4,93.8L235.8,90.4L231.7,88.8L226.5,81.3L227.8,75.8L221,65.5L212.6,66.2L213.1,56.9L208.5,55.3L201.9,64.9L201.6,74.2L203,77.2L204.7,72.4L207.1,72.1L208.3,79.2L198.1,83.6L199.9,94.1L195.9,94L192.5,88.3L184.8,87.6L180.2,81.1L177.8,86.6L174.6,87.7L157.9,78.9L159.2,77.3L155.3,72.8L146.2,68.5L142.8,63.5L143,54.5L138.7,50.5L138.7,48.1L144.6,44.4L136.6,41.4L136.6,36.3L139.2,34.4L136.5,32.5L128.2,31.6L119.5,25.6L113.7,29.1L110.9,34.7L114.6,39.3L122.7,40.5L122.1,46.9L127.1,47.4L131.7,54.6L120.4,55.3L111,48.4L106.1,57.7L101,52L101.6,46.5L93.4,44.2L93.3,39.3L87.3,40.1L85.3,38.2L87.1,37.5L86,32.8L77.9,28.8L74.5,21.5L72.5,26.4L70.6,26L63.6,18.5L60.4,18.6L58.9,14.5L52.1,13.1L50.4,0L45.2,5.4L37.9,24.9L42.2,27L44.5,22.2L50.1,25.4L55.3,24.8L62,37L59,39.1L54.1,37.7L48.1,45.6L42.1,46.7L40.1,52.2L41.7,57.4L39.4,59.9L30.5,63.2L26.3,62.2L25.2,67.4L19.4,70.9L16.6,76.3L19.1,84.8L17.7,87.9L12.7,89.1L7.8,98.4L10.5,115.3L16.5,119.5L19.6,115.7L24.8,118.3L28,114.1L43.5,130.6L52.1,136.3L53.6,145.2L59.8,147.9L67.6,156.9L84.8,160.4L93.6,157.5L94.5,152.8L99.8,153.5L102.1,171L109.1,181.1L120.4,184.4L121.6,189.5L149.2,196.8L148.3,202.6L154.9,210L174.3,218.9L196.6,223.3L212.2,218.4L213.8,208.4L218.5,200.3L225.1,194.8L224.3,175.8L227.3,172.5Z"><title>Rangpur Division · 87.3%</title></path></a><a href="#map" data-toast="Division drill-down — designed in the full build (P3e)" aria-label="Sylhet Division · 77.8%"><path class="region r-attention" d="M420.7,367L430.1,368.7L432.9,366L434.5,358.8L431.8,351.1L434.3,348.8L452.7,356L463.4,355.3L464.3,338.2L466.4,337.4L479.3,345.1L482.3,343.5L481.4,333.5L496.6,342.3L498.9,341.4L501.7,336.7L501.4,319.6L512.9,316.1L510.2,311.9L523.4,312.1L531.7,308.4L528.1,293L536.3,283.7L541.4,266.4L547.5,258.9L546.2,248.4L552.7,244.4L572.5,242.5L573,230.6L567,228.1L566.6,223.7L556.8,217.5L554.4,212.3L543.7,211.8L522.4,197.5L491.8,202.6L479.7,201.5L469.5,206.2L458.7,202.2L447,206.3L432.8,200.2L425.9,202.1L418.3,197L386.5,199.5L379.8,203.3L381,211.1L378.5,225.8L383.1,239.7L400.4,245.5L403.2,253L410.6,253L405.3,261.3L416.1,270.4L413.1,275.3L407.7,277.8L413.5,288.4L413.1,292.8L403.6,299.9L408.4,301.7L411.2,299.4L414,302.4L411.5,306.9L415.8,311.4L412,314L413.7,319.4L405.3,324.7L410.4,333.4L422.6,335.2L419.4,346.1L422.6,361.5L420.7,367Z"><title>Sylhet Division · 77.8%</title></path></a><text x="290.1" y="591.5" text-anchor="middle">Barishal</text><text class="val" x="290.1" y="613.5" text-anchor="middle">81.5%</text><text x="528.0" y="580.3" text-anchor="middle">Chattogram</text><text class="val" x="528.0" y="602.3" text-anchor="middle">79.2%</text><text x="290.0" y="393.7" text-anchor="middle">Dhaka</text><text class="val" x="290.0" y="415.7" text-anchor="middle">88.4%</text><text x="170.2" y="521.6" text-anchor="middle">Khulna</text><text class="val" x="170.2" y="543.6" text-anchor="middle">84.0%</text><text x="309.9" y="250.7" text-anchor="middle">Mymensingh</text><text class="val" x="309.9" y="272.7" text-anchor="middle">85.6%</text><text x="117.3" y="295.2" text-anchor="middle">Rajshahi</text><text class="val" x="117.3" y="317.2" text-anchor="middle">86.1%</text><text x="119.8" y="112.2" text-anchor="middle">Rangpur</text><text class="val" x="119.8" y="134.2" text-anchor="middle">87.3%</text><text x="473.1" y="282.6" text-anchor="middle">Sylhet</text><text class="val" x="473.1" y="304.6" text-anchor="middle">77.8%</text></svg></div></div>
+      <div class="md:col-span-2 flex flex-col gap-4">
+        <div class="rounded-ui bg-surface-2 p-4">
+          <p class="text-xs font-semibold text-ink-3">SELECTED</p>
+          <p class="mt-1 font-head text-lg">Chattogram Division</p>
+          <dl class="mt-3 grid grid-cols-2 gap-3 text-sm">
+            <div><dt class="text-ink-3">Attendance</dt><dd class="font-semibold tnum text-danger">79.2%</dd></div>
+            <div><dt class="text-ink-3">Institutions</dt><dd class="font-semibold tnum">9</dd></div>
+            <div><dt class="text-ink-3">Students</dt><dd class="font-semibold tnum">6,120</dd></div>
+            <div><dt class="text-ink-3">Need attention</dt><dd class="font-semibold tnum">2</dd></div>
+          </dl>
+          <a href="B-03-institution-360.html" class="btn btn-primary btn-sm w-full mt-4">Open Karnaphuli Textile Institute <svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></a>
+        </div>
+        <ul class="space-y-2 text-sm" aria-label="Legend">
+          <li class="flex items-center gap-2"><span class="legend-dot" style="background:var(--map-good)"></span><span class="font-semibold">Good</span><span class="text-ink-3">· 85% and above</span></li>
+          <li class="flex items-center gap-2"><span class="legend-dot" style="background:var(--map-watch)"></span><span class="font-semibold">Watch</span><span class="text-ink-3">· 80–85%</span></li>
+          <li class="flex items-center gap-2"><span class="legend-dot" style="background:var(--map-attention)"></span><span class="font-semibold">Attention</span><span class="text-ink-3">· below 80% threshold</span></li>
+        </ul>
+        <p class="text-xs text-ink-3">Threshold 80% is a prototype placeholder (PRD Q-02).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="alerts" class=" xl:col-span-5 min-w-0 flex flex-col" aria-labelledby="alerts-h">
+    <div class="flex items-center justify-between gap-2 pb-3"><h2 id="alerts-h" class="text-base font-sans font-semibold flex items-center gap-2"><svg class="w-5 h-5 text-danger" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 18v-6a5 5 0 1 1 10 0v6" />
+  <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" />
+  <path d="M21 12h1" />
+  <path d="M18.5 4.5 18 5" />
+  <path d="M2 12h1" />
+  <path d="M12 2v1" />
+  <path d="m4.929 4.929.707.707" />
+  <path d="M12 12v6" />
+</svg>Action / Alert Center <span class="tab-count">12</span></h2><button type="button" class="link text-sm" data-toast="Alert Center — designed in the full build (P3e)">View all</button></div>
+    <ul class="">
+      <li class="alert-item sev-high">
+        <div class="flex flex-wrap items-center gap-2">
+<span class="tag tag-danger"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" />
+</svg>High</span>          <span class="text-xs text-ink-3">Attendance unusually low</span>
+        </div>
+        <p class="mt-1.5 font-semibold text-[.9375rem] leading-snug">Student attendance 68.9% — below the 80% threshold for 3 days</p>
+        <p class="mt-1 text-sm text-ink-2">Surma Textile Vocational Institute, Sylhet · <span class="text-ink-3">Responsible:</span> Principal</p>
+        <div class="mt-2 flex flex-wrap items-center justify-between gap-2">
+          <span class="text-xs font-semibold text-danger inline-flex items-center gap-1"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg>Age 3d · SLA 1d · overdue</span>
+          <span class="flex gap-1">
+<button type="button" class="btn btn-ghost btn-sm !min-h-8" data-toast="Open Surma Textile Vocational Institute — Institution 360° (full build)">View</button>            <button type="button" class="btn btn-secondary btn-sm !min-h-8" data-toast="Take action: notify the responsible role, assign follow-up (actions TBD — PRD Q-02)">Take action</button>
+          </span>
+        </div>
+      </li>
+      <li class="alert-item sev-high">
+        <div class="flex flex-wrap items-center gap-2">
+<span class="tag tag-danger"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" />
+</svg>High</span>          <span class="text-xs text-ink-3">Attendance unusually low</span>
+        </div>
+        <p class="mt-1.5 font-semibold text-[.9375rem] leading-snug">Diploma Y2 Sec B attendance 61.7% today</p>
+        <p class="mt-1 text-sm text-ink-2">Karnaphuli Textile Institute, Chattogram · <span class="text-ink-3">Responsible:</span> Principal</p>
+        <div class="mt-2 flex flex-wrap items-center justify-between gap-2">
+          <span class="text-xs font-semibold text-ink-3 inline-flex items-center gap-1"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg>Age Today · SLA 1d</span>
+          <span class="flex gap-1">
+<a href="B-03-institution-360.html" class="btn btn-ghost btn-sm !min-h-8">View</a>            <button type="button" class="btn btn-secondary btn-sm !min-h-8" data-toast="Take action: notify the responsible role, assign follow-up (actions TBD — PRD Q-02)">Take action</button>
+          </span>
+        </div>
+      </li>
+      <li class="alert-item sev-medium">
+        <div class="flex flex-wrap items-center gap-2">
+<span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <line x1="12" x2="12" y1="8" y2="12" />
+  <line x1="12" x2="12.01" y1="16" y2="16" />
+</svg>Medium</span>          <span class="text-xs text-ink-3">Student service requests overdue</span>
+        </div>
+        <p class="mt-1.5 font-semibold text-[.9375rem] leading-snug">5 student service requests past SLA</p>
+        <p class="mt-1 text-sm text-ink-2">Karnaphuli Textile Institute, Chattogram · <span class="text-ink-3">Responsible:</span> Principal</p>
+        <div class="mt-2 flex flex-wrap items-center justify-between gap-2">
+          <span class="text-xs font-semibold text-danger inline-flex items-center gap-1"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg>Age 4d · SLA 3d · overdue</span>
+          <span class="flex gap-1">
+<a href="B-03-institution-360.html" class="btn btn-ghost btn-sm !min-h-8">View</a>            <button type="button" class="btn btn-secondary btn-sm !min-h-8" data-toast="Take action: notify the responsible role, assign follow-up (actions TBD — PRD Q-02)">Take action</button>
+          </span>
+        </div>
+      </li>
+      <li class="alert-item sev-medium">
+        <div class="flex flex-wrap items-center gap-2">
+<span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <line x1="12" x2="12" y1="8" y2="12" />
+  <line x1="12" x2="12.01" y1="16" y2="16" />
+</svg>Medium</span>          <span class="text-xs text-ink-3">Damaged or lost asset awaiting action</span>
+        </div>
+        <p class="mt-1.5 font-semibold text-[.9375rem] leading-snug">6 assets reported damaged — no action recorded</p>
+        <p class="mt-1 text-sm text-ink-2">Rupsha Textile Institute, Khulna · <span class="text-ink-3">Responsible:</span> Principal</p>
+        <div class="mt-2 flex flex-wrap items-center justify-between gap-2">
+          <span class="text-xs font-semibold text-danger inline-flex items-center gap-1"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg>Age 6d · SLA 5d · overdue</span>
+          <span class="flex gap-1">
+<button type="button" class="btn btn-ghost btn-sm !min-h-8" data-toast="Open Rupsha Textile Institute — Institution 360° (full build)">View</button>            <button type="button" class="btn btn-secondary btn-sm !min-h-8" data-toast="Take action: notify the responsible role, assign follow-up (actions TBD — PRD Q-02)">Take action</button>
+          </span>
+        </div>
+      </li>
+      <li class="alert-item sev-medium">
+        <div class="flex flex-wrap items-center gap-2">
+<span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <line x1="12" x2="12" y1="8" y2="12" />
+  <line x1="12" x2="12.01" y1="16" y2="16" />
+</svg>Medium</span>          <span class="text-xs text-ink-3">Budget utilization abnormal</span>
+        </div>
+        <p class="mt-1.5 font-semibold text-[.9375rem] leading-snug">94% of annual budget used at mid-year</p>
+        <p class="mt-1 text-sm text-ink-2">Meghna Textile Engineering College, Narsingdi · <span class="text-ink-3">Responsible:</span> Institution Admin</p>
+        <div class="mt-2 flex flex-wrap items-center justify-between gap-2">
+          <span class="text-xs font-semibold text-danger inline-flex items-center gap-1"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg>Age 9d · SLA 7d · overdue</span>
+          <span class="flex gap-1">
+<button type="button" class="btn btn-ghost btn-sm !min-h-8" data-toast="Open Meghna Textile Engineering College — Institution 360° (full build)">View</button>            <button type="button" class="btn btn-secondary btn-sm !min-h-8" data-toast="Take action: notify the responsible role, assign follow-up (actions TBD — PRD Q-02)">Take action</button>
+          </span>
+        </div>
+      </li>
+      <li class="alert-item sev-low">
+        <div class="flex flex-wrap items-center gap-2">
+<span class="tag tag-info"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="M12 16v-4" />
+  <path d="M12 8h.01" />
+</svg>Low</span>          <span class="text-xs text-ink-3">Missing result publication</span>
+        </div>
+        <p class="mt-1.5 font-semibold text-[.9375rem] leading-snug">Semester 3 results not published 21 days after exams</p>
+        <p class="mt-1 text-sm text-ink-2">Kirtankhola Textile Vocational Institute, Barishal · <span class="text-ink-3">Responsible:</span> Principal</p>
+        <div class="mt-2 flex flex-wrap items-center justify-between gap-2">
+          <span class="text-xs font-semibold text-ink-3 inline-flex items-center gap-1"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg>Age 3d · SLA 5d</span>
+          <span class="flex gap-1">
+<button type="button" class="btn btn-ghost btn-sm !min-h-8" data-toast="Open Kirtankhola Textile Vocational Institute — Institution 360° (full build)">View</button>            <button type="button" class="btn btn-secondary btn-sm !min-h-8" data-toast="Take action: notify the responsible role, assign follow-up (actions TBD — PRD Q-02)">Take action</button>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </section>
+</div>
+
+<div class="grid gap-6 xl:grid-cols-12">
+  <section id="ranking" class="card xl:col-span-8 min-w-0" aria-labelledby="rank-h">
+    <div class="flex flex-wrap items-center justify-between gap-2 px-5 py-4 border-b border-line"><h2 id="rank-h" class="text-base font-sans font-semibold">Institutions requiring attention</h2><button type="button" class="link text-sm" data-toast="Institution list — designed in the full build (P3e)">All 59 institutions</button></div>
+    <div class="overflow-x-auto">
+      <table class="tbl">
+        <thead><tr><th>Institution</th><th>Attendance</th><th>Results</th><th>Reporting</th><th>Budget</th><th>Assets</th><th>Teachers</th><th>Overall</th></tr></thead>
+        <tbody>
+          <tr class="">
+            <td class="min-w-[220px]"><a href="B-03-institution-360.html" class="font-semibold hover:underline text-primary">Karnaphuli Textile Institute</a><span class="block text-xs text-ink-3">Chattogram · Chattogram</span></td>
+<td><span class="tl tl-attention" title="Attention">72.4%</span></td><td><span class="tl tl-watch" title="Watch">Sem 5 pending</span></td><td><span class="tl tl-good" title="Good">100%</span></td><td><span class="tl tl-good" title="Good">64%</span></td><td><span class="tl tl-watch" title="Watch">3 issues</span></td><td><span class="tl tl-good" title="Good">46/48</span></td>            <td><span class="tag tag-danger"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" />
+</svg>Attention</span></td>
+          </tr>
+          <tr class="">
+            <td class="min-w-[220px]"><button type="button" class="font-semibold hover:underline text-left" data-toast="Institution 360° for Surma Textile Vocational Institute (full build)">Surma Textile Vocational Institute</button><span class="block text-xs text-ink-3">Sylhet · Sylhet</span></td>
+<td><span class="tl tl-attention" title="Attention">68.9%</span></td><td><span class="tl tl-good" title="Good">Published</span></td><td><span class="tl tl-watch" title="Watch">82%</span></td><td><span class="tl tl-good" title="Good">51%</span></td><td><span class="tl tl-good" title="Good">0</span></td><td><span class="tl tl-watch" title="Watch">18/21</span></td>            <td><span class="tag tag-danger"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" />
+</svg>Attention</span></td>
+          </tr>
+          <tr class="">
+            <td class="min-w-[220px]"><button type="button" class="font-semibold hover:underline text-left" data-toast="Institution 360° for Rupsha Textile Institute (full build)">Rupsha Textile Institute</button><span class="block text-xs text-ink-3">Khulna · Khulna</span></td>
+<td><span class="tl tl-watch" title="Watch">81.2%</span></td><td><span class="tl tl-good" title="Good">Published</span></td><td><span class="tl tl-good" title="Good">100%</span></td><td><span class="tl tl-good" title="Good">59%</span></td><td><span class="tl tl-attention" title="Attention">6 issues</span></td><td><span class="tl tl-good" title="Good">41/42</span></td>            <td><span class="tag tag-danger"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" />
+</svg>Attention</span></td>
+          </tr>
+          <tr class="">
+            <td class="min-w-[220px]"><button type="button" class="font-semibold hover:underline text-left" data-toast="Institution 360° for Meghna Textile Engineering College (full build)">Meghna Textile Engineering College</button><span class="block text-xs text-ink-3">Narsingdi · Dhaka</span></td>
+<td><span class="tl tl-good" title="Good">89.0%</span></td><td><span class="tl tl-good" title="Good">Published</span></td><td><span class="tl tl-good" title="Good">100%</span></td><td><span class="tl tl-attention" title="Attention">94%</span></td><td><span class="tl tl-good" title="Good">1 issue</span></td><td><span class="tl tl-good" title="Good">74/76</span></td>            <td><span class="tag tag-danger"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" />
+</svg>Attention</span></td>
+          </tr>
+          <tr class="">
+            <td class="min-w-[220px]"><button type="button" class="font-semibold hover:underline text-left" data-toast="Institution 360° for Kirtankhola Textile Vocational Institute (full build)">Kirtankhola Textile Vocational Institute</button><span class="block text-xs text-ink-3">Barishal · Barishal</span></td>
+<td><span class="tl tl-watch" title="Watch">80.6%</span></td><td><span class="tl tl-attention" title="Attention">Sem 3 missing</span></td><td><span class="tl tl-watch" title="Watch">88%</span></td><td><span class="tl tl-good" title="Good">48%</span></td><td><span class="tl tl-good" title="Good">0</span></td><td><span class="tl tl-good" title="Good">23/23</span></td>            <td><span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+  <circle cx="12" cy="12" r="3" />
+</svg>Watch</span></td>
+          </tr>
+          <tr class="">
+            <td class="min-w-[220px]"><button type="button" class="font-semibold hover:underline text-left" data-toast="Institution 360° for Teesta Textile Institute (full build)">Teesta Textile Institute</button><span class="block text-xs text-ink-3">Rangpur · Rangpur</span></td>
+<td><span class="tl tl-good" title="Good">87.9%</span></td><td><span class="tl tl-good" title="Good">Published</span></td><td><span class="tl tl-good" title="Good">96%</span></td><td><span class="tl tl-good" title="Good">62%</span></td><td><span class="tl tl-good" title="Good">1 issue</span></td><td><span class="tl tl-watch" title="Watch">35/39</span></td>            <td><span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+  <circle cx="12" cy="12" r="3" />
+</svg>Watch</span></td>
+          </tr>
+          <tr class="">
+            <td class="min-w-[220px]"><button type="button" class="font-semibold hover:underline text-left" data-toast="Institution 360° for Kushiyara Textile Institute (full build)">Kushiyara Textile Institute</button><span class="block text-xs text-ink-3">Moulvibazar · Sylhet</span></td>
+<td><span class="tl tl-watch" title="Watch">80.1%</span></td><td><span class="tl tl-good" title="Good">Published</span></td><td><span class="tl tl-attention" title="Attention">71%</span></td><td><span class="tl tl-good" title="Good">55%</span></td><td><span class="tl tl-good" title="Good">0</span></td><td><span class="tl tl-good" title="Good">33/33</span></td>            <td><span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+  <circle cx="12" cy="12" r="3" />
+</svg>Watch</span></td>
+          </tr>
+          <tr class="">
+            <td class="min-w-[220px]"><button type="button" class="font-semibold hover:underline text-left" data-toast="Institution 360° for Gomti Textile Engineering College (full build)">Gomti Textile Engineering College</button><span class="block text-xs text-ink-3">Cumilla · Chattogram</span></td>
+<td><span class="tl tl-watch" title="Watch">82.7%</span></td><td><span class="tl tl-good" title="Good">Published</span></td><td><span class="tl tl-good" title="Good">100%</span></td><td><span class="tl tl-good" title="Good">57%</span></td><td><span class="tl tl-watch" title="Watch">2 issues</span></td><td><span class="tl tl-good" title="Good">68/70</span></td>            <td><span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+  <circle cx="12" cy="12" r="3" />
+</svg>Watch</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="trend" class="card xl:col-span-4 min-w-0" aria-labelledby="trend-h">
+    <div class="flex flex-wrap items-center justify-between gap-2 px-5 py-4 border-b border-line"><h2 id="trend-h" class="text-base font-sans font-semibold">Attendance trend · 14 days</h2><span class="demo-tag" title="Figures are illustrative until verified by the Ministry (PRD Q-29)"><svg class="w-3 h-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="M12 16v-4" />
+  <path d="M12 8h.01" />
+</svg>Demo / Illustrative Data</span></div>
+    <div class="p-5">
+      <svg viewBox="0 0 440 230" class="w-full h-auto" role="img" aria-label="Student and teacher attendance, last 14 days"><g class="chart-grid"><line x1="36" x2="428" y1="204.0" y2="204.0"/><text class="chart-label" x="30" y="208.0" text-anchor="end">75%</text><line x1="36" x2="428" y1="165.6" y2="165.6"/><text class="chart-label" x="30" y="169.6" text-anchor="end">80%</text><line x1="36" x2="428" y1="127.2" y2="127.2"/><text class="chart-label" x="30" y="131.2" text-anchor="end">85%</text><line x1="36" x2="428" y1="88.8" y2="88.8"/><text class="chart-label" x="30" y="92.8" text-anchor="end">90%</text><line x1="36" x2="428" y1="50.4" y2="50.4"/><text class="chart-label" x="30" y="54.4" text-anchor="end">95%</text><line x1="36" x2="428" y1="12.0" y2="12.0"/><text class="chart-label" x="30" y="16.0" text-anchor="end">100%</text></g><text class="chart-label" x="36.0" y="224" text-anchor="middle">02 Oct</text><text class="chart-label" x="96.3" y="224" text-anchor="middle">04 Oct</text><text class="chart-label" x="156.6" y="224" text-anchor="middle">06 Oct</text><text class="chart-label" x="216.9" y="224" text-anchor="middle">08 Oct</text><text class="chart-label" x="277.2" y="224" text-anchor="middle">10 Oct</text><text class="chart-label" x="337.5" y="224" text-anchor="middle">12 Oct</text><text class="chart-label" x="397.8" y="224" text-anchor="middle">14 Oct</text><text class="chart-label" x="428.0" y="224" text-anchor="middle">15 Oct</text><line x1="36" x2="428" y1="165.6" y2="165.6" stroke="var(--danger)" stroke-width="1.5" stroke-dasharray="5 4"/><text class="chart-label" x="428" y="159.6" text-anchor="end" style="fill:var(--danger)">Threshold 80%</text><polygon points="36.0,204 36.0,125.7 66.2,118.8 96.3,124.1 126.5,113.4 156.6,120.3 186.8,129.5 216.9,118.0 247.1,123.4 277.2,119.5 307.4,126.4 337.5,121.1 367.7,120.3 397.8,125.7 428.0,132.6 428.0,204" fill="var(--chart-1)" opacity=".10"/><polyline points="36.0,125.7 66.2,118.8 96.3,124.1 126.5,113.4 156.6,120.3 186.8,129.5 216.9,118.0 247.1,123.4 277.2,119.5 307.4,126.4 337.5,121.1 367.7,120.3 397.8,125.7 428.0,132.6" fill="none" stroke="var(--chart-1)" stroke-width="2.2" stroke-linejoin="round"/><circle cx="428.0" cy="132.6" r="4" fill="var(--chart-1)" stroke="var(--surface)" stroke-width="2"/><polygon points="36.0,204 36.0,78.0 66.2,79.6 96.3,75.0 126.5,73.4 156.6,77.3 186.8,74.2 216.9,71.1 247.1,75.7 277.2,76.5 307.4,73.4 337.5,75.0 367.7,75.7 397.8,74.2 428.0,72.7 428.0,204" fill="var(--chart-2)" opacity=".10"/><polyline points="36.0,78.0 66.2,79.6 96.3,75.0 126.5,73.4 156.6,77.3 186.8,74.2 216.9,71.1 247.1,75.7 277.2,76.5 307.4,73.4 337.5,75.0 367.7,75.7 397.8,74.2 428.0,72.7" fill="none" stroke="var(--chart-2)" stroke-width="2.2" stroke-linejoin="round"/><circle cx="428.0" cy="72.7" r="4" fill="var(--chart-2)" stroke="var(--surface)" stroke-width="2"/></svg>
+      <ul class="mt-3 flex flex-wrap gap-4 text-sm"><li class="flex items-center gap-2"><span class="legend-dot" style="background:var(--chart-1)"></span>Students <strong class="tnum">84.3%</strong></li><li class="flex items-center gap-2"><span class="legend-dot" style="background:var(--chart-2)"></span>Teachers <strong class="tnum">92.1%</strong></li></ul>
+    </div>
+  </section>
+</div>
+
+<div class="grid gap-6 xl:grid-cols-12">
+  <section id="admission" class="card xl:col-span-7 min-w-0" aria-labelledby="adm-h">
+    <div class="flex flex-wrap items-center justify-between gap-2 px-5 py-4 border-b border-line"><h2 id="adm-h" class="text-base font-sans font-semibold">Admission cycle 2026–27</h2><span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg>Result processing</span></div>
+    <ol class="p-5 grid gap-x-3 gap-y-4 grid-cols-2 sm:grid-cols-4 lg:grid-cols-6">
+      <li class="flex flex-col gap-2 step-done">
+        <span class="step-dot"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg></span>
+        <span class="text-sm font-medium leading-snug">Setup</span>
+      </li>
+      <li class="flex flex-col gap-2 step-done">
+        <span class="step-dot"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg></span>
+        <span class="text-sm font-medium leading-snug">Eligibility</span>
+      </li>
+      <li class="flex flex-col gap-2 step-done">
+        <span class="step-dot"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg></span>
+        <span class="text-sm font-medium leading-snug">Seat / Quota</span>
+      </li>
+      <li class="flex flex-col gap-2 step-done">
+        <span class="step-dot"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg></span>
+        <span class="text-sm font-medium leading-snug">Open Application</span>
+      </li>
+      <li class="flex flex-col gap-2 step-done">
+        <span class="step-dot"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg></span>
+        <span class="text-sm font-medium leading-snug">Applications</span>
+<span class="text-xs text-ink-3 tnum">24,310</span>      </li>
+      <li class="flex flex-col gap-2 step-done">
+        <span class="step-dot"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg></span>
+        <span class="text-sm font-medium leading-snug">Validation</span>
+<span class="text-xs text-ink-3 tnum">22,980 valid</span>      </li>
+      <li class="flex flex-col gap-2 step-done">
+        <span class="step-dot"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg></span>
+        <span class="text-sm font-medium leading-snug">Entrance Test</span>
+<span class="text-xs text-ink-3 tnum">21,442 sat</span>      </li>
+      <li class="flex flex-col gap-2 step-current">
+        <span class="step-dot">8</span>
+        <span class="text-sm font-medium leading-snug">Result Processing</span>
+<span class="text-xs text-ink-3 tnum">In progress</span>      </li>
+      <li class="flex flex-col gap-2 ">
+        <span class="step-dot">9</span>
+        <span class="text-sm font-medium leading-snug">Result Published</span>
+      </li>
+      <li class="flex flex-col gap-2 ">
+        <span class="step-dot">10</span>
+        <span class="text-sm font-medium leading-snug">Institution Allocation</span>
+      </li>
+      <li class="flex flex-col gap-2 ">
+        <span class="step-dot">11</span>
+        <span class="text-sm font-medium leading-snug">Migration</span>
+      </li>
+      <li class="flex flex-col gap-2 ">
+        <span class="step-dot">12</span>
+        <span class="text-sm font-medium leading-snug">Final Admission</span>
+      </li>
+    </ol>
+  </section>
+  <section id="budget" class="card xl:col-span-5 min-w-0" aria-labelledby="bud-h">
+    <div class="flex flex-wrap items-center justify-between gap-2 px-5 py-4 border-b border-line"><h2 id="bud-h" class="text-base font-sans font-semibold">Budget utilization by division · FY 2026–27</h2><span class="demo-tag" title="Figures are illustrative until verified by the Ministry (PRD Q-29)"><svg class="w-3 h-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="M12 16v-4" />
+  <path d="M12 8h.01" />
+</svg>Demo / Illustrative Data</span></div>
+    <ul class="p-5 space-y-3">
+      <li class="grid grid-cols-[92px_1fr_44px] items-center gap-3 text-sm"><span class="text-ink-2">Dhaka</span><span class="relative h-2.5 bg-surface-2 rounded-full overflow-hidden"><span class="absolute inset-y-0 left-0 bg-[var(--chart-1)] rounded-full" style="width: 66%"></span><span class="absolute inset-y-0 border-l-2 border-dashed border-ink-3" style="left:50%" title="Expected at mid-year: 50%"></span></span><span class="text-right font-semibold tnum">66%</span></li>
+      <li class="grid grid-cols-[92px_1fr_44px] items-center gap-3 text-sm"><span class="text-ink-2">Rangpur</span><span class="relative h-2.5 bg-surface-2 rounded-full overflow-hidden"><span class="absolute inset-y-0 left-0 bg-[var(--chart-1)] rounded-full" style="width: 64%"></span><span class="absolute inset-y-0 border-l-2 border-dashed border-ink-3" style="left:50%" title="Expected at mid-year: 50%"></span></span><span class="text-right font-semibold tnum">64%</span></li>
+      <li class="grid grid-cols-[92px_1fr_44px] items-center gap-3 text-sm"><span class="text-ink-2">Rajshahi</span><span class="relative h-2.5 bg-surface-2 rounded-full overflow-hidden"><span class="absolute inset-y-0 left-0 bg-[var(--chart-1)] rounded-full" style="width: 63%"></span><span class="absolute inset-y-0 border-l-2 border-dashed border-ink-3" style="left:50%" title="Expected at mid-year: 50%"></span></span><span class="text-right font-semibold tnum">63%</span></li>
+      <li class="grid grid-cols-[92px_1fr_44px] items-center gap-3 text-sm"><span class="text-ink-2">Khulna</span><span class="relative h-2.5 bg-surface-2 rounded-full overflow-hidden"><span class="absolute inset-y-0 left-0 bg-[var(--chart-1)] rounded-full" style="width: 61%"></span><span class="absolute inset-y-0 border-l-2 border-dashed border-ink-3" style="left:50%" title="Expected at mid-year: 50%"></span></span><span class="text-right font-semibold tnum">61%</span></li>
+      <li class="grid grid-cols-[92px_1fr_44px] items-center gap-3 text-sm"><span class="text-ink-2">Mymensingh</span><span class="relative h-2.5 bg-surface-2 rounded-full overflow-hidden"><span class="absolute inset-y-0 left-0 bg-[var(--chart-1)] rounded-full" style="width: 60%"></span><span class="absolute inset-y-0 border-l-2 border-dashed border-ink-3" style="left:50%" title="Expected at mid-year: 50%"></span></span><span class="text-right font-semibold tnum">60%</span></li>
+      <li class="grid grid-cols-[92px_1fr_44px] items-center gap-3 text-sm"><span class="text-ink-2">Chattogram</span><span class="relative h-2.5 bg-surface-2 rounded-full overflow-hidden"><span class="absolute inset-y-0 left-0 bg-[var(--chart-1)] rounded-full" style="width: 58%"></span><span class="absolute inset-y-0 border-l-2 border-dashed border-ink-3" style="left:50%" title="Expected at mid-year: 50%"></span></span><span class="text-right font-semibold tnum">58%</span></li>
+      <li class="grid grid-cols-[92px_1fr_44px] items-center gap-3 text-sm"><span class="text-ink-2">Barishal</span><span class="relative h-2.5 bg-surface-2 rounded-full overflow-hidden"><span class="absolute inset-y-0 left-0 bg-[var(--chart-1)] rounded-full" style="width: 55%"></span><span class="absolute inset-y-0 border-l-2 border-dashed border-ink-3" style="left:50%" title="Expected at mid-year: 50%"></span></span><span class="text-right font-semibold tnum">55%</span></li>
+      <li class="grid grid-cols-[92px_1fr_44px] items-center gap-3 text-sm"><span class="text-ink-2">Sylhet</span><span class="relative h-2.5 bg-surface-2 rounded-full overflow-hidden"><span class="absolute inset-y-0 left-0 bg-[var(--chart-1)] rounded-full" style="width: 52%"></span><span class="absolute inset-y-0 border-l-2 border-dashed border-ink-3" style="left:50%" title="Expected at mid-year: 50%"></span></span><span class="text-right font-semibold tnum">52%</span></li>
+      <li class="pt-1 text-xs text-ink-3 flex items-center gap-2"><span class="inline-block w-4 border-t-2 border-dashed border-ink-3"></span>Expected at mid-year (50%)</li>
+    </ul>
+  </section>
+</div>
+    </main>
+    <footer class="px-4 lg:px-6 py-4 text-xs text-ink-3 border-t border-line flex flex-wrap gap-x-6 gap-y-1">
+      <span>Prototype v0.1 · PRD v1</span><span>All figures: Demo / Illustrative Data</span><span>Boundaries: geoBoundaries gbOpen BGD ADM1/ADM2 (CC BY 4.0)</span>
+    </footer>
+  </div>
+</div>
+<nav class="var-nav-bar" aria-label="Design variation review">
+<a href="A-02-ministry-dashboard.html" title="Variation A">A</a><a href="B-02-ministry-dashboard.html" aria-current="page" title="Variation B">B</a><a href="C-02-ministry-dashboard.html" title="Variation C">C</a>  <span class="sep" aria-hidden="true"></span>
+<a href="B-01-landing.html" title="Public Home">01</a><a href="B-02-ministry-dashboard.html" aria-current="page" title="Ministry Dashboard">02</a><a href="B-03-institution-360.html" title="Institution 360°">03</a>  <span class="sep" aria-hidden="true"></span>
+  <a href="showcase-ALL.html" title="Close — back to showcase" aria-label="Close, back to showcase">✕</a>
+</nav>
+</body>
+</html>

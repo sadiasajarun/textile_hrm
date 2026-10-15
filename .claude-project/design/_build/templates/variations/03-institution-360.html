@@ -1,0 +1,151 @@
+{% extends 'variations/_app_layout.html' %}
+{% block content %}
+{% import '_macros.html' as m %}
+{% set dash = v ~ '-02-ministry-dashboard.html' %}
+{% set i = d.by_id['karnaphuli-ti'] %}
+{% set x = d.inst360 %}
+{% set ph = 'flex flex-wrap items-center justify-between gap-2 px-4 h-12 border-b border-line' if v == 'C' else 'flex flex-wrap items-center justify-between gap-2 px-5 py-4 border-b border-line' %}
+{% set facts = [('Institution code', i.code), ('Category', i.type), ('Division', 'Chattogram'), ('District', 'Chattogram'), ('Principal', i.principal), ('Academic session', '2026–27')] %}
+
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="{{ dash }}">Ministry</a><span aria-hidden="true">›</span>
+  <button type="button" class="hover:underline" data-toast="Chattogram Division drill-down (full build)">Chattogram Division</button><span aria-hidden="true">›</span>
+  <button type="button" class="hover:underline" data-toast="Chattogram District drill-down (full build)">Chattogram District</button><span aria-hidden="true">›</span>
+  <span aria-current="page">{{ i.name }}</span>
+</nav>
+
+{# ------------------------------------------------ identity header #}
+{% if v == 'A' %}
+<section class="border border-line bg-surface p-6" aria-labelledby="inst-h">
+  <div class="flex flex-wrap items-start justify-between gap-4">
+    <div class="flex items-start gap-4">
+      <span class="w-14 h-14 border border-line inline-flex items-center justify-center font-semibold text-primary text-lg">KTI</span>
+      <div><p class="eyebrow">Institution 360°</p><h1 id="inst-h" class="text-[1.875rem] leading-tight">{{ i.name }}</h1><p class="mt-1 flex flex-wrap items-center gap-3 text-sm text-ink-2">{{ m.stag('Active', 'success') }}<span>{{ i.type }}</span><span>Chattogram, Chattogram Division</span></p></div>
+    </div>
+    <div class="flex flex-wrap gap-2"><button type="button" class="btn btn-secondary btn-sm" data-toast="Activity log: who changed what, when, old/new value, reason (PRD §4.11)">{{ icon('history','w-4 h-4') }}View history</button><button type="button" class="btn btn-secondary btn-sm" data-toast="Export institution profile (PDF/Excel — TBD Q-15)">{{ icon('download','w-4 h-4') }}Export profile</button><button type="button" class="btn btn-primary btn-sm" data-toast="Message the Principal (in-app notification)">{{ icon('mail','w-4 h-4') }}Contact principal</button></div>
+  </div>
+  <dl class="mt-6 grid gap-4 grid-cols-2 md:grid-cols-3 xl:grid-cols-6 border-t border-line pt-5 text-sm">{% for k, val in facts %}<div><dt class="text-ink-3">{{ k }}</dt><dd class="mt-0.5 font-semibold">{{ val }}</dd></div>{% endfor %}</dl>
+</section>
+{% elif v == 'B' %}
+<section class="card overflow-hidden" aria-labelledby="inst-h">
+  <div class="weave-band" aria-hidden="true"></div>
+  <div class="p-7 flex flex-wrap items-center justify-between gap-6">
+    <div class="flex items-center gap-5">
+      <span class="w-20 h-20 rounded-full bg-primary text-on-primary inline-flex items-center justify-center font-head text-2xl ring-4 ring-primary-tint">KTI</span>
+      <div><p class="eyebrow">Institution 360°</p><h1 id="inst-h" class="text-[2rem] leading-tight">{{ i.name }}</h1>
+        <div class="mt-2 flex flex-wrap gap-2">{{ m.stag('Active', 'success') }}<span class="tag tag-neutral">{{ icon('school','w-3.5 h-3.5') }}{{ i.type }}</span><span class="tag tag-neutral">{{ icon('map-pin','w-3.5 h-3.5') }}Chattogram</span><span class="tag tag-neutral">{{ icon('hash','w-3.5 h-3.5') }}{{ i.code }}</span></div></div>
+    </div>
+    <div class="flex flex-wrap gap-2"><button type="button" class="btn btn-secondary btn-sm" data-toast="Activity log: who changed what, when, old/new value, reason (PRD §4.11)">{{ icon('history','w-4 h-4') }}View history</button><button type="button" class="btn btn-secondary btn-sm" data-toast="Export institution profile (PDF/Excel — TBD Q-15)">{{ icon('download','w-4 h-4') }}Export</button><button type="button" class="btn btn-primary btn-sm" data-toast="Message the Principal (in-app notification)">{{ icon('mail','w-4 h-4') }}Contact principal</button></div>
+  </div>
+  <dl class="px-7 pb-6 grid gap-4 grid-cols-2 md:grid-cols-3 xl:grid-cols-6 text-sm">{% for k, val in facts %}<div class="rounded-2xl bg-surface-2 px-4 py-3"><dt class="text-ink-3 text-xs">{{ k }}</dt><dd class="mt-0.5 font-semibold">{{ val }}</dd></div>{% endfor %}</dl>
+</section>
+{% else %}
+<section class="card" aria-labelledby="inst-h">
+  <div class="px-4 py-3 flex flex-wrap items-center justify-between gap-3 border-b border-line">
+    <div class="flex items-center gap-3 min-w-0">
+      <span class="w-10 h-10 rounded-ui bg-primary text-on-primary inline-flex items-center justify-center text-sm font-bold">KTI</span>
+      <div class="min-w-0"><h1 id="inst-h" class="text-xl leading-tight truncate">{{ i.name }}</h1><p class="text-xs text-ink-3"><span class="font-mono">{{ i.code }}</span> · {{ i.type }} · Chattogram › Chattogram</p></div>
+      {{ m.stag('Active', 'success') }}
+    </div>
+    <div class="flex flex-wrap gap-2"><button type="button" class="btn btn-secondary btn-sm" data-toast="Activity log: who changed what, when, old/new value, reason (PRD §4.11)">{{ icon('history','w-4 h-4') }}History</button><button type="button" class="btn btn-secondary btn-sm" data-toast="Export institution profile (PDF/Excel — TBD Q-15)">{{ icon('download','w-4 h-4') }}Export</button><button type="button" class="btn btn-primary btn-sm" data-toast="Message the Principal (in-app notification)">{{ icon('mail','w-4 h-4') }}Contact principal</button></div>
+  </div>
+  <dl class="px-4 py-3 grid gap-3 grid-cols-2 md:grid-cols-3 xl:grid-cols-6 text-[.8125rem]">{% for k, val in facts %}<div><dt class="text-ink-3">{{ k }}</dt><dd class="font-semibold {{ 'font-mono' if loop.first else '' }}">{{ val }}</dd></div>{% endfor %}</dl>
+</section>
+{% endif %}
+
+{# ------------------------------------------------ tabs #}
+{% set tabs = [('Overview',None),('Students','812'),('Teachers & Staff','46'),('Classes','24'),('Attendance',None),('Results','1'),('Finance',None),('Assets','3'),('Procurement',None),('Library',None),('Leave / HR','4'),('Certificates','12'),('Alumni',None),('Reports',None)] %}
+<div class="{{ 'border-b border-line' if v != 'B' else '' }}">
+  <div class="tabs" role="tablist" aria-label="Institution modules">
+    {% for t, c in tabs %}<button type="button" role="tab" class="tab" aria-selected="{{ 'true' if loop.first else 'false' }}"{% if not loop.first %} data-toast="{{ t }} tab — designed in the full build (P3e)"{% endif %}>{{ t }}{% if c and v != 'A' %}<span class="tab-count">{{ c }}</span>{% endif %}</button>{% endfor %}
+  </div>
+</div>
+
+<div class="banner" role="note">{{ icon('database','w-5 h-5 text-primary flex-none mt-0.5') }}<p><strong>One institution. One complete digital record.</strong> <span class="text-ink-2">Every tab reads from the same student, teacher, asset and budget master records — nothing is entered twice.</span></p></div>
+
+{# ------------------------------------------------ KPI tiles #}
+<section aria-label="Institution KPIs" class="grid {{ 'gap-3' if v == 'C' else 'gap-4' }} grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
+  {% for k in x.kpis %}
+  <div class="card card-pad flex flex-col gap-1.5 {{ 'border-danger' if k.status == 'danger' and v != 'B' else '' }}">
+    <span class="flex items-center gap-2 text-sm text-ink-2">{% if v != 'A' %}<span class="icon-tile {{ '!bg-danger-tint !text-danger' if k.status == 'danger' else ('!bg-warning-tint !text-warning' if k.status == 'warning' else '') }}">{{ icon(k.icon, 'w-4 h-4') }}</span>{% endif %}{{ k.label }}</span>
+    <span class="kpi-value {{ '!text-danger' if k.status == 'danger' else '' }}">{{ k.value }}</span>
+    <span class="text-xs {{ 'text-danger font-semibold' if k.status == 'danger' else ('text-warning font-semibold' if k.status == 'warning' else 'text-ink-3') }}">{{ k.sub }}</span>
+  </div>
+  {% endfor %}
+</section>
+
+{# ------------------------------------------------ alerts + attendance #}
+<div class="grid {{ 'gap-4' if v == 'C' else 'gap-6' }} xl:grid-cols-12">
+  <section class="{{ 'card' if v != 'B' else '' }} xl:col-span-5 min-w-0" aria-labelledby="ia-h">
+    <div class="{{ ph if v != 'B' else 'flex items-center justify-between pb-3' }}"><h2 id="ia-h" class="text-base font-sans font-semibold flex items-center gap-2">{{ icon('siren','w-5 h-5 text-danger') }}Alerts for this institution</h2><span class="tab-count">3</span></div>
+    <ul>
+      <li class="alert-item sev-high"><div class="flex items-center gap-2">{{ m.tag('High', 'danger', 'triangle-alert') }}<span class="text-xs text-ink-3">Attendance unusually low</span></div><p class="mt-1.5 font-semibold">Diploma Y2 · Sec B at 61.7% today; institution at 72.4%</p><p class="mt-1 text-xs text-ink-3">Responsible: Principal · Age: today · SLA 1d</p></li>
+      <li class="alert-item sev-medium"><div class="flex items-center gap-2">{{ m.tag('Medium', 'warning', 'circle-alert') }}<span class="text-xs text-ink-3">Student service requests overdue</span></div><p class="mt-1.5 font-semibold">5 requests past their SLA</p><p class="mt-1 text-xs text-danger font-semibold">Responsible: Principal · Age 4d · SLA 3d · overdue</p></li>
+      <li class="alert-item sev-medium"><div class="flex items-center gap-2">{{ m.tag('Medium', 'warning', 'circle-alert') }}<span class="text-xs text-ink-3">Damaged asset awaiting action</span></div><p class="mt-1.5 font-semibold">3 assets reported damaged — e.g. Ring frame RF-112</p><p class="mt-1 text-xs text-ink-3">Responsible: Principal · Age 1d · SLA 5d</p></li>
+    </ul>
+  </section>
+
+  <section class="card xl:col-span-7 min-w-0" aria-labelledby="att-h">
+    <div class="{{ ph }}"><h2 id="att-h" class="text-base font-sans font-semibold">Attendance by class · today</h2><span class="text-xs text-ink-3 inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-success"></span>Live · updated 09:42</span></div>
+    <div class="overflow-x-auto"><table class="tbl">
+      <thead><tr><th>Class</th><th>Teacher</th><th class="num">Present</th><th class="num">Rate</th><th>Status</th></tr></thead>
+      <tbody>
+      {% for c in x.classes %}
+        {% set rate = (c.present / c.total * 100) if c.present is not none else none %}
+        <tr class="{{ 'row-critical' if rate is not none and rate < 70 and v == 'C' else '' }}">
+          <td><span class="font-semibold">{{ c.name }}</span><span class="block text-xs text-ink-3">{{ c.subject }}</span></td>
+          <td class="text-ink-2">{{ c.teacher }}</td>
+          <td class="num">{% if c.present is not none %}{{ c.present }} / {{ c.total }}{% else %}— / {{ c.total }}{% endif %}</td>
+          <td class="num font-semibold {{ 'text-danger' if rate is not none and rate < 80 else '' }}">{% if rate is not none %}{{ '%.1f'|format(rate) }}%{% else %}—{% endif %}</td>
+          <td>{% if c.state == 'recorded' %}{{ m.stag('Recorded', 'success') }}{% elif c.state == 'pending_sync' %}{{ m.tag('Pending sync', 'info', 'refresh-cw') }}{% else %}{{ m.tag('Not recorded', 'danger', 'circle-alert') }}{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+  </section>
+</div>
+
+{# ------------------------------------------------ requests + budget #}
+<div class="grid {{ 'gap-4' if v == 'C' else 'gap-6' }} xl:grid-cols-12">
+  <section class="card xl:col-span-7 min-w-0" aria-labelledby="sr-h">
+    <div class="{{ ph }}"><h2 id="sr-h" class="text-base font-sans font-semibold">Pending student service requests</h2><button type="button" class="link text-sm" data-toast="Service requests — designed in the full build (P3e)">All 14 requests</button></div>
+    <div class="overflow-x-auto"><table class="tbl">
+      <thead><tr><th>Request</th><th>Service</th><th>Student</th><th>Status</th><th class="num">Age / SLA</th></tr></thead>
+      <tbody>
+      {% for r in x.requests %}
+        <tr><td class="font-mono text-xs whitespace-nowrap">{{ r.no }}</td><td class="font-medium">{{ r.service }}</td><td class="text-ink-2">{{ r.student }}</td><td>{{ m.stag(r.status, r.tag) }}</td><td class="num whitespace-nowrap {{ 'text-danger font-semibold' if r.overdue else 'text-ink-3' }}">{{ r.age }} / {{ r.sla }}{% if r.overdue %} {{ icon('clock','w-3.5 h-3.5 inline') }}{% endif %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card xl:col-span-5 min-w-0" aria-labelledby="fin-h">
+    <div class="{{ ph }}"><h2 id="fin-h" class="text-base font-sans font-semibold">Budget · FY 2026–27</h2>{{ m.demo() }}</div>
+    <div class="{{ 'p-4' if v == 'C' else 'p-5' }} flex items-center gap-6">
+      <div class="relative flex-none">{{ ring(x.budget.pct, 112, 12, 'var(--chart-1)') }}<span class="absolute inset-0 flex flex-col items-center justify-center"><span class="text-xl font-bold tnum">{{ x.budget.pct }}%</span><span class="text-[11px] text-ink-3">used</span></span></div>
+      <dl class="flex-1 grid gap-3 text-sm">
+        <div class="flex justify-between gap-3"><dt class="text-ink-3">Allocated by Head Office</dt><dd class="font-semibold tnum">{{ x.budget.allocated }}</dd></div>
+        <div class="flex justify-between gap-3"><dt class="text-ink-3">Used</dt><dd class="font-semibold tnum">{{ x.budget.used }}</dd></div>
+        <div class="flex justify-between gap-3"><dt class="text-ink-3">Remaining</dt><dd class="font-semibold tnum">{{ x.budget.remaining }}</dd></div>
+        <div class="text-xs text-ink-3">2 allocation revisions · history kept</div>
+      </dl>
+    </div>
+  </section>
+</div>
+
+{# ------------------------------------------------ results + assets + activity #}
+<div class="grid {{ 'gap-4' if v == 'C' else 'gap-6' }} md:grid-cols-2 xl:grid-cols-3">
+  <section class="card min-w-0" aria-labelledby="res-h">
+    <div class="{{ ph }}"><h2 id="res-h" class="text-base font-sans font-semibold">Results publication</h2></div>
+    <ul class="divide-y divide-line">{% for r in x.results %}<li class="{{ 'px-4' if v == 'C' else 'px-5' }} py-3 flex items-center justify-between gap-3"><span><span class="font-medium">{{ r.sem }}</span><span class="block text-xs text-ink-3">{{ r.date }}</span></span>{{ m.stag(r.status, r.tag) }}</li>{% endfor %}</ul>
+  </section>
+  <section class="card min-w-0" aria-labelledby="as-h">
+    <div class="{{ ph }}"><h2 id="as-h" class="text-base font-sans font-semibold">Assets by status</h2><span class="text-xs text-ink-3 tnum">1,556 items</span></div>
+    <ul class="{{ 'p-4' if v == 'C' else 'p-5' }} space-y-3">{% for a in x.assets %}<li class="grid grid-cols-[120px_1fr_56px] items-center gap-3 text-sm">{{ m.stag(a.label, a.tag) }}<span class="h-2 bg-surface-2 rounded-full overflow-hidden"><span class="block h-full rounded-full" style="width: {{ [a.value / 1204 * 100, 2]|max|round }}%; background: var(--{{ a.tag }})"></span></span><span class="text-right font-semibold tnum">{{ '{:,}'.format(a.value) }}</span></li>{% endfor %}</ul>
+  </section>
+  <section class="card min-w-0 md:col-span-2 xl:col-span-1" aria-labelledby="act-h">
+    <div class="{{ ph }}"><h2 id="act-h" class="text-base font-sans font-semibold">Recent activity</h2><button type="button" class="link text-sm" data-toast="Full activity log (PRD §4.11)">View log</button></div>
+    <ol class="{{ 'px-4' if v == 'C' else 'px-5' }} py-3 space-y-3">{% for a in x.activity %}<li class="flex gap-3 text-sm"><span class="mt-1.5 w-2 h-2 rounded-full bg-primary flex-none"></span><span><span class="block text-xs text-ink-3 {{ 'font-mono' if v == 'C' else '' }}">{{ a.time }}</span><strong>{{ a.who }}</strong> {{ a.what }}</span></li>{% endfor %}</ol>
+  </section>
+</div>
+{% endblock %}

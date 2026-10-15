@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="A">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Institution 360° · Textile Institution Management System</title>
+<link rel="stylesheet" href="../assets/tims.css">
+<script src="../assets/tims.js" defer></script></head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="mx-auto flex min-h-screen bg-bg" style="max-width:1440px">
+  <aside id="app-sidebar" data-open="false" class="sidebar hidden lg:flex data-[open=true]:flex data-[open=true]:fixed data-[open=true]:inset-y-0 data-[open=true]:left-0 data-[open=true]:z-50 flex-col w-[264px]  flex-none min-h-screen">
+  <div class="flex items-center gap-3 px-5 h-16 border-b border-line">
+    <svg viewBox="0 0 10 6" class="w-8 h-[19px] flex-none rounded-[2px]" role="img" aria-label="Flag of Bangladesh"><rect width="10" height="6" fill="#006A4E"/><circle cx="4.5" cy="3" r="2" fill="#F42A41"/></svg>
+    <div class="min-w-0 leading-tight"><p class="text-[.8125rem] font-semibold text-ink truncate">Textile Institution MS</p><p class="text-xs truncate" style="color:var(--sidebar-muted)">Ministry of Textiles and Jute</p></div>
+  </div>
+  <nav class="flex-1 overflow-y-auto px-3 pb-6" aria-label="Ministry workspace">
+    <p class="nav-group">Overview</p>
+    <ul class="space-y-0.5">
+      <li>
+<a class="nav-item" href="A-02-ministry-dashboard.html"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="7" height="9" x="3" y="3" rx="1" />
+  <rect width="7" height="5" x="14" y="3" rx="1" />
+  <rect width="7" height="9" x="14" y="12" rx="1" />
+  <rect width="7" height="5" x="3" y="16" rx="1" />
+</svg><span data-bn="ড্যাশবোর্ড">Dashboard</span></a>
+      </li>
+      <li>
+<a class="nav-item" href="A-03-institution-360.html" aria-current="page"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect x="16" y="16" width="6" height="6" rx="1" />
+  <rect x="2" y="16" width="6" height="6" rx="1" />
+  <rect x="9" y="2" width="6" height="6" rx="1" />
+  <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" />
+  <path d="M12 12V8" />
+</svg><span data-bn="প্রশাসনিক স্তর">Hierarchy</span></a>
+      </li>
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Alerts — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 18v-6a5 5 0 1 1 10 0v6" />
+  <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" />
+  <path d="M21 12h1" />
+  <path d="M18.5 4.5 18 5" />
+  <path d="M2 12h1" />
+  <path d="M12 2v1" />
+  <path d="m4.929 4.929.707.707" />
+  <path d="M12 12v6" />
+</svg><span data-bn="সতর্কতা">Alerts</span><span class="nav-count">12</span></button>      </li>
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Live Attendance — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9" />
+  <path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5" />
+  <circle cx="12" cy="9" r="2" />
+  <path d="M16.2 4.8c2 2 2.26 5.11.8 7.47" />
+  <path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1" />
+  <path d="M9.5 18h5" />
+  <path d="m8 22 4-11 4 11" />
+</svg><span data-bn="লাইভ উপস্থিতি">Live Attendance</span></button>      </li>
+    </ul>
+    <p class="nav-group">Operations</p>
+    <ul class="space-y-0.5">
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Admissions — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+  <path d="M12 11h4" />
+  <path d="M12 16h4" />
+  <path d="M8 11h.01" />
+  <path d="M8 16h.01" />
+</svg><span data-bn="ভর্তি">Admissions</span></button>      </li>
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Budget &amp; Assets — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
+  <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
+</svg><span data-bn="বাজেট ও সম্পদ">Budget &amp; Assets</span></button>      </li>
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Reports — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3 3v16a2 2 0 0 0 2 2h16" />
+  <path d="M18 17V9" />
+  <path d="M13 17V5" />
+  <path d="M8 17v-3" />
+</svg><span data-bn="প্রতিবেদন">Reports</span></button>      </li>
+    </ul>
+    <p class="nav-group">Phase 2</p>
+    <ul class="space-y-0.5">
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Licenses — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M16 10h2" />
+  <path d="M16 14h2" />
+  <path d="M6.17 15a3 3 0 0 1 5.66 0" />
+  <circle cx="9" cy="11" r="2" />
+  <rect x="2" y="5" width="20" height="14" rx="2" />
+</svg><span data-bn="লাইসেন্স">Licenses</span><span class="nav-count">18</span></button>      </li>
+    </ul>
+    <p class="nav-group">Administration</p>
+    <ul class="space-y-0.5">
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Setup — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 7h-9" />
+  <path d="M14 17H5" />
+  <circle cx="17" cy="17" r="3" />
+  <circle cx="7" cy="7" r="3" />
+</svg><span data-bn="সেটআপ">Setup</span></button>      </li>
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Users &amp; Roles — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M2 21a8 8 0 0 1 10.434-7.62" />
+  <circle cx="10" cy="8" r="5" />
+  <circle cx="18" cy="18" r="3" />
+  <path d="m19.5 14.3-.4.9" />
+  <path d="m16.9 20.8-.4.9" />
+  <path d="m21.7 19.5-.9-.4" />
+  <path d="m15.2 16.9-.9-.4" />
+  <path d="m21.7 16.5-.9.4" />
+  <path d="m15.2 19.1-.9.4" />
+  <path d="m19.5 21.7-.4-.9" />
+  <path d="m16.9 15.2-.4-.9" />
+</svg><span data-bn="ব্যবহারকারী ও ভূমিকা">Users &amp; Roles</span></button>      </li>
+      <li>
+<button type="button" class="nav-item w-full text-left" data-toast="Integrations — designed in the full build (P3e)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M6.3 20.3a2.4 2.4 0 0 0 3.4 0L12 18l-6-6-2.3 2.3a2.4 2.4 0 0 0 0 3.4Z" />
+  <path d="m2 22 3-3" />
+  <path d="M7.5 13.5 10 11" />
+  <path d="M10.5 16.5 13 14" />
+  <path d="m18 3-4 4h6l-4 4" />
+</svg><span data-bn="ইন্টিগ্রেশন">Integrations</span></button>      </li>
+    </ul>
+  </nav>
+  <div class="px-5 py-4 text-xs" style="color:var(--sidebar-muted); border-top:1px solid var(--sidebar-border)">Scope: <strong style="color:var(--sidebar-active-ink)">All Bangladesh</strong></div>
+</aside>
+  <div class="flex-1 min-w-0 flex flex-col">
+    <header class="topbar sticky top-0 z-30">
+  <div class="h-16  px-4 lg:px-6 flex items-center gap-3">
+    <button type="button" class="btn btn-ghost btn-icon lg:hidden" data-nav-toggle aria-controls="app-sidebar" aria-expanded="false" aria-label="Open navigation"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <line x1="4" x2="20" y1="12" y2="12" />
+  <line x1="4" x2="20" y1="6" y2="6" />
+  <line x1="4" x2="20" y1="18" y2="18" />
+</svg></button>
+    <button type="button" class="search-field sm:flex-1 max-w-[520px]" aria-label="Search" data-toast="Global search: institutions, students, teachers, assets, applications, certificates, licenses, reports (PRD §3 M22)"><svg class="w-4 h-4 flex-none" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="11" cy="11" r="8" />
+  <path d="m21 21-4.3-4.3" />
+</svg><span class="hidden sm:inline flex-1 text-left truncate" data-bn="প্রতিষ্ঠান, শিক্ষার্থী, আবেদন খুঁজুন">Search institutions, students, applications…</span></button>
+    <div class="ml-auto flex items-center gap-1 sm:gap-2">
+      <div class="hidden md:block"><div class="inline-flex items-center gap-1 text-sm font-semibold" role="group" aria-label="Language">
+  <button type="button" data-lang="bn" class="px-2 py-1 rounded hover:bg-surface-2">বাংলা</button>
+  <span aria-hidden="true" class="opacity-50">|</span>
+  <button type="button" data-lang="en" class="px-2 py-1 rounded hover:bg-surface-2">English</button>
+</div></div>
+      <button type="button" class="btn btn-ghost btn-icon relative" aria-label="Notifications, 8 unread" data-toast="Notification panel: 8 unread (PRD §3 M22)"><svg class="w-5 h-5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+  <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+</svg><span class="absolute top-1.5 right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-danger text-white text-[10px] font-bold leading-[18px]">8</span></button>
+      <button type="button" class="flex items-center gap-2 pl-1 pr-2 h-10 rounded-ui hover:bg-surface-2" data-toast="Profile menu: my profile, workspace switcher, sign out">
+        <span class="w-8 h-8 rounded-full bg-primary text-on-primary text-xs font-bold inline-flex items-center justify-center ">FA</span>
+        <span class="hidden sm:block text-left leading-tight"><span class="block text-sm font-semibold">Farhana Ahmed</span><span class="block text-xs text-ink-3">Ministry Super Admin</span></span>
+        <svg class="hidden sm:block w-4 h-4 text-ink-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg>
+      </button>
+    </div>
+  </div>
+</header>
+    <main id="main" class="flex-1 px-4 lg:px-6 py-7 space-y-6">
+
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="A-02-ministry-dashboard.html">Ministry</a><span aria-hidden="true">›</span>
+  <button type="button" class="hover:underline" data-toast="Chattogram Division drill-down (full build)">Chattogram Division</button><span aria-hidden="true">›</span>
+  <button type="button" class="hover:underline" data-toast="Chattogram District drill-down (full build)">Chattogram District</button><span aria-hidden="true">›</span>
+  <span aria-current="page">Karnaphuli Textile Institute</span>
+</nav>
+
+<section class="border border-line bg-surface p-6" aria-labelledby="inst-h">
+  <div class="flex flex-wrap items-start justify-between gap-4">
+    <div class="flex items-start gap-4">
+      <span class="w-14 h-14 border border-line inline-flex items-center justify-center font-semibold text-primary text-lg">KTI</span>
+      <div><p class="eyebrow">Institution 360°</p><h1 id="inst-h" class="text-[1.875rem] leading-tight">Karnaphuli Textile Institute</h1><p class="mt-1 flex flex-wrap items-center gap-3 text-sm text-ink-2"><span class="tag tag-success"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="m9 12 2 2 4-4" />
+</svg>Active</span><span>Textile Institute</span><span>Chattogram, Chattogram Division</span></p></div>
+    </div>
+    <div class="flex flex-wrap gap-2"><button type="button" class="btn btn-secondary btn-sm" data-toast="Activity log: who changed what, when, old/new value, reason (PRD §4.11)"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+  <path d="M3 3v5h5" />
+  <path d="M12 7v5l4 2" />
+</svg>View history</button><button type="button" class="btn btn-secondary btn-sm" data-toast="Export institution profile (PDF/Excel — TBD Q-15)"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+  <polyline points="7 10 12 15 17 10" />
+  <line x1="12" x2="12" y1="15" y2="3" />
+</svg>Export profile</button><button type="button" class="btn btn-primary btn-sm" data-toast="Message the Principal (in-app notification)"><svg class="w-4 h-4" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="20" height="16" x="2" y="4" rx="2" />
+  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+</svg>Contact principal</button></div>
+  </div>
+  <dl class="mt-6 grid gap-4 grid-cols-2 md:grid-cols-3 xl:grid-cols-6 border-t border-line pt-5 text-sm"><div><dt class="text-ink-3">Institution code</dt><dd class="mt-0.5 font-semibold">TI-CTG-014</dd></div><div><dt class="text-ink-3">Category</dt><dd class="mt-0.5 font-semibold">Textile Institute</dd></div><div><dt class="text-ink-3">Division</dt><dd class="mt-0.5 font-semibold">Chattogram</dd></div><div><dt class="text-ink-3">District</dt><dd class="mt-0.5 font-semibold">Chattogram</dd></div><div><dt class="text-ink-3">Principal</dt><dd class="mt-0.5 font-semibold">Md. Saiful Islam</dd></div><div><dt class="text-ink-3">Academic session</dt><dd class="mt-0.5 font-semibold">2026–27</dd></div></dl>
+</section>
+
+<div class="border-b border-line">
+  <div class="tabs" role="tablist" aria-label="Institution modules">
+<button type="button" role="tab" class="tab" aria-selected="true">Overview</button><button type="button" role="tab" class="tab" aria-selected="false" data-toast="Students tab — designed in the full build (P3e)">Students</button><button type="button" role="tab" class="tab" aria-selected="false" data-toast="Teachers &amp; Staff tab — designed in the full build (P3e)">Teachers &amp; Staff</button><button type="button" role="tab" class="tab" aria-selected="false" data-toast="Classes tab — designed in the full build (P3e)">Classes</button><button type="button" role="tab" class="tab" aria-selected="false" data-toast="Attendance tab — designed in the full build (P3e)">Attendance</button><button type="button" role="tab" class="tab" aria-selected="false" data-toast="Results tab — designed in the full build (P3e)">Results</button><button type="button" role="tab" class="tab" aria-selected="false" data-toast="Finance tab — designed in the full build (P3e)">Finance</button><button type="button" role="tab" class="tab" aria-selected="false" data-toast="Assets tab — designed in the full build (P3e)">Assets</button><button type="button" role="tab" class="tab" aria-selected="false" data-toast="Procurement tab — designed in the full build (P3e)">Procurement</button><button type="button" role="tab" class="tab" aria-selected="false" data-toast="Library tab — designed in the full build (P3e)">Library</button><button type="button" role="tab" class="tab" aria-selected="false" data-toast="Leave / HR tab — designed in the full build (P3e)">Leave / HR</button><button type="button" role="tab" class="tab" aria-selected="false" data-toast="Certificates tab — designed in the full build (P3e)">Certificates</button><button type="button" role="tab" class="tab" aria-selected="false" data-toast="Alumni tab — designed in the full build (P3e)">Alumni</button><button type="button" role="tab" class="tab" aria-selected="false" data-toast="Reports tab — designed in the full build (P3e)">Reports</button>  </div>
+</div>
+
+<div class="banner" role="note"><svg class="w-5 h-5 text-primary flex-none mt-0.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <ellipse cx="12" cy="5" rx="9" ry="3" />
+  <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+  <path d="M3 12A9 3 0 0 0 21 12" />
+</svg><p><strong>One institution. One complete digital record.</strong> <span class="text-ink-2">Every tab reads from the same student, teacher, asset and budget master records — nothing is entered twice.</span></p></div>
+
+<section aria-label="Institution KPIs" class="grid gap-4 grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
+  <div class="card card-pad flex flex-col gap-1.5 ">
+    <span class="flex items-center gap-2 text-sm text-ink-2">Students</span>
+    <span class="kpi-value ">812</span>
+    <span class="text-xs text-ink-3">Session 2026–27</span>
+  </div>
+  <div class="card card-pad flex flex-col gap-1.5 ">
+    <span class="flex items-center gap-2 text-sm text-ink-2">Teachers &amp; Staff</span>
+    <span class="kpi-value ">46 / 48</span>
+    <span class="text-xs text-ink-3">2 posts vacant</span>
+  </div>
+  <div class="card card-pad flex flex-col gap-1.5 border-danger">
+    <span class="flex items-center gap-2 text-sm text-ink-2">Today&#39;s attendance</span>
+    <span class="kpi-value !text-danger">72.4%</span>
+    <span class="text-xs text-danger font-semibold">Below 80% threshold</span>
+  </div>
+  <div class="card card-pad flex flex-col gap-1.5 ">
+    <span class="flex items-center gap-2 text-sm text-ink-2">Budget utilization</span>
+    <span class="kpi-value ">64.0%</span>
+    <span class="text-xs text-ink-3">৳ 2.69 Cr of ৳ 4.20 Cr</span>
+  </div>
+  <div class="card card-pad flex flex-col gap-1.5 ">
+    <span class="flex items-center gap-2 text-sm text-ink-2">Asset issues</span>
+    <span class="kpi-value ">3</span>
+    <span class="text-xs text-warning font-semibold">Damaged, awaiting action</span>
+  </div>
+  <div class="card card-pad flex flex-col gap-1.5 ">
+    <span class="flex items-center gap-2 text-sm text-ink-2">Pending requests</span>
+    <span class="kpi-value ">14</span>
+    <span class="text-xs text-warning font-semibold">5 past SLA</span>
+  </div>
+</section>
+
+<div class="grid gap-6 xl:grid-cols-12">
+  <section class="card xl:col-span-5 min-w-0" aria-labelledby="ia-h">
+    <div class="flex flex-wrap items-center justify-between gap-2 px-5 py-4 border-b border-line"><h2 id="ia-h" class="text-base font-sans font-semibold flex items-center gap-2"><svg class="w-5 h-5 text-danger" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 18v-6a5 5 0 1 1 10 0v6" />
+  <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" />
+  <path d="M21 12h1" />
+  <path d="M18.5 4.5 18 5" />
+  <path d="M2 12h1" />
+  <path d="M12 2v1" />
+  <path d="m4.929 4.929.707.707" />
+  <path d="M12 12v6" />
+</svg>Alerts for this institution</h2><span class="tab-count">3</span></div>
+    <ul>
+      <li class="alert-item sev-high"><div class="flex items-center gap-2"><span class="tag tag-danger"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" />
+</svg>High</span><span class="text-xs text-ink-3">Attendance unusually low</span></div><p class="mt-1.5 font-semibold">Diploma Y2 · Sec B at 61.7% today; institution at 72.4%</p><p class="mt-1 text-xs text-ink-3">Responsible: Principal · Age: today · SLA 1d</p></li>
+      <li class="alert-item sev-medium"><div class="flex items-center gap-2"><span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <line x1="12" x2="12" y1="8" y2="12" />
+  <line x1="12" x2="12.01" y1="16" y2="16" />
+</svg>Medium</span><span class="text-xs text-ink-3">Student service requests overdue</span></div><p class="mt-1.5 font-semibold">5 requests past their SLA</p><p class="mt-1 text-xs text-danger font-semibold">Responsible: Principal · Age 4d · SLA 3d · overdue</p></li>
+      <li class="alert-item sev-medium"><div class="flex items-center gap-2"><span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <line x1="12" x2="12" y1="8" y2="12" />
+  <line x1="12" x2="12.01" y1="16" y2="16" />
+</svg>Medium</span><span class="text-xs text-ink-3">Damaged asset awaiting action</span></div><p class="mt-1.5 font-semibold">3 assets reported damaged — e.g. Ring frame RF-112</p><p class="mt-1 text-xs text-ink-3">Responsible: Principal · Age 1d · SLA 5d</p></li>
+    </ul>
+  </section>
+
+  <section class="card xl:col-span-7 min-w-0" aria-labelledby="att-h">
+    <div class="flex flex-wrap items-center justify-between gap-2 px-5 py-4 border-b border-line"><h2 id="att-h" class="text-base font-sans font-semibold">Attendance by class · today</h2><span class="text-xs text-ink-3 inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-success"></span>Live · updated 09:42</span></div>
+    <div class="overflow-x-auto"><table class="tbl">
+      <thead><tr><th>Class</th><th>Teacher</th><th class="num">Present</th><th class="num">Rate</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr class="">
+          <td><span class="font-semibold">Diploma Y1 · Sec A</span><span class="block text-xs text-ink-3">Spinning</span></td>
+          <td class="text-ink-2">Nusrat Jahan</td>
+          <td class="num">58 / 64</td>
+          <td class="num font-semibold ">90.6%</td>
+          <td><span class="tag tag-success"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="m9 12 2 2 4-4" />
+</svg>Recorded</span></td>
+        </tr>
+        <tr class="">
+          <td><span class="font-semibold">Diploma Y1 · Sec B</span><span class="block text-xs text-ink-3">Weaving</span></td>
+          <td class="text-ink-2">Arif Hossain</td>
+          <td class="num">41 / 62</td>
+          <td class="num font-semibold text-danger">66.1%</td>
+          <td><span class="tag tag-success"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="m9 12 2 2 4-4" />
+</svg>Recorded</span></td>
+        </tr>
+        <tr class="">
+          <td><span class="font-semibold">Diploma Y2 · Sec A</span><span class="block text-xs text-ink-3">Wet Processing</span></td>
+          <td class="text-ink-2">Tahmina Akter</td>
+          <td class="num">— / 61</td>
+          <td class="num font-semibold ">—</td>
+          <td><span class="tag tag-danger"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <line x1="12" x2="12" y1="8" y2="12" />
+  <line x1="12" x2="12.01" y1="16" y2="16" />
+</svg>Not recorded</span></td>
+        </tr>
+        <tr class="">
+          <td><span class="font-semibold">Diploma Y2 · Sec B</span><span class="block text-xs text-ink-3">Apparel Manufacturing</span></td>
+          <td class="text-ink-2">Kamrul Hasan</td>
+          <td class="num">37 / 60</td>
+          <td class="num font-semibold text-danger">61.7%</td>
+          <td><span class="tag tag-success"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="m9 12 2 2 4-4" />
+</svg>Recorded</span></td>
+        </tr>
+        <tr class="">
+          <td><span class="font-semibold">Diploma Y3 · Sec A</span><span class="block text-xs text-ink-3">Fabric Manufacturing</span></td>
+          <td class="text-ink-2">Sharmin Sultana</td>
+          <td class="num">— / 58</td>
+          <td class="num font-semibold ">—</td>
+          <td><span class="tag tag-info"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+  <path d="M21 3v5h-5" />
+  <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+  <path d="M8 16H3v5" />
+</svg>Pending sync</span></td>
+        </tr>
+        <tr class="">
+          <td><span class="font-semibold">Diploma Y4 · Sec A</span><span class="block text-xs text-ink-3">Textile Machine Design</span></td>
+          <td class="text-ink-2">Rezaul Karim</td>
+          <td class="num">49 / 55</td>
+          <td class="num font-semibold ">89.1%</td>
+          <td><span class="tag tag-success"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="m9 12 2 2 4-4" />
+</svg>Recorded</span></td>
+        </tr>
+      </tbody>
+    </table></div>
+  </section>
+</div>
+
+<div class="grid gap-6 xl:grid-cols-12">
+  <section class="card xl:col-span-7 min-w-0" aria-labelledby="sr-h">
+    <div class="flex flex-wrap items-center justify-between gap-2 px-5 py-4 border-b border-line"><h2 id="sr-h" class="text-base font-sans font-semibold">Pending student service requests</h2><button type="button" class="link text-sm" data-toast="Service requests — designed in the full build (P3e)">All 14 requests</button></div>
+    <div class="overflow-x-auto"><table class="tbl">
+      <thead><tr><th>Request</th><th>Service</th><th>Student</th><th>Status</th><th class="num">Age / SLA</th></tr></thead>
+      <tbody>
+        <tr><td class="font-mono text-xs whitespace-nowrap">SR-2026-01482</td><td class="font-medium">Testimonial</td><td class="text-ink-2">Rafiul Alam</td><td><span class="tag tag-info"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+  <path d="m21.854 2.147-10.94 10.939" />
+</svg>Submitted</span></td><td class="num whitespace-nowrap text-ink-3">1d / 3d</td></tr>
+        <tr><td class="font-mono text-xs whitespace-nowrap">SR-2026-01467</td><td class="font-medium">Course Drop</td><td class="text-ink-2">Mim Akter</td><td><span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg>Under review</span></td><td class="num whitespace-nowrap text-danger font-semibold">4d / 3d <svg class="w-3.5 h-3.5 inline" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg></td></tr>
+        <tr><td class="font-mono text-xs whitespace-nowrap">SR-2026-01455</td><td class="font-medium">Certificate &amp; Transcript</td><td class="text-ink-2">Sajid Rahman</td><td><span class="tag tag-danger"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <line x1="12" x2="12" y1="8" y2="12" />
+  <line x1="12" x2="12.01" y1="16" y2="16" />
+</svg>Correction required</span></td><td class="num whitespace-nowrap text-danger font-semibold">6d / 5d <svg class="w-3.5 h-3.5 inline" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg></td></tr>
+        <tr><td class="font-mono text-xs whitespace-nowrap">SR-2026-01431</td><td class="font-medium">Waiver</td><td class="text-ink-2">Lamia Chowdhury</td><td><span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg>Under review</span></td><td class="num whitespace-nowrap text-danger font-semibold">5d / 3d <svg class="w-3.5 h-3.5 inline" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg></td></tr>
+        <tr><td class="font-mono text-xs whitespace-nowrap">SR-2026-01420</td><td class="font-medium">Admit Card</td><td class="text-ink-2">Tanvir Ahmed</td><td><span class="tag tag-success"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="m9 12 2 2 4-4" />
+</svg>Approved</span></td><td class="num whitespace-nowrap text-ink-3">2d / 2d</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card xl:col-span-5 min-w-0" aria-labelledby="fin-h">
+    <div class="flex flex-wrap items-center justify-between gap-2 px-5 py-4 border-b border-line"><h2 id="fin-h" class="text-base font-sans font-semibold">Budget · FY 2026–27</h2><span class="demo-tag" title="Figures are illustrative until verified by the Ministry (PRD Q-29)"><svg class="w-3 h-3" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="M12 16v-4" />
+  <path d="M12 8h.01" />
+</svg>Demo / Illustrative Data</span></div>
+    <div class="p-5 flex items-center gap-6">
+      <div class="relative flex-none"><svg viewBox="0 0 112 112" width="112" height="112" aria-hidden="true"><circle cx="56.0" cy="56.0" r="50.0" fill="none" stroke="var(--surface-2)" stroke-width="12"/><circle cx="56.0" cy="56.0" r="50.0" fill="none" stroke="var(--chart-1)" stroke-width="12" stroke-linecap="round" stroke-dasharray="201.06 314.16" transform="rotate(-90 56.0 56.0)"/></svg><span class="absolute inset-0 flex flex-col items-center justify-center"><span class="text-xl font-bold tnum">64%</span><span class="text-[11px] text-ink-3">used</span></span></div>
+      <dl class="flex-1 grid gap-3 text-sm">
+        <div class="flex justify-between gap-3"><dt class="text-ink-3">Allocated by Head Office</dt><dd class="font-semibold tnum">৳ 4.20 Cr</dd></div>
+        <div class="flex justify-between gap-3"><dt class="text-ink-3">Used</dt><dd class="font-semibold tnum">৳ 2.69 Cr</dd></div>
+        <div class="flex justify-between gap-3"><dt class="text-ink-3">Remaining</dt><dd class="font-semibold tnum">৳ 1.51 Cr</dd></div>
+        <div class="text-xs text-ink-3">2 allocation revisions · history kept</div>
+      </dl>
+    </div>
+  </section>
+</div>
+
+<div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+  <section class="card min-w-0" aria-labelledby="res-h">
+    <div class="flex flex-wrap items-center justify-between gap-2 px-5 py-4 border-b border-line"><h2 id="res-h" class="text-base font-sans font-semibold">Results publication</h2></div>
+    <ul class="divide-y divide-line"><li class="px-5 py-3 flex items-center justify-between gap-3"><span><span class="font-medium">Semester 1</span><span class="block text-xs text-ink-3">28 Jul 2026</span></span><span class="tag tag-success"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="m9 12 2 2 4-4" />
+</svg>Published</span></li><li class="px-5 py-3 flex items-center justify-between gap-3"><span><span class="font-medium">Semester 3</span><span class="block text-xs text-ink-3">Submitted 08 Oct</span></span><span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg>Under review</span></li><li class="px-5 py-3 flex items-center justify-between gap-3"><span><span class="font-medium">Semester 5</span><span class="block text-xs text-ink-3">Due 20 Oct</span></span><span class="tag tag-danger"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <line x1="12" x2="12" y1="8" y2="12" />
+  <line x1="12" x2="12.01" y1="16" y2="16" />
+</svg>Draft · 2 courses missing marks</span></li><li class="px-5 py-3 flex items-center justify-between gap-3"><span><span class="font-medium">Semester 7</span><span class="block text-xs text-ink-3">30 Jul 2026</span></span><span class="tag tag-success"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="m9 12 2 2 4-4" />
+</svg>Published</span></li></ul>
+  </section>
+  <section class="card min-w-0" aria-labelledby="as-h">
+    <div class="flex flex-wrap items-center justify-between gap-2 px-5 py-4 border-b border-line"><h2 id="as-h" class="text-base font-sans font-semibold">Assets by status</h2><span class="text-xs text-ink-3 tnum">1,556 items</span></div>
+    <ul class="p-5 space-y-3"><li class="grid grid-cols-[120px_1fr_56px] items-center gap-3 text-sm"><span class="tag tag-info"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+  <path d="m21.854 2.147-10.94 10.939" />
+</svg>In use</span><span class="h-2 bg-surface-2 rounded-full overflow-hidden"><span class="block h-full rounded-full" style="width: 100.0%; background: var(--info)"></span></span><span class="text-right font-semibold tnum">1,204</span></li><li class="grid grid-cols-[120px_1fr_56px] items-center gap-3 text-sm"><span class="tag tag-success"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="m9 12 2 2 4-4" />
+</svg>Available</span><span class="h-2 bg-surface-2 rounded-full overflow-hidden"><span class="block h-full rounded-full" style="width: 26.0%; background: var(--success)"></span></span><span class="text-right font-semibold tnum">318</span></li><li class="grid grid-cols-[120px_1fr_56px] items-center gap-3 text-sm"><span class="tag tag-neutral"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10.1 2.182a10 10 0 0 1 3.8 0" />
+  <path d="M13.9 21.818a10 10 0 0 1-3.8 0" />
+  <path d="M17.609 3.721a10 10 0 0 1 2.69 2.7" />
+  <path d="M2.182 13.9a10 10 0 0 1 0-3.8" />
+  <path d="M20.279 17.609a10 10 0 0 1-2.7 2.69" />
+  <path d="M21.818 10.1a10 10 0 0 1 0 3.8" />
+  <path d="M3.721 6.391a10 10 0 0 1 2.7-2.69" />
+  <path d="M6.391 20.279a10 10 0 0 1-2.69-2.7" />
+</svg>Unavailable</span><span class="h-2 bg-surface-2 rounded-full overflow-hidden"><span class="block h-full rounded-full" style="width: 2%; background: var(--neutral)"></span></span><span class="text-right font-semibold tnum">22</span></li><li class="grid grid-cols-[120px_1fr_56px] items-center gap-3 text-sm"><span class="tag tag-warning"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg>Damaged</span><span class="h-2 bg-surface-2 rounded-full overflow-hidden"><span class="block h-full rounded-full" style="width: 2%; background: var(--warning)"></span></span><span class="text-right font-semibold tnum">9</span></li><li class="grid grid-cols-[120px_1fr_56px] items-center gap-3 text-sm"><span class="tag tag-danger"><svg class="w-3.5 h-3.5" focusable="false" aria-hidden="true"
+ 
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <line x1="12" x2="12" y1="8" y2="12" />
+  <line x1="12" x2="12.01" y1="16" y2="16" />
+</svg>Lost</span><span class="h-2 bg-surface-2 rounded-full overflow-hidden"><span class="block h-full rounded-full" style="width: 2%; background: var(--danger)"></span></span><span class="text-right font-semibold tnum">3</span></li></ul>
+  </section>
+  <section class="card min-w-0 md:col-span-2 xl:col-span-1" aria-labelledby="act-h">
+    <div class="flex flex-wrap items-center justify-between gap-2 px-5 py-4 border-b border-line"><h2 id="act-h" class="text-base font-sans font-semibold">Recent activity</h2><button type="button" class="link text-sm" data-toast="Full activity log (PRD §4.11)">View log</button></div>
+    <ol class="px-5 py-3 space-y-3"><li class="flex gap-3 text-sm"><span class="mt-1.5 w-2 h-2 rounded-full bg-primary flex-none"></span><span><span class="block text-xs text-ink-3 ">Today 09:41</span><strong>Arif Hossain</strong> recorded attendance — Diploma Y1 · Sec B (41/62)</span></li><li class="flex gap-3 text-sm"><span class="mt-1.5 w-2 h-2 rounded-full bg-primary flex-none"></span><span><span class="block text-xs text-ink-3 ">Today 09:12</span><strong>Md. Saiful Islam</strong> approved Admit Card request SR-2026-01420</span></li><li class="flex gap-3 text-sm"><span class="mt-1.5 w-2 h-2 rounded-full bg-primary flex-none"></span><span><span class="block text-xs text-ink-3 ">Yesterday 16:05</span><strong>Md. Saiful Islam</strong> recorded expense ৳ 1,25,000 — lab consumables (evidence attached)</span></li><li class="flex gap-3 text-sm"><span class="mt-1.5 w-2 h-2 rounded-full bg-primary flex-none"></span><span><span class="block text-xs text-ink-3 ">Yesterday 11:30</span><strong>Md. Saiful Islam</strong> reported asset damaged — Ring frame RF-112 · reason: motor burnt</span></li><li class="flex gap-3 text-sm"><span class="mt-1.5 w-2 h-2 rounded-full bg-primary flex-none"></span><span><span class="block text-xs text-ink-3 ">12 Oct 2026</span><strong>Head Office</strong> allocated additional budget ৳ 20,00,000 (revision #2)</span></li></ol>
+  </section>
+</div>
+    </main>
+    <footer class="px-4 lg:px-6 py-4 text-xs text-ink-3 border-t border-line flex flex-wrap gap-x-6 gap-y-1">
+      <span>Prototype v0.1 · PRD v1</span><span>All figures: Demo / Illustrative Data</span><span>Boundaries: geoBoundaries gbOpen BGD ADM1/ADM2 (CC BY 4.0)</span>
+    </footer>
+  </div>
+</div>
+<nav class="var-nav-bar" aria-label="Design variation review">
+<a href="A-03-institution-360.html" aria-current="page" title="Variation A">A</a><a href="B-03-institution-360.html" title="Variation B">B</a><a href="C-03-institution-360.html" title="Variation C">C</a>  <span class="sep" aria-hidden="true"></span>
+<a href="A-01-landing.html" title="Public Home">01</a><a href="A-02-ministry-dashboard.html" title="Ministry Dashboard">02</a><a href="A-03-institution-360.html" aria-current="page" title="Institution 360°">03</a>  <span class="sep" aria-hidden="true"></span>
+  <a href="showcase-ALL.html" title="Close — back to showcase" aria-label="Close, back to showcase">✕</a>
+</nav>
+</body>
+</html>

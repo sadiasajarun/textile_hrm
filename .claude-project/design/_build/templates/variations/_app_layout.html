@@ -1,0 +1,23 @@
+{% import '_macros.html' as m %}
+{% set dash = v ~ '-02-ministry-dashboard.html' %}
+{% set inst = v ~ '-03-institution-360.html' %}
+<!DOCTYPE html>
+<html lang="en" data-theme="{{ v }}">
+<head>{{ m.head(page_title, asset) }}</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="mx-auto flex min-h-screen bg-bg" style="max-width:1440px">
+  {{ m.app_sidebar(v, active, dash, inst) }}
+  <div class="flex-1 min-w-0 flex flex-col">
+    {{ m.app_topbar(v, d) }}
+    <main id="main" class="flex-1 px-4 lg:px-6 {{ 'py-5' if v == 'C' else 'py-7' }} {{ 'space-y-4' if v == 'C' else 'space-y-6' }}">
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="px-4 lg:px-6 py-4 text-xs text-ink-3 border-t border-line flex flex-wrap gap-x-6 gap-y-1">
+      <span>{{ d.platform.version }}</span><span>All figures: Demo / Illustrative Data</span><span>{{ map_attr }}</span>
+    </footer>
+  </div>
+</div>
+{{ m.var_nav(v, page_num, page_slug, pages) }}
+</body>
+</html>

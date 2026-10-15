@@ -1,0 +1,278 @@
+{% import '_macros.html' as m %}
+{% set home = v ~ '-01-landing.html' %}
+{% set dash = v ~ '-02-ministry-dashboard.html' %}
+{% set counts = {} %}{% for dv in d.divisions %}{% set _ = counts.update({dv.id: dv.institutions}) %}{% endfor %}
+{% set inst_vals = {} %}{% for dv in d.divisions %}{% set _ = inst_vals.update({dv.id: dv.institutions ~ ' inst.'}) %}{% endfor %}
+{% set density = {} %}{% for dv in d.divisions %}{% set _ = density.update({dv.id: 'r-brand' if dv.institutions >= 8 else 'r-brand-soft'}) %}{% endfor %}
+{% set W = 'mx-auto max-w-[1440px] px-4 lg:px-8' %}
+<!DOCTYPE html>
+<html lang="en" data-theme="{{ v }}">
+<head>{{ m.head('Home', asset) }}</head>
+<body>
+<div class="mx-auto max-w-[1440px] bg-bg min-h-screen" style="max-width:1440px">
+{{ m.public_header(v, d, home, dash) }}
+
+<main id="main">
+  {# ------------------------------------------------ HERO #}
+  {% if v == 'A' %}
+  <section class="{{ W }} pt-14 pb-16 grid gap-12 lg:grid-cols-12 items-center">
+    <div class="lg:col-span-7">
+      <p class="eyebrow" data-bn="{{ d.platform.ministry_bn }}">{{ d.platform.ministry }}</p>
+      <h1 class="mt-4 text-4xl sm:text-5xl leading-[1.12] max-w-[18ch]" data-bn="এক ডিজিটাল প্ল্যাটফর্মে বাংলাদেশের সকল টেক্সটাইল শিক্ষাপ্রতিষ্ঠান">Connecting Bangladesh's Textile Institutions Through One Digital Platform</h1>
+      <p class="mt-5 text-lg text-ink-2 max-w-[58ch]">Centralized institution management, academic services, real-time monitoring, reporting, and professional verification for the Ministry of Textiles and Jute.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <button type="button" class="btn btn-primary" data-toast="Institution Directory — designed in the full build (P3e)">{{ icon('building-2','w-4 h-4') }}<span data-bn="প্রতিষ্ঠান খুঁজুন">Explore Institutions</span></button>
+        <button type="button" class="btn btn-secondary" data-toast="Public Dashboard — designed in the full build (P3e)"><span data-bn="পাবলিক ড্যাশবোর্ড দেখুন">View Public Dashboard</span>{{ icon('arrow-right','w-4 h-4') }}</button>
+      </div>
+      <dl class="mt-10 grid grid-cols-3 max-w-lg border-t border-line pt-5 text-sm">
+        <div><dt class="text-ink-3">Institutions</dt><dd class="text-2xl font-semibold tnum">59</dd></div>
+        <div><dt class="text-ink-3">Divisions</dt><dd class="text-2xl font-semibold tnum">8</dd></div>
+        <div><dt class="text-ink-3">Districts</dt><dd class="text-2xl font-semibold tnum">64</dd></div>
+      </dl>
+      <p class="mt-3">{{ m.demo() }}</p>
+    </div>
+    <figure class="lg:col-span-5 border border-line p-6">
+      <div class="max-w-[360px] mx-auto">{{ bd_map(fills=density, nodes=counts, title='Textile institutions across the 8 divisions of Bangladesh') }}</div>
+      <figcaption class="mt-4 text-sm text-ink-3 flex items-center gap-2">{{ icon('network','w-4 h-4') }}Ministry → Division → District → Institution, connected in one platform</figcaption>
+    </figure>
+  </section>
+  {% elif v == 'B' %}
+  <section class="{{ W }} pt-16 pb-10 text-center">
+    <p class="eyebrow" data-bn="{{ d.platform.ministry_bn }}">{{ d.platform.ministry }}</p>
+    <h1 class="mt-5 text-4xl sm:text-[3.25rem] leading-[1.1] max-w-[22ch] mx-auto" data-bn="এক ডিজিটাল প্ল্যাটফর্মে বাংলাদেশের সকল টেক্সটাইল শিক্ষাপ্রতিষ্ঠান">Connecting Bangladesh's Textile Institutions Through One Digital Platform</h1>
+    <p class="mt-6 text-lg text-ink-2 max-w-[60ch] mx-auto">Centralized institution management, academic services, real-time monitoring, reporting, and professional verification for the Ministry of Textiles and Jute.</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <button type="button" class="btn btn-primary" data-toast="Institution Directory — designed in the full build (P3e)">{{ icon('building-2','w-4 h-4') }}<span data-bn="প্রতিষ্ঠান খুঁজুন">Explore Institutions</span></button>
+      <button type="button" class="btn btn-secondary" data-toast="Public Dashboard — designed in the full build (P3e)"><span data-bn="পাবলিক ড্যাশবোর্ড দেখুন">View Public Dashboard</span>{{ icon('arrow-right','w-4 h-4') }}</button>
+    </div>
+  </section>
+  <section class="{{ W }} pb-16">
+    <div class="card overflow-hidden grid lg:grid-cols-12">
+      <div class="lg:col-span-7 p-8 bg-surface-2 flex items-center justify-center"><div class="w-full max-w-[380px]">{{ bd_map(fills=density, nodes=counts, title='Textile institutions across the 8 divisions of Bangladesh') }}</div></div>
+      <div class="lg:col-span-5 p-8 lg:p-10 text-left flex flex-col justify-center">
+        <p class="eyebrow">How information flows</p>
+        <h2 class="mt-3 text-2xl">From institution data to Ministry decisions</h2>
+        <ol class="mt-6 space-y-5">
+          {% for t, s, ic in [('Institution','Records students, classes, attendance, finance and assets once.','school'),('District','Sees every institution in its district side by side.','map-pin'),('Division','Compares districts and follows up on exceptions.','layers'),('Ministry','Monitors the whole country and decides from live data.','landmark')] %}
+          <li class="flex gap-4"><span class="icon-tile">{{ icon(ic) }}</span><div><p class="font-semibold">{{ t }}</p><p class="text-sm text-ink-2">{{ s }}</p></div></li>
+          {% endfor %}
+        </ol>
+        <p class="mt-6">{{ m.demo() }}</p>
+      </div>
+    </div>
+  </section>
+  {% else %}
+  <section class="{{ W }} pt-12 pb-14 grid gap-10 lg:grid-cols-12 items-center">
+    <div class="lg:col-span-6">
+      <span class="inline-flex items-center gap-2 text-xs font-semibold text-primary bg-primary-tint px-2.5 py-1 rounded-ui">{{ icon('radio-tower','w-3.5 h-3.5') }}<span data-bn="{{ d.platform.ministry_bn }}">{{ d.platform.ministry }}</span></span>
+      <h1 class="mt-4 text-4xl sm:text-5xl leading-[1.08] max-w-[18ch]" data-bn="এক ডিজিটাল প্ল্যাটফর্মে বাংলাদেশের সকল টেক্সটাইল শিক্ষাপ্রতিষ্ঠান">Connecting Bangladesh's Textile Institutions Through One Digital Platform</h1>
+      <p class="mt-5 text-base text-ink-2 max-w-[56ch]">Centralized institution management, academic services, real-time monitoring, reporting, and professional verification for the Ministry of Textiles and Jute.</p>
+      <div class="mt-7 flex flex-wrap gap-2">
+        <button type="button" class="btn btn-primary btn-lg" data-toast="Institution Directory — designed in the full build (P3e)">{{ icon('building-2','w-4 h-4') }}<span data-bn="প্রতিষ্ঠান খুঁজুন">Explore Institutions</span></button>
+        <button type="button" class="btn btn-secondary btn-lg" data-toast="Public Dashboard — designed in the full build (P3e)">{{ icon('chart-column','w-4 h-4') }}<span data-bn="পাবলিক ড্যাশবোর্ড দেখুন">View Public Dashboard</span></button>
+      </div>
+    </div>
+    <div class="lg:col-span-6 card">
+      <div class="flex items-center justify-between px-4 h-11 border-b border-line">
+        <p class="text-sm font-semibold flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:var(--live)"></span>National network status</p>
+        {{ m.demo() }}
+      </div>
+      <div class="grid sm:grid-cols-5">
+        <div class="sm:col-span-3 p-4 border-b sm:border-b-0 sm:border-r border-line"><div class="max-w-[300px] mx-auto">{{ bd_map(fills=density, values=inst_vals, label_mode='value', title='Institutions per division') }}</div></div>
+        <div class="sm:col-span-2 p-0">
+          <table class="tbl"><thead><tr><th>Division</th><th class="num">Inst.</th><th class="num">Students</th></tr></thead><tbody>
+          {% for dv in d.divisions|sort(attribute='institutions', reverse=true) %}<tr><td>{{ dv.name }}</td><td class="num">{{ dv.institutions }}</td><td class="num">{{ '{:,}'.format(dv.students) }}</td></tr>{% endfor %}
+          </tbody></table>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {# ------------------------------------------------ AT A GLANCE #}
+  {% set glance = [('Textile Engineering Colleges','টেক্সটাইল ইঞ্জিনিয়ারিং কলেজ','8','building-2'),('Textile Institutes','টেক্সটাইল ইনস্টিটিউট','10','school'),('Textile Vocational Institutes','টেক্সটাইল ভোকেশনাল ইনস্টিটিউট','41','wrench'),('Students','শিক্ষার্থী','38,420','graduation-cap'),('Teachers','শিক্ষক','2,146','users'),('Active Institutions','সক্রিয় প্রতিষ্ঠান','59','circle-check')] %}
+  <section class="{{ 'bg-surface-2 border-y border-line' if v == 'A' else '' }}" aria-labelledby="glance-h">
+    <div class="{{ W }} {{ 'py-12' if v != 'C' else 'pb-12' }}">
+      <div class="flex flex-wrap items-end justify-between gap-3 mb-6">
+        <div><p class="eyebrow">At a glance</p><h2 id="glance-h" class="mt-2 text-2xl sm:text-3xl" data-bn="এক নজরে টেক্সটাইল শিক্ষা">Textile Education at a Glance</h2></div>
+        {{ m.demo() }}
+      </div>
+      {% if v == 'A' %}
+      <dl class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 border-l border-line">
+        {% for en, bn, val, ic in glance %}<div class="px-5 py-2 border-r border-line"><dd class="text-[2.25rem] font-semibold tnum leading-tight">{{ val }}</dd><dt class="mt-1 text-sm text-ink-2" data-bn="{{ bn }}">{{ en }}</dt></div>{% endfor %}
+      </dl>
+      {% elif v == 'B' %}
+      <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
+        {% for en, bn, val, ic in glance %}<div class="card card-pad text-center"><span class="icon-tile mx-auto">{{ icon(ic) }}</span><p class="kpi-value mt-3">{{ val }}</p><p class="mt-1 text-sm text-ink-2" data-bn="{{ bn }}">{{ en }}</p></div>{% endfor %}
+      </div>
+      {% else %}
+      <div class="card grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 divide-x divide-line">
+        {% for en, bn, val, ic in glance %}<div class="p-4 {{ 'border-t md:border-t-0 border-line' if loop.index > 2 else '' }}"><p class="flex items-center gap-2 text-xs text-ink-3">{{ icon(ic,'w-3.5 h-3.5') }}<span data-bn="{{ bn }}">{{ en }}</span></p><p class="kpi-value mt-2">{{ val }}</p></div>{% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </section>
+
+  {% if v == 'B' %}<div class="diamond-divider py-2" aria-hidden="true">◆ ◆ ◆</div>{% endif %}
+
+  {# ------------------------------------------------ WHY #}
+  {% set before = ['Different institutional records','Manual consolidation','Delayed reporting','Limited cross-institution visibility','Repeated data entry'] %}
+  {% set after = ['One source of truth','Live monitoring','Standardized workflow','Faster decisions','Greater accountability'] %}
+  <section class="{{ W }} py-16" aria-labelledby="why-h">
+    <p class="eyebrow">Why the platform exists</p>
+    <h2 id="why-h" class="mt-2 text-2xl sm:text-3xl max-w-[30ch]">From fragmented records to one connected platform</h2>
+    {% if v == 'A' %}
+    <div class="mt-10 grid gap-8 md:grid-cols-[1fr_auto_1fr] items-start">
+      <div><h3 class="text-lg text-ink-2">Before</h3><ul class="mt-4 divide-y divide-line border-y border-line">{% for b in before %}<li class="py-3 flex gap-3 text-ink-2">{{ icon('minus','w-5 h-5 text-ink-3') }}{{ b }}</li>{% endfor %}</ul></div>
+      <div class="hidden md:flex flex-col items-center pt-10 text-primary">{{ icon('arrow-right','w-8 h-8') }}<span class="mt-2 text-sm font-semibold">Centralized<br>Platform</span></div>
+      <div><h3 class="text-lg">With the platform</h3><ul class="mt-4 divide-y divide-line border-y border-line">{% for a in after %}<li class="py-3 flex gap-3 font-medium">{{ icon('circle-check','w-5 h-5 text-primary') }}{{ a }}</li>{% endfor %}</ul></div>
+    </div>
+    {% elif v == 'B' %}
+    <div class="mt-10 grid gap-6 lg:grid-cols-[1fr_auto_1fr] items-center">
+      <div class="card card-pad"><h3 class="text-xl text-ink-2">Before</h3><ul class="mt-4 space-y-3">{% for b in before %}<li class="flex gap-3 text-ink-2">{{ icon('circle-dashed','w-5 h-5 text-ink-3') }}{{ b }}</li>{% endfor %}</ul></div>
+      <div class="flex lg:flex-col items-center justify-center gap-3"><span class="w-28 h-28 rounded-full bg-primary text-on-primary flex flex-col items-center justify-center text-center shadow-lg">{{ m.brand_mark('w-8 h-8') }}<span class="mt-1 text-xs font-semibold leading-tight">One<br>Platform</span></span></div>
+      <div class="card card-pad border-primary"><h3 class="text-xl text-primary">After</h3><ul class="mt-4 space-y-3">{% for a in after %}<li class="flex gap-3 font-medium">{{ icon('circle-check','w-5 h-5 text-success') }}{{ a }}</li>{% endfor %}</ul></div>
+    </div>
+    {% else %}
+    <div class="mt-8 card overflow-x-auto"><table class="tbl"><thead><tr><th>Area</th><th>Before</th><th>With the platform</th></tr></thead><tbody>
+      {% for area in ['Records','Consolidation','Reporting','Visibility','Data entry'] %}<tr><td class="font-semibold">{{ area }}</td><td class="text-ink-2"><span class="inline-flex items-center gap-2">{{ icon('x','w-4 h-4 text-danger') }}{{ before[loop.index0] }}</span></td><td><span class="inline-flex items-center gap-2 font-medium">{{ icon('circle-check','w-4 h-4 text-success') }}{{ after[loop.index0] }}</span></td></tr>{% endfor %}
+    </tbody></table></div>
+    {% endif %}
+  </section>
+
+  {# ------------------------------------------------ INSTITUTION NETWORK #}
+  {% set sel = 'chattogram' %}
+  <section class="{{ 'bg-surface-2 border-y border-line' if v == 'A' else '' }}" aria-labelledby="net-h">
+    <div class="{{ W }} py-16">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div><p class="eyebrow">Institution network</p><h2 id="net-h" class="mt-2 text-2xl sm:text-3xl">Find an institution near you</h2></div>
+        <div class="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
+          {% for c in ['All categories','Engineering Colleges','Textile Institutes','Vocational Institutes'] %}<button type="button" class="scope-chip {{ 'bg-primary-tint !border-primary text-primary font-semibold' if loop.first else '' }}" aria-pressed="{{ 'true' if loop.first else 'false' }}" data-toast="Filter: {{ c }}">{{ c }}</button>{% endfor %}
+        </div>
+      </div>
+      <div class="mt-8 grid gap-6 lg:grid-cols-12">
+        <div class="lg:col-span-5 {{ 'card card-pad' if v != 'A' else 'bg-surface border border-line p-6' }}">
+          {% set links = {} %}{% for dv in d.divisions %}{% set _ = links.update({dv.id: home ~ '#net-h'}) %}{% endfor %}
+          <div class="max-w-[340px] mx-auto">{{ bd_map(fills=density, nodes=counts, selected=sel, links=links, title='Select a division') }}</div>
+          <p class="mt-3 text-xs text-ink-3 flex items-center gap-2">{{ icon('mouse-pointer-click','w-4 h-4') }}Select a division to see its institutions · {{ m.demo() }}</p>
+        </div>
+        <div class="lg:col-span-7 {{ 'card' if v != 'A' else 'bg-surface border border-line' }}">
+          <div class="px-5 py-4 border-b border-line flex flex-wrap items-center justify-between gap-2"><h3 class="text-lg">Chattogram Division</h3><span class="text-sm text-ink-3">9 institutions · 11 districts</span></div>
+          <ul class="divide-y divide-line">
+            {% for i in d.institutions if i.division == 'chattogram' %}
+            <li class="px-5 py-4 flex flex-wrap items-center gap-4">
+              <span class="icon-tile">{{ icon('school') }}</span>
+              <div class="flex-1 min-w-[200px]"><p class="font-semibold">{{ i.name }}</p><p class="text-sm text-ink-3">{{ i.type }} · {{ i.district }}, Chattogram</p><p class="mt-1 text-xs text-ink-2">{{ i.programs|join(' · ') }}</p></div>
+              <button type="button" class="link inline-flex items-center gap-1 text-sm" data-toast="Public institution profile — designed in the full build (P3e)">View profile {{ icon('arrow-right','w-4 h-4') }}</button>
+            </li>
+            {% endfor %}
+            <li class="px-5 py-3 text-sm"><button type="button" class="link" data-toast="Institution Directory — designed in the full build (P3e)">See all 9 institutions in Chattogram →</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# ------------------------------------------------ SERVICES #}
+  <section class="{{ W }} py-16" aria-labelledby="svc-h">
+    <p class="eyebrow">Public services</p>
+    <h2 id="svc-h" class="mt-2 text-2xl sm:text-3xl" data-bn="সেবাসমূহ">Services for students, institutions and professionals</h2>
+    {% set groups = [] %}{% for gname in ['Students & Applicants','Institutions','Professionals & Organizations','Everyone'] %}{% set _ = groups.append({'grouper': gname, 'list': d.services|selectattr('group','equalto',gname)|list}) %}{% endfor %}
+    {% if v == 'A' %}
+    <div class="mt-10 grid gap-x-12 gap-y-10 md:grid-cols-2">
+      {% for g in groups %}<div><h3 class="eyebrow !text-ink-2">{{ g.grouper }}</h3><ul class="mt-3 border-t border-line">
+        {% for s in g.list %}<li class="border-b border-line"><button type="button" class="w-full text-left py-4 flex items-start gap-4 group" data-toast="{{ s.name }} — designed in the full build (P3e)">{{ icon(s.icon,'w-5 h-5 text-primary mt-0.5') }}<span class="flex-1"><span class="font-semibold group-hover:underline">{{ s.name }}</span>{% if s.phase2 %} <span class="tag tag-info ml-1">Phase 2</span>{% endif %}<span class="block text-sm text-ink-2 mt-0.5">{{ s.desc }}</span></span>{{ icon('chevron-right','w-5 h-5 text-ink-3 mt-0.5') }}</button></li>{% endfor %}
+      </ul></div>{% endfor %}
+    </div>
+    {% elif v == 'B' %}
+    {% for g in groups %}<h3 class="mt-10 text-lg">{{ g.grouper }}</h3>
+    <div class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      {% for s in g.list %}<button type="button" class="card card-link card-pad text-left flex flex-col gap-3" data-toast="{{ s.name }} — designed in the full build (P3e)"><span class="icon-tile">{{ icon(s.icon) }}</span><span class="font-semibold text-[1.0625rem]">{{ s.name }}</span><span class="text-sm text-ink-2">{{ s.desc }}</span>{% if s.phase2 %}<span class="tag tag-info self-start">{{ icon('sparkles','w-3.5 h-3.5') }}Phase 2</span>{% endif %}<span class="link text-sm mt-auto">Open service →</span></button>{% endfor %}
+    </div>{% endfor %}
+    {% else %}
+    <div class="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      {% for s in d.services %}<button type="button" class="card card-link p-4 text-left flex gap-3" data-toast="{{ s.name }} — designed in the full build (P3e)"><span class="icon-tile">{{ icon(s.icon,'w-4 h-4') }}</span><span class="min-w-0"><span class="flex items-center gap-2 font-semibold text-sm">{{ s.name }}</span><span class="block text-xs text-ink-3 mt-0.5">{{ s.group }}</span><span class="block text-[.8125rem] text-ink-2 mt-1.5">{{ s.desc }}</span>{% if s.phase2 %}<span class="tag tag-info mt-2">Phase 2</span>{% endif %}</span></button>{% endfor %}
+    </div>
+    {% endif %}
+  </section>
+
+  {# ------------------------------------------------ PUBLIC DASHBOARD TEASER #}
+  {% set maxs = d.divisions|map(attribute='students')|max %}
+  <section class="{{ 'bg-surface-2 border-y border-line' if v == 'A' else '' }}" aria-labelledby="pd-h">
+    <div class="{{ W }} py-16">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div><p class="eyebrow">Public dashboard</p><h2 id="pd-h" class="mt-2 text-2xl sm:text-3xl">The public gets transparency; the Ministry gets operational intelligence.</h2></div>
+        <button type="button" class="btn btn-secondary" data-toast="Public Dashboard — designed in the full build (P3e)">Open public dashboard {{ icon('arrow-right','w-4 h-4') }}</button>
+      </div>
+      <div class="mt-8 grid gap-6 lg:grid-cols-3">
+        <div class="{{ 'card card-pad' if v != 'A' else 'bg-surface border border-line p-6' }}">
+          <div class="flex items-center justify-between"><h3 class="font-semibold font-sans text-base">Institutions by category</h3>{{ m.demo() }}</div>
+          <ul class="mt-5 space-y-4">{% for c in d.categories %}<li><div class="flex justify-between text-sm"><span>{{ c.name }}</span><span class="font-semibold tnum">{{ c.count }}</span></div><div class="mt-1.5 h-2.5 bg-surface-2 rounded-full overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: {{ (c.count / 41 * 100)|round }}%"></div></div></li>{% endfor %}</ul>
+        </div>
+        <div class="{{ 'card card-pad' if v != 'A' else 'bg-surface border border-line p-6' }}">
+          <div class="flex items-center justify-between"><h3 class="font-semibold font-sans text-base">Students by division</h3>{{ m.demo() }}</div>
+          <ul class="mt-5 space-y-2.5">{% for dv in d.divisions|sort(attribute='students', reverse=true) %}<li class="grid grid-cols-[88px_1fr_56px] items-center gap-2 text-sm"><span class="text-ink-2">{{ dv.name }}</span><span class="h-2 bg-surface-2 rounded-full overflow-hidden"><span class="block h-full bg-[var(--chart-1)] rounded-full" style="width: {{ (dv.students / maxs * 100)|round }}%"></span></span><span class="text-right tnum font-medium">{{ '{:,}'.format(dv.students) }}</span></li>{% endfor %}</ul>
+        </div>
+        <div class="{{ 'card card-pad' if v != 'A' else 'bg-surface border border-line p-6' }}">
+          <div class="flex items-center justify-between"><h3 class="font-semibold font-sans text-base">Programs</h3>{{ m.demo() }}</div>
+          {% set pc = ['var(--chart-1)','var(--chart-2)','var(--chart-3)','var(--neutral)'] %}
+          <div class="mt-5 flex items-center gap-6">{{ donut([{'value':44,'color':pc[0]},{'value':21,'color':pc[1]},{'value':27,'color':pc[2]},{'value':8,'color':pc[3]}], 132, 22, 'Program distribution') }}
+            <ul class="space-y-2 text-sm">{% for p in d.programs %}<li class="flex items-center gap-2"><span class="legend-dot" style="background: {{ pc[loop.index0] }}"></span><span class="flex-1">{{ p.name }}</span><span class="font-semibold tnum">{{ p.share }}%</span></li>{% endfor %}</ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# ------------------------------------------------ ADMISSIONS + NOTICES #}
+  <section class="{{ W }} py-16 grid gap-10 lg:grid-cols-12" aria-label="Admissions and notices">
+    <div class="lg:col-span-5">
+      <p class="eyebrow">Admissions</p>
+      <h2 class="mt-2 text-2xl sm:text-3xl">Admission 2026–27</h2>
+      <p class="mt-2 text-ink-2">Entrance test results are being processed. Check the schedule and track your application.</p>
+      <ol class="mt-6 {{ 'card card-pad' if v != 'A' else 'border border-line p-6' }} space-y-4">
+        {% for s in d.admission_dates %}
+        <li class="flex items-center gap-4 {{ 'step-done' if s.state == 'done' else ('step-current' if s.state == 'current' else '') }}"><span class="step-dot">{% if s.state == 'done' %}{{ icon('check','w-4 h-4') }}{% else %}{{ loop.index }}{% endif %}</span><span class="flex-1"><span class="block font-medium">{{ s.label }}</span><span class="text-sm text-ink-3">{{ s.date }}</span></span>{% if s.state == 'current' %}{{ m.stag('Next', 'warning') }}{% endif %}</li>
+        {% endfor %}
+      </ol>
+      <div class="mt-5 flex flex-wrap gap-3"><button type="button" class="btn btn-primary" data-toast="Admission information — designed in the full build (P3e)">Admission information</button><button type="button" class="btn btn-secondary" data-toast="Track application — designed in the full build (P3e)">{{ icon('route','w-4 h-4') }}Track application</button></div>
+    </div>
+    <div class="lg:col-span-7">
+      <div class="flex items-end justify-between gap-3"><div><p class="eyebrow">Notices &amp; circulars</p><h2 class="mt-2 text-2xl sm:text-3xl" data-bn="সর্বশেষ নোটিশ">Latest notices</h2></div><button type="button" class="link text-sm" data-toast="Notices — designed in the full build (P3e)">All notices →</button></div>
+      {% if v == 'C' %}
+      <div class="mt-6 card overflow-x-auto"><table class="tbl"><thead><tr><th>Date</th><th>Notice</th><th>Category</th><th>File</th></tr></thead><tbody>
+        {% for n in d.notices %}<tr><td class="whitespace-nowrap tnum text-ink-3">{{ n.date }}</td><td><button type="button" class="font-semibold text-left hover:underline" data-toast="Notice detail — designed in the full build (P3e)">{{ n.title }}</button><span class="block text-xs text-ink-3">{{ n.authority }}</span></td><td>{{ m.tag(n.category, 'neutral', 'tag') }}</td><td class="whitespace-nowrap text-xs text-ink-3">{{ icon('paperclip','w-3.5 h-3.5 inline') }} {{ n.file }}</td></tr>{% endfor %}
+      </tbody></table></div>
+      {% else %}
+      <ul class="mt-6 {{ 'grid gap-4 sm:grid-cols-2' if v == 'B' else 'border-t border-line' }}">
+        {% for n in d.notices %}
+        <li class="{{ 'card card-pad' if v == 'B' else 'border-b border-line py-5' }}">
+          <p class="text-sm text-ink-3 flex flex-wrap items-center gap-3"><span class="tnum">{{ n.date }}</span>{{ m.tag(n.category, 'neutral', 'tag') }}</p>
+          <button type="button" class="mt-2 text-left font-semibold text-[1.0625rem] hover:underline" data-toast="Notice detail — designed in the full build (P3e)">{{ n.title }}</button>
+          <p class="mt-2 text-sm text-ink-2 flex flex-wrap gap-x-4">{{ n.authority }} <span class="inline-flex items-center gap-1">{{ icon('paperclip','w-4 h-4') }}{{ n.file }}</span></p>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </section>
+
+  {# ------------------------------------------------ HELP #}
+  <section id="help" class="{{ 'bg-surface-2 border-t border-line' if v == 'A' else '' }}" aria-labelledby="help-h">
+    <div class="{{ W }} py-16">
+      <p class="eyebrow">Help &amp; support</p>
+      <h2 id="help-h" class="mt-2 text-2xl sm:text-3xl" data-bn="সহায়তা কেন্দ্র">Help is built into the platform</h2>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {% for t, s, ic in [('Frequently asked questions','Answers on login, applications, results and verification.','circle-help'),('User guides','Step-by-step guides for every role, in Bangla and English.','book-open'),('Video tutorials','Short videos for applicants, students, teachers and admins.','circle-play'),('Contact the help desk','Phone, email and office hours of the support team.','life-buoy')] %}
+        <button type="button" class="{{ 'card card-link card-pad' if v != 'A' else 'bg-surface border border-line p-6 hover:border-ink-3' }} text-left flex flex-col gap-3" data-toast="{{ t }} — Help Center designed in the full build (P3e)"><span class="icon-tile">{{ icon(ic) }}</span><span class="font-semibold">{{ t }}</span><span class="text-sm text-ink-2">{{ s }}</span></button>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</main>
+
+{{ m.public_footer(v, d) }}
+</div>
+{{ m.var_nav(v, page_num, page_slug, pages) }}
+</body>
+</html>

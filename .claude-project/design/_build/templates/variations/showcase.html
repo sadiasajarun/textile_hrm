@@ -1,0 +1,63 @@
+{% import '_macros.html' as m %}
+{% set meta = {
+  'A': {'swatches': ['#FFFFFF','#F5F7F6','#0E1C17','#006A4E','#F42A41'], 'fonts': 'Public Sans · Noto Sans Bengali', 'traits': ['Pure white canvas, hairline borders, no shadows','4px corners, editorial typography','Status: dot + label','Light sidebar, green left marker','Most "official"; closest to GOV.UK-style public services']},
+  'B': {'swatches': ['#FAF6EE','#0F3D30','#0E5A43','#B4432F','#B98A2A'], 'fonts': 'Fraunces + DM Sans · Noto Serif/Sans Bengali', 'traits': ['Warm cream canvas, soft warm shadows','16px corners, pill buttons','Status: pastel pills with icons','Deep green woven sidebar, gold marker','Most "national identity"; textile heritage motif']},
+  'C': {'swatches': ['#EDF1F5','#0B1B2B','#00744F','#2BC48A','#C8281C'], 'fonts': 'IBM Plex Sans · Noto Sans Bengali', 'traits': ['Cool slate canvas, crisp bordered panels','8px corners, compact density','Status: solid badges','Navy sidebar, emerald active bar','Most "command center"; data-dense, exceptions in red']}
+} %}
+<!DOCTYPE html>
+<html lang="en" data-theme="A">
+<head>{{ m.head('Design variations — showcase', asset) }}</head>
+<body class="bg-surface-2">
+<header class="bg-surface border-b border-line">
+  <div class="mx-auto max-w-[1440px] px-6 py-6 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-4">{{ m.flag('w-12 h-[29px]') }}<div><p class="eyebrow">Textile Institution Management System · P3 design review</p><h1 class="text-2xl sm:text-3xl">Choose a design direction</h1></div></div>
+    <p class="text-sm text-ink-2 max-w-md">Three complete directions for the same three screens. Open any screen to explore it at full size; the floating bar on each screen switches A / B / C and pages.</p>
+  </div>
+</header>
+
+<main class="mx-auto max-w-[1440px] px-6 py-8 space-y-10">
+  <section class="grid gap-6 lg:grid-cols-3" aria-label="Variations">
+    {% for key, var in variations.items() %}
+    <article class="bg-surface border border-line rounded-[10px] overflow-hidden flex flex-col">
+      <div class="p-5 border-b border-line">
+        <div class="flex items-center justify-between gap-3"><h2 class="text-xl"><span class="inline-flex items-center justify-center w-8 h-8 mr-2 rounded-md bg-ink text-white text-base align-middle">{{ key }}</span>{{ var.name }}</h2></div>
+        <p class="mt-1 text-sm text-ink-3">Reference: {{ var.ref }}</p>
+        <div class="mt-4 flex gap-1.5" aria-label="Palette">{% for s in meta[key].swatches %}<span class="w-9 h-9 rounded-md border border-line" style="background: {{ s }}" title="{{ s }}"></span>{% endfor %}</div>
+        <p class="mt-3 text-sm"><span class="text-ink-3">Type:</span> {{ meta[key].fonts }}</p>
+        <ul class="mt-3 space-y-1.5 text-sm text-ink-2">{% for t in meta[key].traits %}<li class="flex gap-2">{{ icon('check','w-4 h-4 text-primary mt-0.5 flex-none') }}{{ t }}</li>{% endfor %}</ul>
+      </div>
+      <ul class="p-4 grid gap-4">
+        {% for num, slug, title in pages %}
+        <li>
+          <a href="{{ key }}-{{ num }}-{{ slug }}.html" class="group block">
+            <span class="block aspect-[16/10] overflow-hidden rounded-md border border-line bg-surface-2"><img src="shots/{{ key }}-{{ num }}.jpg" alt="Variation {{ key }} — {{ title }} preview" loading="lazy" class="w-full h-auto group-hover:opacity-90"></span>
+            <span class="mt-2 flex items-center justify-between text-sm"><span class="font-semibold group-hover:underline">{{ num }} · {{ title }}</span><span class="text-primary inline-flex items-center gap-1">Open {{ icon('arrow-up-right','w-4 h-4') }}</span></span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </article>
+    {% endfor %}
+  </section>
+
+  <section class="bg-surface border border-line rounded-[10px] p-6" aria-labelledby="diff-h">
+    <h2 id="diff-h" class="text-xl">How the three directions differ</h2>
+    <div class="mt-4 overflow-x-auto"><table class="tbl">
+      <thead><tr><th>Item</th><th>A — Civic Clarity</th><th>B — Heritage Weave</th><th>C — Command Center</th></tr></thead>
+      <tbody>
+        {% for row in [('Background','Pure white','Warm cream','Cool slate tint'),('Shadow','None','Soft, warm','Crisp, small'),('Borders','Hairline','Warm tone','Solid 1px'),('Corners','4px','16px + pills','8px'),('Typography','Public Sans 600','Fraunces serif + DM Sans','IBM Plex Sans 700, compact'),('Status style','Dot + label','Pastel pill','Solid badge'),('Sidebar','Light grey','Deep green, woven','Navy ink')] %}
+        <tr><td class="font-semibold">{{ row[0] }}</td><td>{{ row[1] }}</td><td>{{ row[2] }}</td><td>{{ row[3] }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table></div>
+    <p class="mt-3 text-sm text-ink-3">All three keep light content backgrounds, national green and red accents, Bangla + English, WCAG AA contrast and the same information architecture from PRD v1. Differentiation check: 7 of 7 items differ.</p>
+  </section>
+
+  <section class="bg-surface border-2 border-primary rounded-[10px] p-6" aria-labelledby="pick-h">
+    <h2 id="pick-h" class="text-xl">Your decision</h2>
+    <p class="mt-2 text-ink-2">Reply with <strong>A</strong>, <strong>B</strong>, <strong>C</strong>, or a <strong>Mix</strong> (for example: "B's colours and typography with C's dashboard density"). The chosen direction is then applied to all 108 pages in role folders.</p>
+    <p class="mt-3 text-sm text-ink-3">All figures are Demo / Illustrative Data. Institution and person names are fictional; division and district boundaries are real ({{ map_attr }}).</p>
+  </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,195 @@
+{# Shared component macros. Variation-specific styling comes from [data-theme] tokens in app.css. #}
+
+{% macro head(title, asset) -%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }} · Textile Institution Management System</title>
+<link rel="stylesheet" href="{{ asset }}tims.css">
+<script src="{{ asset }}tims.js" defer></script>
+{%- endmacro %}
+
+{% macro var_nav(v, num, slug, pages) -%}
+<nav class="var-nav-bar" aria-label="Design variation review">
+  {% for vv in ['A','B','C'] %}<a href="{{ vv }}-{{ num }}-{{ slug }}.html"{% if vv == v %} aria-current="page"{% endif %} title="Variation {{ vv }}">{{ vv }}</a>{% endfor %}
+  <span class="sep" aria-hidden="true"></span>
+  {% for n, s, t in pages %}<a href="{{ v }}-{{ n }}-{{ s }}.html"{% if n == num %} aria-current="page"{% endif %} title="{{ t }}">{{ n }}</a>{% endfor %}
+  <span class="sep" aria-hidden="true"></span>
+  <a href="showcase-ALL.html" title="Close — back to showcase" aria-label="Close, back to showcase">✕</a>
+</nav>
+{%- endmacro %}
+
+{% macro tag(text, kind='neutral', ic='circle') -%}
+<span class="tag tag-{{ kind }}">{{ icon(ic, 'w-3.5 h-3.5') }}{{ text }}</span>
+{%- endmacro %}
+
+{% macro status_icon(kind) -%}
+{{ {'success':'circle-check','warning':'clock','danger':'circle-alert','info':'send','neutral':'circle-dashed'}[kind] }}
+{%- endmacro %}
+
+{% macro stag(text, kind) -%}{{ tag(text, kind, status_icon(kind)|trim) }}{%- endmacro %}
+
+{% macro demo() -%}<span class="demo-tag" title="Figures are illustrative until verified by the Ministry (PRD Q-29)">{{ icon('info', 'w-3 h-3') }}Demo / Illustrative Data</span>{%- endmacro %}
+
+{% macro tbd(q) -%}<span class="tbd-tag" title="Requires client confirmation — PRD {{ q }}">TBD · {{ q }}</span>{%- endmacro %}
+
+{% macro flag(cls='w-10 h-6') -%}
+<svg viewBox="0 0 10 6" class="{{ cls }} flex-none rounded-[2px]" role="img" aria-label="Flag of Bangladesh"><rect width="10" height="6" fill="#006A4E"/><circle cx="4.5" cy="3" r="2" fill="#F42A41"/></svg>
+{%- endmacro %}
+
+{% macro brand_mark(cls='w-9 h-9') -%}
+<svg viewBox="0 0 36 36" class="{{ cls }} flex-none" aria-hidden="true"><rect width="36" height="36" rx="8" fill="var(--primary)"/><g stroke="var(--on-primary)" stroke-width="3" stroke-linecap="round" opacity=".95"><path d="M9 12h18M9 18h18M9 24h18"/></g><g stroke="var(--gold)" stroke-width="3" stroke-linecap="round"><path d="M13 9v5M13 16v4M13 22v5M23 9v2M23 13v8M23 23v4"/></g></svg>
+{%- endmacro %}
+
+{% macro lang_toggle(dark=false) -%}
+<div class="inline-flex items-center gap-1 text-sm font-semibold" role="group" aria-label="Language">
+  <button type="button" data-lang="bn" class="px-2 py-1 rounded {{ 'hover:bg-white/10' if dark else 'hover:bg-surface-2' }}">বাংলা</button>
+  <span aria-hidden="true" class="opacity-50">|</span>
+  <button type="button" data-lang="en" class="px-2 py-1 rounded {{ 'hover:bg-white/10' if dark else 'hover:bg-surface-2' }}">English</button>
+</div>
+{%- endmacro %}
+
+{% macro size_toggle(dark=false) -%}
+<div class="hidden sm:inline-flex items-center gap-1 text-sm" role="group" aria-label="Text size">
+  <button type="button" data-size="sm" class="px-1.5 py-1 rounded font-semibold" aria-label="Smaller text">A−</button>
+  <button type="button" data-size="md" class="px-1.5 py-1 rounded font-semibold" aria-label="Default text size">A</button>
+  <button type="button" data-size="lg" class="px-1.5 py-1 rounded font-semibold" aria-label="Larger text">A+</button>
+</div>
+{%- endmacro %}
+
+{# ------------------------------------------------------------------ public header #}
+{% macro public_header(v, d, home, login) -%}
+{% set nav = [('Home','হোম'),('About','পরিচিতি'),('Institutions','প্রতিষ্ঠানসমূহ'),('Public Dashboard','পাবলিক ড্যাশবোর্ড'),('Admissions','ভর্তি'),('Services','সেবাসমূহ'),('Notices','নোটিশ'),('Results / Verification','ফলাফল / যাচাই'),('Resources','রিসোর্স'),('Help & Support','সহায়তা')] %}
+<a class="skip-link" href="#main">Skip to main content</a>
+{% if v == 'C' %}
+<div class="bg-[#0B1B2B] text-[#C7D2DE]">
+  <div class="mx-auto max-w-[1440px] px-4 lg:px-8 h-10 flex items-center justify-between gap-4 text-xs">
+    <div class="flex items-center gap-2 min-w-0">{{ flag('w-6 h-[14px]') }}<span class="truncate" data-bn="{{ d.platform.gov_bn }} · {{ d.platform.ministry_bn }}">{{ d.platform.gov }} · {{ d.platform.ministry }}</span></div>
+    <div class="flex items-center gap-3">{{ size_toggle(true) }}{{ lang_toggle(true) }}</div>
+  </div>
+</div>
+{% else %}
+<div class="{{ 'bg-surface-2 text-ink-2' if v == 'A' else 'bg-primary text-on-primary' }}">
+  <div class="mx-auto max-w-[1440px] px-4 lg:px-8 h-9 flex items-center justify-end gap-4 text-sm">
+    <a href="#help" class="hidden md:inline hover:underline" data-bn="সহায়তা কেন্দ্র">Help desk</a>
+    {{ size_toggle(v == 'B') }}
+    {{ lang_toggle(v == 'B') }}
+  </div>
+</div>
+{% endif %}
+<header class="{{ 'bg-surface' if v != 'B' else 'bg-bg' }} {{ 'border-b border-line' if v == 'C' else '' }}">
+  <div class="mx-auto max-w-[1440px] px-4 lg:px-8 {{ 'py-4' if v != 'C' else 'py-3' }} flex items-center justify-between gap-6">
+    <a href="{{ home }}" class="flex items-center gap-3 min-w-0" aria-label="Textile Institution Management System — home">
+      {% if v == 'C' %}{{ brand_mark('w-9 h-9') }}{% else %}{{ flag('w-11 h-[26px]') if v == 'A' else '' }}{% endif %}
+      {% if v == 'B' %}<span class="inline-flex items-center justify-center w-12 h-12 rounded-full border border-gold bg-surface">{{ flag('w-7 h-[17px]') }}</span>{% endif %}
+      <span class="min-w-0">
+        {% if v != 'C' %}<span class="block eyebrow" data-bn="{{ d.platform.gov_bn }}">{{ d.platform.gov }}</span>{% endif %}
+        <span class="block font-head text-[1.0625rem] sm:text-lg leading-tight text-ink truncate" data-bn="{{ d.platform.name_bn }}">{{ d.platform.name }}</span>
+        <span class="block text-sm text-ink-3 truncate" data-bn="{{ d.platform.ministry_bn }}">{{ d.platform.ministry }}</span>
+      </span>
+    </a>
+    <div class="flex items-center gap-2">
+      {% if v == 'C' %}<button type="button" class="search-field hidden lg:flex w-64" data-toast="Search across institutions, notices and services (full build)">{{ icon('search','w-4 h-4') }}<span class="flex-1 text-left">Search the portal</span><span class="kbd">/</span></button>{% endif %}
+      <a href="{{ login }}" class="btn btn-primary {{ 'btn-sm' if v == 'C' else '' }}">{{ icon('log-in','w-4 h-4') }}<span data-bn="লগইন">Login</span></a>
+    </div>
+  </div>
+  {% if v == 'A' %}<div class="flag-stripe"></div>{% endif %}
+  <nav aria-label="Main" class="{{ 'border-b border-line' if v == 'A' else ('bg-bg' if v == 'B' else 'bg-surface border-b border-line') }}">
+    <ul class="mx-auto max-w-[1440px] px-2 lg:px-6 flex gap-1 overflow-x-auto text-[.9375rem] {{ 'text-sm' if v == 'C' else '' }}">
+      {% for en, bn in nav %}
+      <li>{% if loop.first %}<a href="{{ home }}" aria-current="page" class="inline-flex items-center h-12 px-3 font-semibold text-ink whitespace-nowrap {{ 'border-b-2 border-primary' if v != 'B' else 'text-primary' }}" data-bn="{{ bn }}">{{ en }}</a>
+      {% else %}<button type="button" class="inline-flex items-center h-12 px-3 text-ink-2 hover:text-ink whitespace-nowrap" data-toast="{{ en }} — page designed in the full build (P3e)" data-bn="{{ bn }}">{{ en }}</button>{% endif %}</li>
+      {% endfor %}
+    </ul>
+  </nav>
+  {% if v == 'B' %}<div class="weave-band" aria-hidden="true"></div>{% endif %}
+</header>
+{%- endmacro %}
+
+{# ------------------------------------------------------------------ public footer #}
+{% macro public_footer(v, d) -%}
+<footer class="{{ 'bg-[#0B1B2B] text-[#C7D2DE]' if v == 'C' else ('bg-primary text-on-primary' if v == 'B' else 'bg-surface-2 text-ink-2 border-t border-line') }}">
+  {% if v == 'B' %}<div class="weave-band" aria-hidden="true"></div>{% endif %}
+  <div class="mx-auto max-w-[1440px] px-4 lg:px-8 py-12 grid gap-10 md:grid-cols-12">
+    <div class="md:col-span-4">
+      <div class="flex items-center gap-3">{{ flag('w-10 h-6') }}<div><p class="font-semibold" data-bn="{{ d.platform.ministry_bn }}">{{ d.platform.ministry }}</p><p class="text-sm opacity-80" data-bn="{{ d.platform.department_bn }}">{{ d.platform.department }}</p></div></div>
+      <p class="mt-4 text-sm opacity-80 max-w-sm">One connected platform for textile institutions, Ministry monitoring and professional verification.</p>
+    </div>
+    {% for title, links in [('Important links', ['Ministry of Textiles and Jute','Department of Textiles','Bangladesh National Portal']), ('Platform', ['About','Public Dashboard','Notices','Resources']), ('Support', ['Help Desk','Contact','Privacy','Terms','Accessibility'])] %}
+    <div class="{{ 'md:col-span-3' if loop.index == 1 else 'md:col-span-2' }}">
+      <p class="font-semibold mb-3">{{ title }}</p>
+      <ul class="space-y-2 text-sm opacity-90">{% for l in links %}<li><button type="button" class="hover:underline text-left" data-toast="{{ l }} — linked in the full build (P3e)">{{ l }}</button></li>{% endfor %}</ul>
+    </div>
+    {% endfor %}
+    <div class="md:col-span-1"></div>
+  </div>
+  <div class="border-t {{ 'border-white/10' if v != 'A' else 'border-line' }}">
+    <div class="mx-auto max-w-[1440px] px-4 lg:px-8 py-4 flex flex-wrap gap-x-6 gap-y-1 text-xs opacity-80">
+      <span>© 2026 {{ d.platform.ministry }}</span><span>{{ d.platform.version }} · Last updated {{ d.platform.updated }}</span><span>{{ map_attr }}</span><span>Icons: Lucide (ISC)</span>
+    </div>
+  </div>
+</footer>
+{%- endmacro %}
+
+{# ------------------------------------------------------------------ app shell #}
+{% macro app_sidebar(v, active, dash, inst) -%}
+{% set groups = [
+  ('Overview', [('Dashboard','ড্যাশবোর্ড','layout-dashboard','dash',None),('Hierarchy','প্রশাসনিক স্তর','network','inst',None),('Alerts','সতর্কতা','siren',None,'12'),('Live Attendance','লাইভ উপস্থিতি','radio-tower',None,None)]),
+  ('Operations', [('Admissions','ভর্তি','clipboard-list',None,None),('Budget & Assets','বাজেট ও সম্পদ','wallet',None,None),('Reports','প্রতিবেদন','chart-column',None,None)]),
+  ('Phase 2', [('Licenses','লাইসেন্স','id-card',None,'18')]),
+  ('Administration', [('Setup','সেটআপ','settings-2',None,None),('Users & Roles','ব্যবহারকারী ও ভূমিকা','user-round-cog',None,None),('Integrations','ইন্টিগ্রেশন','plug-zap',None,None)])
+] %}
+<aside id="app-sidebar" data-open="false" class="sidebar hidden lg:flex data-[open=true]:flex data-[open=true]:fixed data-[open=true]:inset-y-0 data-[open=true]:left-0 data-[open=true]:z-50 flex-col w-[264px] {{ 'lg:w-[248px]' if v == 'C' else '' }} flex-none min-h-screen">
+  <div class="flex items-center gap-3 px-5 h-16 {{ 'border-b border-line' if v == 'A' else '' }}">
+    {{ flag('w-8 h-[19px]') }}
+    <div class="min-w-0 leading-tight"><p class="text-[.8125rem] font-semibold {{ 'text-ink' if v == 'A' else 'text-white' }} truncate">Textile Institution MS</p><p class="text-xs truncate" style="color:var(--sidebar-muted)">Ministry of Textiles and Jute</p></div>
+  </div>
+  <nav class="flex-1 overflow-y-auto px-3 pb-6" aria-label="Ministry workspace">
+    {% for g, items in groups %}
+    <p class="nav-group">{{ g }}</p>
+    <ul class="space-y-0.5">
+      {% for en, bn, ic, target, count in items %}
+      <li>
+        {% if target %}<a class="nav-item" href="{{ dash if target == 'dash' else inst }}"{% if active == target %} aria-current="page"{% endif %}>{{ icon(ic) }}<span data-bn="{{ bn }}">{{ en }}</span>{% if count %}<span class="nav-count">{{ count }}</span>{% endif %}</a>
+        {% else %}<button type="button" class="nav-item w-full text-left" data-toast="{{ en }} — designed in the full build (P3e)">{{ icon(ic) }}<span data-bn="{{ bn }}">{{ en }}</span>{% if count %}<span class="nav-count">{{ count }}</span>{% endif %}</button>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+  </nav>
+  <div class="px-5 py-4 text-xs" style="color:var(--sidebar-muted); border-top:1px solid var(--sidebar-border)">Scope: <strong style="color:var(--sidebar-active-ink)">All Bangladesh</strong></div>
+</aside>
+{%- endmacro %}
+
+{% macro app_topbar(v, d) -%}
+<header class="topbar sticky top-0 z-30">
+  <div class="h-16 {{ 'h-14' if v == 'C' else '' }} px-4 lg:px-6 flex items-center gap-3">
+    <button type="button" class="btn btn-ghost btn-icon lg:hidden" data-nav-toggle aria-controls="app-sidebar" aria-expanded="false" aria-label="Open navigation">{{ icon('menu') }}</button>
+    <button type="button" class="search-field sm:flex-1 max-w-[520px]" aria-label="Search" data-toast="Global search: institutions, students, teachers, assets, applications, certificates, licenses, reports (PRD §3 M22)">{{ icon('search','w-4 h-4 flex-none') }}<span class="hidden sm:inline flex-1 text-left truncate" data-bn="প্রতিষ্ঠান, শিক্ষার্থী, আবেদন খুঁজুন">Search institutions, students, applications…</span>{% if v == 'C' %}<span class="kbd hidden sm:inline">⌘K</span>{% endif %}</button>
+    <div class="ml-auto flex items-center gap-1 sm:gap-2">
+      {% if v == 'C' %}<span class="hidden xl:inline-flex items-center gap-2 text-xs text-ink-3 mr-2"><span class="w-2 h-2 rounded-full" style="background:var(--live)"></span>Live · updated 09:42</span>{% endif %}
+      <div class="hidden md:block">{{ lang_toggle() }}</div>
+      <button type="button" class="btn btn-ghost btn-icon relative" aria-label="Notifications, 8 unread" data-toast="Notification panel: 8 unread (PRD §3 M22)">{{ icon('bell') }}<span class="absolute top-1.5 right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-danger text-white text-[10px] font-bold leading-[18px]">8</span></button>
+      <button type="button" class="flex items-center gap-2 pl-1 pr-2 h-10 rounded-ui hover:bg-surface-2" data-toast="Profile menu: my profile, workspace switcher, sign out">
+        <span class="w-8 h-8 rounded-full bg-primary text-on-primary text-xs font-bold inline-flex items-center justify-center {{ 'ring-2 ring-gold ring-offset-2 ring-offset-bg' if v == 'B' else '' }}">{{ d.user.initials }}</span>
+        <span class="hidden sm:block text-left leading-tight"><span class="block text-sm font-semibold">{{ d.user.name }}</span><span class="block text-xs text-ink-3">{{ d.user.role }}</span></span>
+        {{ icon('chevron-down','hidden sm:block w-4 h-4 text-ink-3') }}
+      </button>
+    </div>
+  </div>
+</header>
+{%- endmacro %}
+
+{% macro kpi_card(k, v, href) -%}
+<a href="{{ href }}" class="card card-link card-pad flex flex-col gap-2 min-w-0" {% if k.sub %}title="{{ k.label }}: {{ k.value }} — {{ k.sub }}"{% endif %}>
+  <div class="flex items-start justify-between gap-2">
+    <span class="flex items-center gap-2 text-sm font-medium text-ink-2 min-w-0">{% if v != 'A' %}<span class="icon-tile">{{ icon(k.icon, 'w-4 h-4' if v == 'C' else 'w-5 h-5') }}</span>{% endif %}<span class="leading-snug" data-bn="{{ k.bn }}">{{ k.label }}</span></span>
+    {% if k.live %}<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-ink-3 flex-none"><span class="w-1.5 h-1.5 rounded-full bg-success"></span>Live</span>{% endif %}
+  </div>
+  <div class="kpi-value tnum">{{ k.value }}</div>
+  {% if k.spark %}<div class="-mx-0.5">{{ sparkline(k.spark, 160, 26, ('var(--danger)' if k.trend == 'down' else 'var(--chart-1)') if v != 'A' else 'var(--ink-3)', v != 'A', true) }}</div>{% endif %}
+  <div class="mt-auto flex items-center gap-1.5 min-w-0 whitespace-nowrap">
+    {% if k.delta %}<span class="delta delta-{{ 'up' if k.trend == 'up' else 'down' }}">{{ icon('trending-up' if k.trend == 'up' else 'trending-down') }}{{ k.delta }}</span>{% if k.note %}<span class="text-xs text-ink-3 truncate">{{ k.note }}</span>{% endif %}
+    {% elif k.sub %}<span class="text-xs text-ink-3 leading-snug whitespace-normal">{{ k.sub }}</span>{% endif %}
+  </div>
+</a>
+{%- endmacro %}
