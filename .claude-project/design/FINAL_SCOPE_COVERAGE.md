@@ -69,24 +69,24 @@ All routes are files in `prototype/`. A route written `x.html#tab` is a tab on t
 |---|---|---|---|---|---|
 | Teacher records | Principal | `inst-teachers.html` | Add teacher | Duplicate NID/email | Built |
 | Student records; auto-assignment from admission; manual change | Principal | `inst-students.html` | Admitted list → confirm; change assignment | Seat full | Built |
-| Classes; assign teacher; assign students | Principal | `inst-classes.html` | Create class, assign | Teacher already at capacity | Built |
+| Classes; assign teacher; assign students | Principal / Teacher | `inst-classes.html`, `teacher-classes.html` (Assign students on the teacher's own classes) | Create class, assign | Teacher already at capacity; whether the Principal approves a teacher's change **TBD** | Built / TBD |
 | Class content/materials | Teacher | `teacher-classes.html` | Upload material | File type/size error | Built |
 | Live attendance (teacher-controlled student capture; teacher attendance) | Teacher / Principal | `teacher-attendance.html`, `inst-attendance.html` | Take → submit → correction | Late, missing, correction request | Built (Flow B) |
 | Result entry, validation, calculation, publish, history/correction | Teacher / Principal / Student | `teacher-results.html`, `inst-results.html`, `student-results.html` | Enter → submit → validate → publish → student sees | Mark > max, missing marks, correction after publish | Built (Flow C) |
 | Student portal: classes, content, attendance, results, profile | Student | `student.html`, `student-academics.html`, `student-results.html`, `student-profile.html` | — | Profile lock after certificate (TBD) | Built / TBD |
 | Ledger, grade table, advising, teaching evaluation, curriculum analysis, code of conduct, academic calendar | Student | `student-academics.html` tabs, `student-payment.html#ledger`, `student-results.html#grades` | Evaluation submit | Evaluation closed | Built |
-| 15 online services, one common request framework | Student / Principal | `student-services.html`, `student-request.html`, `inst-requests.html` | Submit → review → correction/approve/reject → completed | Returned, rejected, fee unpaid | Built (Flow D) |
+| 15 online services, one common request framework; *My requests* history (ID, service, submitted, status, last / next action) | Student / Principal | `student-services.html#requests`, `student-request.html`, `inst-requests.html` | Submit → review → correction/approve/reject → completed | Returned, rejected, fee unpaid | Built (Flow D) |
 | Online payment (fees) | Student / Candidate | `student-payment.html`, `candidate.html` | Pay → success/failed | Payment failed/pending | Built |
 | Finance: expenses, utilisation vs allocation | Principal | `inst-finance.html` | Record expense → utilisation | Duplicate expense, over budget | Built (Flow E) |
 | Assets: allocation, assign to person, holder, availability, damaged/lost + reason, history | Principal | `inst-assets.html` | Assign → transfer/return → damaged/lost → recovered | Already assigned | Built (Flow F) |
 | Procurement, PO, LC upload, Gate Pass | Principal / District / Division / Ministry | `inst-procurement.html`, `district-approvals.html`, `division-approvals.html`, `ministry-approvals.html` | Request → approval → PO → LC → receive → inventory → gate pass | Approval chain TBD | Built / TBD |
-| Library: catalogue, copies, members, issue/return, due, fine, search | Principal (librarian) / Student | `inst-library.html`, `student-academics.html#library` | Issue → return → fine | Unavailable, overdue, lost | Built |
+| Library: catalogue, copies, members, issue/return, due, fine, search | Principal (librarian) / Student / Teacher (staff) | `inst-library.html`, `student-academics.html#library`, `teacher-classes.html#library` (feature set labelled *Proposed — for client sign-off*) | Issue → return → fine | Unavailable, overdue, lost | Built |
 | Leave: CL/SL/EL + configurable; apply, approve/reject, balance | Teacher / Principal | `teacher-leave.html`, `inst-leave.html` | Apply → review → balance | Insufficient, overlap, withdrawn | Built (Flow H) |
 | Broader staff HRM (service history, promotion) | — | Not built | — | — | TBD (SOW §6, out of confirmed scope) |
 | Role-based menu access within the institution | Principal | `inst-access.html` | Toggle menus per role | — | Built |
 | Certification after graduation | Graduate / Principal | `student-certificate.html`, `inst-certificates.html` | Apply → review → issue | Not eligible, duplicate, data mismatch | Built (Flow I) |
 | MY GOV API integration | System | `ministry-integrations.html`, verification step in `student-certificate.html` | Boundary only | API unavailable, timeout, mismatch | TBD (use case unconfirmed) |
-| Alumni: mark after final result; alumni-only menu; job/LinkedIn | Principal / Alumni | `inst-certificates.html#alumni`, `alumni.html` | Mark alumni → alumni login | — | Built (Flow I) |
+| Alumni: mark after final result; alumni-only menu; job/LinkedIn | Principal / Alumni | `inst-certificates.html#alumni`, `alumni.html` | Mark alumni → alumni login | Locked until marked as alumni | Built (Flow I) |
 
 ## D. Phase 2 — Professional license verification (SOW §4, CF §3)
 
@@ -122,6 +122,13 @@ All routes are files in `prototype/`. A route written `x.html#tab` is a tab on t
 
 Cross-page flow state is kept in browser storage (`final.js`). The prototype index has a **Reset demo data** control. Detailed steps are in `FINAL_WORKFLOW_MAP.md`; edge cases in `FINAL_EDGE_CASE_MATRIX.md`; routes in `FINAL_ROUTE_MAP.md`; QA in `FINAL_QA_REPORT.md`. All ten flows pass the click-through check.
 
+## E2. Stakeholder decisions (recorded 16 Oct 2026)
+
+| # | Decision | Outcome | Effect in the prototype |
+|---|---|---|---|
+| D-1 | Where do teachers sign in? (Spec §7 / §29 vs. stakeholder review round 1, item 5) | **Decided: keep** the Student / Teacher tabs on the public Login page. This supersedes Spec §7 / §29 for the prototype; the original requirement files are not edited. | `login.html#teacher` → `teacher.html`; teacher pages show "Teacher workspace" in the menu and breadcrumb (QA-08, `570db89`) |
+| D-2 | Institution Admin and Principal: one combined role or two separate roles? (SOW §3.1, §3.3.1; CF §2.2) | **Not decided.** | Both roles are shown in `ministry-users.html` (Roles and Multi-role tabs) with "TBD — Requires Client Confirmation" (`570db89`) |
+
 ## F. Open items carried as TBD
 - Procurement / LC / PO / Gate Pass approval chain and responsible roles (SOW §6)
 - MY GOV API use case (SOW §6)
@@ -133,6 +140,10 @@ Cross-page flow state is kept in browser storage (`final.js`). The prototype ind
 - Division/District as predefined government regions (assumed: the 8 divisions and 64 districts)
 - Leave types beyond CL/SL/EL; accrual rules
 - Broader staff HRM module
-- Registration History / Pre-Registration / Course Advising Table placement
+- Registration History / Pre-Registration / Course Advising Table placement (labelled on `student-academics.html`)
+- Institution Admin vs Principal (D-2, labelled on `ministry-users.html`)
+- Dashboard widgets / KPIs per role (labelled in the Ministry *Customise* dialog)
+- Library feature set (labelled *Proposed — for client sign-off* on `inst-library.html`); staff borrowing limits
+- Whether teachers assign students directly or the Principal approves
 - Division- and district-level responsible officials (not published on official sources)
 - Production portal domains (`*.tims.gov.bd` are proposed, prototype only)

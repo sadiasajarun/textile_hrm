@@ -15,6 +15,7 @@ live_url: https://sadiasajarun.github.io/textile_hrm/   # GitHub Pages from the 
 final_build: .claude-project/design/_build/final/   # node build.mjs
 final_docs: [FINAL_SCOPE_COVERAGE.md, FINAL_ROUTE_MAP.md, FINAL_WORKFLOW_MAP.md, FINAL_EDGE_CASE_MATRIX.md, FINAL_DESIGN_SYSTEM.md, FINAL_QA_REPORT.md]
 final_qa: light — 97/97 checks, 0 dead links, 0 page errors, 0 overflow at 1440/390, Bangla spot-check pass
+e2e_qa: FINAL_E2E_QA_REPORT.md — fix round 1 (570db89, 16 Oct 2026): QA-01..QA-20 fixed, regression 163/163, D-1 kept, D-2 open (labelled TBD)
 showcase: .claude-project/design/variations/showcase-GHI.html   # earlier: showcase-ALL.html, showcase-DEF.html
 prd_version_used: v1
 ```
@@ -87,3 +88,7 @@ The client approved Variation H. The final end-to-end prototype covers Phase 1 a
 ### Stakeholder review round 1 (15 Oct 2026) — applied
 
 1. Homepage counts carry line-art illustrations. 2. "About the system" rewritten in plain language on a light shape. 3. Online services use one light tint per card. 4. Header button reads **Login**. 5. `login.html` has Student / Teacher tabs. 6. Government Portals moved into the Login page (`student-login.html` and `portals.html` retired). 7. Teacher journey reachable from Login → Teacher and listed under "Role walkthroughs" in the review index. 8. Division and District Reports open in their own portal. 9. Division and District have scoped Admissions, Budget & assets, Approvals and Reports; procurement escalates District → Division → Ministry (final), labelled TBD.
+
+### E2E QA fix round 1 (16 Oct 2026) — applied
+
+`570db89`: P2 QA-01 (CERT-2026-00512 verifiable after issue), QA-02 (crore), QA-03 (demo label in every workspace), QA-04 (My requests history); P3 QA-05 to QA-20 (state-driven waiting items, MG-2026-221, approval badges, Teacher breadcrumb, alumni lock, verifier h1, ids, touch targets, admission count, teacher library and Assign students, mobile directory, home band, TBD labels incl. D-2, urgent accent, officials wording). Regression `qa-final.mjs` 163 / 163. Open: D-2.

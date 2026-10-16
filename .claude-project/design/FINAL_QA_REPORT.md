@@ -60,12 +60,28 @@
 | 6 | Missing CSS listed in the hand-off: `.f-inline` (seat inputs), `.f-mark input` (mark entry), `.f-svc-list` (student services list), `.f-tl-row` (horizontal request timeline). | Added to `final.css`, plus `.f-checklist` and `.btn-danger` used by the licence review. |
 | 7 | Licence KPI strip reserved columns for hidden state variants (empty space at 1440 px). | Four tiles with state-driven values. |
 
+## Fix round 1 (16 Oct 2026) — E2E QA findings
+
+All findings in `FINAL_E2E_QA_REPORT.md` (QA-01 to QA-20) are fixed in `570db89`. Details per finding are in §12 of that report.
+
+| Check | Result |
+|---|---|
+| Build | **Pass** — 78 pages, 71 icons, 0 missing translations |
+| Regression `qa-final.mjs` | **Pass** — **163 / 163** (97 earlier checks + 66 new: one or more per fix, a record-count check and Bangla checks on 18 more pages) |
+| Page errors | **Pass** — none |
+| Horizontal overflow | **Pass** — all 78 pages at 1440 and 390 px; the 29 changed pages also at 1024 px, in the default and a combined flow state |
+| Screenshots | 29 changed pages × 1440 / 1024 / 390 × 2 states reviewed; no cut-off text |
+| Bangla | **Pass** — 27 pages checked with `?lang=bn`, 0 visible English spans (names and IDs excluded); the check now measures rendered boxes, so SVG map labels are counted correctly |
+| Touch targets | Language switch 44 px; hero dots, "Forgot password?" and "Mark all present" ≥ 24 px |
+
+Decision D-1 is confirmed (Student / Teacher tabs stay on the public Login). D-2 (Institution Admin vs Principal) is open and labelled TBD in Users & roles.
+
 ## Known limitations (accepted for the prototype)
 
 - Personal names, organisation names and reference numbers stay in Latin script in Bangla mode (demo data).
 - The prototype navigation bar floats over the bottom of the page. It is review tooling and is not part of the product.
 - In the licence queue, the status filter treats the Flow J row as "Under review" whatever its live state.
-- Not covered by this light QA: 1024 px, a full keyboard-only walkthrough, screen-reader testing, a touch-target audit, or a full Bangla read-through of every page.
+- Not covered: a full keyboard-only walkthrough, screen-reader testing, or a full Bangla read-through of every page. (1024 px and touch targets were checked for the pages changed in Fix round 1.)
 
 ## How to re-run
 

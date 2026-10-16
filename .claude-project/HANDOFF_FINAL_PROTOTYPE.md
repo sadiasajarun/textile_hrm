@@ -1,6 +1,6 @@
 # HANDOFF — Final prototype build (Variation H), continue on another device
 
-**Last updated:** 15 Oct 2026 · **Branch:** `main` · **Status:** complete. All **78 pages** build with full English/বাংলা coverage. The §4 work is done: Phase 2 licence pages (`pages/license.mjs`), missing CSS, light QA (`_build/final/qa/qa-final.mjs`, see `design/FINAL_QA_REPORT.md`) and the FINAL_* documents. §2–§4 below are kept as the build reference.
+**Last updated:** 16 Oct 2026 · **Branch:** `main` · **Status:** complete; E2E QA Fix round 1 applied (`570db89`: QA-01 to QA-20 fixed, regression 163 / 163, see `design/FINAL_E2E_QA_REPORT.md` §12). D-1 decided (keep Student / Teacher tabs on Login); D-2 (Institution Admin vs Principal) open and labelled TBD. All **78 pages** build with full English/বাংলা coverage. The §4 work is done: Phase 2 licence pages (`pages/license.mjs`), missing CSS, light QA (`_build/final/qa/qa-final.mjs`, see `design/FINAL_QA_REPORT.md`) and the FINAL_* documents. §2–§4 below are kept as the build reference.
 
 **Live link:** https://sadiasajarun.github.io/textile_hrm/ (opens the review index). `.github/workflows/pages.yml` runs `_build/final/pages-site.sh` on every push to `main` that changes the prototype or its assets, and force-pushes the result to the `gh-pages` branch. GitHub Pages must be set once to *Deploy from a branch → gh-pages / (root)* in the repository settings.
 

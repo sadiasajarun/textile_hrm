@@ -55,6 +55,12 @@ Edge cases use shared patterns: an **inline field error**, an **alert** (info / 
 |---|---|---|
 | Duplicate institution category name | `ministry-institutions.html#categories` | Inline error ("Textile Institute") |
 | Role conflict on multi-role assignment | `ministry-users.html` | "Conflict check" warning |
+| Certificate checked before it is issued (Flow I) | `verify.html`, `verifier.html` | CERT-2026-00512: "No record found" + prototype note; "Valid certificate" after issue |
+| Alumni account before being marked alumni | `alumni.html` | Locked empty state; form after `cert=alumni` |
+| Migration decided by the Ministry | `division-admissions.html`, `district-admissions.html` | MG-2026-221 "Approved by the Ministry"; Recommend / Forward hidden |
+| Nothing waiting at a level | `district.html`, `division.html`, `ministry.html` | Waiting banner and action item appear only at that level's turn |
+| Request list filter with no match | `student-services.html#requests` | Empty state "No requests match this filter." |
+| Organisation not registered | `verifier.html` | Empty state as the page heading (h1) with Register action |
 | Migration with no vacant seat | `ministry-admissions.html#migration` | "Unavailable" tag + reason |
 | Report with no data | `ministry-reports.html` | Empty state ("Prototype: no-data example") |
 | Attendance below the 80% threshold | `inst-attendance.html`, `principal.html`, `ministry.html` | Danger / warn alerts |
@@ -65,3 +71,5 @@ Edge cases use shared patterns: an **inline field error**, an **alert** (info / 
 ## Not modelled (rules not confirmed)
 
 These are shown only as labelled **TBD — Requires Client Confirmation** boundaries: procurement / LC / PO / gate-pass approval thresholds, MY GOV API use case, licence eligibility and validation criteria, licence validity and renewal, verification pricing model and gateway, appeal after licence rejection, profile lock after certificate issue.
+
+_Updated 16 Oct 2026 (Fix round 1, `570db89`): six cases added above; all are covered by `qa-final.mjs`._

@@ -9,10 +9,13 @@
 | **Inputs merged** | (A) Claude automated + visual E2E QA, 15 Oct 2026 · (B) Independent manual E2E QA on the live site |
 | **Date** | 16 Oct 2026 |
 | **Repository changes** | None to the prototype. This report is the only file added |
+| **Fix round 1** | 16 Oct 2026 · all P2 and P3 findings fixed in `570db89` · regression 163 / 163 PASS · see §12 |
 
 ---
 
 ## 1. Verdict
+
+> **Update after Fix round 1 (16 Oct 2026):** QA-01 to QA-20 are fixed in `570db89` and the regression suite passes 163 / 163 (§12). D-1 is confirmed (keep the Student / Teacher tabs). The only open item is **D-2**, which is labelled "TBD — Requires Client Confirmation" in the prototype until the client decides. The verdict below is the original pre-fix assessment.
 
 **CONDITIONAL PASS.** The prototype is ready for an internal walkthrough, a stakeholder prototype review and a Ministry demo rehearsal. It is **not yet ready for final UX sign-off**.
 
@@ -84,31 +87,31 @@ Source: **A** = Claude QA · **B** = independent QA · **A+B** = both.
 
 | ID | Finding | Source | Where | Evidence | Fix |
 |---|---|---|---|---|---|
-| **QA-01** | **Issued certificate cannot be verified.** After Flow I the institution page says CERT-2026-00512 is "verifiable at Results / Verification", but both verification pages return "No record found". | A | `verify.html`, `verifier.html`; claim on `inst-certificates.html` | Relation check with `cert=issued`: both lookups return `none` | Add CERT-2026-00512 to both lookup maps, valid when `cert=issued|alumni` (same pattern as licence TX-LIC-2026-000418) |
-| **QA-02** | **Budget unit mismatch.** Division and District *Budget & assets* show allocations in **lakh**; the institution Finance page, Principal dashboard and Ministry Budget show the same allocations in **crore** (Karnaphuli TI: "৳ 3.40 cr" vs "3.40 (৳ lakh)"). | A | `division-resources.html`, `district-resources.html` | Text comparison across 5 pages | Use crore (৳ … cr / কোটি) on both pages |
-| **QA-03** | **"Demo / Illustrative Data" missing in workspaces.** 32 workspace pages (Principal, Teacher, Student and Ministry setup pages) show KPIs, balances and amounts without the label (Spec §10, §29). Public pages are labelled in the footer and on the statistics (B confirms public labelling passes). | A (B: public pass) | 32 `inst-*`, `teacher*`, `student*`, Ministry setup pages | Audit: no demo label on these pages | One persistent "Demo / Illustrative Data" label in the workspace shell (top bar or page foot) |
-| **QA-04** | **No consolidated request history.** All 15 services exist and each request can be tracked. However: the dashboard's "My requests" card lists 3 requests but the rows don't open their tracking pages; *Online services* has no history list; `student-request.html` is reachable only from a "Track request" link while a Testimonial is open; and no menu item is active on that page. | B (QA-03, QA-05) confirmed; A (#9) | `student-services.html`, `student.html`, `student-request.html` | Rows in "My requests" carry no links; no request list on Online services | Add a **My requests** list on Online services (request ID, service, submitted, status, last action, next action, View). Link the dashboard rows to it. Highlight "Online services" on the tracking page. Statuses: Draft · Submitted · Under review · Correction required · Approved · Rejected · Completed. |
+| **QA-01** ✅ Fixed `570db89` | **Issued certificate cannot be verified.** After Flow I the institution page says CERT-2026-00512 is "verifiable at Results / Verification", but both verification pages return "No record found". | A | `verify.html`, `verifier.html`; claim on `inst-certificates.html` | Relation check with `cert=issued`: both lookups return `none` | Add CERT-2026-00512 to both lookup maps, valid when `cert=issued|alumni` (same pattern as licence TX-LIC-2026-000418) |
+| **QA-02** ✅ Fixed `570db89` | **Budget unit mismatch.** Division and District *Budget & assets* show allocations in **lakh**; the institution Finance page, Principal dashboard and Ministry Budget show the same allocations in **crore** (Karnaphuli TI: "৳ 3.40 cr" vs "3.40 (৳ lakh)"). | A | `division-resources.html`, `district-resources.html` | Text comparison across 5 pages | Use crore (৳ … cr / কোটি) on both pages |
+| **QA-03** ✅ Fixed `570db89` | **"Demo / Illustrative Data" missing in workspaces.** 32 workspace pages (Principal, Teacher, Student and Ministry setup pages) show KPIs, balances and amounts without the label (Spec §10, §29). Public pages are labelled in the footer and on the statistics (B confirms public labelling passes). | A (B: public pass) | 32 `inst-*`, `teacher*`, `student*`, Ministry setup pages | Audit: no demo label on these pages | One persistent "Demo / Illustrative Data" label in the workspace shell (top bar or page foot) |
+| **QA-04** ✅ Fixed `570db89` | **No consolidated request history.** All 15 services exist and each request can be tracked. However: the dashboard's "My requests" card lists 3 requests but the rows don't open their tracking pages; *Online services* has no history list; `student-request.html` is reachable only from a "Track request" link while a Testimonial is open; and no menu item is active on that page. | B (QA-03, QA-05) confirmed; A (#9) | `student-services.html`, `student.html`, `student-request.html` | Rows in "My requests" carry no links; no request list on Online services | Add a **My requests** list on Online services (request ID, service, submitted, status, last action, next action, View). Link the dashboard rows to it. Highlight "Online services" on the tracking page. Statuses: Draft · Submitted · Under review · Correction required · Approved · Rejected · Completed. |
 
 ### P3 — polish (does not block sign-off)
 
 | ID | Finding | Source | Where | Fix |
 |---|---|---|---|---|
-| QA-05 | Dashboards don't show items waiting at that level: District (procurement waiting for review), Division (waiting for recommendation), Ministry (licence application waiting). Spec §18: "What needs my action?" | A | `district.html`, `division.html`, `ministry.html` | Add the item to each action list, shown by flow state |
-| QA-06 | A Ministry migration decision isn't reflected downwards: Division and District still show MG-2026-221 as "Pending" with Recommend / Forward buttons. | A | `division-admissions.html`, `district-admissions.html` | Drive that row from the `mig` state |
-| QA-07 | "Approvals 3" menu badge, but the default list shows 2 rows (the procurement row appears only when the flow reaches that level). | A | Division / District menus | Make the badge follow the state, or show 2 |
-| QA-08 | Teacher pages: the menu says "Teacher workspace", the breadcrumb says "Institution Portal". Depends on D-1. | A | 5 `teacher*` pages | Align to the D-1 decision |
-| QA-09 | **Alumni state before marking.** The alumni workspace is functional: alumni-only menu; employer, position, LinkedIn (URL validated) and directory opt-in; Save with confirmation; certificates card. But before the Principal marks the graduate as alumni (Flow I), the same editable form is already shown, with only an info note. The "restricted until marked" rule isn't demonstrated. | B (QA-02, partly confirmed) | `alumni.html` | Before `cert=alumni`, show a locked "Alumni access opens after the Principal marks you as alumni" state; show the form after |
-| QA-10 | No visible page heading (h1) when no organisation is registered. | A | `verifier.html` (default) | Make the empty-state title an h1 |
-| QA-11 | Duplicate id `ledger` (section and table). | A | `student-payment.html` | Rename the table id |
-| QA-12 | Touch targets: language switch 26 px on public pages and 30 px on portal sign-ins (Spec §25: 44 px for important targets); hero slide dots 12 px; "Forgot password?" and "Mark all present" 23 px (under WCAG 2.2's 24 px). | A | Public header, `index`, `login`, `candidate-login`, `teacher-attendance` | Enlarge hit areas with padding |
-| QA-13 | Flow A: the admitted student appears under "New admissions 2026–27" on the institution's student list, but the tab shows no count, so it is easy to miss. | A | `inst-students.html` | Show a count when `cand=admitted` |
-| QA-14 | Partly covered requirements: (a) teachers ("staff") have no library catalogue view (CF §2.9); (b) SOW §3.3.3 "Teachers can assign classes to students": only the Principal assigns students. B rated class management Pass; A rates it partial. | A | Teacher workspace | Add a library link for teachers. Add "Assign students" to the teacher's own classes, or confirm with the client that it is Principal-only. |
-| QA-15 | Mobile: the public institution directory is a 4-column table that scrolls sideways inside its frame at 390 px (Spec §25: public pages must be strong on mobile). | A | `institutions.html` | Card rows under 720 px |
-| QA-16 | "৳ 22.30 lakh" KPI wraps onto two lines at 1440 px (changes with QA-02). | A | `division-resources.html` | Shorter format or smaller currency KPI |
-| QA-17 | Mobile home: the fifth count ("47 Districts covered") sits alone on its row. | A | `index.html` @ 390 px | Let the last item span both columns |
-| QA-18 | Open client items not labelled TBD in the prototype: per-role dashboard widgets (Customise dialog; SOW §6); library feature set as a proposal for client sign-off (SOW §6); Registration History / Pre-Registration / Course Advising Table placement (SOW §6, only in docs); Institution Admin vs Principal (D-2). | A (from B's TBD list) | `ministry.html`, `inst-library.html`, `student-academics.html`, `ministry-users.html` | Add "TBD — Requires Client Confirmation" or "Proposed — for client sign-off" notes |
-| QA-19 | Urgent notices are marked by a red bold "Urgent" label (plus pinned card), but could stand out more in long lists. | B (minor) | `notices.html`, homepage notices | Optional: urgent badge or left accent on the row |
-| QA-20 | Division and district officials are shown as role cards with "TBD — Requires Client Confirmation". This is required by the project rule (only published officials; never invent names), so keep the TBD tag. The heading wording can be softened ("To be published by the Department of Textiles"). | B (QA-06) | `officials.html`, `about.html` | Optional wording change only |
+| QA-05 ✅ Fixed `570db89` | Dashboards don't show items waiting at that level: District (procurement waiting for review), Division (waiting for recommendation), Ministry (licence application waiting). Spec §18: "What needs my action?" | A | `district.html`, `division.html`, `ministry.html` | Add the item to each action list, shown by flow state |
+| QA-06 ✅ Fixed `570db89` | A Ministry migration decision isn't reflected downwards: Division and District still show MG-2026-221 as "Pending" with Recommend / Forward buttons. | A | `division-admissions.html`, `district-admissions.html` | Drive that row from the `mig` state |
+| QA-07 ✅ Fixed `570db89` | "Approvals 3" menu badge, but the default list shows 2 rows (the procurement row appears only when the flow reaches that level). | A | Division / District menus | Make the badge follow the state, or show 2 |
+| QA-08 ✅ Fixed `570db89` | Teacher pages: the menu says "Teacher workspace", the breadcrumb says "Institution Portal". Depends on D-1. | A | 5 `teacher*` pages | Align to the D-1 decision |
+| QA-09 ✅ Fixed `570db89` | **Alumni state before marking.** The alumni workspace is functional: alumni-only menu; employer, position, LinkedIn (URL validated) and directory opt-in; Save with confirmation; certificates card. But before the Principal marks the graduate as alumni (Flow I), the same editable form is already shown, with only an info note. The "restricted until marked" rule isn't demonstrated. | B (QA-02, partly confirmed) | `alumni.html` | Before `cert=alumni`, show a locked "Alumni access opens after the Principal marks you as alumni" state; show the form after |
+| QA-10 ✅ Fixed `570db89` | No visible page heading (h1) when no organisation is registered. | A | `verifier.html` (default) | Make the empty-state title an h1 |
+| QA-11 ✅ Fixed `570db89` | Duplicate id `ledger` (section and table). | A | `student-payment.html` | Rename the table id |
+| QA-12 ✅ Fixed `570db89` | Touch targets: language switch 26 px on public pages and 30 px on portal sign-ins (Spec §25: 44 px for important targets); hero slide dots 12 px; "Forgot password?" and "Mark all present" 23 px (under WCAG 2.2's 24 px). | A | Public header, `index`, `login`, `candidate-login`, `teacher-attendance` | Enlarge hit areas with padding |
+| QA-13 ✅ Fixed `570db89` | Flow A: the admitted student appears under "New admissions 2026–27" on the institution's student list, but the tab shows no count, so it is easy to miss. | A | `inst-students.html` | Show a count when `cand=admitted` |
+| QA-14 ✅ Fixed `570db89` | Partly covered requirements: (a) teachers ("staff") have no library catalogue view (CF §2.9); (b) SOW §3.3.3 "Teachers can assign classes to students": only the Principal assigns students. B rated class management Pass; A rates it partial. | A | Teacher workspace | Add a library link for teachers. Add "Assign students" to the teacher's own classes, or confirm with the client that it is Principal-only. |
+| QA-15 ✅ Fixed `570db89` | Mobile: the public institution directory is a 4-column table that scrolls sideways inside its frame at 390 px (Spec §25: public pages must be strong on mobile). | A | `institutions.html` | Card rows under 720 px |
+| QA-16 ✅ Fixed `570db89` | "৳ 22.30 lakh" KPI wraps onto two lines at 1440 px (changes with QA-02). | A | `division-resources.html` | Shorter format or smaller currency KPI |
+| QA-17 ✅ Fixed `570db89` | Mobile home: the fifth count ("47 Districts covered") sits alone on its row. | A | `index.html` @ 390 px | Let the last item span both columns |
+| QA-18 ✅ Fixed `570db89` | Open client items not labelled TBD in the prototype: per-role dashboard widgets (Customise dialog; SOW §6); library feature set as a proposal for client sign-off (SOW §6); Registration History / Pre-Registration / Course Advising Table placement (SOW §6, only in docs); Institution Admin vs Principal (D-2). | A (from B's TBD list) | `ministry.html`, `inst-library.html`, `student-academics.html`, `ministry-users.html` | Add "TBD — Requires Client Confirmation" or "Proposed — for client sign-off" notes |
+| QA-19 ✅ Fixed `570db89` | Urgent notices are marked by a red bold "Urgent" label (plus pinned card), but could stand out more in long lists. | B (minor) | `notices.html`, homepage notices | Optional: urgent badge or left accent on the row |
+| QA-20 ✅ Fixed `570db89` | Division and district officials are shown as role cards with "TBD — Requires Client Confirmation". This is required by the project rule (only published officials; never invent names), so keep the TBD tag. The heading wording can be softened ("To be published by the Department of Textiles"). | B (QA-06) | `officials.html`, `about.html` | Optional wording change only |
 
 ---
 
@@ -202,8 +205,8 @@ QA-01 certificate verification · QA-02 budget units · QA-03 workspace demo lab
 |---|---|---|
 | 1 | Admission eligibility, quota and document rules | Yes — `admissions`, `ministry-admissions` |
 | 2 | MY GOV API use case | Yes — `ministry-integrations` |
-| 3 | Dashboard widgets / KPIs per role | **No** — QA-18 |
-| 4 | Library feature set (design proposal for client sign-off) | **No** — QA-18 |
+| 3 | Dashboard widgets / KPIs per role | Yes — `ministry` Customise dialog (fixed, QA-18) |
+| 4 | Library feature set (design proposal for client sign-off) | Yes — `inst-library` "Proposed — for client sign-off" (fixed, QA-18) |
 | 5 | Leave types beyond CL/SL/EL and accrual rules | Yes — `inst-leave` |
 | 6 | Licence verification pricing (per check vs subscription), gateway, invoicing | Yes — `verifier`, `ministry-licenses` |
 | 7 | Link between Phase 1 certificates and Phase 2 licences | Yes — `license`, `license-apply`, `ministry-licenses` |
@@ -211,13 +214,13 @@ QA-01 certificate verification · QA-02 budget units · QA-03 workspace demo lab
 | 9 | Student profile vs issued certificate rule | Yes — `student-profile` |
 | 10 | Procurement / LC / PO / gate-pass approval chain and fields | Yes — `inst-procurement`, District / Division / Ministry approvals |
 | 11 | Broader staff HRM beyond leave | Yes — `inst-teachers` |
-| 12 | Registration History / Pre-Registration / Course Advising Table placement | **No** (docs only) — QA-18 |
+| 12 | Registration History / Pre-Registration / Course Advising Table placement | Yes — `student-academics` (fixed, QA-18) |
 | 13 | Licence eligibility, validation criteria, validity, renewal, appeal | Yes — `license`, `license-track`, `ministry-licenses#rules` |
 | 14 | Approval of third-party organisation accounts; terms of use | Yes — `verifier-register` |
 | 15 | Division and district responsible officials | Yes — `officials`, `about` |
 | 16 | Production portal domains (`*.tims.gov.bd`) | Yes — "Proposed secure address — prototype only" |
-| 17 | Institution Admin vs Principal | **No** — D-2 |
-| 18 | Teacher sign-in location | Conflicting instructions — D-1 |
+| 17 | Institution Admin vs Principal | Yes — `ministry-users` Roles and Multi-role tabs (D-2 still open) |
+| 18 | Teacher sign-in location | Decided — D-1: keep Student / Teacher tabs on the public Login |
 
 ---
 
@@ -237,11 +240,50 @@ QA-01 certificate verification · QA-02 budget units · QA-03 workspace demo lab
 
 ## 11. Sign-off checklist
 
-- [ ] D-1 confirmed by the stakeholder (Teacher on public Login, or through the Institution Portal); docs aligned
-- [ ] D-2 confirmed (Institution Admin and Principal combined or separate); labelled until then
-- [ ] QA-01 certificate verifiable after issue (public and organisation search)
-- [ ] QA-02 budget units consistent (crore)
-- [ ] QA-03 "Demo / Illustrative Data" visible in every workspace
-- [ ] QA-04 "My requests" history list, linked from the dashboard
-- [ ] Regression suite 100% and page audit clean after fixes
-- [ ] P3 items scheduled for the polish pass (QA-05 to QA-20)
+- [x] D-1 confirmed by the stakeholder: **keep** the Student / Teacher tabs on the public Login; Teacher breadcrumb aligned (QA-08); docs aligned
+- [ ] D-2 confirmed (Institution Admin and Principal combined or separate) — **open**; labelled "TBD — Requires Client Confirmation" in Users & roles (done in `570db89`)
+- [x] QA-01 certificate verifiable after issue (public and organisation search) — `570db89`
+- [x] QA-02 budget units consistent (crore) — `570db89`
+- [x] QA-03 "Demo / Illustrative Data" visible in every workspace — `570db89`
+- [x] QA-04 "My requests" history list, linked from the dashboard — `570db89`
+- [x] Regression suite 100% (163 / 163) and page audit clean after fixes
+- [x] P3 items QA-05 to QA-20 fixed in the same round — `570db89`
+
+---
+
+## 12. Fix round 1 — 16 Oct 2026
+
+**Commit:** `570db89` (generator in `_build/final/`, rebuilt `prototype/` and `assets/final/`). Earlier variations and `DESIGN_SYSTEM_A–F` are unchanged. All new strings are bilingual (the build fails on missing Bangla). No new government data, officials or photos were added; unknown rules are labelled "TBD — Requires Client Confirmation" and proposals "Proposed — for client sign-off".
+
+| ID | What changed | Pages |
+|---|---|---|
+| QA-01 | CERT-2026-00512 returns "Valid certificate" on both lookups when `cert=issued|alumni`; before issue it returns "No record found" with a prototype note pointing to Flow I | `verify`, `verifier` |
+| QA-02 | Division / District budgets in ৳ crore (KPIs and column headers), matching institution Finance, Principal and Ministry Budget | `division-resources`, `district-resources` |
+| QA-03 | Workspace shell shows a "Demo / Illustrative Data" chip in the top bar (≥ 1200 px) and a demo note at the foot of every workspace page | all workspace pages |
+| QA-04 | *My requests* list on Online services (ID, service, submitted, status, last action, next action, View; search and status filter; SR-2026-01512 follows `req`); dashboard rows link to their tracking views; `student-request.html?id=01467|01310` views; Online services active on the tracking page; record counts follow the demo state | `student`, `student-services`, `student-request` |
+| QA-05 | Waiting items by flow state: District (`proc=submitted`), Division (`proc=dforward`), Ministry (`lic=submitted`, LIC-APP-2026-00071) — banner plus action-list / approvals row | `district`, `division`, `ministry` |
+| QA-06 | MG-2026-221 shows "Approved by the Ministry" and hides Recommend / Forward when `mig=approved`; it leaves the District approvals queue | `division-admissions`, `district-admissions`, `district-approvals` |
+| QA-07 | Approvals menu badge follows the rows shown (Division 2 / 3 with `proc=dforward`; District 1–3 by `proc` and `mig`); District Actions tab count follows `proc` | Division / District menus |
+| QA-08 | Teacher breadcrumb starts with "Teacher workspace" (D-1 kept) | 5 `teacher*` pages |
+| QA-09 | Alumni page is locked ("Alumni access opens after the Principal marks you as alumni") until `cert=alumni`; the profile form shows after | `alumni` |
+| QA-10 | Empty-state title is the page `h1` when no organisation is registered | `verifier` |
+| QA-11 | Ledger table id renamed (`ledger-tbl`); no duplicate ids | `student-payment` |
+| QA-12 | Language switch 44 px on public pages and portal sign-ins; hero dots 24 px hit area; "Forgot password?" and "Mark all present" ≥ 24 px | public header, `index`, `login`, `portal-*`, `teacher-attendance` |
+| QA-13 | "New admissions 2026–27" tab shows a count (1) when `cand=admitted` | `inst-students` |
+| QA-14 | Teacher menu "Library catalogue" → catalogue with search and Request / Reserve; "Assign students" on the teacher's classes with a TBD note on whether the Principal approves | `teacher-classes`, teacher menu |
+| QA-15 | Institution directory becomes card rows under 720 px (no sideways scroll in the frame) | `institutions` |
+| QA-16 | Budget KPIs ("৳ 22.30 cr") stay on one line at 1440 px | `division-resources`, `district-resources` |
+| QA-17 | The fifth count ("47 Districts") spans the row on tablet and mobile | `index` |
+| QA-18 | TBD / proposal labels: per-role widgets (Customise dialog), library feature set, Registration History / Pre-Registration / Course Advising Table placement, Institution Admin vs Principal (D-2, Roles and Multi-role tabs) | `ministry`, `inst-library`, `student-academics`, `ministry-users` |
+| QA-19 | Urgent notices get a red left accent and a tinted "Urgent" badge | `notices`, home notices |
+| QA-20 | Division / district official headings read "to be published by the Department of Textiles"; TBD tags kept | `officials` |
+
+### Regression result
+- `node build.mjs`: 78 pages, 71 icons, no errors.
+- `_build/final/qa/qa-final.mjs`: **163 / 163 PASS**, 0 script errors, 0 failed requests. That is the 97 original checks plus 66 new: at least one check per fix (QA-01 to QA-20), record count vs rows, and Bangla checks on 18 more changed pages.
+- Overflow: 0 pages with sideways scroll at 1440 and 390 (all 78 pages) and at 1440 / 1024 / 390 for the 29 changed pages, in the default state and a combined flow state.
+- Screenshots of the 29 changed pages at 1440 / 1024 / 390 (2 states, 174 images) were reviewed; no cut-off text. Bangla mode on the changed pages shows no visible English apart from names and IDs.
+- The Bangla check in the script now uses rendered boxes (`getClientRects`), so SVG map labels are measured correctly.
+
+### Still open
+- **D-2** Institution Admin vs Principal: client decision. The prototype labels both roles TBD until then.

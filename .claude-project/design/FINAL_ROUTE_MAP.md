@@ -53,7 +53,7 @@ Shells: **Public** = public website header and footer · **Workspace** = portal 
 | `ministry-approvals.html` | Approvals | Final approval of escalations (procurement after District and Division, migration, revisions); SLA |
 | `ministry-licenses.html` | Licences (Phase 2) | Licence review queue, issued register, verifier organisations, rules and fees (TBD) — see §9 |
 | `ministry-reports.html` | Reports | Build, preview and download reports; no-data state |
-| `ministry-users.html` | Users and roles | Users, role permission matrix, multi-role assignment |
+| `ministry-users.html` | Users and roles | Users, role permission matrix, multi-role assignment; Institution Admin vs Principal labelled TBD (D-2) |
 | `ministry-integrations.html` | Integrations | MY GOV and other services as boundaries; unavailable, timeout, mismatch |
 
 ## 5. Division and District Portals
@@ -78,7 +78,7 @@ Access cascades down the hierarchy: each level sees only its own jurisdiction. S
 | Route | Screen | Purpose |
 |---|---|---|
 | `principal.html` | Dashboard | Items needing action, class attendance today, resource alerts, notices, quick actions |
-| `inst-students.html` | Students | Student records, admitted list from central admission |
+| `inst-students.html` | Students | Student records, admitted list from central admission (tab count after Flow A) |
 | `inst-teachers.html` | Teachers | Teacher records |
 | `inst-classes.html` | Classes | Classes, teacher and student assignment |
 | `inst-attendance.html` | Attendance | Institution attendance, correction approval |
@@ -97,7 +97,7 @@ Access cascades down the hierarchy: each level sees only its own jurisdiction. S
 | Route | Screen | Purpose |
 |---|---|---|
 | `teacher.html` | Dashboard (after Login → Teacher) | Next class, today's schedule, tasks (attendance, marks), notices, leave balance |
-| `teacher-classes.html` | My classes and materials | Class list, upload materials |
+| `teacher-classes.html` | My classes and materials | Class list, Assign students (TBD approval), upload materials, library catalogue (`#library`, menu "Library catalogue") |
 | `teacher-attendance.html` | Take attendance | Register, submit, correction request |
 | `teacher-results.html` | Result entry | Enter marks, validation, submit to Principal |
 | `teacher-leave.html` | Leave | Apply, balance, withdraw |
@@ -109,12 +109,12 @@ Access cascades down the hierarchy: each level sees only its own jurisdiction. S
 | `student.html` | Dashboard | Today's classes, requests, notices, payments; `?new=1` shows "Before classes begin" after admission |
 | `student-academics.html` | Academics | Courses, materials, advising, evaluation, curriculum, code of conduct, calendar, library |
 | `student-results.html` | Results and attendance | Semester results, grade table (`#grades`), attendance |
-| `student-services.html` | Online services | 15 services through one request form |
-| `student-request.html` | Request tracking | Status timeline, correction and resubmission |
+| `student-services.html` | Online services | 15 services through one request form; *My requests* history (`#requests`) with search and status filter |
+| `student-request.html` | Request tracking | Status timeline, correction and resubmission; `?id=01467` and `?id=01310` open the other requests; menu: Online services |
 | `student-payment.html` | Payments and ledger | Pay fees, ledger (`#ledger`) |
 | `student-certificate.html` | Certificate | Graduate applies for certificate; eligibility, duplicate, data mismatch |
 | `student-profile.html` | Profile | Profile and correction request |
-| `alumni.html` | Alumni | Alumni-only menu: current professional information (job, LinkedIn), certificates |
+| `alumni.html` | Alumni | Locked until the Principal marks the graduate as alumni; then alumni-only menu: current professional information (job, LinkedIn), certificates |
 
 ## 9. Phase 2 — Professional licence and verification (Flow J)
 
@@ -125,10 +125,12 @@ Access cascades down the hierarchy: each level sees only its own jurisdiction. S
 | `license-track.html` | Track licence application | Public | Find by reference and mobile; status timeline; resubmit a correction; issued licence details |
 | `ministry-licenses.html` | Licences (Phase 2) | Workspace (Ministry) | Review, approve and issue number, return, reject; issued register; organisations; rules (TBD) |
 | `verifier-register.html` | Organisation registration | Public | Organisation, trade licence, contact person, terms |
-| `verifier.html` | Organisation verification | Public | Pay for access, search by licence or certificate number, usage history |
+| `verifier.html` | Organisation verification | Public | Pay for access, search by licence or certificate number (incl. CERT-2026-00512 after Flow I), usage history |
 
 ## 10. Review tooling
 
 | Route | Purpose |
 |---|---|
 | `prototype-index.html` | Review entry: flows A–J, role walkthroughs (Teacher, Student, Principal, District, Division, Ministry), all screens by area, documentation list, language switch, Reset demo data |
+
+_Updated 16 Oct 2026 (Fix round 1, `570db89`): no routes added or removed; 78 pages. Teacher pages use the breadcrumb "Teacher workspace" (D-1)._
