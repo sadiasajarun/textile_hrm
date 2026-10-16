@@ -146,6 +146,106 @@ await doSet('ministry-licenses.html', 'lic=rejected'); await visibleText('licens
 await visibleText('license-apply.html', 'Your previous application was rejected.');
 await page.evaluate(() => window.timsState.set('lic=issued')); await visibleText('license-apply.html', 'You have already submitted a licence application');
 
+// ---------- Fix round 1 (FINAL_E2E_QA_REPORT QA-01 … QA-20): one check per fix ----------
+const setS = async (kv) => { await go('prototype-index.html'); await page.evaluate((x) => { window.timsState.reset(); if (x) window.timsState.set(x); }, kv); };
+const vis = async (sel) => page.locator(`${sel} >> visible=true`).count();
+const h = async (sel) => page.locator(sel).first().evaluate((el) => el.getBoundingClientRect().height);
+// QA-01 CERT-2026-00512 verifiable after issue (public + organisation search), not before
+await setS('cert=none'); await go('verify.html'); await page.fill('form[data-lookup="cert-verify"] input[name=c]', 'CERT-2026-00512'); await page.locator('form[data-lookup="cert-verify"] [type=submit]').click(); await page.waitForTimeout(150);
+ok(await vis('[data-lookup-res="c512"] >> text=No record found') > 0, 'QA-01 verify.html: CERT-2026-00512 not found before issue');
+await setS('cert=issued'); await go('verify.html'); await page.fill('form[data-lookup="cert-verify"] input[name=c]', 'CERT-2026-00512'); await page.locator('form[data-lookup="cert-verify"] [type=submit]').click(); await page.waitForTimeout(150);
+ok(await vis('[data-lookup-res="c512"] >> text=Valid certificate') > 0, 'QA-01 verify.html: CERT-2026-00512 valid after the Principal issues it');
+await setS('cert=alumni;org=registered;orgpaid=yes'); await go('verifier.html'); await page.fill('#lv-box input[name=q]', 'CERT-2026-00512'); await page.locator('#lv-box button[type=submit]').click(); await page.waitForTimeout(150);
+ok(await vis('[data-lookup-res="c512"] >> text=Valid certificate') > 0, 'QA-01 verifier.html: CERT-2026-00512 valid for a paid organisation');
+// QA-02 budgets in crore
+for (const lvl of ['division', 'district']) { await go(`${lvl}-resources.html`); const k = await page.locator('.f-kpis').first().innerText(); ok(/cr\b/.test(k) && !/lakh/i.test(k), `QA-02 ${lvl}-resources: KPIs in ৳ crore`); }
+// QA-03 demo label in every workspace
+await setS('');
+const noDemo = [];
+for (const f of fs.readdirSync(PROTO).filter((x) => x.endsWith('.html'))) { await page.goto(BASE + f); if (await page.locator('.h-side').count() && !(await page.locator('[data-demo-label]').count())) noDemo.push(f); }
+ok(noDemo.length === 0, `QA-03 every workspace page carries the Demo / Illustrative Data label (${noDemo.join(', ') || 'all'})`);
+// QA-04 request history follows the req state; dashboard rows open their tracking views
+await setS('req=returned'); await go('student-services.html');
+ok(await vis('#my-req tr[data-req-row]') === 1 && (await page.locator('#my-req tr[data-req-row] >> visible=true').innerText()).includes('Correction required'), 'QA-04 Online services: SR-2026-01512 shows "Correction required" when returned');
+ok((await page.locator('[data-table-count="my-req"] .l-en').innerText()).trim() === String(await vis('#my-req tbody tr')), 'QA-04 record count matches the rows shown for the current state');
+await page.selectOption('select[data-table-status="my-req"]', 'completed'); await page.waitForTimeout(100);
+ok(await vis('#my-req tbody tr') === 1, 'QA-04 status filter: Completed shows only SR-2026-01310');
+await go('student.html'); ok(await page.locator('.f-req-links a[href="student-request.html?id=01467"]').count() === 1 && await page.locator('.f-req-links a[href="student-request.html"]').count() === 1, 'QA-04 dashboard "My requests" rows link to tracking');
+await go('student-request.html?id=01467'); ok((await page.locator('h1 >> visible=true').first().innerText()).includes('SR-2026-01467') && await page.locator('.h-side a[aria-current="page"][href="student-services.html"]').count() === 1, 'QA-04 student-request.html?id=01467 opens its view with Online services active');
+// QA-05 dashboards show waiting items by flow state
+await setS('proc=submitted'); await visibleText('district.html', 'is waiting for your review');
+await setS('proc=dforward'); await visibleText('division.html', 'waiting for your recommendation');
+await setS('lic=submitted'); await visibleText('ministry.html', 'LIC-APP-2026-00071');
+await setS(''); await go('district.html'); ok(await vis('text=is waiting for your review') === 0, 'QA-05 district.html: no waiting item before the institution submits');
+// QA-06 MG-2026-221 follows the Ministry decision
+for (const lvl of ['division', 'district']) {
+  await setS('mig=pending'); await go(`${lvl}-admissions.html`); const btnN = await vis(`#${lvl}-mig button.btn-teal`);
+  await setS('mig=approved'); await go(`${lvl}-admissions.html`);
+  ok(btnN === 1 && await vis(`#${lvl}-mig button.btn-teal`) === 0 && (await page.locator(`#${lvl}-mig tbody tr`).first().innerText()).includes('Approved by the Ministry'), `QA-06 ${lvl}-admissions: MG-2026-221 shows the Ministry approval`);
+}
+// QA-07 Approvals badge = rows shown
+for (const [kv, lvl, nExp] of [['', 'division', 2], ['proc=dforward', 'division', 3], ['', 'district', 2], ['proc=submitted', 'district', 3], ['mig=approved', 'district', 1]]) {
+  await setS(kv); await go(`${lvl}-approvals.html`);
+  const badge = (await page.locator(`.h-side a[href="${lvl}-approvals.html"] .h-side-count`).innerText()).trim();
+  const rows = await vis(`#${lvl}-appr tbody tr`);
+  ok(badge === String(nExp) && rows === nExp, `QA-07 ${lvl} (${kv || 'default'}): badge ${badge} = ${rows} rows`);
+}
+// QA-08 Teacher breadcrumb matches the menu (D-1)
+await setS(''); await go('teacher.html'); ok((await page.locator('.h-crumb-app').innerText()).trim().startsWith('Teacher workspace'), 'QA-08 teacher breadcrumb starts with "Teacher workspace"');
+// QA-09 alumni locked before marking
+await setS('cert=issued'); await go('alumni.html'); ok(await vis('.f-alumni-locked') === 1 && await vis('form[data-flow]') === 0, 'QA-09 alumni.html: locked before the Principal marks alumni');
+await setS('cert=alumni'); await go('alumni.html'); ok(await vis('.f-alumni-locked') === 0 && await vis('form[data-flow]') === 1, 'QA-09 alumni.html: profile form after marking');
+// QA-10 verifier heading
+await setS(''); await go('verifier.html'); ok(await vis('h1') === 1 && (await page.locator('h1 >> visible=true').innerText()).includes('Register your organisation'), 'QA-10 verifier.html (org=none): one visible h1');
+// QA-11 duplicate ids
+await go('student-payment.html'); const dup = await page.evaluate(() => { const c = {}; document.querySelectorAll('[id]').forEach((e) => { c[e.id] = (c[e.id] || 0) + 1; }); return Object.keys(c).filter((k) => c[k] > 1); });
+ok(dup.length === 0, `QA-11 student-payment.html: no duplicate ids (${dup.join(', ') || 'none'})`);
+// QA-12 touch targets
+await go('index.html'); ok(await h('.f-lang button') >= 44, 'QA-12 public language switch ≥ 44 px'); ok(await h('.f-hero-ctl .h-dot') >= 24, 'QA-12 hero dots ≥ 24 px');
+await go('portal-ministry.html'); ok(await h('.h-lang-dark button') >= 44, 'QA-12 portal sign-in language switch ≥ 44 px');
+await go('login.html'); ok(await h('#pan-student button.link') >= 24, 'QA-12 "Forgot password?" ≥ 24 px');
+await go('teacher-attendance.html'); ok(await h('[data-att-all]') >= 24, 'QA-12 "Mark all present" ≥ 24 px');
+// QA-13 new admissions count
+await setS('cand=admitted'); await go('inst-students.html'); ok((await page.locator('#tab-new .f-count >> visible=true').innerText()).trim() === '1', 'QA-13 inst-students: "New admissions" tab shows 1 when admitted');
+await setS(''); await go('inst-students.html'); ok(await vis('#tab-new .f-count') === 0, 'QA-13 inst-students: no count before admission');
+// QA-14 teacher library + assign students
+await go('teacher.html'); ok(await page.locator('.h-side a[href="teacher-classes.html#library"]').count() === 1, 'QA-14a teacher menu links the library catalogue');
+await go('teacher-classes.html'); ok(await page.locator('#tc-lib tbody tr').count() > 0, 'QA-14a teacher-classes: library catalogue table');
+ok(await vis('#tc-cls button >> text=Assign students') === 3 && await page.locator('.h-card:has(#tc-cls) .f-tbd').count() > 0, 'QA-14b teacher-classes: "Assign students" with TBD approval note');
+// QA-15 / QA-16 / QA-17 responsive
+await page.setViewportSize({ width: 390, height: 900 });
+await go('institutions.html'); ok(await page.locator('#inst-dir').evaluate((tb) => { const w = tb.closest('.f-table-wrap'); return w.scrollWidth - w.clientWidth; }) <= 1, 'QA-15 institutions.html @390: directory fits without sideways scroll');
+await go('index.html'); ok(await page.locator('.f-band-in > div:last-child').evaluate((el) => el.getBoundingClientRect().width > el.previousElementSibling.getBoundingClientRect().width * 1.5), 'QA-17 index.html @390: fifth count spans the row');
+await page.setViewportSize({ width: 1440, height: 900 });
+for (const lvl of ['division', 'district']) { await go(`${lvl}-resources.html`); ok(await page.locator('.f-kpis li b').evaluateAll((bs) => bs.every((el) => el.getBoundingClientRect().height <= parseFloat(getComputedStyle(el).lineHeight) * 1.4)), `QA-16 ${lvl}-resources @1440: KPI values on one line`); }
+// QA-18 TBD / proposal labels
+await go('ministry.html'); ok(await page.locator('#dlg-widgets .f-tbd').count() === 1, 'QA-18 ministry.html Customise dialog: widgets per role TBD');
+await go('inst-library.html'); await visibleText(null, 'Proposed — for client sign-off');
+await go('student-academics.html'); await visibleText(null, 'Course Advising Table');
+await go('ministry-users.html'); ok(await page.locator('#pan-roles .f-tbd').count() >= 1 && await page.locator('#pan-assign .f-tbd').count() === 2, 'QA-18 ministry-users: Institution Admin / Principal labelled TBD (D-2)');
+// QA-19 / QA-20 optional polish
+await go('notices.html'); ok(await page.locator('.h-rows li[data-urgent="1"]').first().evaluate((li) => getComputedStyle(li).boxShadow !== 'none'), 'QA-19 notices.html: urgent rows have a red accent');
+await visibleText('officials.html', 'to be published by the Department of Textiles');
+// Changed pages: screenshots at 1440 / 1024 / 390 (default state + flow states)
+fs.mkdirSync(`${OUT}/fix1`, { recursive: true });
+const CHANGED = ['verify', 'verifier', 'division', 'district', 'ministry', 'division-resources', 'district-resources', 'division-admissions', 'district-admissions', 'division-approvals', 'district-approvals', 'student', 'student-services', 'student-request', 'student-payment', 'student-academics', 'alumni', 'teacher', 'teacher-classes', 'teacher-attendance', 'inst-students', 'inst-library', 'ministry-users', 'institutions', 'index', 'login', 'candidate-login', 'notices', 'officials'];
+const fixOverflow = [];
+for (const [tag, kv] of [['default', ''], ['flow', 'proc=submitted;lic=submitted;cert=alumni;cand=admitted;req=returned;mig=approved']]) {
+  await setS(kv);
+  for (const w of [1440, 1024, 390]) {
+    await page.setViewportSize({ width: w, height: 900 });
+    for (const f of CHANGED) {
+      await page.goto(BASE + f + '.html'); await page.waitForTimeout(80);
+      const o = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+      if (o > 1) fixOverflow.push(`${tag} ${w}px ${f}: +${o}px`);
+      await page.screenshot({ path: `${OUT}/fix1/${f}-${tag}-${w}.png`, fullPage: true });
+    }
+  }
+}
+ok(fixOverflow.length === 0, `Fix round 1: changed pages have no sideways overflow at 1440/1024/390 (${fixOverflow.join('; ') || 'none'})`);
+await page.setViewportSize({ width: 1440, height: 900 });
+await setS('');
+
 // ---------- every page: errors + overflow at 1440 and 390 ----------
 const files = fs.readdirSync(PROTO).filter((f) => f.endsWith('.html'));
 const overflow = [];
@@ -169,9 +269,9 @@ for (const w of [1440, 390]) {
   }
 }
 await page.setViewportSize({ width: 1440, height: 900 });
-for (const f of ['index', 'login', 'license', 'ministry-licenses', 'verifier', 'student', 'principal', 'division-approvals', 'district-reports']) {
+for (const f of ['index', 'login', 'license', 'ministry-licenses', 'verifier', 'student', 'principal', 'division-approvals', 'district-reports', 'division', 'district', 'ministry', 'student-services', 'student-request', 'student-academics', 'alumni', 'teacher', 'teacher-classes', 'inst-students', 'inst-library', 'ministry-users', 'institutions', 'notices', 'officials', 'verify', 'division-resources', 'division-admissions']) {
   await page.goto(BASE + f + '.html?lang=bn'); await page.waitForTimeout(150);
-  const leak = await page.evaluate(() => [...document.querySelectorAll('.l-en')].filter((e) => e.offsetParent !== null && e.textContent.trim()).length);
+  const leak = await page.evaluate(() => [...document.querySelectorAll('.l-en')].filter((e) => e.textContent.trim() && e.getClientRects().length > 0 && getComputedStyle(e).visibility !== 'hidden').length);
   ok(leak === 0, `bn ${f}: no visible English spans (${leak})`);
   await page.screenshot({ path: `${OUT}/bn-${f}-1440.png` });
 }

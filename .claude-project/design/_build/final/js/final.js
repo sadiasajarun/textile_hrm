@@ -28,6 +28,8 @@
     $$('[data-when]').forEach(function (el) { el.hidden = !test(el.getAttribute('data-when')); });
     $$('[data-when-not]').forEach(function (el) { el.hidden = test(el.getAttribute('data-when-not')); });
     $$('[data-state-pressed]').forEach(function (el) { el.setAttribute('aria-pressed', String(test(el.getAttribute('data-state-pressed')))); });
+    /* record counts and filters follow the rows the current state shows */
+    $$('[data-table-count]').forEach(function (c) { filterTable(c.getAttribute('data-table-count')); });
     html.classList.add('ts-ready');
   }
   function setState(str) {
@@ -139,7 +141,7 @@
       var ok = (!qs || tr.textContent.toLowerCase().indexOf(qs) > -1) && (sv === 'all' || tr.getAttribute('data-status') === sv);
       tr.hidden = !ok; if (ok) shown++;
     });
-    var c = $('[data-table-count="' + id + '"]'); if (c) { c.dataset.liveNum = shown; c.textContent = html.dataset.lang === 'bn' ? String(shown).replace(/[0-9]/g, function (x) { return '০১২৩৪৫৬৭৮৯'[x]; }) : shown; }
+    var c = $('[data-table-count="' + id + '"]'); if (c) { c.dataset.liveNum = shown; c.innerHTML = '<span class="l-en">' + shown + '</span><span class="l-bn" lang="bn">' + String(shown).replace(/[0-9]/g, function (x) { return '০১২৩৪৫৬৭৮৯'[x]; }) + '</span>'; }
     var em = $('[data-table-empty="' + id + '"]'); if (em) em.hidden = shown > 0;
   }
   document.addEventListener('input', function (e) { var id = e.target.getAttribute('data-table-filter'); if (id) filterTable(id); });
@@ -155,8 +157,9 @@
   var params = new URLSearchParams(location.search);
   var reason = params.get('reason');
   $$('[data-reason]').forEach(function (el) { el.hidden = el.getAttribute('data-reason') !== (reason || 'permission'); });
-  $$('[data-param]').forEach(function (el) { var p = el.getAttribute('data-param').split('='); el.hidden = params.get(p[0]) !== p[1]; });
-  $$('[data-param-not]').forEach(function (el) { var p = el.getAttribute('data-param-not').split('='); el.hidden = params.get(p[0]) === p[1]; });
+  /* data-param="key=a|b": shown only when ?key= is one of the values; data-param-not: hidden then. */
+  $$('[data-param]').forEach(function (el) { var p = el.getAttribute('data-param').split('='); el.hidden = p[1].split('|').indexOf(params.get(p[0])) < 0; });
+  $$('[data-param-not]').forEach(function (el) { var p = el.getAttribute('data-param-not').split('='); el.hidden = p[1].split('|').indexOf(params.get(p[0])) > -1; });
   var q = params.get('q'); var qin = $('[data-filter-q]'); if (q && qin) { qin.value = q; qin.dispatchEvent(new Event('input', { bubbles: true })); }
 
   /* ---------- file inputs: show chosen name, size check ---------- */

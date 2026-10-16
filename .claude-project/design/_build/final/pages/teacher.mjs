@@ -1,9 +1,9 @@
 // Teacher workspace (signed in through the Institution Portal).
 import { t, tt, n, d, ta, icon, each, page, demo, tbd, st, a, act, field, alert, table, tabs, card, kpis, pageHead, when, timeline } from '../core.mjs';
-import { TEACH, NOTICES, TODAY } from '../data.mjs';
+import { TEACH, NOTICES, BOOKS, TODAY } from '../data.mjs';
 import { flowBanner, noticeMini } from './ministry.mjs';
 
-const P = (file, title, crumbs, body) => page({ file, title, kind: 'teacher', active: file, crumbs: [['Institution Portal', 'প্রতিষ্ঠান পোর্টাল'], ['Teacher', 'শিক্ষক'], ...crumbs], body });
+const P = (file, title, crumbs, body) => page({ file, title, kind: 'teacher', active: file, crumbs: [['Teacher workspace', 'শিক্ষক ওয়ার্কস্পেস'], ...crumbs], body });
 const btnAct = (label, o, cls = 'btn-primary', ic = '') => `<button type="button" class="btn ${cls}" ${act(o)}>${ic ? icon(ic, 'ico ico-sm') : ''}${label}</button>`;
 const now = TEACH.classes[1];
 
@@ -67,12 +67,13 @@ function results() {
 function classes() {
   const body = `${pageHead({ title: t('My classes and materials', 'আমার ক্লাস ও উপকরণ'), sub: t('Classes assigned by the Principal. Materials appear in students’ portals.', 'অধ্যক্ষ কর্তৃক নির্ধারিত ক্লাস। উপকরণ শিক্ষার্থীদের পোর্টালে দেখা যায়।') })}
   <div class="f-grid">
-    ${card(t('Assigned classes', 'নির্ধারিত ক্লাস'), table({ id: 'tc-cls', compact: true, cols: [{ l: ['Class', 'ক্লাস'] }, { l: ['Subject', 'বিষয়'] }, { l: ['Students', 'শিক্ষার্থী'], cls: 'num' }, { l: ['Materials', 'উপকরণ'], cls: 'num' }], rows: [[['Diploma Y2 · Sec B', 'ডিপ্লোমা ২য় বর্ষ · সেকশন বি'], ['Fabric Structure', 'ফেব্রিক স্ট্রাকচার'], 60, 12], [['Diploma Y1 · Sec B', 'ডিপ্লোমা ১ম বর্ষ · সেকশন বি'], ['Weaving I', 'উইভিং ১'], 62, 9], [['Diploma Y1 · Sec A', 'ডিপ্লোমা ১ম বর্ষ · সেকশন এ'], ['Weaving I (Lab)', 'উইভিং ১ (ল্যাব)'], 64, 6]].map((r) => ({ cells: [tt(r[0]), tt(r[1]), n(r[2]), n(r[3])] })) }), '', 'f-c7')}
+    ${card(t('Assigned classes', 'নির্ধারিত ক্লাস'), table({ id: 'tc-cls', compact: true, cols: [{ l: ['Class', 'ক্লাস'] }, { l: ['Subject', 'বিষয়'] }, { l: ['Students', 'শিক্ষার্থী'], cls: 'num' }, { l: ['Materials', 'উপকরণ'], cls: 'num' }, { l: ['Action', 'কাজ'] }], rows: [[['Diploma Y2 · Sec B', 'ডিপ্লোমা ২য় বর্ষ · সেকশন বি'], ['Fabric Structure', 'ফেব্রিক স্ট্রাকচার'], 60, 12], [['Diploma Y1 · Sec B', 'ডিপ্লোমা ১ম বর্ষ · সেকশন বি'], ['Weaving I', 'উইভিং ১'], 62, 9], [['Diploma Y1 · Sec A', 'ডিপ্লোমা ১ম বর্ষ · সেকশন এ'], ['Weaving I (Lab)', 'উইভিং ১ (ল্যাব)'], 64, 6]].map((r) => ({ cells: [tt(r[0]), tt(r[1]), n(r[2]), n(r[3]), `<button type="button" class="btn btn-outline btn-sm" ${act({ set: '_=1', confirm: [`Assign students to ${r[0][0]}?`, `${r[0][1]}-এ শিক্ষার্থী নির্ধারণ করবেন?`], ctext: ['Prototype: in production you pick students from the section list. The Principal sees the change.', 'প্রোটোটাইপ: প্রোডাকশনে সেকশনের তালিকা থেকে শিক্ষার্থী বাছাই করবেন। অধ্যক্ষ পরিবর্তনটি দেখতে পাবেন।'], toast: ['Student list updated for this class.', 'এই ক্লাসের শিক্ষার্থী তালিকা হালনাগাদ হয়েছে।'] })}>${t('Assign students', 'শিক্ষার্থী নির্ধারণ')}</button>`] })) }) + `<p class="f-chart-meta">${t('Whether teachers assign students directly or the Principal approves the change', 'শিক্ষক সরাসরি শিক্ষার্থী নির্ধারণ করবেন নাকি অধ্যক্ষ পরিবর্তন অনুমোদন করবেন')} — ${tbd()}</p>`, '', 'f-c7')}
     <form class="h-card h-form f-c5" data-flow ${act({ set: '_=1', toast: ['Material uploaded. 62 students notified.', 'উপকরণ আপলোড হয়েছে। ৬২ জন শিক্ষার্থীকে জানানো হয়েছে।'] })} novalidate><h2 class="h-h3">${t('Upload class material', 'ক্লাসের উপকরণ আপলোড')}</h2>
       ${field({ l: ['Class', 'ক্লাস'], name: 'mc', opts: [['y1b', 'Diploma Y1 · Sec B — Weaving I', 'ডিপ্লোমা ১ম বর্ষ · সেকশন বি — উইভিং ১', true], ['y2b', 'Diploma Y2 · Sec B — Fabric Structure', 'ডিপ্লোমা ২য় বর্ষ · সেকশন বি — ফেব্রিক স্ট্রাকচার']] })}${field({ l: ['Title', 'শিরোনাম'], name: 'mt', req: true, value: 'Week 7 — Dobby shedding (lecture notes)' })}
       ${field({ l: ['File (PDF, PPT or video link; max 20 MB)', 'ফাইল (পিডিএফ, পিপিটি বা ভিডিও লিংক; সর্বোচ্চ ২০ এমবি)'], name: 'mf', type: 'file', req: true, attrs: 'accept=".pdf,.ppt,.pptx" data-max-kb="20480"' })}
       <button type="submit" class="btn btn-primary">${t('Upload', 'আপলোড')}</button></form>
-  </div>`;
+  </div>
+  <section id="library">${card(t('Library catalogue', 'লাইব্রেরি ক্যাটালগ'), table({ id: 'tc-lib', search: ['Search the catalogue', 'ক্যাটালগে খুঁজুন'], cols: [{ l: ['Title / author', 'শিরোনাম / লেখক'] }, { l: ['Available', 'সহজলভ্য'] }, {}], rows: BOOKS.map((b) => ({ cells: [`<b>${b.t}</b><small>${b.a}</small>`, b.avail ? `${n(b.avail)} ${t('of', '/')} ${n(b.copies)}` : st('unavailable'), `<button type="button" class="btn btn-ghost btn-sm" ${act({ set: '_=1', toast: b.avail ? ['Request sent to the library desk.', 'লাইব্রেরি ডেস্কে অনুরোধ পাঠানো হয়েছে।'] : ['Reserved. You will be notified.', 'সংরক্ষিত। আপনাকে জানানো হবে।'] })}>${b.avail ? t('Request', 'অনুরোধ') : t('Reserve', 'সংরক্ষণ')}</button>`] })) }) + `<p class="f-chart-meta">${t('Staff borrowing limits and loan periods', 'কর্মীদের ধার নেওয়ার সীমা ও মেয়াদ')} — ${tbd()}</p>`)}</section>`;
   return P('teacher-classes', ['My classes', 'আমার ক্লাস'], [['My classes', 'আমার ক্লাস']], body);
 }
 

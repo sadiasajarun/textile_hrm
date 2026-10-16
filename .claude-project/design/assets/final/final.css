@@ -64,8 +64,10 @@ html:not(.ts-ready) [data-when]{visibility:hidden}
 .f-hero-text .h-hero-cta{margin-top:26px}
 .f-hero-ctl{display:flex;gap:8px;align-items:center;margin-top:22px}
 .f-hero-ctl button{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:transparent;color:#fff;display:grid;place-items:center}
-.f-hero-ctl .h-dot{width:12px;height:12px;min-width:12px;padding:0;border:2px solid #fff}
-.f-hero-ctl .h-dot[aria-current="true"]{background:#fff;width:28px;border-radius:8px}
+.f-hero-ctl .h-dot{position:relative;width:24px;height:24px;min-width:24px;padding:0;border:0;background:transparent;border-radius:12px}
+.f-hero-ctl .h-dot::before{content:"";position:absolute;left:50%;top:50%;width:12px;height:12px;box-sizing:border-box;transform:translate(-50%,-50%);border:2px solid #fff;border-radius:50%}
+.f-hero-ctl .h-dot[aria-current="true"]{width:36px;background:transparent}
+.f-hero-ctl .h-dot[aria-current="true"]::before{width:28px;background:#fff;border-radius:8px}
 .f-hero-stats{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
 .f-hs{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:28px 18px;gap:2px}
 .f-hs-0{background:var(--teal)}.f-hs-1{background:var(--ocean)}.f-hs-2{background:var(--ocean-800)}.f-hs-3{background:var(--teal-800)}
@@ -622,3 +624,43 @@ html[data-lang="bn"] .f-side-h{text-transform:none;letter-spacing:0;font-size:.8
   .f-chain{grid-template-columns:1fr 1fr}
   .f-chain li{margin:-1px 0 0 -1px;border-radius:0 !important}
 }
+
+/* ---------- QA fix round 1 ---------- */
+/* QA-03 persistent demo label in every workspace */
+.f-ws-demo{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-top:32px;padding:12px 14px;border-top:1px dashed var(--border-strong);font-size:.8125rem;color:var(--muted)}
+.f-ws-demo-chip{display:inline-flex}
+@media (max-width:1200px){.f-ws-demo-chip{display:none}}
+/* QA-04 request rows on the student dashboard open their tracking page */
+.f-req-links li{padding:0}
+.f-req-links a{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;padding:12px 0;text-decoration:none;color:inherit;min-height:44px}
+.f-req-links a:hover b{text-decoration:underline;text-underline-offset:3px}
+.f-req-links a > span{display:inline-flex;align-items:center;gap:6px}
+/* QA-12: touch targets (44 px language switch, 24 px minimum elsewhere) */
+.f-lang button,.h-lang-dark button{min-height:44px;min-width:44px;padding:0 10px}
+button.link{min-height:24px}
+/* QA-09 / QA-10: empty-state titles that act as headings */
+.f-empty h1.f-empty-t,.f-empty h2.f-empty-t{color:var(--text);margin:0;font-weight:700;line-height:1.35}
+.f-empty h1.f-empty-t{font-size:1.5rem}
+.f-empty h2.f-empty-t{font-size:1.125rem}
+.f-alumni-locked .h-card{padding:8px}
+/* QA-15: public institution directory as card rows on small screens */
+.f-mlabel{display:none}
+@media (max-width:720px){
+  #inst-dir{min-width:0}
+  #inst-dir thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  #inst-dir,#inst-dir tbody{display:block;width:100%}
+  #inst-dir tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:14px 12px;border-bottom:1px solid var(--border)}
+  #inst-dir tr[hidden]{display:none}
+  #inst-dir td{display:block;border:0;padding:0;text-align:left;min-width:0}
+  #inst-dir td:nth-child(1){grid-column:1 / -1}
+  #inst-dir td:nth-child(2),#inst-dir td:nth-child(3),#inst-dir td:nth-child(4){grid-column:1;font-size:.875rem;color:var(--muted)}
+  #inst-dir td:nth-child(5){grid-column:2;grid-row:2 / span 3;align-self:center}
+  #inst-dir .f-mlabel{display:inline}
+}
+/* QA-17: the fifth count spans the row when the band has two columns (and fills the 3-column row) */
+@media (max-width:1024px){.f-band-in > div:last-child{grid-column:span 2}}
+@media (max-width:720px){.f-band-in > div:last-child{grid-column:1 / -1}}
+/* QA-19: urgent notices stand out in long lists */
+li[data-urgent="1"]{box-shadow:inset 3px 0 0 var(--danger);padding-left:12px}
+.h-rows li[data-urgent="1"]{padding-left:16px;background:linear-gradient(90deg,var(--danger-bg),transparent 40%)}
+li[data-urgent="1"] .h-urgent{display:inline-block;padding:0 6px;border-radius:3px;background:var(--danger-bg)}

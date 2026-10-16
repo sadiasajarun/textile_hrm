@@ -61,8 +61,8 @@ export function alert(tone, title, body = '', action = '') {
   return `<div class="f-alert is-${tone}" role="${tone === 'danger' ? 'alert' : 'status'}">${icon(ic, 'ico')}<div><b>${title}</b>${body ? `<p>${body}</p>` : ''}</div>${action}</div>`;
 }
 
-export function empty(title, body = '', action = '', ic = 'inbox') {
-  return `<div class="f-empty">${icon(ic, 'ico ico-xl')}<b>${title}</b>${body ? `<p>${body}</p>` : ''}${action}</div>`;
+export function empty(title, body = '', action = '', ic = 'inbox', tag = 'b') {
+  return `<div class="f-empty">${icon(ic, 'ico ico-xl')}<${tag} class="f-empty-t">${title}</${tag}>${body ? `<p>${body}</p>` : ''}${action}</div>`;
 }
 
 /** Timeline: steps [{l, who, when, st: done|now|todo|warn|fail, note}] */
@@ -72,7 +72,7 @@ export function timeline(steps) {
 }
 
 export function tabs(id, list) {
-  return `<div class="f-tabs" role="tablist" ${ta('aria-label', 'Sections', 'অংশসমূহ')}>${each(list, (x, i) => `<button type="button" role="tab" id="tab-${x.id}" aria-controls="pan-${x.id}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${tt(x.l)}${x.count !== undefined ? ` <span class="f-count">${n(x.count)}</span>` : ''}</button>`)}</div>
+  return `<div class="f-tabs" role="tablist" ${ta('aria-label', 'Sections', 'অংশসমূহ')}>${each(list, (x, i) => `<button type="button" role="tab" id="tab-${x.id}" aria-controls="pan-${x.id}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${tt(x.l)}${x.count !== undefined ? ` <span class="f-count">${n(x.count)}</span>` : ''}${x.countWhen ? (Array.isArray(x.countWhen[0]) ? x.countWhen : [x.countWhen]).map(([c, v]) => ` <span class="f-count" data-when="${c}">${n(v)}</span>`).join('') : ''}</button>`)}</div>
   ${each(list, (x, i) => `<section id="pan-${x.id}" role="tabpanel" aria-labelledby="tab-${x.id}" class="f-panel" ${i ? 'hidden' : ''}>${x.content}</section>`)}`;
 }
 
@@ -204,13 +204,13 @@ export const NAV = {
     groups: [[null, [['division', 'layout-dashboard', ['Overview', 'সারসংক্ষেপ']]]],
       [['Institutions & academics', 'প্রতিষ্ঠান ও একাডেমিক'], [['division#districts', 'map', ['Districts & institutions', 'জেলা ও প্রতিষ্ঠান']], ['division-admissions', 'clipboard-list', ['Admissions', 'ভর্তি']], ['division#attendance', 'user-check', ['Live attendance', 'লাইভ হাজিরা']]]],
       [['Resources', 'সম্পদ'], [['division-resources', 'wallet', ['Budget & assets', 'বাজেট ও সম্পদ']]]],
-      [['Decisions', 'সিদ্ধান্ত'], [['division-approvals', 'inbox', ['Approvals', 'অনুমোদন'], 3], ['division#actions', 'list-checks', ['Follow-up actions', 'অনুসরণীয় কাজ']]]],
+      [['Decisions', 'সিদ্ধান্ত'], [['division-approvals', 'inbox', ['Approvals', 'অনুমোদন'], { raw: `${when('proc=dforward', n(3), 'span')}${when('proc=none|submitted|drec|approved|po|lc|received|gatepass', n(2), 'span')}` }], ['division#actions', 'list-checks', ['Follow-up actions', 'অনুসরণীয় কাজ']]]],
       [['Reports', 'প্রতিবেদন'], [['division-reports', 'chart-column', ['Reports', 'প্রতিবেদন']]]]] },
   district: { portal: PORTALS[2], user: ['Mahmudul Hasan', ['District Administrator', 'জেলা প্রশাসক'], 'MH'], scope: ['Chattogram District', 'চট্টগ্রাম জেলা'], out: 'login.html#portals',
     groups: [[null, [['district', 'layout-dashboard', ['Overview', 'সারসংক্ষেপ']]]],
       [['Institutions & academics', 'প্রতিষ্ঠান ও একাডেমিক'], [['district#institutions', 'building-2', ['Institutions & attendance', 'প্রতিষ্ঠান ও হাজিরা']], ['district-admissions', 'clipboard-list', ['Admissions', 'ভর্তি']]]],
       [['Resources', 'সম্পদ'], [['district-resources', 'wallet', ['Budget & assets', 'বাজেট ও সম্পদ']]]],
-      [['Decisions', 'সিদ্ধান্ত'], [['district-approvals', 'inbox', ['Approvals', 'অনুমোদন'], 3], ['district#actions', 'list-checks', ['Follow-up actions', 'অনুসরণীয় কাজ']]]],
+      [['Decisions', 'সিদ্ধান্ত'], [['district-approvals', 'inbox', ['Approvals', 'অনুমোদন'], { raw: `${when('proc=submitted&mig=pending', n(3), 'span')}${when('proc=submitted&mig=approved', n(2), 'span')}${when('proc=none|dforward|drec|approved|po|lc|received|gatepass&mig=pending', n(2), 'span')}${when('proc=none|dforward|drec|approved|po|lc|received|gatepass&mig=approved', n(1), 'span')}` }], ['district#actions', 'list-checks', ['Follow-up actions', 'অনুসরণীয় কাজ']]]],
       [['Reports', 'প্রতিবেদন'], [['district-reports', 'chart-column', ['Reports', 'প্রতিবেদন']]]]] },
   principal: { portal: PORTALS[3], user: ['Md. Saiful Islam', ['Principal', 'অধ্যক্ষ'], 'SI'], scope: ['Karnaphuli Textile Institute', 'কর্ণফুলী টেক্সটাইল ইনস্টিটিউট'], out: 'login.html#portals',
     groups: [[null, [['principal', 'layout-dashboard', ['Overview', 'সারসংক্ষেপ']]]],
@@ -219,7 +219,7 @@ export const NAV = {
       [['Resources', 'সম্পদ'], [['inst-finance', 'wallet', ['Finance', 'অর্থ']], ['inst-assets', 'package', ['Assets', 'সম্পদ']], ['inst-procurement', 'truck', ['Procurement', 'ক্রয়']], ['inst-library', 'library', ['Library', 'লাইব্রেরি']]]],
       [['Administration', 'প্রশাসন'], [['inst-access', 'shield-check', ['Menu access', 'মেনু অ্যাক্সেস']]]]] },
   teacher: { portal: null, user: ['Arif Hossain', ['Instructor (Weaving)', 'ইন্সট্রাক্টর (উইভিং)'], 'AH'], scope: ['Karnaphuli Textile Institute', 'কর্ণফুলী টেক্সটাইল ইনস্টিটিউট'], out: 'login.html#teacher',
-    groups: [[null, [['teacher', 'house', ['Home', 'হোম']], ['teacher-classes', 'layers', ['My classes & materials', 'আমার ক্লাস ও উপকরণ']], ['teacher-attendance', 'user-check', ['Attendance', 'হাজিরা']], ['teacher-results', 'clipboard-check', ['Results', 'ফলাফল']], ['teacher-leave', 'calendar-days', ['Leave', 'ছুটি']]]]] },
+    groups: [[null, [['teacher', 'house', ['Home', 'হোম']], ['teacher-classes', 'layers', ['My classes & materials', 'আমার ক্লাস ও উপকরণ']], ['teacher-attendance', 'user-check', ['Attendance', 'হাজিরা']], ['teacher-results', 'clipboard-check', ['Results', 'ফলাফল']], ['teacher-leave', 'calendar-days', ['Leave', 'ছুটি']], ['teacher-classes#library', 'library', ['Library catalogue', 'লাইব্রেরি ক্যাটালগ']]]]] },
   student: { portal: null, user: ['Mim Akter', ['Student', 'শিক্ষার্থী'], 'MA'], scope: ['Karnaphuli Textile Institute', 'কর্ণফুলী টেক্সটাইল ইনস্টিটিউট'], out: 'index.html',
     groups: [[null, [['student', 'house', ['Home', 'হোম']], ['student-academics', 'book-open', ['Academics', 'একাডেমিক']], ['student-results', 'chart-column', ['Results & attendance', 'ফলাফল ও উপস্থিতি']], ['student-services', 'file-text', ['Online services', 'অনলাইন সেবা']], ['student-payment', 'wallet', ['Payments & ledger', 'পরিশোধ ও লেজার']], ['student-certificate', 'award', ['Certificate', 'সনদ']], ['student-profile', 'user', ['Profile', 'প্রোফাইল']]]]] },
   alumni: { portal: null, user: ['Rafiul Alam', ['Alumni', 'প্রাক্তন শিক্ষার্থী'], 'RA'], scope: ['Karnaphuli Textile Institute', 'কর্ণফুলী টেক্সটাইল ইনস্টিটিউট'], out: 'index.html',
@@ -230,7 +230,7 @@ function appShell(role, active, crumbs, content) {
   const R = NAV[role];
   const nav = each(R.groups, ([h, items]) => `${h ? `<p class="f-side-h">${tt(h)}</p>` : ''}<ul>${each(items, ([href, ic, l, c]) => {
     const [file, hash] = href.split('#'); const cur = active === href;
-    return `<li><a href="${file}.html${hash ? `#${hash}` : ''}" ${cur ? 'aria-current="page"' : ''}>${icon(ic)}${tt(l)}${c ? `<span class="h-side-count">${n(c)}</span>` : ''}</a></li>`;
+    return `<li><a href="${file}.html${hash ? `#${hash}` : ''}" ${cur ? 'aria-current="page"' : ''}>${icon(ic)}${tt(l)}${c ? `<span class="h-side-count">${typeof c === 'object' ? c.raw : n(c)}</span>` : ''}</a></li>`;
   })}</ul>`);
   return `
 <div class="h-app">
@@ -245,11 +245,13 @@ function appShell(role, active, crumbs, content) {
       <button type="button" class="h-icon h-side-btn" data-menu="h-side" aria-expanded="false" ${ta('aria-label', 'Menu', 'মেনু')}>${icon('menu')}</button>
       <nav class="h-crumb h-crumb-app" ${ta('aria-label', 'Breadcrumb', 'অবস্থান')}>${crumbs.map((c, i) => (i < crumbs.length - 1 ? `<span>${tt(c)}</span><span aria-hidden="true">/</span>` : `<span aria-current="page">${tt(c)}</span>`)).join('')}</nav>
       ${R.portal ? `<span class="f-domain" title="Proposed secure address — prototype only">${icon('lock', 'ico ico-xs')}${R.portal.dom}</span>` : ''}
+      <span class="f-ws-demo-chip">${demo()}</span>
       <button type="button" class="h-lang-tg" data-toggle-lang><span class="l-en" lang="bn">বাংলা</span><span class="l-bn" lang="en">English</span></button>
       <a class="h-icon h-bell" href="#notices" ${ta('aria-label', 'Notifications', 'নোটিফিকেশন')}>${icon('bell')}<i></i></a>
       <span class="h-me"><span class="h-avatar">${R.user[2]}</span><span class="h-me-txt"><b>${R.user[0]}</b><small>${tt(R.user[1])}</small></span></span>
     </header>
-    <main id="main" class="h-content">${content}</main>
+    <main id="main" class="h-content">${content}
+      <p class="f-ws-demo" data-demo-label>${demo()}<span>${t('Prototype for review. Names, figures, balances and records in this workspace are Demo / Illustrative Data, not official records.', 'পর্যালোচনার জন্য প্রোটোটাইপ। এই ওয়ার্কস্পেসের নাম, সংখ্যা, ব্যালান্স ও রেকর্ড ডেমো / উদাহরণমূলক তথ্য, অফিসিয়াল রেকর্ড নয়।')}</span></p></main>
   </div>
 </div>`;
 }
@@ -314,4 +316,9 @@ export function stepper({ id, steps, form = '', submitLabel }) {
     <span class="f-stp-right"><button type="button" class="btn btn-ghost" ${act({ set: '_=1', toast: ['Draft saved on this device.', 'খসড়া এই ডিভাইসে সংরক্ষিত হয়েছে।'] })}>${icon('download', 'ico ico-sm')}${t('Save draft', 'খসড়া সংরক্ষণ')}</button>
     ${i < steps.length - 1 ? `<button type="button" class="btn btn-primary" data-step-next>${t('Continue', 'এগিয়ে যান')}${icon('arrow-right', 'ico ico-sm')}</button>` : `<button type="submit" class="btn btn-teal">${submitLabel}</button>`}</span></div></fieldset>`)}
 </form>`;
+}
+
+/** QA-01: CERT-2026-00512 (Flow I) verifies only after the Principal issues it. */
+export function certIssuedResult(notFoundHtml) {
+  return `${when('cert=issued|alumni', alert('ok', t('Valid certificate', 'বৈধ সনদ'), t('CERT-2026-00512 · Rafiul Alam · Diploma in Textile Engineering · Karnaphuli Textile Institute · Issued 15 Oct 2026', 'CERT-2026-00512 · রাফিউল আলম · ডিপ্লোমা ইন টেক্সটাইল ইঞ্জিনিয়ারিং · কর্ণফুলী টেক্সটাইল ইনস্টিটিউট · ইস্যু ১৫ অক্টোবর ২০২৬')))}${when('cert=none|applied', `${notFoundHtml}<p class="f-note">${icon('route', 'ico ico-sm')}${t('Prototype: this certificate becomes verifiable after the Principal issues it in Flow I.', 'প্রোটোটাইপ: অধ্যক্ষ ফ্লো আই-তে ইস্যু করার পর এই সনদ যাচাইযোগ্য হবে।')} <a class="link" href="inst-certificates.html">${t('Institution certificates', 'প্রতিষ্ঠানের সনদ')}</a></p>`)}`;
 }

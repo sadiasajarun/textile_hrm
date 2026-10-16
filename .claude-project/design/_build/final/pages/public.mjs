@@ -1,7 +1,7 @@
 // Public website pages (Variation H baseline + stakeholder corrections).
 import {
   t, tt, n, d, ta, icon, each, esc, opt, page, photo, demo, tbd, st, a, btn, act, dl, field, alert, empty, table, tabs, card,
-  secHead, pageHero, lineChart, groupedBars, donut, hbars, chartMeta, PORTALS, ORG, bnDigits,
+  secHead, pageHero, certIssuedResult, lineChart, groupedBars, donut, hbars, chartMeta, PORTALS, ORG, bnDigits,
 } from '../core.mjs';
 import { illus } from '../illus.mjs';
 import { STATS, ADMISSION, NOTICES, NOTICE_CATS, catLabel, AUTH, OFFICIALS, GALLERY, PROGRAMMES, INSTITUTIONS, TYPES, SERVICES, DIVISIONS, FAQ, CATEGORIES } from '../data.mjs';
@@ -181,10 +181,10 @@ function officials() {
   <div class="f-off-grid">${each(OFFICIALS, official)}</div>
   <p class="f-chart-meta">${t('Names and designations as published on motj.gov.bd and dot.gov.bd (checked 15 Oct 2026). English spellings are transliterations', 'নাম ও পদবি motj.gov.bd ও dot.gov.bd-তে প্রকাশিত অনুযায়ী (১৫ অক্টোবর ২০২৬ যাচাইকৃত)। ইংরেজি বানান প্রতিবর্ণীকৃত')} — ${tbd()}</p>
   <h2 class="h-h3" id="division">${t('2. Division level', '২. বিভাগীয় পর্যায়')}</h2>
-  ${alert('info', t('Division-level officials are not yet published.', 'বিভাগীয় পর্যায়ের কর্মকর্তাদের তথ্য এখনও প্রকাশিত হয়নি।'), t('Each division will have a Division Administrator designated by the Department of Textiles. Names and contacts will be shown after official designation.', 'প্রতিটি বিভাগে বস্ত্র অধিদপ্তর কর্তৃক মনোনীত একজন বিভাগীয় প্রশাসক থাকবেন। অফিসিয়াল মনোনয়নের পর নাম ও যোগাযোগ দেখানো হবে।'))}
+  ${alert('info', t('Division-level officials: to be published by the Department of Textiles.', 'বিভাগীয় পর্যায়ের কর্মকর্তা: বস্ত্র অধিদপ্তর কর্তৃক প্রকাশিত হবে।'), t('Each division will have a Division Administrator designated by the Department of Textiles. Names and contacts will be shown after official designation.', 'প্রতিটি বিভাগে বস্ত্র অধিদপ্তর কর্তৃক মনোনীত একজন বিভাগীয় প্রশাসক থাকবেন। অফিসিয়াল মনোনয়নের পর নাম ও যোগাযোগ দেখানো হবে।'))}
   <ul class="f-tbd-grid">${each(divs, (v) => `<li><span class="f-tbd-ava">${icon('user', 'ico ico-lg')}</span><div><b>${t('Division Administrator', 'বিভাগীয় প্রশাসক')}</b><span>${tt(v)} ${t('Division', 'বিভাগ')}</span>${tbd()}</div></li>`)}</ul>
   <h2 class="h-h3" id="district">${t('3. District level', '৩. জেলা পর্যায়')}</h2>
-  ${alert('info', t('District-level officials are not yet published.', 'জেলা পর্যায়ের কর্মকর্তাদের তথ্য এখনও প্রকাশিত হয়নি।'), t('District Administrators will be listed by division after designation. Principals and teachers are not listed in this directory.', 'মনোনয়নের পর বিভাগ অনুযায়ী জেলা প্রশাসকদের তালিকা দেখানো হবে। অধ্যক্ষ ও শিক্ষকরা এই তালিকায় অন্তর্ভুক্ত নন।'))}
+  ${alert('info', t('District-level officials: to be published by the Department of Textiles.', 'জেলা পর্যায়ের কর্মকর্তা: বস্ত্র অধিদপ্তর কর্তৃক প্রকাশিত হবে।'), t('District Administrators will be listed by division after designation. Principals and teachers are not listed in this directory.', 'মনোনয়নের পর বিভাগ অনুযায়ী জেলা প্রশাসকদের তালিকা দেখানো হবে। অধ্যক্ষ ও শিক্ষকরা এই তালিকায় অন্তর্ভুক্ত নন।'))}
   ${table({ id: 'dist-off', search: ['Search district', 'জেলা খুঁজুন'], cols: [{ l: ['District', 'জেলা'] }, { l: ['Division', 'বিভাগ'] }, { l: ['Post', 'পদ'] }, { l: ['Name', 'নাম'] }],
     rows: [['Chattogram', 'চট্টগ্রাম', 'Chattogram', 'চট্টগ্রাম'], ['Noakhali', 'নোয়াখালী', 'Chattogram', 'চট্টগ্রাম'], ['Dhaka', 'ঢাকা', 'Dhaka', 'ঢাকা'], ['Gopalganj', 'গোপালগঞ্জ', 'Dhaka', 'ঢাকা'], ['Rajshahi', 'রাজশাহী', 'Rajshahi', 'রাজশাহী'], ['Khulna', 'খুলনা', 'Khulna', 'খুলনা']].map((r) => ({ cells: [t(r[0], r[1]), t(r[2], r[3]), t('District Administrator', 'জেলা প্রশাসক'), tbd()] })),
     foot: `<span>${t('Showing 6 of 47 districts with institutions', 'প্রতিষ্ঠানসহ ৪৭টি জেলার ৬টি দেখানো হচ্ছে')}</span>` })}
@@ -218,7 +218,7 @@ function institutions() {
   const body = `${pageHero('campus-gtec-blocks.jpg', ['Gopalganj Textile Engineering College', 'গোপালগঞ্জ টেক্সটাইল ইঞ্জিনিয়ারিং কলেজ'], [[['Academic', 'একাডেমিক'], 'academic.html'], [['Institution directory', 'প্রতিষ্ঠান ডিরেক্টরি']]], t('Institution directory', 'প্রতিষ্ঠান ডিরেক্টরি'), t('Search government textile institutions by name, code, division or type.', 'নাম, কোড, বিভাগ বা ধরন অনুযায়ী সরকারি টেক্সটাইল প্রতিষ্ঠান খুঁজুন।'))}
 <div class="container f-sec">
   ${table({ id: 'inst-dir', search: ['Institution name, code or district', 'প্রতিষ্ঠানের নাম, কোড বা জেলা'], cols: [{ l: ['Institution', 'প্রতিষ্ঠান'] }, { l: ['Type', 'ধরন'] }, { l: ['District / Division', 'জেলা / বিভাগ'] }, { l: ['Students', 'শিক্ষার্থী'], cls: 'num' }, {}],
-    rows: INSTITUTIONS.map((x) => ({ cells: [`<b>${tt(x.n)}</b><small class="mono">${x.code}</small>`, tt(TYPES[x.type]), `${tt(x.dist)} · ${tt(x.div)}`, n(x.students), a('institution-profile.html', t('Profile', 'প্রোফাইল'), 'btn btn-outline btn-sm')] })),
+    rows: INSTITUTIONS.map((x) => ({ cells: [`<b>${tt(x.n)}</b><small class="mono">${x.code}</small>`, tt(TYPES[x.type]), `${tt(x.dist)} · ${tt(x.div)}`, `<span class="f-mlabel">${t('Students', 'শিক্ষার্থী')}: </span>${n(x.students)}`, a('institution-profile.html', t('Profile', 'প্রোফাইল'), 'btn btn-outline btn-sm')] })),
     emptyMsg: ['No institution matches your search. Check the spelling or search by district.', 'অনুসন্ধানের সাথে কোনো প্রতিষ্ঠান মেলেনি। বানান যাচাই করুন বা জেলা দিয়ে খুঁজুন।'],
     foot: `<span>${t('Showing 12 of 59 institutions', '৫৯টির ১২টি প্রতিষ্ঠান দেখানো হচ্ছে')} · ${demo()}</span>` })}
 </div>`;
@@ -323,12 +323,13 @@ function verify() {
 <div class="container f-sec f-verify-grid">
   <section class="h-card" id="cert-verify"><h2 class="h-h3">${t('Verify a certificate', 'সনদ যাচাই')}</h2>
     <p class="muted">${t('Enter the certificate number printed on the certificate.', 'সনদে মুদ্রিত সনদ নম্বর লিখুন।')}</p>
-    <form class="h-form" data-lookup="cert-verify" data-lookup-map='{"CERT-2025-00481":"valid","CERT-2024-00113":"revoked"}' novalidate>
-      ${field({ l: ['Certificate number', 'সনদ নম্বর'], name: 'c', req: true, value: 'CERT-2025-00481', hint: ['Try CERT-2025-00481 (valid), CERT-2024-00113 (revoked) or any other number.', 'CERT-2025-00481 (বৈধ), CERT-2024-00113 (বাতিল) বা অন্য যেকোনো নম্বর দিয়ে দেখুন।'] })}
+    <form class="h-form" data-lookup="cert-verify" data-lookup-map='{"CERT-2025-00481":"valid","CERT-2024-00113":"revoked","CERT-2026-00512":"c512"}' novalidate>
+      ${field({ l: ['Certificate number', 'সনদ নম্বর'], name: 'c', req: true, value: 'CERT-2025-00481', hint: ['Try CERT-2025-00481 (valid), CERT-2026-00512 (issued in Flow I), CERT-2024-00113 (revoked) or any other number.', 'CERT-2025-00481 (বৈধ), CERT-2026-00512 (ফ্লো আই-তে ইস্যুকৃত), CERT-2024-00113 (বাতিল) বা অন্য যেকোনো নম্বর দিয়ে দেখুন।'] })}
       <button type="submit" class="btn btn-primary">${icon('shield-check', 'ico ico-sm')}${t('Verify', 'যাচাই করুন')}</button></form>
     <div data-lookup-res="valid" hidden>${alert('ok', t('Valid certificate', 'বৈধ সনদ'), t('Rafiul Alam · Diploma in Textile Engineering · Karnaphuli Textile Institute · Issued 12 Mar 2026', 'রাফিউল আলম · ডিপ্লোমা ইন টেক্সটাইল ইঞ্জিনিয়ারিং · কর্ণফুলী টেক্সটাইল ইনস্টিটিউট · ইস্যু ১২ মার্চ ২০২৬'))}</div>
     <div data-lookup-res="revoked" hidden>${alert('danger', t('Certificate revoked', 'সনদ বাতিল'), t('This certificate was revoked on 03 Feb 2025 and replaced by a duplicate certificate. Contact the issuing institution.', 'এই সনদ ০৩ ফেব্রুয়ারি ২০২৫ তারিখে বাতিল হয়ে অনুলিপি দ্বারা প্রতিস্থাপিত হয়েছে। ইস্যুকারী প্রতিষ্ঠানে যোগাযোগ করুন।'))}</div>
     <div data-lookup-res="none" hidden>${alert('warn', t('No record found', 'কোনো রেকর্ড পাওয়া যায়নি'), t('Check the number and try again. Certificates issued before the system was introduced may not be listed.', 'নম্বরটি যাচাই করে আবার চেষ্টা করুন। সিস্টেম চালুর আগে ইস্যুকৃত সনদ তালিকায় না-ও থাকতে পারে।'))}</div>
+    <div data-lookup-res="c512" hidden>${certIssuedResult(alert('warn', t('No record found', 'কোনো রেকর্ড পাওয়া যায়নি'), t('Check the number and try again. Certificates issued before the system was introduced may not be listed.', 'নম্বরটি যাচাই করে আবার চেষ্টা করুন। সিস্টেম চালুর আগে ইস্যুকৃত সনদ তালিকায় না-ও থাকতে পারে।')))}</div>
     <p class="f-note">${icon('info', 'ico ico-sm')}${t('Employers and organisations can register for licence and certificate verification.', 'নিয়োগকর্তা ও প্রতিষ্ঠান লাইসেন্স ও সনদ যাচাইয়ের জন্য নিবন্ধন করতে পারে।')} <a class="link" href="verifier.html">${t('Organisation verification', 'প্রতিষ্ঠানের যাচাই')}</a></p></section>
   <section class="h-card"><h2 class="h-h3">${t('Admission result', 'ভর্তির ফলাফল')}</h2><p class="muted">${t('Diploma 2026–27 results will be published on 25 November 2026.', 'ডিপ্লোমা ২০২৬–২৭-এর ফলাফল ২৫ নভেম্বর ২০২৬ তারিখে প্রকাশিত হবে।')}</p>${a('admission-result.html', t('Check admission result', 'ভর্তির ফলাফল দেখুন'), 'btn btn-outline')}
     <h2 class="h-h3 f-mt">${t('Semester results', 'সেমিস্টার ফলাফল')}</h2><p class="muted">${t('Students view semester results in the student portal.', 'শিক্ষার্থীরা স্টুডেন্ট পোর্টালে সেমিস্টার ফলাফল দেখে।')}</p>${a('login.html', t('Login', 'লগইন'), 'btn btn-teal')}
